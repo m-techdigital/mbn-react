@@ -1,0 +1,103 @@
+/* Canonical owners introduced in v44. These selectors are intentionally new to avoid legacy cascade collisions. */
+:root{
+  --mbn-page-width:1160px;
+  --mbn-reading-width:1040px;
+  --mbn-action-size:32px;
+  --mbn-filter-control:38px;
+  --mbn-panel:#121016;
+  --mbn-panel-elevated:#18141b;
+  --mbn-border:#4a3a50;
+  --mbn-border-accent:#a82bc1;
+}
+
+/* Header notification — one component, one owner. */
+.mbn-notification-trigger{
+  position:relative;display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;
+  border:1px solid #6f397b;border-radius:50%;background:#171219;color:#f8f3fa;text-decoration:none;
+  transition:border-color .16s ease,background .16s ease,transform .16s ease;
+}
+.mbn-notification-trigger:hover,.mbn-notification-trigger:focus-visible{border-color:#d32cff;background:#211326;transform:translateY(-1px)}
+.mbn-notification-trigger__bell{display:grid;place-items:center;width:100%;height:100%;font-size:16px;line-height:1;font-style:normal}
+.mbn-notification-trigger__bell svg{display:block}
+.mbn-notification-trigger__count{
+  position:absolute;top:-5px;right:-5px;z-index:2;display:grid;place-items:center;min-width:18px;height:18px;padding:0 4px;
+  border:2px solid #08060b;border-radius:10px;background:#ff4965;color:#fff;font-size:10px;font-weight:800;line-height:1;
+}
+
+/* Page header — symmetrical, compact, independent of page actions. */
+.mbn-page-header{display:grid;grid-template-columns:var(--mbn-action-size) minmax(0,1fr) var(--mbn-action-size);gap:12px;align-items:start;margin:0 auto 18px;position:relative}
+.mbn-page-header__icon{
+  width:var(--mbn-action-size);height:var(--mbn-action-size);padding:0;display:grid;place-items:center;
+  border:1px solid #9f29ba;border-radius:50%;background:linear-gradient(180deg,#42104d,#160b1a);color:#fff;font-size:14px;cursor:pointer;
+  box-shadow:0 0 8px rgba(189,0,255,.18);transition:.16s ease;
+}
+.mbn-page-header__icon:hover:not(:disabled){border-color:#ed62ff;background:#53115f;transform:translateY(-1px)}
+.mbn-page-header__icon.is-placeholder{visibility:hidden;pointer-events:none}
+.mbn-page-header__icon:disabled:not(.is-placeholder){opacity:.55;cursor:wait}
+.mbn-page-header__icon .is-spinning{animation:mbn-spin .8s linear infinite}
+.mbn-page-header__copy{text-align:center;min-width:0;padding-top:1px}
+.mbn-page-header__copy h1{margin:0;color:#fff;font-size:20px;line-height:1.3;font-weight:800}
+.mbn-page-header__copy p{max-width:720px;margin:5px auto 0;color:#c8bdcc;font-size:14px;line-height:1.5}
+.mbn-page-header__actions{grid-column:1/-1;display:flex;justify-content:center;gap:8px;margin-top:2px}
+
+/* Profile — stable two-column composition, shared panel grammar. */
+.mbn-profile-layout{display:grid;grid-template-columns:minmax(320px,390px) minmax(0,1fr);gap:20px;align-items:start;max-width:1080px;margin-inline:auto}
+.mbn-profile-security{display:grid;gap:20px;min-width:0}
+.mbn-profile-card{min-width:0;overflow:hidden;border:1px solid var(--mbn-border);border-radius:10px;background:var(--mbn-panel);box-shadow:0 10px 28px rgba(0,0,0,.16)}
+.mbn-profile-card__header{display:flex;align-items:center;gap:14px;padding:18px 18px 16px;border-bottom:1px solid #342a38;background:linear-gradient(180deg,rgba(194,38,239,.08),transparent)}
+.mbn-profile-card__header>div:last-child{display:grid;gap:3px;min-width:0}
+.mbn-profile-card__header strong{font-size:19px;line-height:1.3;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbn-profile-card__header span{font-size:13px;color:#bfb2c4}
+.mbn-profile-avatar{width:52px;height:52px;flex:0 0 52px;display:grid;place-items:center;overflow:hidden;border:1px solid #cc24ed;border-radius:50%;background:#160c1a;color:#fff;font-size:20px}
+.mbn-profile-avatar img{width:100%;height:100%;object-fit:cover}
+.mbn-profile-card .mbn-base-form{padding:18px;gap:15px}
+.mbn-profile-card__title{padding:18px 18px 0}
+.mbn-profile-card__title h3{margin:0;font-size:18px;color:#fff}
+.mbn-profile-card__title p{margin:6px 0 0;color:#bfb4c3;font-size:13px;line-height:1.55}
+.mbn-profile-card .profile-summary-list{margin:0;background:#18151a;border:1px solid #302a33;border-radius:7px}
+.mbn-profile-card--identity{position:sticky;top:calc(var(--header-h,124px) + 14px)}
+
+/* Compact filter — controlled grid, quiet reset, actions never dominate. */
+.mbn-filter-panel{padding:12px 14px;border:1px solid var(--mbn-border-accent);border-radius:8px;background:#100d12}
+.mbn-filter-panel__form{display:grid;gap:10px}
+.mbn-filter-panel__fields{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:10px;align-items:end}
+.mbn-filter-field{display:grid;gap:5px;min-width:0}
+.mbn-filter-field__label{font-size:12.5px;line-height:1.3;font-weight:700;color:#e9e1ec}
+.mbn-filter-field__control{display:block;min-width:0}
+.mbn-filter-field input,.mbn-filter-field select{width:100%;height:var(--mbn-filter-control);min-width:0;padding:0 10px;border:1px solid #a93ac0;border-radius:5px;background:#f7f4f9;color:#241b27;font-size:13px;outline:none}
+.mbn-filter-field input:focus,.mbn-filter-field select:focus{border-color:#d626fb;box-shadow:0 0 0 2px rgba(194,38,239,.14)}
+.mbn-filter-panel__footer{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:34px;padding-top:2px}
+.mbn-filter-panel__result{margin:0;color:#c7bdca;font-size:12.5px;line-height:1.4}
+.mbn-filter-panel__actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.mbn-filter-panel__actions .mbn-button{min-width:82px;height:34px;min-height:34px;padding-inline:14px;font-size:13px}
+.mbn-filter-panel__actions .mbn-button--secondary{background:#19151c;border-color:#6f5677;color:#eee6f1}
+
+@media(max-width:1100px){
+  .mbn-filter-panel__fields{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .mbn-profile-layout{grid-template-columns:340px minmax(0,1fr)}
+}
+@media(max-width:900px){
+  .mbn-profile-layout{grid-template-columns:1fr;max-width:720px}
+  .mbn-profile-card--identity{position:static}
+  .mbn-filter-panel__fields{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  :root{--mbn-action-size:30px}
+  .mbn-page-header{gap:8px;margin-bottom:14px}
+  .mbn-page-header__copy h1{font-size:18px}
+  .mbn-page-header__copy p{font-size:13px}
+  .mbn-page-header__actions{justify-content:stretch}.mbn-page-header__actions>.mbn-button{width:100%}
+  .mbn-profile-card .mbn-base-form{padding:14px}
+  .mbn-profile-card__header,.mbn-profile-card__title{padding-inline:14px}
+  .mbn-filter-panel{padding:10px}
+  .mbn-filter-panel__fields{grid-template-columns:1fr 1fr;gap:9px}
+  .mbn-filter-panel__footer{align-items:flex-end}
+  .mbn-filter-panel__actions{width:auto}
+  .mbn-filter-panel__actions .mbn-button{min-width:76px;padding-inline:11px}
+}
+@media(max-width:420px){
+  .mbn-filter-panel__fields{grid-template-columns:1fr}
+  .mbn-filter-panel__footer{display:grid;grid-template-columns:1fr}
+  .mbn-filter-panel__actions{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .mbn-filter-panel__actions .mbn-button{width:100%}
+}

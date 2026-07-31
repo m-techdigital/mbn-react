@@ -1,0 +1,147 @@
+/* v55 — interaction and information-density owner. Loaded last. */
+:root{
+  --mbn-v55-focus:0 0 0 2px rgba(216,63,255,.28);
+  --mbn-v55-success:#56d9aa;
+  --mbn-v55-warning:#f4c968;
+  --mbn-v55-danger:#ff7184;
+}
+
+/* Shared action ownership */
+.mbn-action-group{display:flex;align-items:center;justify-content:flex-end;gap:7px;min-width:0}
+.mbn-action-group.is-start{justify-content:flex-start}
+.mbn-action-group.is-center{justify-content:center}
+.mbn-action-group.is-block{width:100%}
+.mbn-action-group--two,.mbn-action-group--three{display:grid}
+.mbn-action-group--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mbn-action-group--three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mbn-action-group.is-block>*{min-width:0;width:100%}
+
+/* Consistent keyboard feedback */
+.mbn-button:focus-visible,.gaming-link:focus-visible,.mbn-page-header__icon:focus-visible,.mbn-table-scroll:focus-visible,
+.mobile-menu-button:focus-visible,.mbn-notification-trigger:focus-visible{outline:0;box-shadow:var(--mbn-v55-focus)!important}
+
+/* Scrollable data tables: contain overflow and communicate hidden columns. */
+.mbn-table-scroll{position:relative;isolation:isolate;scrollbar-gutter:stable;overscroll-behavior-x:contain}
+.mbn-table-scroll::before,.mbn-table-scroll::after{content:"";position:sticky;z-index:8;top:0;bottom:0;width:18px;pointer-events:none;opacity:1;transition:opacity .16s ease}
+.mbn-table-scroll::before{left:0;float:left;margin-right:-18px;background:linear-gradient(90deg,rgba(8,7,10,.9),transparent)}
+.mbn-table-scroll::after{right:0;float:right;margin-left:-18px;background:linear-gradient(270deg,rgba(8,7,10,.9),transparent)}
+.mbn-table-scroll.is-at-start::before,.mbn-table-scroll.is-at-end::after{opacity:0}
+.mbn-table__head{position:sticky;top:0;z-index:4}
+.mbn-table__head>div{background:#201323!important}
+.mbn-table__row:nth-child(even)>div{background:rgba(255,255,255,.012)}
+.mbn-table__row:hover>div{background:rgba(194,38,239,.055)!important}
+.mbn-table .is-fixed-right{z-index:6;box-shadow:-1px 0 0 #35283a,-10px 0 18px rgba(0,0,0,.16)}
+.mbn-table__cell{max-width:100%}
+
+/* Page sections and reading surfaces */
+.mbn-page-section__header>div:first-child{min-width:0}
+.mbn-page-section__header h2,.mbn-page-section__header p{overflow-wrap:anywhere}
+.mbn-page-section--subtle{background:rgba(255,255,255,.015)!important}
+.guide-content{gap:10px!important}
+.guide-box .mbn-page-section__body{display:grid;grid-template-columns:34px minmax(0,1fr);gap:11px;align-items:start}
+.guide-box h2{margin:0 0 5px;font-size:14px}
+.guide-box p,.guide-support p{margin:0;color:#c9bfcc;line-height:1.58}
+.guide-step{width:30px;height:30px;display:grid;place-items:center;border:1px solid #c322e7;border-radius:50%;color:#f4c3ff;font-size:11px;font-weight:800;background:#1d0d21}
+.guide-support .mbn-page-section__body{padding-block:10px!important}
+
+/* Deposit flow now uses canonical PageSection / PageColumns. */
+.deposit-flow{align-items:start}
+.deposit-form-card,.deposit-guide-card{min-width:0}
+.deposit-step-title{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;align-items:start;margin-bottom:12px}
+.deposit-step-title>span{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#bd00e8;color:#fff;font-size:12px;font-weight:800}
+.deposit-step-title h2{margin:1px 0 4px;font-size:15px}
+.deposit-step-title p{margin:0;color:#bcaec0;font-size:12px;line-height:1.45}
+.deposit-status{margin:12px 0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border:1px solid #49344f;border-radius:7px;background:#19131c}
+.deposit-status>span{min-width:0;color:#cbbdcc;font-size:11.5px;overflow-wrap:anywhere}
+.deposit-payment-grid{display:grid;grid-template-columns:minmax(180px,240px) minmax(0,1fr);gap:12px;align-items:stretch}
+.deposit-qr,.bank-transfer-card{border:1px solid #3d3141;border-radius:8px;background:#0e0d10}
+.deposit-qr{padding:12px;display:grid;place-items:center;gap:7px;text-align:center}
+.deposit-qr img{width:min(190px,100%);aspect-ratio:1;object-fit:contain;border-radius:7px;background:#fff}
+.deposit-qr small{color:#b9acbd;font-size:11px}
+.bank-transfer-card{overflow:hidden}
+.bank-transfer-card>div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px;padding:9px 11px;border-bottom:1px solid #302934}
+.bank-transfer-card>div:last-child{border-bottom:0}
+.bank-transfer-card span{color:#aca0b0;font-size:11.5px}
+.bank-transfer-card b{text-align:right;overflow-wrap:anywhere}
+.deposit-proof{margin-top:14px;padding-top:14px;border-top:1px solid #382c3d}
+.deposit-guide-card ol{margin:0;padding-left:20px;display:grid;gap:9px;color:#d9d0dc;line-height:1.5}
+.deposit-guide-card>.mbn-page-section__body>p{margin:13px 0 0;padding:9px;border:1px solid #72521d;border-radius:6px;background:#30230e;color:#f1d394;font-size:11.5px}
+
+/* Profile information density and stable metadata alignment. */
+.profile-page-v46 .mbn-page-section{min-width:0}
+.profile-page-v46 .mbn-page-section__body{display:grid;gap:12px}
+.mbn-profile-summary{margin:0}
+.mbn-profile-meta{grid-template-columns:1fr!important}
+.mbn-profile-meta>div{grid-template-columns:130px minmax(0,1fr)!important}
+.mbn-profile-meta dd{display:flex;align-items:center;justify-content:flex-end;text-align:right}
+.mbn-profile-meta .mbn-status-badge{max-width:100%;white-space:nowrap}
+
+/* Document tables and transaction documents share one action language. */
+.document-table__actions{width:100%}
+.document-table__actions .mbn-button,.document-table__actions .gaming-link{width:100%;min-width:0}
+.document-table__acceptance{display:grid;justify-items:center;gap:5px}
+.transaction-documents{margin-top:0!important;padding:0!important;border:0!important;background:transparent!important}
+.transaction-documents>.mbn-page-section__body{display:grid;gap:8px}
+.transaction-documents__notice,.transaction-documents__loading{margin:0;padding:9px 10px;border:1px solid #49344f;border-radius:7px;background:#171219;color:#cfc3d2}
+
+/* Topic and policy pages: common reading rhythm. */
+.mbn-reading-article__body h2,.mbn-reading-section h2{margin-top:1.45em;margin-bottom:.55em;font-size:1.18em}
+.mbn-reading-article__body h3,.mbn-reading-section h3{margin-top:1.25em;margin-bottom:.45em;font-size:1.06em}
+.mbn-reading-article__body p,.mbn-reading-section p{margin:.65em 0}
+.mbn-reading-article__body ul,.mbn-reading-article__body ol,.mbn-reading-section ul,.mbn-reading-section ol{padding-left:1.35em}
+.mbn-reading-article__body table{display:block;max-width:100%;overflow-x:auto}
+
+/* Muted information must remain legible. */
+.mbn-page-section__header p,.mbn-form-field__hint,.table-primary-cell small,.notification-item time{color:#b8acbc!important}
+
+@media(max-width:980px){
+  .mbn-table-scroll::before,.mbn-table-scroll::after{width:14px}
+  .mbn-table-scroll::before{margin-right:-14px}.mbn-table-scroll::after{margin-left:-14px}
+  .mbn-action-group--three{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mbn-action-group--three>*:first-child{grid-column:1/-1}
+  .deposit-payment-grid{grid-template-columns:190px minmax(0,1fr)}
+}
+
+@media(max-width:768px){
+  .mbn-action-group{gap:5px}
+  .mbn-action-group--two,.mbn-action-group--three{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mbn-action-group--three>*:first-child{grid-column:1/-1}
+  .guide-box .mbn-page-section__body{grid-template-columns:28px minmax(0,1fr);gap:9px}
+  .guide-step{width:26px;height:26px;font-size:10px}
+  .guide-box h2{font-size:13px}
+  .guide-box p,.guide-support p{font-size:12px;line-height:1.52}
+  .deposit-payment-grid{grid-template-columns:1fr}
+  .deposit-qr img{width:min(180px,70vw)}
+  .bank-transfer-card>div{grid-template-columns:105px minmax(0,1fr);padding:8px 9px}
+  .deposit-step-title{grid-template-columns:28px minmax(0,1fr);gap:8px;margin-bottom:9px}
+  .deposit-step-title>span{width:26px;height:26px;font-size:10.5px}
+  .deposit-step-title h2{font-size:13.5px}
+  .deposit-step-title p{font-size:10.75px}
+  .deposit-status{padding:8px;margin:9px 0}
+  .mbn-profile-meta>div{grid-template-columns:110px minmax(0,1fr)!important}
+  .mbn-profile-meta dd{justify-content:flex-end;text-align:right}
+  .document-table__acceptance{justify-items:start}
+}
+
+@media(max-width:420px){
+  .mbn-action-group--three{grid-template-columns:1fr 1fr}
+  .mbn-action-group--three>*:first-child{grid-column:1/-1}
+  .bank-transfer-card>div{grid-template-columns:92px minmax(0,1fr);gap:7px}
+  .mbn-profile-meta>div{grid-template-columns:105px minmax(0,1fr)!important}
+  .mbn-profile-meta dt,.mbn-profile-meta dd{padding-inline:8px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mbn-table-scroll::before,.mbn-table-scroll::after{transition:none}
+}
+
+/* v58 marketplace closure: case center and asset snapshots */
+.asset-snapshot-list{display:grid;gap:8px;margin-bottom:12px}.asset-snapshot-list article{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:10px;border:1px solid var(--mbn-border,#403344);border-radius:8px;background:var(--mbn-panel-soft,#171419)}.asset-snapshot-list article>div{display:grid;gap:2px}.asset-snapshot-list article small{color:#b9adbd}.asset-snapshot-list article p{grid-column:1/-1;margin:0;color:#d8cedb;line-height:1.5}.marketplace-case-message{padding:10px;border:1px solid var(--mbn-border,#403344);border-radius:8px;background:#171419}
+@media(max-width:768px){.asset-snapshot-list article{padding:8px}.asset-snapshot-list{gap:6px;margin-bottom:9px}}
+
+/* v59 trust, reviews, preferences and saved searches */
+.seller-reputation-summary{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--mbn-border,#403344);border-radius:8px;background:#171419}.seller-reputation-summary strong{font-size:20px;color:#fff}.seller-reputation-summary span{color:#c8bdcc;font-size:12px}.marketplace-review-list{display:grid;gap:8px;margin-top:9px}.marketplace-review-list article{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:9px;border:1px solid var(--mbn-border,#403344);border-radius:8px;background:#151317}.marketplace-review-list article p{grid-column:1/-1;margin:0;color:#d6ccd9}.notification-preference-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}.notification-preference-grid article{display:grid;gap:6px;padding:10px;border:1px solid var(--mbn-border,#403344);border-radius:8px;background:#171419}.notification-preference-grid label{display:flex;align-items:center;gap:7px;font-size:12px;color:#d2c6d5}
+@media(max-width:768px){.notification-preference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.seller-reputation-summary strong{font-size:17px}}
+@media(max-width:430px){.notification-preference-grid{grid-template-columns:1fr}}
+.two-factor-panel{display:grid;gap:12px}.two-factor-panel>.mbn-status-badge{justify-self:start}.recovery-code-panel{padding:12px;border:1px solid #633b70;border-radius:8px;background:#151017}.recovery-code-panel>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}.recovery-code-panel code{padding:8px;border:1px solid #3c3040;border-radius:6px;background:#0d0b0e;color:#fff;text-align:center}.two-factor-panel textarea{resize:vertical}
+@media(max-width:520px){.recovery-code-panel>div{grid-template-columns:1fr}}

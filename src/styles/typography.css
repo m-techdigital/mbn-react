@@ -1,0 +1,43 @@
+html{font-size:14px;-webkit-text-size-adjust:100%;text-size-adjust:100%}body,button,input,select,textarea{font-family:var(--font-ui);font-kerning:normal;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body{font-size:var(--text-md);font-weight:400;line-height:1.5}button,input,select,textarea{line-height:1.25}strong,b{font-weight:700}
+.header-account-pill,.desktop-nav a,.sidebar-profile>strong,.sidebar-links a,.sidebar-logout{font-weight:600;letter-spacing:.08px}.header-account-pill,.desktop-nav a{font-size:12px}.sidebar-profile>strong{font-size:15px}.sidebar-balance,.sidebar-links a,.sidebar-logout{font-size:12px}.sidebar-balance b{font-size:13px;font-weight:700}
+.page-heading h1{font-size:16px;font-weight:700;line-height:1.2;letter-spacing:.1px;text-shadow:0 1px 0 #000,0 0 8px rgba(189,0,255,.25)}.page-heading p{font-size:11px;line-height:1.4}.legacy-section-title{font-size:15px;font-weight:800;line-height:1.25;letter-spacing:.35px}
+.home-shortcuts small{font-size:10px;font-weight:800;letter-spacing:.3px}.home-shortcuts b{font-size:13px;font-weight:800}.legacy-service-card strong{font-size:11px;font-weight:800}
+.legacy-filter input,.legacy-filter select,.legacy-filter__control>span,.legacy-filter__actions button{font-size:12px}.legacy-filter__actions button{font-weight:800}
+.gaming-button,.mbn-button,.modal-button,.btn-login,.btn-register,.auth-gaming-switch,.table-view-link{font-size:12px;font-weight:700;line-height:1.2;letter-spacing:.08px;text-rendering:geometricPrecision}.mbn-button__icon{font-size:13px}
+.account-image-topline b,.listing-chip{font-size:11px;font-weight:800}.account-description{font-size:12px;font-weight:500}.account-stats span{font-size:10px;font-weight:800;letter-spacing:.35px}.account-stats b{font-size:12px;font-weight:700}.account-price del,.account-price small{font-size:9px}.account-price b{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}.account-price em{font-size:11px}.view-account-button{font-size:12px;font-weight:800}
+.detail-card h3{font-size:13px;font-weight:700}.detail-info-table b,.detail-info-table span{font-size:12px;line-height:1.4}.detail-info-table b{font-weight:700}.detail-info-table span{font-weight:500}.detail-price-row small{font-size:10px}.detail-price-row del{font-size:11px;font-weight:600}.detail-price-row strong{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}.detail-slide-counter{font-size:10px;font-weight:700}.gallery-caption{font-size:11px}
+.customer-profile-card__head strong{font-size:16px}.customer-profile-card__head span{font-size:12px}.customer-profile-table span,.customer-profile-table b{font-size:13px}.storefront-table__head{font-size:10px;font-weight:800;letter-spacing:.3px}.storefront-table__row{font-size:12px}.status-pill,.table-view-link{font-size:10px}.wallet-summary-strip span{font-size:10px}.wallet-summary-strip b{font-size:16px}
+.topic-grid h2,.guide-box h2{font-size:13px;font-weight:700}.topic-grid p,.guide-box p,.guide-content footer{font-size:12px;line-height:1.55}.article-content,.static-content{font-size:13px;line-height:1.7}.article-content h2,.static-content h2{font-size:18px}
+.gaming-modal__header h2{font-size:16px;font-weight:800;line-height:1.2;letter-spacing:1.35px;text-shadow:0 1px 0 #000,0 0 8px rgba(230,98,255,.42)}.gaming-modal__close{font-size:20px}.gaming-modal__body{font-size:13px}.gaming-modal__footer-note{font-size:12px;font-weight:500}.admin-contact-card h3,.purchase-qr-section h4{font-size:13px;font-weight:700}.admin-contact-card p,.admin-notice-list li{font-size:12px}.purchase-mode-tabs button{font-size:12px;font-weight:800;letter-spacing:.7px}.purchase-info-table b,.purchase-info-table span{font-size:12px}.purchase-info-table span{font-weight:600;font-variant-numeric:tabular-nums}.purchase-price-row strong{font-size:16px;font-weight:800}.purchase-payment-methods label{font-size:13px}.purchase-bank-list>div{font-size:12px}.purchase-policy h3{font-size:13px;font-weight:800}.purchase-policy p,.purchase-policy__note{font-size:12px;line-height:1.55}.auth-gaming-form .ant-form-item-label>label{font-size:12px!important}.auth-gaming-form .ant-input,.auth-gaming-form .ant-input-affix-wrapper{font-size:13px!important}.auth-gaming-form .ant-checkbox-wrapper{font-size:12px}
+.account-price b,.detail-price-row strong,.purchase-info-table span,.sidebar-balance b,.wallet-summary-strip b{font-variant-numeric:tabular-nums lining-nums}
+@media(max-width:768px){html{font-size:13px}.page-heading h1{font-size:15px}.legacy-section-title{font-size:14px}}@media(max-width:520px){.gaming-modal__header h2{font-size:14px;letter-spacing:.8px}.gaming-modal__footer-note{font-size:11px}.purchase-info-table b,.purchase-info-table span{font-size:11px}}
+
+/* v19 desktop readability pass */
+@media (min-width: 1024px){
+  html{font-size:15px}
+  body{font-size:15px;line-height:1.58}
+  .header-account-pill,.desktop-nav a{font-size:13px}
+  .sidebar-profile>strong{font-size:16px}.sidebar-balance,.sidebar-links a,.sidebar-logout{font-size:13px}.sidebar-balance b{font-size:14px}
+  .page-heading h1{font-size:19px}.page-heading p{font-size:13px;line-height:1.5}.legacy-section-title{font-size:17px}
+  .home-shortcuts small{font-size:11px}.home-shortcuts b{font-size:14px}.legacy-service-card strong{font-size:13px}
+  .legacy-filter input,.legacy-filter select,.legacy-filter__control>span,.legacy-filter__actions button{font-size:13px}
+  .gaming-button,.mbn-button,.modal-button,.btn-login,.btn-register,.auth-gaming-switch,.table-view-link{font-size:13px}
+  .account-image-topline b,.listing-chip{font-size:12px}.account-description{font-size:13px;line-height:1.55}.account-stats span{font-size:11px}.account-stats b{font-size:13px}.account-price del,.account-price small{font-size:11px}.account-price b{font-size:15px}.account-price em{font-size:12px}.view-account-button{font-size:13px}
+  .detail-card h3{font-size:15px}.detail-info-table b,.detail-info-table span{font-size:13px}.detail-price-row small{font-size:11px}.detail-price-row del{font-size:12px}.detail-price-row strong{font-size:19px}.gallery-caption{font-size:12px}
+  .customer-profile-card__head strong{font-size:18px}.customer-profile-card__head span{font-size:13px}.customer-profile-table span,.customer-profile-table b{font-size:14px}.storefront-table__head{font-size:11px}.storefront-table__row{font-size:13px}.status-pill,.table-view-link{font-size:11px}.wallet-summary-strip span{font-size:11px}.wallet-summary-strip b{font-size:18px}
+  .topic-grid h2,.guide-box h2{font-size:15px}.topic-grid p,.guide-box p,.guide-content footer{font-size:13px}.article-content,.static-content{font-size:15px;line-height:1.75}.article-content h2,.static-content h2{font-size:21px}
+  .gaming-modal__header h2{font-size:18px}.gaming-modal__body{font-size:14px}.gaming-modal__footer-note{font-size:13px}.admin-contact-card h3,.purchase-qr-section h4{font-size:15px}.admin-contact-card p,.admin-notice-list li{font-size:13px}.purchase-mode-tabs button{font-size:13px}.purchase-info-table b,.purchase-info-table span{font-size:13px}.purchase-price-row strong{font-size:18px}.purchase-payment-methods label{font-size:14px}.purchase-bank-list>div{font-size:13px}.purchase-policy h3{font-size:15px}.purchase-policy p,.purchase-policy__note{font-size:13px}.auth-gaming-form .ant-form-item-label>label{font-size:13px!important}.auth-gaming-form .ant-input,.auth-gaming-form .ant-input-affix-wrapper{font-size:14px!important}.auth-gaming-form .ant-checkbox-wrapper{font-size:13px}
+}
+
+/* v20 mobile-first readability */
+@media(max-width:768px){
+  html{font-size:14px}
+  body{font-size:14px;line-height:1.58}
+  .page-heading h1{font-size:17px}.page-heading p{font-size:13px}.legacy-section-title{font-size:15px}
+  .bottom-nav a{font-size:11px}
+  .home-shortcuts small{font-size:10px}.home-shortcuts b{font-size:12px}.legacy-service-card strong{font-size:11px}
+  .game-intro ul{font-size:13px}.catalog-summary{font-size:13px}
+  .account-description{font-size:13px}.account-stats span{font-size:10px}.account-stats b{font-size:13px}.account-price b{font-size:15px}.view-account-button{font-size:13px}
+  .gaming-button,.mbn-button,.modal-button,.btn-login,.btn-register{font-size:13px}
+  .article-content,.static-content,.knowledge-page{font-size:14px;line-height:1.72}
+}

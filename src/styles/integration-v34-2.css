@@ -1,0 +1,63 @@
+/* v34.2: sửa cân đối menu, thông báo, card và mobile */
+.header-brand-row{justify-content:flex-start!important}
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:10px;min-width:0}
+.header-notification-button{flex:0 0 38px;margin:0!important}
+.header-account-pill{flex:0 1 auto;max-width:260px}
+.header-account-pill>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.desktop-nav{align-items:flex-end!important;gap:6px!important;overflow:hidden}
+.desktop-nav a{flex:0 0 auto;min-width:126px!important;padding-inline:18px!important;white-space:nowrap!important;line-height:1!important}
+.desktop-nav a:nth-child(3){min-width:178px!important}
+
+.account-price>span{grid-template-rows:1fr!important;align-content:center!important;padding-block:5px!important}
+.account-price small{display:none!important}
+.account-price b{line-height:1.15!important;overflow:hidden;text-overflow:ellipsis}
+.view-account-button{min-width:0!important;font-size:13px!important;padding-inline:8px!important}
+
+.sidebar-links .sidebar-link-button{width:100%;min-height:46px;padding:9px 11px;display:grid;grid-template-columns:20px minmax(0,1fr) 12px;align-items:center;gap:9px;border:1px solid #202025;border-radius:8px;background:#151517;color:#e3dfe5;font:inherit;font-weight:600;text-align:left;cursor:pointer}
+.sidebar-links .sidebar-link-button:hover{border-color:#821499;background:#1b111f}
+.sidebar-links .sidebar-link-button i{color:#777;font-style:normal;font-size:18px;text-align:right}
+.maintenance-notice{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;padding:16px;border:1px solid #5e286c;background:#171119;color:#efe8f2}
+.maintenance-notice>span{font-size:30px;color:#d034f1}
+.maintenance-notice strong{font-size:15px}.maintenance-notice p{margin:8px 0 0;color:#cfc4d3;line-height:1.6}
+
+@media(max-width:1200px) and (min-width:769px){
+  .desktop-nav a{min-width:112px!important;padding-inline:13px!important;font-size:12px!important}
+  .desktop-nav a:nth-child(3){min-width:156px!important}
+  .header-account-pill{max-width:210px}
+}
+
+@media(max-width:980px){
+  .account-sidebar{font-size:13px!important}
+  .sidebar-profile{min-height:156px!important;padding:8px 0 16px!important;gap:9px!important}
+  .sidebar-avatar{width:66px!important;height:66px!important;font-size:34px!important}
+  .sidebar-profile>strong{font-size:15px!important}
+  .sidebar-balance{font-size:12px!important}
+  .sidebar-links{padding-top:14px!important;gap:7px!important}
+  .sidebar-links a,.sidebar-links .sidebar-link-button{min-height:42px!important;padding:7px 10px!important;font-size:13px!important;border-radius:7px!important}
+}
+
+@media(max-width:768px){
+  .header-actions{gap:7px}
+  .header-notification-button{width:40px!important;height:40px!important;flex-basis:40px!important;background:#18131b!important;border-color:#5a3b61!important}
+  .header-notification-button span{right:-2px!important;top:-4px!important}
+  .header-account-pill{display:none!important}
+  .mobile-menu-button{margin-left:0!important}
+  .account-card-body{padding:9px!important}
+  .account-description{font-size:13px!important;line-height:1.45!important}
+  .account-stats span{font-size:10px!important}.account-stats b{font-size:12px!important}
+  .account-footer{grid-template-columns:minmax(0,1fr) 118px!important;gap:7px!important}
+  .account-price,.view-account-button{height:42px!important;min-height:42px!important}
+  .account-price b{font-size:15px!important}.view-account-button{font-size:12px!important}
+}
+
+@media(max-width:420px){
+  .account-footer{grid-template-columns:minmax(0,1fr) 116px!important}
+  .account-price em{min-width:42px!important;font-size:11px!important}
+  .view-account-button{padding-inline:6px!important}
+  .gaming-modal__footer .modal-action-button{min-width:104px!important}
+}
+
+@media(max-width:360px){
+  .account-footer{grid-template-columns:1fr!important}
+  .view-account-button{width:100%!important}
+}

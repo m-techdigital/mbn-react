@@ -1,0 +1,195 @@
+/* v25 — Canonical readability, contrast and responsive harmony */
+:root{
+  --mbn-bg:#05030a;
+  --mbn-bg-soft:#0b0710;
+  --mbn-surface:#121016;
+  --mbn-surface-2:#19161e;
+  --mbn-surface-3:#211b27;
+  --mbn-border-subtle:#3b3342;
+  --mbn-border-active:#c92bef;
+  --mbn-text-strong:#fffaff;
+  --mbn-text:#eee7f1;
+  --mbn-text-soft:#c9bfce;
+  --mbn-text-muted:#a69cab;
+  --mbn-purple:#c226ef;
+  --mbn-purple-hover:#dd55ff;
+  --mbn-purple-deep:#6d1687;
+  --mbn-success:#33d6b3;
+  --mbn-warning:#ffcf5a;
+  --mbn-danger:#ff5f72;
+  --mbn-info:#49c6e8;
+  --mbn-shadow:0 14px 36px rgba(0,0,0,.42);
+  --mbn-shadow-soft:0 8px 22px rgba(0,0,0,.28);
+}
+
+html{font-size:15px}
+body{color:var(--mbn-text);background:var(--mbn-bg);line-height:1.58}
+
+.site-main{
+  background-color:var(--mbn-bg);
+  background-image:linear-gradient(90deg,rgba(5,3,10,.96),rgba(18,5,34,.70)),url('/images/bgs/bg-purple.jpg');
+}
+.page-panel,.page-content,.customer-profile-card,.storefront-table,.guide-box,.article-content,.static-content,.knowledge-page{
+  color:var(--mbn-text);
+}
+
+.page-heading{margin-bottom:14px}
+.page-heading h1{font-size:20px;line-height:1.25;color:var(--mbn-text-strong)}
+.page-heading p{font-size:14px;line-height:1.55;color:var(--mbn-text-soft)}
+.legacy-section-title{font-size:18px;line-height:1.35;color:var(--mbn-text-strong)}
+
+.header-account-pill,.desktop-nav a{font-size:14px}
+.sidebar-profile>strong{font-size:17px;color:var(--mbn-text-strong)}
+.sidebar-balance,.sidebar-links a,.sidebar-logout{font-size:14px}
+.sidebar-balance b{font-size:15px}
+.sidebar-links a{color:var(--mbn-text);background:var(--mbn-surface);border-color:var(--mbn-border-subtle)}
+.sidebar-links a:hover,.sidebar-links a.active{background:var(--mbn-surface-3);border-color:var(--mbn-border-active)}
+
+.home-shortcuts small{font-size:12px;color:var(--mbn-text-soft)}
+.home-shortcuts b{font-size:15px;color:var(--mbn-text-strong)}
+.legacy-service-card strong{font-size:14px;color:var(--mbn-text-strong)}
+
+.legacy-filter,.catalog-toolbar,.game-intro,.detail-card,.suggested-panel,.account-card,.deposit-form-card,.deposit-info-card{
+  background:var(--mbn-surface);
+  border-color:var(--mbn-border-subtle);
+  box-shadow:var(--mbn-shadow-soft);
+}
+.legacy-filter input,.legacy-filter select,.legacy-filter__control>span,.legacy-filter__actions button{font-size:14px}
+.legacy-filter input,.legacy-filter select{min-height:40px}
+
+.mbn-button,.gaming-button,.modal-button,.btn-login,.btn-register,.auth-gaming-switch,.table-view-link{
+  min-height:40px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0;
+}
+.mbn-button--lg{min-height:46px;font-size:15px}
+.mbn-button--sm{min-height:36px;font-size:13px}
+
+.account-card{border-color:var(--mbn-border-subtle)}
+.account-card:hover{border-color:var(--mbn-border-active);box-shadow:0 14px 32px rgba(0,0,0,.44),0 0 0 1px rgba(194,38,239,.18)}
+.account-image-topline b,.listing-chip{font-size:12px}
+.account-description{font-size:14px;line-height:1.58;color:var(--mbn-text-soft)}
+.account-stats span{font-size:12px;color:var(--mbn-text-muted)}
+.account-stats b{font-size:14px;color:var(--mbn-text-strong)}
+.account-price del,.account-price small{font-size:12px}
+.account-price b{font-size:17px;color:var(--mbn-text-strong)}
+.account-price em{font-size:13px}
+.view-account-button{font-size:14px;min-height:42px}
+
+.detail-card h3{font-size:17px;color:var(--mbn-text-strong)}
+.detail-info-table b,.detail-info-table span{font-size:14px;line-height:1.5}
+.detail-info-table b{color:var(--mbn-text-soft)}
+.detail-info-table span{color:var(--mbn-text-strong)}
+.detail-price-row small{font-size:12px}
+.detail-price-row del{font-size:13px}
+.detail-price-row strong{font-size:22px}
+.gallery-caption{font-size:13px;color:var(--mbn-text-soft)}
+
+.customer-profile-card__head strong{font-size:19px}
+.customer-profile-card__head span{font-size:14px;color:var(--mbn-text-soft)}
+.customer-profile-table span,.customer-profile-table b{font-size:15px}
+.storefront-table__head{font-size:12px;color:var(--mbn-text-soft)}
+.storefront-table__row{font-size:14px}
+.status-pill,.table-view-link{font-size:12px}
+.wallet-summary-strip span{font-size:12px}
+.wallet-summary-strip b{font-size:20px}
+
+.topic-grid h2,.guide-box h2{font-size:17px;color:var(--mbn-text-strong)}
+.topic-grid p,.guide-box p,.guide-content footer{font-size:14px;line-height:1.65;color:var(--mbn-text-soft)}
+.article-content,.static-content,.knowledge-page{font-size:16px;line-height:1.78}
+.article-content h2,.static-content h2,.knowledge-page h2{font-size:22px;line-height:1.35;color:var(--mbn-text-strong)}
+.article-content h3,.static-content h3,.knowledge-page h3{font-size:18px;line-height:1.4;color:var(--mbn-text-strong)}
+.article-content p,.static-content p,.knowledge-page p{color:var(--mbn-text)}
+
+.gaming-modal{background:var(--mbn-surface);border-color:var(--mbn-border-active)}
+.gaming-modal__header h2{font-size:19px;letter-spacing:.55px;color:var(--mbn-text-strong)}
+.gaming-modal__body{font-size:15px;line-height:1.62;color:var(--mbn-text)}
+.gaming-modal__footer-note{font-size:14px;color:var(--mbn-text-soft)}
+.admin-contact-card h3,.purchase-qr-section h4{font-size:16px}
+.admin-contact-card p,.admin-notice-list li{font-size:14px;line-height:1.6}
+.purchase-mode-tabs button{font-size:14px}
+.purchase-info-table b,.purchase-info-table span{font-size:14px}
+.purchase-info-table b{color:var(--mbn-text-soft)}
+.purchase-info-table span{color:var(--mbn-text-strong)}
+.purchase-price-row strong{font-size:20px}
+.purchase-payment-methods label{font-size:15px}
+.purchase-bank-list>div{font-size:14px}
+.purchase-policy h3{font-size:16px}
+.purchase-policy p,.purchase-policy__note{font-size:14px;line-height:1.65}
+.notice-safety-hero strong{font-size:16px}
+.notice-safety-hero p{font-size:14px}
+.notice-safety-list strong{font-size:15px}
+.notice-safety-list p{font-size:14px}
+.notice-safety-actions a{font-size:14px}
+.notice-safety-footnote{font-size:13px}
+
+/* Improve semantic contrast without introducing extra themes */
+.status-pill,.listing-chip{color:#fff}
+.status-pill--success,.status-completed,.status-confirmed{background:rgba(51,214,179,.14);border-color:rgba(51,214,179,.55);color:#7aefd6}
+.status-pill--warning,.status-pending,.status-partially-paid{background:rgba(255,207,90,.12);border-color:rgba(255,207,90,.5);color:#ffe08a}
+.status-pill--danger,.status-rejected,.status-cancelled,.status-disputed{background:rgba(255,95,114,.12);border-color:rgba(255,95,114,.5);color:#ff9aa7}
+
+@media(min-width:1024px){
+  .site-main{padding:18px 22px 92px}
+  .page-shell,.home-page{width:min(var(--content-w),calc(100% - 20px))}
+  .account-grid{gap:16px}
+  .detail-layout{gap:18px}
+}
+
+@media(max-width:980px){
+  html{font-size:15px}
+  .site-main{padding-inline:12px}
+  .page-heading h1{font-size:19px}
+  .page-heading p{font-size:14px}
+}
+
+@media(max-width:768px){
+  html{font-size:15px}
+  body{font-size:15px;line-height:1.62}
+  .site-main{padding:12px 10px calc(84px + env(safe-area-inset-bottom))}
+  .page-heading{grid-template-columns:38px minmax(0,1fr) 38px;gap:8px;margin-bottom:12px}
+  .page-heading h1{font-size:18px;line-height:1.3}
+  .page-heading p{font-size:14px;line-height:1.5}
+  .heading-round-action{width:36px;height:36px}
+  .legacy-section-title{font-size:17px}
+
+  .home-shortcuts small{font-size:11px}
+  .home-shortcuts b{font-size:14px}
+  .legacy-service-card strong{font-size:13px}
+
+  .legacy-filter input,.legacy-filter select,.legacy-filter__control>span,.legacy-filter__actions button{font-size:15px}
+  .legacy-filter input,.legacy-filter select{min-height:44px}
+
+  .mbn-button,.gaming-button,.modal-button,.btn-login,.btn-register{min-height:44px;font-size:14px}
+  .account-description{font-size:14px}
+  .account-stats span{font-size:11px}
+  .account-stats b{font-size:13px}
+  .account-price b{font-size:17px}
+  .view-account-button{min-height:44px;font-size:14px}
+
+  .detail-card h3{font-size:16px}
+  .detail-info-table b,.detail-info-table span{font-size:14px}
+  .detail-price-row strong{font-size:20px}
+  .gallery-caption{font-size:13px}
+
+  .gaming-modal__header h2{font-size:17px;letter-spacing:.35px}
+  .gaming-modal__body{font-size:15px}
+  .gaming-modal__footer-note{font-size:13px}
+  .purchase-info-table b,.purchase-info-table span{font-size:13px}
+  .purchase-payment-methods label{font-size:14px}
+  .purchase-policy p,.purchase-policy__note{font-size:14px}
+
+  .article-content,.static-content,.knowledge-page{font-size:15px;line-height:1.75}
+  .article-content h2,.static-content h2,.knowledge-page h2{font-size:20px}
+  .article-content h3,.static-content h3,.knowledge-page h3{font-size:17px}
+}
+
+@media(max-width:420px){
+  .site-main{padding-inline:8px}
+  .page-heading h1{font-size:17px}
+  .page-heading p{font-size:13px}
+  .account-price b{font-size:16px}
+  .gaming-modal__header h2{font-size:16px}
+  .purchase-info-table>div{grid-template-columns:42% 58%}
+}

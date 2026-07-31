@@ -1,0 +1,61 @@
+.legacy-filter{margin:9px 0 0;padding:10px;display:grid;grid-template-columns:168px 185px minmax(145px,1fr) repeat(3,minmax(135px,1fr)) auto;gap:8px;border:1px solid #a400cb;background:#0e0e10;box-shadow:0 0 0 1px rgba(255,255,255,.02) inset}
+.legacy-filter__control{height:34px;display:flex;min-width:0;border:1px solid #bd00e9;background:#f7f4fb;color:#171219;overflow:hidden}
+.legacy-filter__control>span{flex:0 0 auto;padding:0 9px;display:flex;align-items:center;border-right:1px solid #c20bea;background:#fff;font-weight:600}
+.legacy-filter input,.legacy-filter select{width:100%;min-width:0;height:100%;padding:0 10px;border:0;outline:0;background:#f7f4fb;color:#171219;font:500 12px/1 var(--font-ui)}
+.legacy-filter select{appearance:auto;color:#5d5961}.legacy-filter input::placeholder{color:#9a949e}
+.legacy-filter__actions{display:grid;grid-template-columns:96px 96px;gap:8px}.legacy-filter__actions button{height:34px;border:0;border-radius:2px;color:#fff;font-weight:800;cursor:pointer}.legacy-filter__search{background:#237ec8}.legacy-filter__reset{background:#ed351a}
+.auth-gaming-form{padding:12px;background:#0d0d0e;border:1px solid #313035}.auth-gaming-form .ant-form-item{margin-bottom:15px}.auth-gaming-form .ant-input,.auth-gaming-form .ant-input-affix-wrapper{height:39px;border:1px solid #cc00ef!important;border-radius:2px!important;background:#f3f1f7!important;color:#111!important}.auth-gaming-form .ant-input-affix-wrapper input{height:auto!important}.auth-gaming-form .ant-checkbox-wrapper{color:#fff}.auth-gaming-form .ant-btn{height:34px;border-radius:3px;font-weight:800}
+@media(max-width:1180px){.legacy-filter{grid-template-columns:repeat(4,minmax(135px,1fr))}.legacy-filter__actions{grid-column:auto}}
+@media(max-width:760px){.legacy-filter{grid-template-columns:1fr 1fr}.legacy-filter__actions{grid-column:1/-1;grid-template-columns:1fr 1fr}.legacy-filter__control--code,.legacy-filter__control--identity{grid-column:auto}}
+@media(max-width:480px){.legacy-filter{grid-template-columns:1fr}.legacy-filter__actions{grid-column:auto}}
+
+/* v32: cân lại bộ lọc và ô mật khẩu, tránh khung lồng của thư viện giao diện */
+.legacy-filter{
+  grid-template-columns:minmax(132px,.9fr) minmax(154px,1.05fr) minmax(132px,.9fr) repeat(3,minmax(120px,.85fr)) 92px 96px;
+  align-items:center;
+}
+.legacy-filter__actions{display:contents}
+.legacy-filter__actions button{width:100%;min-width:0;white-space:nowrap}
+.password-field{position:relative;display:flex;width:100%;height:42px;overflow:hidden;border:1px solid #cc00ef;border-radius:2px;background:#f3f1f7}
+.password-field:focus-within{box-shadow:0 0 0 2px rgba(204,0,239,.2)}
+.password-field input{width:100%;height:100%;min-width:0;padding:0 46px 0 12px;border:0;outline:0;background:transparent;color:#161219;font:500 14px/1 var(--font-ui)}
+.password-field input::placeholder{color:#8d8793}
+.password-field__toggle{position:absolute;top:0;right:0;width:42px;height:100%;display:grid;place-items:center;border:0;background:transparent;color:#5f5964;cursor:pointer}
+.password-field__toggle:hover{color:#9c00bd;background:rgba(156,0,189,.07)}
+.auth-gaming-form .password-field{height:42px}
+.auth-gaming-form .ant-form-item-label>label{height:auto;color:#f2edf5;font-size:13px;font-weight:700}
+.auth-gaming-form .ant-input{height:42px!important;padding-inline:12px!important;font-size:14px!important}
+.auth-gaming-form .ant-alert{margin-bottom:12px}
+@media(max-width:1280px){
+  .legacy-filter{grid-template-columns:repeat(4,minmax(130px,1fr))}
+  .legacy-filter__actions{display:grid;grid-column:1/-1;grid-template-columns:1fr 1fr;gap:8px}
+}
+@media(max-width:760px){
+  .legacy-filter{grid-template-columns:1fr 1fr;padding:9px}
+  .legacy-filter__actions{grid-column:1/-1}
+}
+@media(max-width:520px){
+  .legacy-filter{grid-template-columns:1fr}
+  .legacy-filter__actions{grid-template-columns:1fr 1fr}
+  .auth-gaming-modal{width:100%}
+  .auth-gaming-form{padding:10px}
+  .demo-account-grid{grid-template-columns:1fr}
+}
+
+/* v33: biểu mẫu xác thực cân đối và không lộ dữ liệu thử nghiệm khi vận hành */
+.auth-gaming-form .ant-form-item-explain-error{font-size:12px;line-height:1.4}
+@media(max-width:640px){
+  .auth-gaming-form{padding:10px}
+  .auth-gaming-form .ant-form-item{margin-bottom:12px}
+  .auth-gaming-form .ant-input,.auth-gaming-form .password-field{height:40px!important}
+  .auth-gaming-row{gap:8px;align-items:center}
+  .auth-gaming-switch{min-height:40px}
+}
+
+/* Canonical form system v40 */
+.mbn-base-form{display:flex;flex-direction:column;gap:18px}.mbn-base-form__grid{display:grid;gap:16px}.mbn-base-form__grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}.mbn-base-form__grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}.mbn-base-form__section{border:1px solid var(--border-soft,#46374f);background:var(--surface-panel,#121016);padding:18px}.mbn-base-form__section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid var(--border-soft,#46374f)}.mbn-base-form__section-head h3{margin:0 0 4px;font-size:16px}.mbn-base-form__section-head p{margin:0;color:var(--text-muted,#b9aebf);font-size:13px}.mbn-base-form__section-actions,.mbn-base-form__actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.mbn-base-form__actions{padding-top:4px}.mbn-base-form__actions.is-end{justify-content:flex-end}.mbn-base-form__actions.is-between{justify-content:space-between}.mbn-form-alert{padding:12px 14px;border:1px solid;border-radius:4px;font-size:14px;line-height:1.5}.mbn-form-alert.is-error{background:#31181e;border-color:#8f3c50;color:#ffdce4}.mbn-check-field{display:inline-flex;align-items:center;gap:9px;min-height:38px;font-size:14px}.mbn-check-field input{width:18px;height:18px;accent-color:var(--primary,#c226ef)}.mbn-form-field.is-wide{grid-column:1/-1}
+.mbn-base-filter{border:1px solid var(--border-strong,#8e25a7);background:var(--surface-panel,#121016);padding:12px}.mbn-base-filter__form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}.mbn-base-filter__fields{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:10px}.mbn-base-filter__field{display:flex;flex-direction:column;gap:6px;min-width:0}.mbn-base-filter__field>span{font-size:12px;font-weight:700;color:var(--text-muted,#c9bfce)}.mbn-base-filter__field input,.mbn-base-filter__field select{width:100%;height:38px;min-width:0}.mbn-base-filter__actions{display:flex;gap:8px}.mbn-base-filter__actions .gaming-button{min-width:92px}.mbn-base-filter__result{text-align:right;margin:10px 0 0;color:var(--text-muted,#c9bfce);font-size:13px}
+.mbn-multi-upload{margin-top:16px;border:1px dashed #6d347b;padding:14px}.mbn-multi-upload__head{display:flex;align-items:center;justify-content:space-between;gap:14px}.mbn-multi-upload__head h3{margin:0 0 4px;font-size:15px}.mbn-multi-upload__head p{margin:0;color:var(--text-muted,#c9bfce);font-size:12px}.mbn-multi-upload__button{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 16px;border:1px solid var(--primary,#c226ef);cursor:pointer;font-weight:700}.mbn-multi-upload__button input{position:absolute;opacity:0;pointer-events:none}.mbn-multi-upload__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}.mbn-multi-upload__grid figure{position:relative;margin:0;border:1px solid #4a3b51;background:#09070c;aspect-ratio:4/3;overflow:hidden}.mbn-multi-upload__grid img{width:100%;height:100%;object-fit:cover}.mbn-multi-upload__grid button,.mbn-multi-upload__grid small{position:absolute;z-index:2}.mbn-multi-upload__grid button{top:6px;right:6px}.mbn-multi-upload__grid small{left:6px;bottom:6px;background:#07060a;padding:3px 6px}.mbn-multi-upload__empty{margin:14px 0 0;color:var(--text-muted,#c9bfce)}
+.rental-rate-editor__rows{display:flex;flex-direction:column;gap:12px}.rental-rate-row{display:grid;grid-template-columns:1.2fr .65fr .8fr 1fr 1fr auto;gap:10px;align-items:end;border:1px solid #403247;padding:12px;background:#0b090d}.table-primary-cell{min-width:0}.table-primary-cell b,.table-primary-cell small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.table-primary-cell small{margin-top:4px;color:var(--text-muted,#c9bfce)}
+@media(max-width:1100px){.mbn-base-filter__form{grid-template-columns:1fr}.mbn-base-filter__fields{grid-template-columns:repeat(3,minmax(0,1fr))}.mbn-base-filter__actions{justify-content:flex-end}.rental-rate-row{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.mbn-base-form__grid--2,.mbn-base-form__grid--3{grid-template-columns:1fr}.mbn-base-form__section{padding:14px}.mbn-base-form__section-head{flex-direction:column}.mbn-base-form__actions>*{flex:1}.mbn-base-filter__fields{grid-template-columns:1fr}.mbn-base-filter__actions>*{flex:1}.mbn-multi-upload__head{align-items:flex-start;flex-direction:column}.mbn-multi-upload__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rental-rate-row{grid-template-columns:1fr 1fr}.rental-rate-row>.gaming-button{grid-column:1/-1}}
