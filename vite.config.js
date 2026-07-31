@@ -1,9 +1,21 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { cwd } from 'node:process'
 import { fileURLToPath, URL } from 'node:url'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+    const env = loadEnv(mode, cwd(), '')
+    const configuredApiUrl = String(env.VITE_API_URL || '').trim()
+    let configuredApiOrigin = ''
+
+    if (configuredApiUrl) {
+        try { configuredApiOrigin = new URL(configuredApiUrl).origin } catch { configuredApiOrigin = '' }
+    }
+
+    const proxyTarget = env.VITE_API_PROXY_TARGET || configuredApiOrigin || 'http://127.0.0.1:8000'
+
+    return {
     plugins: [react(), tailwindcss()],
     resolve: {
         alias: {
@@ -71,4 +83,14 @@ export default defineConfig({
             },
         },
     },
+    server: {
+        proxy: {
+            '/storage': { target: proxyTarget, changeOrigin: true },
+        '/api': {
+                target: proxyTarget,
+                changeOrigin: true,
+            },
+        },
+    },
+}
 })

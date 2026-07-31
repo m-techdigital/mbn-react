@@ -2997,3 +2997,31 @@ img,svg,video,canvas{max-width:100%}
 .mbn-choice__label{color:var(--mbn-form-label)}.mbn-choice__content small{color:var(--mbn-form-hint)}
 .auth-gaming-form .mbn-control,.seller-form .mbn-control,.gaming-modal .mbn-control,.profile-panel .mbn-control,.deposit-flow .mbn-control{background:var(--mbn-form-control-bg)!important;color:var(--mbn-form-control-text)!important}
 @media(max-width:720px){.mbn-control{min-height:var(--mbn-control-height-mobile,44px);font-size:16px}.mbn-control--textarea{min-height:112px}}
+
+
+/* v66.15 — prevent horizontal container jumps between routes. */
+html{overflow-y:scroll;scrollbar-gutter:stable}
+body{width:100%}
+.page-shell,
+.page-shell--wide,
+.page-shell--reading,
+.page-shell--narrow{
+  width:min(var(--mbn-layout-wide,1160px),calc(100% - 24px))!important;
+  max-width:var(--mbn-layout-wide,1160px)!important;
+  margin-inline:auto!important;
+}
+.page-shell--reading>.page-panel{width:min(100%,var(--mbn-layout-reading,1040px));margin-inline:auto}
+.page-shell--narrow>.page-panel{width:min(100%,var(--mbn-layout-narrow,760px));margin-inline:auto}
+@media(max-width:960px){
+  .page-shell,.page-shell--wide,.page-shell--reading,.page-shell--narrow{width:min(100% - 18px,var(--mbn-layout-wide,1160px))!important}
+}
+@media(max-width:720px){
+  .page-shell,.page-shell--wide,.page-shell--reading,.page-shell--narrow{width:calc(100% - 16px)!important}
+}
+
+
+/* v66.20: deposit payment information is vertical to protect narrow layouts. */
+.deposit-payment-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:12px;min-width:0}
+.deposit-payment-stack .deposit-qr{width:min(100%,320px);margin-inline:auto;text-align:center}
+.deposit-payment-stack .deposit-qr img{display:block;width:min(100%,260px);aspect-ratio:1;object-fit:contain;margin-inline:auto;border:10px solid #fff;border-radius:8px;background:#fff}
+.deposit-payment-stack .bank-transfer-card{width:100%;min-width:0;margin:0}

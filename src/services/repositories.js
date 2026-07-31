@@ -130,6 +130,7 @@ export const walletRepository = {
 };
 
 export const profileRepository = {
+  updateAvatar: (file, onProgress) => { const form = new FormData(); form.append('avatar', file); return api.post('/customer/profile/avatar', form, { headers: { 'Content-Type': 'multipart/form-data' }, onUploadProgress: (event) => { if (event.total && onProgress) onProgress(Math.round((event.loaded * 100) / event.total)); } }).then(unwrap); },
   update: (payload) => api.put('/customer/profile', payload).then(unwrap),
   requestEmailChange: (payload) => api.post('/customer/profile/email-change', payload).then(unwrap),
   verifyEmail: (payload) => api.post('/auth/customer/verify-email', payload).then(unwrap),

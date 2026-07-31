@@ -10,6 +10,7 @@ export default function ImageUploadField({
   loading = false,
   progress = 0,
   hint,
+  error,
   onChange,
   onRemove,
   circular = false,
@@ -19,7 +20,7 @@ export default function ImageUploadField({
   const pick = () => inputRef.current?.click();
 
   return (
-    <div className="mbn-image-upload">
+    <div className={`mbn-image-upload ${error ? 'has-error' : ''}`.trim()}>
       <span className="mbn-form-field__label">{label}</span>
       <div className={`mbn-image-upload__box ${circular ? 'is-circular' : ''}`}>
         <button type="button" className="mbn-image-upload__preview" onClick={pick} aria-label="Chọn hình ảnh">
@@ -27,7 +28,7 @@ export default function ImageUploadField({
         </button>
         <div className="mbn-image-upload__body">
           <strong>{loading ? `Đang tải ${progress}%` : value ? 'Hình ảnh đã sẵn sàng' : 'Chưa chọn hình ảnh'}</strong>
-          <span>{fileName || hint || 'Định dạng JPG, PNG hoặc WEBP.'}</span>
+          <span className={error ? 'mbn-image-upload__error' : ''}>{error || fileName || hint || 'Định dạng JPG, PNG hoặc WEBP.'}</span>
           <div className="mbn-image-upload__actions">
             <button type="button" onClick={pick} disabled={loading}><UploadOutlined /> {value ? 'Chọn ảnh khác' : 'Chọn ảnh'}</button>
             {value && onRemove ? <button type="button" className="is-danger" onClick={onRemove} disabled={loading}><DeleteOutlined /> Xóa ảnh</button> : null}

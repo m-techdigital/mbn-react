@@ -1,0 +1,53 @@
+/* v66.18 — customer account workspace: balanced frame and customer-safe wallet presentation. */
+.site-frame--account{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  overflow-x:clip;
+  grid-template-columns:minmax(220px,var(--mbn-v62-account-sidebar,252px)) minmax(0,1fr)!important;
+}
+.site-frame--account>.account-sidebar{min-width:0;max-width:100%}
+.site-frame--account>.site-main{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  padding-left:clamp(12px,2vw,24px)!important;
+  padding-right:clamp(12px,2vw,24px)!important;
+  overflow-x:hidden;
+}
+.site-frame--account .page-shell,
+.site-frame--account .page-shell--wide,
+.site-frame--account .page-shell--reading,
+.site-frame--account .page-shell--narrow{
+  width:100%!important;
+  max-width:1160px!important;
+  margin-inline:auto!important;
+}
+.site-frame--account .page-panel,
+.site-frame--account .page-content,
+.site-frame--account .mbn-page-stack,
+.site-frame--account .mbn-page-section,
+.site-frame--account .mbn-page-section__body,
+.site-frame--account .mbn-table-shell,
+.site-frame--account .mbn-table-scroll{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
+.site-frame--account .mbn-table-scroll{overflow-x:auto;overscroll-behavior-inline:contain}
+.wallet-page__metrics{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.wallet-page__ledger .mbn-page-section__body{padding-inline:14px}
+.wallet-page .table-primary-cell small{display:block;margin-top:5px;color:var(--mbn-muted)}
+
+@media (max-width:1180px){
+  .site-frame--account{display:block!important}
+  .site-frame--account>.account-sidebar{display:none!important}
+  .site-frame--account>.site-main{padding-left:clamp(10px,2.5vw,20px)!important;padding-right:clamp(10px,2.5vw,20px)!important}
+}
+@media (max-width:720px){
+  .site-frame--account>.site-main{padding-left:8px!important;padding-right:8px!important}
+  .wallet-page__metrics{grid-template-columns:1fr!important}
+  .wallet-page__ledger .mbn-page-section__body{padding-inline:10px}
+}

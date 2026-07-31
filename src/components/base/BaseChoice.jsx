@@ -12,7 +12,7 @@ const BaseChoice = forwardRef(function BaseChoice({
   const controlId = id || generatedId;
   return (
     <label className={`mbn-choice ${className}`.trim()} htmlFor={controlId}>
-      <input ref={ref} id={controlId} type={type} {...props} />
+      <input ref={ref} className="mbn-choice__native" id={controlId} type={type} {...props} />
       <span className="mbn-choice__indicator" aria-hidden="true" />
       <span className="mbn-choice__content">
         <span className="mbn-choice__label">{label}</span>

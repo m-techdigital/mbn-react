@@ -13,6 +13,7 @@ import { showToast } from '../utils/toast';
 import { statusLabel } from '../utils/labels';
 import MarketplaceImage from '../components/base/MarketplaceImage';
 import { BaseInput } from '../components/base/FormControls';
+import { applyValidationError, clearFieldError } from '../utils/formValidation';
 
 const MIN_DEPOSIT_AMOUNT = 10000;
 const MAX_DEPOSIT_AMOUNT = 100000000;
@@ -25,30 +26,31 @@ export default function DepositPage(){
   const [reference,setReference]=useState('');
   const [loading,setLoading]=useState(false);
   const [previewUrl,setPreviewUrl]=useState('');
+  const [errors,setErrors]=useState({});
   useEffect(()=>{if(!proof){setPreviewUrl('');return undefined}const url=URL.createObjectURL(proof);setPreviewUrl(url);return()=>URL.revokeObjectURL(url)},[proof]);
 
   const create=async()=>{
     if(amount < MIN_DEPOSIT_AMOUNT){setAmountError(`Số tiền nạp tối thiểu là ${formatMoney(MIN_DEPOSIT_AMOUNT)}.`);return}
     if(amount > MAX_DEPOSIT_AMOUNT){setAmountError(`Số tiền nạp tối đa là ${formatMoney(MAX_DEPOSIT_AMOUNT)}.`);return}
-    setAmountError('');
+    setAmountError(''); setErrors({});
     setLoading(true);
     try{
       const data=await walletRepository.bankTopup({amount,payment_method:'bank'});
       setRequest(data);
       showToast('success','Đã tạo yêu cầu nạp tiền. Vui lòng chuyển khoản đúng thông tin hiển thị.');
-    }catch(error){showToast('error',getUserFacingError(error,'Không thể tạo yêu cầu nạp tiền.'))}
+    }catch(error){const result=applyValidationError(error,setErrors);showToast('error',Object.keys(result.errors).length?'Thông tin yêu cầu nạp tiền chưa hợp lệ. Vui lòng kiểm tra trường được đánh dấu.':getUserFacingError(error,'Không thể tạo yêu cầu nạp tiền.'))}
     finally{setLoading(false)}
   };
 
   const submit=async()=>{
-    if(!proof){showToast('warning','Vui lòng chọn ảnh biên nhận chuyển khoản.');return}
-    setLoading(true);
+    if(!proof){setErrors(current=>({...current,proof:'Vui lòng chọn ảnh biên nhận chuyển khoản.'}));showToast('warning','Vui lòng kiểm tra thông tin chứng từ.');return}
+    setErrors({}); setLoading(true);
     try{
       const data=await walletRepository.submitDepositProof(request.id,proof,{external_reference:reference,note:'Khách hàng đã gửi chứng từ chuyển khoản.'});
       setRequest(data);
       setProof(null);
       showToast('success','Đã gửi chứng từ. Yêu cầu đang chờ quản trị viên đối soát.');
-    }catch(error){showToast('error',getUserFacingError(error,'Không thể gửi chứng từ.'))}
+    }catch(error){const result=applyValidationError(error,setErrors);showToast('error',Object.keys(result.errors).length?'Chứng từ chưa hợp lệ. Vui lòng kiểm tra các trường được đánh dấu.':getUserFacingError(error,'Không thể gửi chứng từ.'))}
     finally{setLoading(false)}
   };
 
@@ -58,18 +60,18 @@ export default function DepositPage(){
     <PageColumns className="deposit-flow" ratio="wide-left">
       <PageSection className="deposit-form-card">
         <div className="deposit-step-title"><span>1</span><div><h2>Tạo yêu cầu nạp tiền</h2><p>Chọn số tiền trước khi lấy thông tin chuyển khoản.</p></div></div>
-        <FormField label="Số tiền muốn nạp" hint={`Tối thiểu ${formatMoney(MIN_DEPOSIT_AMOUNT)}. Số tiền sẽ được định dạng tự động.`} error={amountError} required><MoneyInput id="deposit-amount" value={amount} min={MIN_DEPOSIT_AMOUNT} max={MAX_DEPOSIT_AMOUNT} disabled={Boolean(request)} onChange={(next)=>{setAmount(next);if(next>=MIN_DEPOSIT_AMOUNT)setAmountError('')}} /></FormField>
+        <FormField label="Số tiền muốn nạp" hint={`Tối thiểu ${formatMoney(MIN_DEPOSIT_AMOUNT)}. Số tiền sẽ được định dạng tự động.`} error={amountError || errors.amount} required><MoneyInput id="deposit-amount" value={amount} min={MIN_DEPOSIT_AMOUNT} max={MAX_DEPOSIT_AMOUNT} disabled={Boolean(request)} onChange={(next)=>{setAmount(next);if(next>=MIN_DEPOSIT_AMOUNT)setAmountError('');clearFieldError(setErrors,'amount')}} /></FormField>
         {!request&&<GamingButton block variant="primary" loading={loading} onClick={create}>Tạo yêu cầu nạp tiền</GamingButton>}
         {request&&<>
           <div className={`deposit-status deposit-status--${request.status}`}><StatusBadge status={request.status}>{statusLabel(request.status, 'Đang xử lý')}</StatusBadge><span>Mã yêu cầu: {request.code}</span></div>
-          <div className="deposit-payment-grid">
+          <div className="deposit-payment-stack">
             <div className="deposit-qr"><MarketplaceImage src={meta.qr_url} alt="Mã QR chuyển khoản"/><small>Quét mã bằng ứng dụng ngân hàng</small></div>
             <div className="bank-transfer-card"><div><span>Ngân hàng</span><b>{bank.bank_name||bank.name}</b></div><div><span>Số tài khoản</span><b>{bank.account_no}</b></div><div><span>Chủ tài khoản</span><b>{bank.account_name}</b></div><div><span>Số tiền</span><b>{formatMoney(request.amount)}</b></div><div><span>Nội dung</span><b>{meta.transfer_content}</b></div></div>
           </div>
           {['draft','rejected'].includes(request.status)&&<div className="deposit-proof">
             <div className="deposit-step-title"><span>2</span><div><h2>Gửi chứng từ chuyển khoản</h2><p>Ảnh phải nhìn rõ số tiền, thời gian và mã giao dịch ngân hàng.</p></div></div>
-            <ImageUploadField label="Ảnh biên nhận" value={previewUrl} fileName={proof?.name || ''} hint="Ảnh phải nhìn rõ số tiền, thời gian và mã giao dịch." onChange={setProof} onRemove={()=>setProof(null)} />
-            <FormField label="Mã giao dịch ngân hàng" hint="Không bắt buộc, nhưng giúp đối soát nhanh hơn."><BaseInput value={reference} onChange={event=>setReference(event.target.value)} placeholder="Nhập mã giao dịch"/></FormField>
+            <ImageUploadField label="Ảnh biên nhận" value={previewUrl} fileName={proof?.name || ''} hint="Ảnh phải nhìn rõ số tiền, thời gian và mã giao dịch." error={errors.proof} onChange={(file)=>{setProof(file);clearFieldError(setErrors,'proof')}} onRemove={()=>setProof(null)} />
+            <FormField label="Mã giao dịch ngân hàng" error={errors.external_reference} hint="Không bắt buộc, nhưng giúp đối soát nhanh hơn."><BaseInput value={reference} onChange={event=>{setReference(event.target.value);clearFieldError(setErrors,'external_reference')}} placeholder="Nhập mã giao dịch"/></FormField>
             <GamingButton block variant="primary" loading={loading} onClick={submit}>Gửi chứng từ đối soát</GamingButton>
           </div>}
         </>}

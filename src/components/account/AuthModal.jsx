@@ -9,6 +9,7 @@ import GamingModal from '../base/GamingModal';
 import PasswordField from '../base/PasswordField';
 import { getSupportCode, getUserFacingError } from '../../utils/userFacingError';
 import { BaseInput } from '../base/FormControls';
+import { validationErrorsFrom } from '../../utils/formValidation';
 
 const loginInitial = { username: '', password: '', remember: true };
 const registerInitial = { name: '', username: '', password: '', password_confirmation: '', phone: '', email: '' };
@@ -68,10 +69,12 @@ export default function AuthModal({ open, initialMode = 'login', onClose }) {
       }
       onClose();
     } catch (requestError) {
+      const serverErrors = validationErrorsFrom(requestError);
+      if (Object.keys(serverErrors).length) setErrors(serverErrors);
       const supportCode = getSupportCode(requestError);
       const messageText = getUserFacingError(requestError, 'Không thể xử lý yêu cầu lúc này. Vui lòng thử lại sau.');
       const status = Number(requestError?.response?.status || 0);
-      setError(supportCode && status >= 500 ? `${messageText} Mã hỗ trợ: ${supportCode}` : messageText);
+      setError(Object.keys(serverErrors).length ? 'Thông tin chưa hợp lệ. Vui lòng kiểm tra các trường được đánh dấu.' : supportCode && status >= 500 ? `${messageText} Mã hỗ trợ: ${supportCode}` : messageText);
     } finally {
       setBusy(false);
     }
@@ -83,7 +86,7 @@ export default function AuthModal({ open, initialMode = 'login', onClose }) {
     if (!twoFactor.code.trim()) return setErrors({ code: 'Vui lòng nhập mã xác thực.' });
     setBusy(true); setError(''); setErrors({});
     try { await verifyTwoFactor({ challenge_token: twoFactor.challenge_token, code: twoFactor.code }); onClose(); }
-    catch (requestError) { setError(getUserFacingError(requestError, 'Mã xác thực không đúng hoặc đã hết hạn.')); }
+    catch (requestError) { const serverErrors = validationErrorsFrom(requestError); if (Object.keys(serverErrors).length) setErrors(serverErrors); setError(Object.keys(serverErrors).length ? 'Mã xác thực chưa hợp lệ.' : getUserFacingError(requestError, 'Mã xác thực không đúng hoặc đã hết hạn.')); }
     finally { setBusy(false); }
   };
 

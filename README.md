@@ -7,7 +7,11 @@ React 19 + Vite storefront migrated from the original Nuxt 2 `mbn-fe` and aligne
 Configure `.env`:
 
 ```env
-VITE_API_URL=http://127.0.0.1:8000/api/v1
+# Khuyến nghị local: không khai báo VITE_API_URL để dùng proxy cùng origin.
+VITE_API_PROXY_TARGET=http://127.0.0.1:8000
+
+# Chỉ khai báo URL tuyệt đối khi deploy API khác origin.
+# VITE_API_URL=https://api.example.com/api/v1
 VITE_APP_NAME=MuaBanNick.Pro
 VITE_DATA_MODE=mock
 ```

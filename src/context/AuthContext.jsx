@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authRepository } from '../services/repositories';
-import { tokenStore } from '../services/api';
+import { refreshAccessToken, tokenStore } from '../services/api';
 import { isMockMode } from '../services/dataMode';
 import { clearQueryCache } from '../services/queryClient';
 
@@ -17,8 +17,7 @@ export function AuthProvider({ children }) {
     setLoading(true);
     try {
       if (!tokenStore.access()) {
-        const refreshed = await authRepository.refresh();
-        tokenStore.set(refreshed);
+        await refreshAccessToken();
       }
       const current = await authRepository.customer();
       setCustomer(current);

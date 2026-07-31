@@ -30,3 +30,23 @@
   color:#fff;
   box-shadow:inset 3px 0 #d600ff;
 }
+
+
+/* v66.15 — stable route frame without redesigning the existing page layouts. */
+.page-shell,
+.page-shell--wide,
+.page-shell--reading,
+.page-shell--narrow{
+  width:min(var(--mbn-layout-wide,1160px),calc(100% - 24px));
+  max-width:var(--mbn-layout-wide,1160px);
+  margin-inline:auto;
+}
+.page-shell--reading>.page-panel{width:min(100%,var(--mbn-layout-reading,1040px));margin-inline:auto}
+.page-shell--narrow>.page-panel{width:min(100%,var(--mbn-layout-narrow,760px));margin-inline:auto}
+.page-panel{min-height:1px}
+@media(max-width:960px){
+  .page-shell,.page-shell--wide,.page-shell--reading,.page-shell--narrow{width:min(100% - 18px,var(--mbn-layout-wide,1160px))}
+}
+@media(max-width:720px){
+  .page-shell,.page-shell--wide,.page-shell--reading,.page-shell--narrow{width:calc(100% - 16px)}
+}

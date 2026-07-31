@@ -5,7 +5,7 @@ const PasswordField = forwardRef(function PasswordField({ className = '', ...pro
   const [visible, setVisible] = useState(false);
   return (
     <span className={`password-field ${className}`.trim()}>
-      <input ref={ref} type={visible ? 'text' : 'password'} {...props} />
+      <input ref={ref} className="mbn-control mbn-control--password" type={visible ? 'text' : 'password'} {...props} />
       <button
         type="button"
         className="password-field__toggle"

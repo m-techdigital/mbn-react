@@ -34,7 +34,13 @@
     "smoke:runtime": "node scripts/smoke-runtime.mjs",
     "smoke:browser": "bash scripts/smoke-browser.sh",
     "smoke:visual": "bash scripts/smoke-visual.sh",
-    "check:form-base": "node scripts/check-form-base.mjs"
+    "check:form-base": "node scripts/check-form-base.mjs",
+    "check:customer-session": "node scripts/check-customer-session.mjs",
+    "check:container-stability": "node scripts/check-container-stability.mjs",
+    "check:form-colors": "node scripts/check-form-colors.mjs",
+    "check:customer-visibility": "node scripts/check-customer-visibility.mjs",
+    "check:validation-ui": "node scripts/check-validation-ui.mjs",
+    "check:contract-compatibility": "node scripts/check-contract-compatibility.mjs"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",

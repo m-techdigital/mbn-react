@@ -32,8 +32,8 @@ export default function FullScreenLoader() {
   const hideTimer = useRef(null);
   const failSafeTimer = useRef(null);
 
-  const routeDelay = readNumber('VITE_ROUTE_OVERLAY_DELAY_MS', 120);
-  const minimumVisible = readNumber('VITE_ROUTE_OVERLAY_MIN_MS', 420);
+  const routeDelay = readNumber('VITE_ROUTE_OVERLAY_DELAY_MS', 260);
+  const minimumVisible = readNumber('VITE_ROUTE_OVERLAY_MIN_MS', 260);
   const initialVisible = readNumber('VITE_INITIAL_LOADING_MS', 850);
   const maximumVisible = readNumber('VITE_ROUTE_OVERLAY_MAX_MS', 6000);
 

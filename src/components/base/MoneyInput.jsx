@@ -46,6 +46,7 @@ export default function MoneyInput({
   return (
     <div className={`money-input ${disabled ? 'is-disabled' : ''}`}>
       <input
+        className="mbn-control mbn-control--money"
         id={id}
         name={name}
         type="text"

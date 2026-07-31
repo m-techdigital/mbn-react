@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getUserFacingError } from '../utils/userFacingError';
+import { normalizeValidationErrors } from '../utils/formValidation';
 import contract from '../contracts/marketplace-contract.json';
 
 const LEGACY_ACCESS_KEY = 'mbn_customer_access_token';
@@ -7,7 +8,32 @@ const LEGACY_REFRESH_KEY = 'mbn_customer_refresh_token';
 let accessToken = null;
 let refreshPromise = null;
 
-const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/v1';
+const configuredApiUrl = String(import.meta.env.VITE_API_URL || '').trim();
+
+const isLoopbackHost = (hostname) => ['localhost', '127.0.0.1', '::1'].includes(hostname);
+
+const resolveBaseURL = () => {
+  if (!configuredApiUrl) return '/api/v1';
+
+  try {
+    const configured = new URL(configuredApiUrl, window.location.origin);
+    const browser = new URL(window.location.origin);
+
+    // Local development must stay same-origin from the browser's perspective.
+    // A configured 127.0.0.1 API while the app is opened on localhost (or the
+    // reverse) prevents SameSite cookies from being sent on XHR after reload.
+    // Vite proxies this relative path to the configured backend origin.
+    if (import.meta.env.DEV && isLoopbackHost(configured.hostname) && isLoopbackHost(browser.hostname)) {
+      return configured.pathname.replace(/\/$/, '') || '/api/v1';
+    }
+
+    return configuredApiUrl.replace(/\/$/, '');
+  } catch {
+    return configuredApiUrl.replace(/\/$/, '') || '/api/v1';
+  }
+};
+
+const baseURL = resolveBaseURL();
 const commonHeaders = {
   Accept: 'application/json',
   'X-Client-App': 'mbn-react',
@@ -83,7 +109,7 @@ api.interceptors.response.use(
     }
 
     const payload = error.response?.data || {};
-    error.validationErrors = payload.errors || {};
+    error.validationErrors = normalizeValidationErrors(payload.errors || {});
     error.userMessage = getUserFacingError(error);
     error.requestId = payload.meta?.request_id || error.response?.headers?.['x-request-id'];
     error.correlationId = payload.meta?.correlation_id || error.response?.headers?.['x-correlation-id'];
