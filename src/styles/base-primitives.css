@@ -1,0 +1,39 @@
+/*
+ * Canonical UI primitives.
+ * Feature/page styles may control spacing around these components, but must not
+ * recreate their internal structure or visual state contracts.
+ */
+.mbn-primary-text-cell{display:grid;gap:4px;min-width:0}
+.mbn-primary-text-cell b,.mbn-primary-text-cell small{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mbn-primary-text-cell small{color:var(--mbn-text-soft,#c9bfce);font-size:12px}
+
+.mbn-step-heading{display:flex;align-items:flex-start;gap:12px;margin:0 0 14px;min-width:0}
+.mbn-step-heading__index{flex:0 0 30px;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--mbn-accent,#bd00e8);color:#fff;font-weight:800}
+.mbn-step-heading>div{min-width:0}
+.mbn-step-heading h2{margin:0 0 4px;font-size:17px;line-height:1.35}
+.mbn-step-heading p{margin:0;color:var(--mbn-text-soft,#bbb1c0);font-size:13px;line-height:1.55}
+
+.mbn-surface-panel{min-width:0;border:1px solid var(--mbn-border,#57315f);background:var(--mbn-surface,#111013);padding:18px;box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.mbn-surface-panel--subtle{background:rgba(17,16,19,.72)}
+.mbn-surface-panel--transparent{border-color:transparent;background:transparent;box-shadow:none}
+.security-form-panel{width:min(100%,680px);margin-inline:auto}
+.security-form-panel>.mbn-base-form{display:grid;gap:14px}
+
+.mbn-record-list{display:grid;min-width:0;border:1px solid var(--mbn-border-soft,#403447);background:var(--mbn-surface,#121015)}
+.mbn-record-list__item{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-width:0;padding:14px 16px;border-bottom:1px solid var(--mbn-border-soft,#403447)}
+.mbn-record-list__item:last-child{border-bottom:0}
+.mbn-record-list__item.is-unread{background:rgba(189,0,232,.08)}
+
+.mbn-inline-notice{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;gap:10px;min-width:0}
+.mbn-inline-notice__content{min-width:0}
+.mbn-inline-notice__content p{overflow-wrap:anywhere}
+.mbn-inline-notice__action{align-self:center;border:1px solid currentColor;background:transparent;color:inherit;padding:7px 10px;font:inherit;font-weight:700;cursor:pointer}
+
+@media(max-width:640px){
+  .mbn-primary-text-cell b,.mbn-primary-text-cell small{white-space:normal;overflow-wrap:anywhere}
+  .mbn-step-heading{gap:9px}.mbn-step-heading__index{flex-basis:28px;width:28px;height:28px}
+  .mbn-surface-panel{padding:14px}
+  .mbn-record-list__item{display:grid;gap:10px;padding:12px}
+  .mbn-inline-notice{grid-template-columns:auto minmax(0,1fr)}
+  .mbn-inline-notice__action{grid-column:1/-1;width:100%}
+}

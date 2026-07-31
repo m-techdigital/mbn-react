@@ -7,6 +7,7 @@ import GamingButton from '../components/base/GamingButton';
 import MoneyInput from '../components/base/MoneyInput';
 import MultiImageUploadField from '../components/base/MultiImageUploadField';
 import PageShell from '../components/base/PageShell';
+import InlineNotice from '../components/base/InlineNotice';
 import { listingRepository, mediaRepository, productRepository } from '../services/repositories';
 import { getUserFacingError } from '../utils/userFacingError';
 import { BaseInput, BaseSelect, BaseTextarea } from '../components/base/FormControls';
@@ -74,7 +75,7 @@ export default function ListingFormPage() {
 
   return <PageShell title="Đăng bán hoặc cho thuê tài khoản" description="Khai báo rõ thông tin, mức giá, ảnh và điều kiện giao dịch để quản trị viên duyệt.">
     <BaseForm className="seller-form" onSubmit={submit}>
-      {error ? <div className="mbn-form-alert is-error">{error}</div> : null}
+      {error ? <InlineNotice type="error" title="Không thể lưu tin đăng">{error}</InlineNotice> : null}
       <BaseFormSection title="Thông tin tài khoản" description="Thông tin này được dùng trong tin đăng và hồ sơ giao dịch.">
         <BaseFormGrid>
           <FormField label="Tên tài khoản" required><BaseInput value={data.name} onChange={(event) => update('name', event.target.value)} required /></FormField>

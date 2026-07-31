@@ -17,9 +17,8 @@ import {
 
 export const PRIMARY_NAV_ITEMS = [
   { to: '/', icon: HomeFilled, label: 'Trang chủ', match: (path) => path === '/' },
-  { to: '/guides', icon: BookOutlined, label: 'Hướng dẫn', match: (path) => path.startsWith('/guides') || path.startsWith('/policies') || path === '/dieu-khoan-va-chinh-sach' },
-  { to: '/teamobi/ninja-school', icon: AppstoreOutlined, label: 'Tài khoản trò chơi', match: (path) => path.startsWith('/teamobi/') || path.startsWith('/garena/') || path.startsWith('/g4m/') },
-  { to: '/services/giao-dich-trung-gian', icon: CustomerServiceOutlined, label: 'Hỗ trợ', match: (path) => path.startsWith('/services/') },
+  { to: '/games', action: 'game-catalog', icon: AppstoreOutlined, label: 'Tài khoản trò chơi', match: (path) => path.startsWith('/teamobi/') || path.startsWith('/garena/') || path.startsWith('/g4m/') },
+  { to: '/support', icon: CustomerServiceOutlined, label: 'Hỗ trợ', match: (path) => path.startsWith('/support') || path.startsWith('/account/cases') },
   { to: '/topics', icon: BookOutlined, label: 'Bài đăng', match: (path) => path.startsWith('/topics') || path.startsWith('/events/') },
 ];
 
@@ -43,8 +42,8 @@ export const SUPPORT_NAV_ITEMS = [
 
 export const BOTTOM_NAV_ITEMS = [
   { to: '/', icon: HomeFilled, label: 'Trang chủ' },
-  { to: '/guides', icon: ShoppingOutlined, label: 'Hướng dẫn' },
-  { to: '/services/giao-dich-trung-gian', icon: CustomerServiceOutlined, label: 'Hỗ trợ' },
+  { to: '/teamobi/ninja-school', icon: ShoppingOutlined, label: 'Tài khoản' },
+  { to: '/support', icon: CustomerServiceOutlined, label: 'Hỗ trợ' },
   { to: '/topics', icon: ReadOutlined, label: 'Bài đăng' },
 ];
 

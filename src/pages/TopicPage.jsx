@@ -25,7 +25,9 @@ export default function TopicPage() {
   }
 
   const items = arrayData(data);
+  const featuredGuides = [['/guides/huong-dan-mua-nick','Hướng dẫn mua tài khoản'],['/guides/huong-dan-dang-ban-cho-thue','Hướng dẫn đăng bán và cho thuê'],['/guides/quy-dinh-dat-coc','Quy định đặt cọc'],['/guides/quy-trinh-thue-nick','Quy trình thuê tài khoản']];
   return <PageShell title="Bài đăng và cẩm nang" description="Hướng dẫn giao dịch, bảo mật, thanh toán và xử lý sự cố." loading={loading} loadingVariant="list" error={error} onReload={reload} width="wide">
+    <div className="mbn-featured-guides">{featuredGuides.map(([to,label])=><Link key={to} to={to}>{label}</Link>)}</div>
     {items.length ? <div className="mbn-topic-grid">{items.map((item, index) => <Link className="mbn-topic-card" to={`/topics/${item.slug}`} key={item.id}><span className="mbn-topic-card__index">{String(index + 1).padStart(2, '0')}</span><div><span className="mbn-topic-card__category">{item.category || 'Hướng dẫn'}</span><h2>{item.title}</h2><p>{item.excerpt || item.description}</p><small>{item.reading_time || '5 phút đọc'} · Cập nhật {item.updated_at || '29/07/2026'}</small></div><b>Đọc bài</b></Link>)}</div> : !loading ? <EmptyState title="Chưa có bài viết" description="Nội dung mới sẽ được cập nhật tại đây." /> : null}
   </PageShell>;
 }

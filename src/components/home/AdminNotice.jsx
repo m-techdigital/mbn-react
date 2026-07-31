@@ -1,7 +1,7 @@
 import { BellOutlined, CustomerServiceOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import GamingModal from '../base/GamingModal';
+import GamingModal, { ModalFooterNote } from '../base/GamingModal';
 
 const SNOOZE_KEY = 'mbn_admin_notice_snooze_until';
 
@@ -46,7 +46,7 @@ export default function AdminNotice() {
       width={480}
       className="admin-info-modal notice-safety-modal"
       footer={<>
-        <span className="gaming-modal__footer-note">Thông tin thanh toán chỉ hiển thị trong từng đơn hàng.</span>
+        <ModalFooterNote>Thông tin thanh toán chỉ hiển thị trong từng đơn hàng.</ModalFooterNote>
         <button type="button" className="modal-button modal-button--muted" onClick={closeForTwoHours}>Ẩn 2 giờ</button>
       </>}
     >

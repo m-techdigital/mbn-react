@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import EmptyState from './EmptyState';
 
+function resolveColumnWidth(width) {
+  if (typeof width === 'number') return `${width}px`;
+  if (typeof width === 'string' && width.trim()) return width;
+  return 'auto';
+}
+
 export default function ResponsiveDataTable({
   columns,
   rows,
@@ -12,7 +18,6 @@ export default function ResponsiveDataTable({
 }) {
   const scrollRef = useRef(null);
   const [scrollState, setScrollState] = useState({ start: true, end: true });
-  const columnTemplate = columns.map((column) => column.width || 'minmax(0,1fr)').join(' ');
 
   const updateScrollState = useCallback(() => {
     const element = scrollRef.current;
@@ -28,67 +33,70 @@ export default function ResponsiveDataTable({
     updateScrollState();
     const element = scrollRef.current;
     if (!element) return undefined;
+
     if (typeof ResizeObserver === 'undefined') {
       window.addEventListener('resize', updateScrollState);
       return () => window.removeEventListener('resize', updateScrollState);
     }
+
     const observer = new ResizeObserver(updateScrollState);
     observer.observe(element);
-    const table = element.firstElementChild;
+    const table = element.querySelector('table');
     if (table) observer.observe(table);
     return () => observer.disconnect();
   }, [rows.length, columns.length, updateScrollState]);
 
   return (
-    <div className={`mbn-table-shell ${className}`.trim()}>
+    <div className={`mbn-table-shell mbn-semantic-table-shell ${className}`.trim()}>
       {caption ? <p className="mbn-table-shell__caption">{caption}</p> : null}
       {rows.length ? (
         <>
           <div className="mbn-table-scroll-hint" aria-hidden="true">Vuốt ngang để xem đầy đủ bảng</div>
           <div
             ref={scrollRef}
-            className={`mbn-table-scroll ${scrollState.start ? 'is-at-start' : ''} ${scrollState.end ? 'is-at-end' : ''}`.trim()}
+            className={`mbn-semantic-table-scroll ${scrollState.start ? 'is-at-start' : ''} ${scrollState.end ? 'is-at-end' : ''}`.trim()}
             role="region"
             aria-label={caption || 'Bảng dữ liệu'}
             tabIndex="0"
             onScroll={updateScrollState}
           >
-            <div className="mbn-table" role="table" aria-rowcount={rows.length} style={{ minWidth }}>
-              <div className="mbn-table__head" role="row" style={{ gridTemplateColumns: columnTemplate }}>
+            <table className="mbn-semantic-table" style={{ minWidth }}>
+              {caption ? <caption className="sr-only">{caption}</caption> : null}
+              <colgroup>
                 {columns.map((column) => (
-                  <div
-                    key={column.key}
-                    className={`${column.fixed === 'right' ? 'is-fixed-right ' : ''}${column.align ? `is-${column.align}` : ''}`.trim()}
-                    role="columnheader"
-                  >
-                    {column.title}
-                  </div>
+                  <col key={column.key} style={{ width: resolveColumnWidth(column.width) }} />
                 ))}
-              </div>
-              <div className="mbn-table__body">
+              </colgroup>
+              <thead>
+                <tr>
+                  {columns.map((column) => (
+                    <th
+                      key={column.key}
+                      scope="col"
+                      className={`${column.fixed === 'right' ? 'is-fixed-right ' : ''}${column.align ? `is-${column.align}` : ''}`.trim()}
+                    >
+                      {column.title}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
                 {rows.map((row) => (
-                  <div
-                    className="mbn-table__row"
-                    role="row"
-                    style={{ gridTemplateColumns: columnTemplate }}
-                    key={typeof rowKey === 'function' ? rowKey(row) : row[rowKey]}
-                  >
+                  <tr key={typeof rowKey === 'function' ? rowKey(row) : row[rowKey]}>
                     {columns.map((column) => (
-                      <div
+                      <td
                         key={column.key}
                         className={`${column.className || ''} ${column.fixed === 'right' ? 'is-fixed-right' : ''} ${column.align ? `is-${column.align}` : ''}`.trim()}
-                        data-label={column.title}
-                        role="cell"
                       >
-                        <div className="mbn-table__cell">
+                        <div className="mbn-semantic-table__cell">
                           {column.render ? column.render(row[column.dataIndex], row) : row[column.dataIndex] ?? '—'}
                         </div>
-                      </div>
+                      </td>
                     ))}
-                  </div>
+                  </tr>
                 ))}
-              </div>
-            </div>
+              </tbody>
+            </table>
           </div>
         </>
       ) : (

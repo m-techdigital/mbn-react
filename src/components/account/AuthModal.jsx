@@ -6,6 +6,7 @@ import FormField from '../base/FormField';
 import BaseChoice from '../base/BaseChoice';
 import GamingButton from '../base/GamingButton';
 import GamingModal from '../base/GamingModal';
+import InlineNotice from '../base/InlineNotice';
 import PasswordField from '../base/PasswordField';
 import { getSupportCode, getUserFacingError } from '../../utils/userFacingError';
 import { BaseInput } from '../base/FormControls';
@@ -105,10 +106,10 @@ export default function AuthModal({ open, initialMode = 'login', onClose }) {
       className="auth-gaming-modal"
       bodyClassName="auth-gaming-modal__body"
     >
-      {error ? <div className="mbn-form-alert is-error" role="alert">{error}</div> : null}
+      {error ? <InlineNotice type="error" title="Không thể xác thực">{error}</InlineNotice> : null}
       {twoFactor.required ? (
         <BaseForm className="auth-gaming-form" onSubmit={submitTwoFactor}>
-          <div className="mbn-form-alert">Nhập mã 6 số từ ứng dụng xác thực hoặc một mã khôi phục.</div>
+          <InlineNotice>Nhập mã 6 số từ ứng dụng xác thực hoặc một mã khôi phục.</InlineNotice>
           <FormField label="Mã xác thực" required error={errors.code}><BaseInput value={twoFactor.code} onChange={(event) => setTwoFactor((value) => ({ ...value, code: event.target.value }))} inputMode="numeric" autoComplete="one-time-code" autoFocus /></FormField>
           <BaseFormActions><GamingButton type="button" variant="secondary" onClick={() => setTwoFactor({ required:false, challenge_token:'', code:'' })}>Quay lại</GamingButton><GamingButton type="submit" variant="primary" loading={busy}>Xác nhận</GamingButton></BaseFormActions>
         </BaseForm>

@@ -85,7 +85,7 @@ export default function ProfilePage() {
         </BaseForm>
       </PageSection>
       <PageStack>
-        <PageSection title="Địa chỉ thư điện tử" description={`Địa chỉ hiện tại: ${customer?.email || 'Chưa thiết lập'}`}>
+        <PageSection title="Đổi địa chỉ thư điện tử" description={`Địa chỉ hiện tại: ${customer?.email || 'Chưa thiết lập'}`}>
           <BaseForm className="mbn-form-stack" onSubmit={requestEmail}>
             <FormField label="Địa chỉ thư điện tử mới" error={emailErrors.email} hint="Địa chỉ mới chỉ được áp dụng sau khi bạn mở liên kết xác nhận trong hộp thư." required><BaseInput type="email" value={newEmail} onChange={(event) => { setNewEmail(event.target.value); clearFieldError(setEmailErrors, 'email'); }} required placeholder="vidu@example.com" /></FormField>
             <BaseFormActions align="stretch"><GamingButton type="submit" block loading={busy === 'email'}>Gửi liên kết xác nhận</GamingButton></BaseFormActions>

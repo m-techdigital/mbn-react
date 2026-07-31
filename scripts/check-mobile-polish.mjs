@@ -16,6 +16,6 @@ for (const token of [
 }
 if (!profile.includes('context="account"')) failures.push('Profile chưa dùng nhãn trạng thái theo ngữ cảnh khách hàng.');
 if (!documents.includes('ResponsiveDataTable')) failures.push('Hồ sơ tài liệu chưa dùng bảng canonical.');
-if (!transactionDocuments.includes('ResponsiveDataTable')) failures.push('Tài liệu trong chi tiết giao dịch chưa dùng bảng canonical.');
+if (!transactionDocuments.includes('transaction-documents__attached-list')) failures.push('Tài liệu trong chi tiết giao dịch chưa dùng danh sách đính kèm responsive.');
 if (failures.length) { console.error(failures.join('\n')); process.exit(1); }
 console.log('Mobile route polish contract OK');

@@ -37,7 +37,7 @@
   box-sizing:border-box;
 }
 .site-frame--account .mbn-table-scroll{overflow-x:auto;overscroll-behavior-inline:contain}
-.wallet-page__metrics{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.wallet-page__metrics{grid-template-columns:repeat(4,minmax(0,1fr))!important}
 .wallet-page__ledger .mbn-page-section__body{padding-inline:14px}
 .wallet-page .table-primary-cell small{display:block;margin-top:5px;color:var(--mbn-muted)}
 
@@ -50,4 +50,104 @@
   .site-frame--account>.site-main{padding-left:8px!important;padding-right:8px!important}
   .wallet-page__metrics{grid-template-columns:1fr!important}
   .wallet-page__ledger .mbn-page-section__body{padding-inline:10px}
+}
+
+
+/* v66.25 — transaction detail, account identity and deposit request presentation. */
+.sidebar-profile__identity{display:grid;grid-template-columns:46px minmax(0,1fr);align-items:center;gap:10px;width:100%;min-width:0}
+.sidebar-profile__identity>strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+.purchase-game-summary{display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr);gap:16px;align-items:start}
+.purchase-game-summary>img,.purchase-game-summary .marketplace-image{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;border:1px solid var(--mbn-border)}
+.recommendation-list-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;align-items:stretch}
+.deposit-detail-modal{display:grid;gap:16px}.deposit-detail-modal>.deposit-qr{max-width:300px;margin-inline:auto}.deposit-detail-modal>img{max-width:100%;border-radius:10px}
+.profile-email-change-notice{padding:12px 14px;margin-bottom:14px;border:1px solid #573061;border-radius:9px;background:#18131c;color:var(--mbn-text)}.profile-email-change-notice ol{margin:8px 0;padding-left:20px}.profile-email-change-notice p{margin:0;color:var(--mbn-muted)}
+@media(max-width:720px){.purchase-game-summary{grid-template-columns:1fr}.recommendation-list-grid{grid-template-columns:1fr}.sidebar-profile__identity{grid-template-columns:42px minmax(0,1fr)}}
+
+/* Canonical list tables remain real tables at every viewport. */
+.canonical-list-table .mbn-table-scroll{overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch!important}
+.canonical-list-table .mbn-table{display:block!important;min-width:var(--canonical-table-min,820px)!important;border:0!important}
+.canonical-list-table .mbn-table__head{display:grid!important}
+.canonical-list-table .mbn-table__body{display:block!important}
+.canonical-list-table .mbn-table__row{display:grid!important;border-radius:0!important}
+.canonical-list-table .mbn-table__row>div{display:flex!important;align-items:center!important;border-bottom:0!important}
+.canonical-list-table .mbn-table__row>div::before{content:none!important;display:none!important}
+.canonical-list-table .mbn-table__cell{overflow:hidden!important;white-space:normal!important}
+@media(max-width:980px){
+  .canonical-list-table .mbn-table-scroll-hint{display:block!important}
+  .canonical-list-table .mbn-table{min-width:920px!important}
+  .canonical-list-table .mbn-table__head{display:grid!important}
+  .canonical-list-table .mbn-table__row{display:grid!important;grid-template-columns:inherit!important}
+  .canonical-list-table .mbn-table__row>div{display:flex!important;grid-template-columns:none!important}
+}
+
+/* v66.28 — all customer list views use one real semantic table at every viewport. */
+.mbn-semantic-table-shell{width:100%;max-width:100%;min-width:0}
+.mbn-semantic-table-scroll{
+  position:relative;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-inline:contain;
+  border:1px solid var(--mbn-v54-border,#47394d);
+  border-radius:8px;
+  background:#100f12;
+  scrollbar-gutter:stable;
+}
+.mbn-semantic-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  table-layout:fixed;
+  color:var(--mbn-text,#f4edf7);
+  background:#100f12;
+}
+.mbn-semantic-table th,
+.mbn-semantic-table td{
+  min-width:0;
+  padding:10px 12px;
+  border-right:1px solid var(--mbn-v45-border-soft,#312935);
+  border-bottom:1px solid var(--mbn-v45-border-soft,#312935);
+  vertical-align:middle;
+  text-align:left;
+}
+.mbn-semantic-table th:last-child,
+.mbn-semantic-table td:last-child{border-right:0}
+.mbn-semantic-table tbody tr:last-child td{border-bottom:0}
+.mbn-semantic-table thead th{
+  position:sticky;
+  top:0;
+  z-index:3;
+  color:#c9becd;
+  background:#201323;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.35;
+  white-space:nowrap;
+}
+.mbn-semantic-table tbody td{font-size:12px;line-height:1.45;background:#100f12}
+.mbn-semantic-table tbody tr:nth-child(even) td{background:#151217}
+.mbn-semantic-table tbody tr:hover td{background:rgba(194,38,239,.055)}
+.mbn-semantic-table__cell{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.mbn-semantic-table .is-center{text-align:center}
+.mbn-semantic-table .is-right{text-align:right}
+.mbn-semantic-table .is-fixed-right{
+  position:sticky;
+  right:0;
+  z-index:2;
+  background:#171419;
+  box-shadow:-7px 0 12px rgba(0,0,0,.28);
+}
+.mbn-semantic-table thead .is-fixed-right{z-index:4;background:#201323}
+@media(max-width:980px){
+  .mbn-semantic-table-shell .mbn-table-scroll-hint{display:block!important}
+  .mbn-semantic-table{width:max-content;min-width:var(--semantic-table-min,920px)!important;table-layout:fixed}
+  .mbn-semantic-table th,.mbn-semantic-table td{padding:9px 10px}
+}
+@media(max-width:520px){
+  .mbn-semantic-table{min-width:860px!important}
+  .mbn-semantic-table th{font-size:10px}
+  .mbn-semantic-table td{font-size:11px}
 }

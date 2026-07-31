@@ -73,3 +73,7 @@ export default function GamingModal({
     document.body,
   );
 }
+
+export function ModalFooterNote({ children, className = '' }) {
+  return <span className={`gaming-modal__footer-note ${className}`.trim()}>{children}</span>;
+}

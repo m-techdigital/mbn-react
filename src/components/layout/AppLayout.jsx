@@ -11,6 +11,7 @@ import FullScreenLoader from './FullScreenLoader';
 import { useAuth } from '../../context/AuthContext';
 import ToastCenter from '../base/ToastCenter';
 import RouteMetadata from '../system/RouteMetadata';
+import SiteFooter from './SiteFooter';
 
 export default function AppLayout() {
   const [authState, setAuthState] = useState({ open: false, mode: 'login' });
@@ -40,6 +41,7 @@ export default function AppLayout() {
         {isAccountWorkspace ? <AccountSidebar onAuth={openAuth} /> : null}
         <main id="main-content" className="site-main" tabIndex="-1"><Outlet /></main>
       </div>
+      {!isAccountWorkspace ? <SiteFooter /> : null}
       <FloatingRail />
       <BottomNav />
       <AuthModal

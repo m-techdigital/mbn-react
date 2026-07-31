@@ -1,7 +1,7 @@
 import { Image } from 'antd';
 import { HeartFilled, HeartOutlined, LeftOutlined, QrcodeOutlined, RightOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import AccountCard from '../components/account/AccountCard';
 import { games } from '../data/catalog';
 import PageShell from '../components/base/PageShell';
@@ -9,7 +9,7 @@ import { useRemoteData } from '../hooks/useRemoteData';
 import { gameRepository, transactionRepository, trustRepository } from '../services/repositories';
 import { formatMoney, imageOf } from '../utils/format';
 import { useAuth } from '../context/AuthContext';
-import GamingModal from '../components/base/GamingModal';
+import GamingModal, { ModalFooterNote } from '../components/base/GamingModal';
 import GamingButton from '../components/base/GamingButton';
 import EmptyState from '../components/base/EmptyState';
 import { showToast } from '../utils/toast';
@@ -34,7 +34,6 @@ export default function GameDetailPage() {
   );
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState('next');
-  const recommendationRef = useRef(null);
   const product = useMemo(() => item?.product ?? {}, [item]);
   const listingType = item?.listing_type || 'sale';
   const rentalRates = item?.rental_rates || item?.rentalRates || [];
@@ -49,14 +48,12 @@ export default function GameDetailPage() {
   const [instantQr, setInstantQr] = useState(null);
   const [instantTransactionId, setInstantTransactionId] = useState(null);
   const [favorite, setFavorite] = useState(false);
-  const [reviewData, setReviewData] = useState({ summary: { average: 0, count: 0 }, reviews: { data: [] } });
   useEffect(() => {
     setActiveSlide(0);
     setSelectedRateId(null);
   }, [item?.id]);
   useEffect(() => {
     if (!item?.id) return;
-    trustRepository.listingReviews(item.id).then((payload) => setReviewData(payload || { summary: { average: 0, count: 0 }, reviews: { data: [] } })).catch(() => {});
     if (account) trustRepository.favorites({ per_page: 100 }).then((payload) => { const rows = payload?.data || payload || []; setFavorite(rows.some((row) => String(row.listing_id) === String(item.id))); }).catch(() => {});
   }, [item?.id, account]);
   const toggleFavorite = async () => {
@@ -154,7 +151,6 @@ export default function GameDetailPage() {
   const previousSlide = () => { setSlideDirection('prev'); setActiveSlide((current) => (current - 1 + images.length) % images.length); };
   const nextSlide = () => { setSlideDirection('next'); setActiveSlide((current) => (current + 1) % images.length); };
   const selectSlide = (index) => { setSlideDirection(index > activeSlide ? 'next' : 'prev'); setActiveSlide(index); };
-  const scrollSuggestions = (direction) => recommendationRef.current?.scrollBy({ left: direction * 760, behavior: 'smooth' });
 
   return <PageShell title={item?.title || `Nick game - Mã số: ${code}`} loading={loading} loadingVariant="detail" error={error} onReload={reload} width="wide">
     {item && <>
@@ -205,20 +201,10 @@ export default function GameDetailPage() {
         <GamingButton variant="primary" size="md" onClick={() => openTransaction('info')}>{listingType === 'rental' ? 'Thuê ngay' : 'Mua ngay'}</GamingButton>
       </div>
 
-      <section className="suggested-panel v6-suggested-panel marketplace-review-panel">
-        <div className="legacy-section-title">UY TÍN NGƯỜI BÁN</div>
-        <div className="seller-reputation-summary"><strong>{Number(reviewData?.summary?.average || 0).toFixed(1)}/5</strong><span>{reviewData?.summary?.count || 0} đánh giá đã xác minh từ giao dịch hoàn tất</span></div>
-        <div className="marketplace-review-list">{(reviewData?.reviews?.data || []).slice(0, 5).map((review) => <article key={review.id}><b>{review.reviewer?.name || 'Khách hàng'}</b><span>{review.rating}/5</span><p>{review.comment || 'Không có nhận xét.'}</p></article>)}</div>
-      </section>
-
       <section className="suggested-panel v6-suggested-panel">
         <div className="legacy-section-title">TÀI KHOẢN GỢI Ý</div>
-        {recommendationsLoading ? <div className="recommendation-loading" role="status">Đang tải tài khoản phù hợp…</div> : recommendationsError ? <EmptyState compact title="Không tải được tài khoản gợi ý" description="Kết nối dữ liệu đang gián đoạn." actionLabel="Thử lại" onAction={reloadRecommendations} /> : suggestions.length ? <div className="recommendation-shell">
-          <button className="recommendation-arrow prev" onClick={() => scrollSuggestions(-1)} aria-label="Xem gợi ý trước"><LeftOutlined /></button>
-          <div className="recommendation-track" ref={recommendationRef}>
-            {suggestions.map((entry) => <div className="recommendation-card" key={entry.id}><AccountCard item={entry} basePath={game?.path || '/'} /></div>)}
-          </div>
-          <button className="recommendation-arrow next" onClick={() => scrollSuggestions(1)} aria-label="Xem gợi ý tiếp theo"><RightOutlined /></button>
+        {recommendationsLoading ? <div className="recommendation-loading" role="status">Đang tải tài khoản phù hợp…</div> : recommendationsError ? <EmptyState compact title="Không tải được tài khoản gợi ý" description="Kết nối dữ liệu đang gián đoạn." actionLabel="Thử lại" onAction={reloadRecommendations} /> : suggestions.length ? <div className="recommendation-list-grid">
+          {suggestions.map((entry) => <AccountCard item={entry} basePath={game?.path || '/'} key={entry.id} />)}
         </div> : <EmptyState compact title="Chưa có tài khoản gợi ý" description="Các tài khoản đang mở bán cùng trò chơi sẽ xuất hiện tại đây." />}
       </section>
 
@@ -230,7 +216,7 @@ export default function GameDetailPage() {
         className="purchase-gaming-modal"
         bodyClassName="purchase-gaming-modal__body"
         footer={<>
-          <span className="gaming-modal__footer-note">{account ? 'Kiểm tra kỹ thông tin trước khi xác nhận.' : 'Bạn chưa đăng nhập. Hãy đăng nhập để mua.'}</span>
+          <ModalFooterNote>{account ? 'Kiểm tra kỹ thông tin trước khi xác nhận.' : 'Bạn chưa đăng nhập. Hãy đăng nhập để mua.'}</ModalFooterNote>
           <GamingButton variant="danger" size="md" className="modal-action-button" onClick={() => setPurchaseOpen(false)}>Hủy</GamingButton>
           <GamingButton variant="primary" size="md" className="modal-action-button" disabled={submitting} loading={submitting} onClick={account ? transact : openLogin}>{account ? 'Thanh toán' : 'Đăng nhập'}</GamingButton>
         </>}
@@ -299,7 +285,7 @@ export default function GameDetailPage() {
         width={520}
         className="instant-payment-modal"
         footer={<>
-          <span className="gaming-modal__footer-note">QR đã gắn đúng số tiền và mã tham chiếu của giao dịch.</span>
+          <ModalFooterNote>QR đã gắn đúng số tiền và mã tham chiếu của giao dịch.</ModalFooterNote>
           <GamingButton variant="secondary" onClick={() => { setInstantQr(null); setInstantTransactionId(null); }}>Đóng</GamingButton>
           <GamingButton variant="primary" onClick={() => navigate(`/account/purchases/${instantTransactionId}`)}>Xem giao dịch</GamingButton>
         </>}

@@ -84,7 +84,6 @@ export const transactionRepository = {
     if (isMockMode()) return Promise.reject(new Error('Đang ở chế độ dữ liệu mẫu. Chuyển VITE_DATA_MODE=api để tạo giao dịch thật.'));
     return invalidateAfter(api.post(`/customer/listings/${listingId}/transact`, payload).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions', 'game-list', 'game-detail']);
   },
-  cancel: (id) => invalidateAfter(api.post(`/customer/transactions/${id}/cancel`).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions']),
   action: (id, action) => invalidateAfter(api.post(`/customer/transactions/${id}/actions`, { action }).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions']),
   paymentQr: (transactionId, paymentId) => api.get(`/customer/transactions/${transactionId}/payments/${paymentId}/qr`).then(unwrap),
   submitPayment: (transactionId, paymentId, payload) => invalidateAfter(api.post(`/customer/transactions/${transactionId}/payments/${paymentId}/submit`, payload).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions']),
@@ -93,7 +92,7 @@ export const transactionRepository = {
 
 export const purchaseRepository = {
   list: (params) => transactionRepository.list({ ...params, role: 'buyer' }), show: transactionRepository.show,
-  create: ({ listing_id, ...payload }) => transactionRepository.transact(listing_id, payload), cancel: transactionRepository.cancel,
+  create: ({ listing_id, ...payload }) => transactionRepository.transact(listing_id, payload),
 };
 
 export const contentRepository = {
@@ -124,9 +123,10 @@ export const walletRepository = {
     () => api.get('/customer/wallet/transactions', { params }).then(unwrap).then((payload) => ({ data: payload?.transactions?.data || [], meta: payload?.transactions || {}, wallet: payload?.wallet })),
     () => Promise.resolve(page(mockWalletTransactions, params)),
   ),
-  bankTopup: (payload) => invalidateAfter(api.post('/customer/wallet/deposit/bank', payload).then(unwrap), ['wallet-transactions', 'deposit']),
+  deposits: (params = {}) => api.get('/customer/wallet/deposits', { params }).then(unwrap),
+  bankTopup: (payload) => invalidateAfter(api.post('/customer/wallet/deposit/bank', payload).then(unwrap), ['wallet-transactions', 'deposit', 'deposits']),
   deposit: (id) => api.get(`/customer/wallet/deposits/${id}`).then(unwrap),
-  submitDepositProof: (id, file, payload = {}) => { const form = new FormData(); form.append('proof', file); Object.entries(payload).forEach(([key,value]) => value != null && form.append(key, value)); return api.post(`/customer/wallet/deposits/${id}/proof`, form, { headers: { 'Content-Type': 'multipart/form-data' } }).then(unwrap); },
+  submitDepositProof: (id, file, payload = {}) => { const form = new FormData(); form.append('proof', file); Object.entries(payload).forEach(([key,value]) => value != null && form.append(key, value)); return invalidateAfter(api.post(`/customer/wallet/deposits/${id}/proof`, form, { headers: { 'Content-Type': 'multipart/form-data' } }).then(unwrap), ['deposit', 'deposits']); },
 };
 
 export const profileRepository = {
@@ -148,7 +148,7 @@ export const serviceRepository = {
 
 export const payoutRepository = {
   overview: () => api.get('/customer/payouts').then(unwrap),
-  submitVerification: (payload) => api.post('/customer/seller-verification', payload).then(unwrap),
+  submitVerification: (payload) => { const form = new FormData(); Object.entries(payload).forEach(([key,value]) => value != null && value !== '' && form.append(key,value)); return api.post('/customer/seller-verification', form, { headers: { 'Content-Type': 'multipart/form-data' } }).then(unwrap); },
   addAccount: (payload) => api.post('/customer/payout-accounts', payload).then(unwrap),
   withdraw: (payload) => invalidateAfter(api.post('/customer/withdrawals', payload).then(unwrap), ['payout', 'wallet-transactions']),
 };
@@ -156,6 +156,7 @@ export const payoutRepository = {
 
 export const marketplaceOperationsRepository = {
   cases: (params = {}) => api.get('/customer/cases', { params }).then(unwrap),
+  caseDetail: (caseId) => api.get(`/customer/cases/${caseId}`).then(unwrap),
   openCase: (transactionId, payload) => api.post(`/customer/transactions/${transactionId}/cases`, payload).then(unwrap),
   message: (caseId, payload) => api.post(`/customer/cases/${caseId}/messages`, payload).then(unwrap),
   snapshots: (transactionId) => api.get(`/customer/transactions/${transactionId}/asset-snapshots`).then(unwrap),

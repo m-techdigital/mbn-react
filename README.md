@@ -67,3 +67,15 @@ Khi Backend đã chạy `migrate:fresh --seed`, hộp thoại đăng nhập hi�
 - Chuẩn hóa tham số `per_page` cho Marketplace API.
 - Che thông báo lỗi kỹ thuật khỏi người dùng.
 - Cân lại bộ lọc và hộp thoại xác thực.
+
+## Base-first UI policy
+
+Frontend sử dụng chính sách **base-first**: page/feature chỉ ghép các owner trong `src/components/base`, không tự dựng lại form, table, modal, drawer, notice, loading hoặc empty state khi đã có base tương ứng.
+
+Tài liệu chi tiết: `BASE-FIRST-UI-ARCHITECTURE-v66.29-REPORT-20260801.md`.
+
+Gate bắt buộc:
+
+```bash
+npm run check:base-first
+```

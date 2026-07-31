@@ -30,6 +30,8 @@ const VerifyEmailPage = lazy(() => import('./pages/VerifyEmailPage'));
 const PayoutPage = lazy(() => import('./pages/PayoutPage'));
 const SupportCasesPage = lazy(() => import('./pages/SupportCasesPage'));
 const AccountTrustPage = lazy(() => import('./pages/AccountTrustPage'));
+const SupportPage = lazy(() => import('./pages/SupportPage'));
+const SupportCaseDetailPage = lazy(() => import('./pages/SupportCaseDetailPage'));
 
 const staticPaths = ['/services/giao-dich-trung-gian', '/services/mua-ban-xu-ninja-school', '/services/nap-luong-carrot'];
 const knowledgePaths = [
@@ -58,6 +60,7 @@ export default function App() {
             <Route path="/garena/lien-quan-mobile" element={<ComingSoonPage />} />
             <Route path="/g4m/dai-tay-du" element={<ComingSoonPage />} />
             <Route path="/events/daily" element={<DailyEventPage />} />
+            <Route path="/support" element={<SupportPage />} />
             <Route path="/topics" element={<TopicPage />} />
             <Route path="/topics/:slug" element={<TopicPage />} />
             <Route path="/guides" element={<KnowledgeHubPage />} />
@@ -76,6 +79,7 @@ export default function App() {
             <Route path="/account/wallet/transactions" element={protectedPage(WalletTransactionsPage)} />
             <Route path="/account/payouts" element={protectedPage(PayoutPage)} />
             <Route path="/account/cases" element={protectedPage(SupportCasesPage)} />
+            <Route path="/account/cases/:id" element={protectedPage(SupportCaseDetailPage)} />
             <Route path="/account/trust" element={protectedPage(AccountTrustPage)} />
             <Route path="/account/wallet/deposit/bank" element={protectedPage(DepositPage)} />
             <Route path="/account/wallet/deposit/card" element={protectedPage(DepositPage)} />

@@ -7,11 +7,14 @@ import { notificationRepository } from '../../services/repositories';
 import { NOTIFICATION_COUNT_CHANGED } from '../../utils/notificationEvents';
 import NotificationTrigger from './NotificationTrigger';
 import MarketplaceImage from '../base/MarketplaceImage';
+import GameCatalogModal from './GameCatalogModal';
+import BaseDrawer from '../base/BaseDrawer';
 
 function NavItems({ items, path, onNavigate }) {
   return items.map((item) => {
     const Icon = item.icon;
     const active = item.match ? isPrimaryNavActive(item, path) : undefined;
+    if (item.action === 'game-catalog') return <button key={item.to} type="button" className={active ? 'active' : undefined} onClick={() => { onNavigate?.(); window.dispatchEvent(new CustomEvent('mbn:open-game-catalog')); }}><Icon /><span>{item.label}</span><i>›</i></button>;
     return (
       <NavLink key={item.to} to={item.to} end={item.to === '/'} className={({ isActive }) => (active || isActive ? 'active' : undefined)} onClick={onNavigate}>
         <Icon /><span>{item.label}</span><i>›</i>
@@ -23,6 +26,7 @@ function NavItems({ items, path, onNavigate }) {
 export default function Header({ onAccount }) {
   const location = useLocation();
   const [drawer, setDrawer] = useState(false);
+  const [gameCatalogOpen, setGameCatalogOpen] = useState(false);
   const { customer, user, logout } = useAuth();
   const account = customer || user;
   const [unreadCount, setUnreadCount] = useState(0);
@@ -51,6 +55,12 @@ export default function Header({ onAccount }) {
   }, [account]);
 
   useEffect(() => {
+    const openCatalog = () => setGameCatalogOpen(true);
+    window.addEventListener('mbn:open-game-catalog', openCatalog);
+    return () => window.removeEventListener('mbn:open-game-catalog', openCatalog);
+  }, []);
+
+  useEffect(() => {
     document.body.classList.toggle('mobile-menu-open', drawer);
     return () => document.body.classList.remove('mobile-menu-open');
   }, [drawer]);
@@ -76,14 +86,15 @@ export default function Header({ onAccount }) {
         <nav className="desktop-nav" aria-label="Điều hướng chính">
           {PRIMARY_NAV_ITEMS.map((item) => {
             const Icon = item.icon;
+            if (item.action === 'game-catalog') return <button key={item.to} type="button" className={isPrimaryNavActive(item, location.pathname) ? 'active' : undefined} onClick={() => setGameCatalogOpen(true)}><Icon /><span>{item.label}</span></button>;
             return <NavLink key={item.to} to={item.to} end={item.to === '/'} className={isPrimaryNavActive(item, location.pathname) ? 'active' : undefined}><Icon /><span>{item.label}</span></NavLink>;
           })}
         </nav>
       </header>
 
-      {drawer && (
-        <div className="mobile-menu-layer" role="presentation" onMouseDown={closeDrawer}>
-          <aside className="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu điều hướng" onMouseDown={(event) => event.stopPropagation()}>
+      <GameCatalogModal open={gameCatalogOpen} onClose={() => setGameCatalogOpen(false)} />
+
+      <BaseDrawer open={drawer} onClose={closeDrawer} ariaLabel="Menu điều hướng" layerClassName="mobile-menu-layer" panelClassName="mobile-menu-panel">
             <div className="mobile-menu-head"><MarketplaceImage src="/images/logo-purple.png" alt="MuaBanNick.Pro" /><button type="button" aria-label="Đóng menu" onClick={closeDrawer}><CloseOutlined /></button></div>
             <nav className="mobile-menu-links"><NavItems items={PRIMARY_NAV_ITEMS} path={location.pathname} onNavigate={closeDrawer} /></nav>
             {account ? (
@@ -98,9 +109,7 @@ export default function Header({ onAccount }) {
             ) : (
               <button type="button" className="mobile-menu-account" onClick={() => { closeDrawer(); onAccount(); }}><UserOutlined /><span>Đăng nhập / Đăng ký</span></button>
             )}
-          </aside>
-        </div>
-      )}
+      </BaseDrawer>
     </>
   );
 }

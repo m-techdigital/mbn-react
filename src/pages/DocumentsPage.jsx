@@ -5,6 +5,7 @@ import ActionGroup from '../components/base/ActionGroup';
 import BaseChoice from '../components/base/BaseChoice';
 import GamingLink from '../components/base/GamingLink';
 import ResponsiveDataTable from '../components/base/ResponsiveDataTable';
+import { PrimaryTextCell } from '../components/base/ContentPrimitives';
 import StatusBadge from '../components/base/StatusBadge';
 import GamingModal from '../components/base/GamingModal';
 import { documentRepository } from '../services/repositories';
@@ -76,13 +77,13 @@ export default function DocumentsPage() {
       key: 'type',
       title: 'Loại tài liệu',
       width: '180px',
-      render: (_, document) => <div className="table-primary-cell"><b>{valueLabel(document.document_type, document.title)}</b><small>{document.code}</small></div>,
+      render: (_, document) => <PrimaryTextCell title={valueLabel(document.document_type, document.title)} description={document.code} />,
     },
     {
       key: 'title',
       title: 'Tên tài liệu',
       width: 'minmax(240px,1fr)',
-      render: (_, document) => <div className="table-primary-cell"><b>{document.title}</b><small>Phiên bản {document.version}</small></div>,
+      render: (_, document) => <PrimaryTextCell title={document.title} description={`Phiên bản ${document.version}`} />,
     },
     {
       key: 'transaction',

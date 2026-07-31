@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const read=(p)=>fs.readFileSync(new URL(`../${p}`, import.meta.url),'utf8');
+const trust=read('src/pages/AccountTrustPage.jsx');
+const deposit=read('src/pages/DepositPage.jsx');
+const notifications=read('src/pages/NotificationsPage.jsx');
+const profile=read('src/pages/ProfilePage.jsx');
+if(trust.includes('Bộ lọc và cảnh báo đã lưu')||trust.includes('Thu hồi</GamingButton>')) throw new Error('Legacy saved-search or session revoke UI still present');
+if(!trust.includes('notification-preference-table')) throw new Error('Canonical notification preference table missing');
+if(!deposit.includes('deposit-overview-table')) throw new Error('Deposit overview table missing');
+if(profile.includes('Cách đổi thư điện tử')) throw new Error('Verbose email change guide still present');
+if(!notifications.includes('simple-notification-list')) throw new Error('Simple notification list missing');
+console.log('Customer account presentation contract passed.');
