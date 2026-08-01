@@ -20,3 +20,9 @@ This customer React app does not directly port `mylands-admin` UI base code. It 
 
 Development merge remains acceptable for the customer app after the outer parent recheck. Production release still depends on dependency-audit remediation and full product QA.
 
+## Cleanup Note
+
+- Removed local frontend build output from `dist`; it is generated output and should not be committed.
+- Removed local macOS `.DS_Store` metadata.
+- No dependency `node_modules/**/dist` package internals were removed.
+- Keep future build artifacts out of Git; regenerate them through `npm run build` when needed.
