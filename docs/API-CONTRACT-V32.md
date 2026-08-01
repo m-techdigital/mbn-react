@@ -3,8 +3,8 @@
 ## API thật
 
 - `GET /api/v1/runtime`
-- `GET /api/v1/marketplace/listings`
-- `GET /api/v1/marketplace/listings/{code}`
+- `GET /api/v1/marketplace/products`
+- `GET /api/v1/marketplace/products/{code}`
 - Nhóm `/api/v1/auth/customer/*`
 - Nhóm `/api/v1/customer/*`
 

@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import { isMockMode } from '../services/dataMode';
 import HomeLoadingState from '../components/home/HomeLoadingState';
 import MarketplaceImage from '../components/base/MarketplaceImage';
+import PageShell from '../components/base/PageShell';
 
 const shortcuts = [
   ['/account/profile', LoginOutlined, 'Thành viên', 'Tài khoản'],
@@ -36,7 +37,7 @@ export default function HomePage() {
   if (preparing) return <HomeLoadingState />;
 
   return (
-    <main id="home-page" className="home-page fidelity-home">
+    <PageShell onBack={false} width="full" className="home-page fidelity-home">
       <section className="hero-banner">
         <MarketplaceImage src="/images/banners/banner-purple-v8.png" alt="MuaBanNick.Pro" />
       </section>
@@ -66,6 +67,6 @@ export default function HomePage() {
       </section>
 
       <AdminNotice />
-    </main>
+    </PageShell>
   );
 }

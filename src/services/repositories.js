@@ -1,6 +1,6 @@
 import api, { unwrap } from './api';
 import { readFromConfiguredSource, isMockMode } from './dataMode';
-import { mockListings, mockNotification, mockServices, mockTopics, mockTransactions, mockWalletTransactions } from '../data/mockData';
+import { mockProducts, mockNotification, mockServices, mockTopics, mockTransactions, mockWalletTransactions } from '../data/mockData';
 import { invalidateQueries } from './queryClient';
 
 const normalizeParams = (params = {}) => {
@@ -37,18 +37,18 @@ export const authRepository = {
   resetPassword: (payload) => api.post('/auth/customer/reset-password', payload).then(unwrap),
 };
 
-const byProductType = (product_type) => ({
+const byGameCode = (game_code) => ({
   list: (params = {}) => readFromConfiguredSource(
-    () => list('/marketplace/listings', { ...params, product_type }),
-    () => page(mockListings.filter(x => x.product?.product_type === product_type), params),
+    () => list('/marketplace/products', { ...params, game_code }),
+    () => page(mockProducts.filter(x => x.game_code === game_code || x.product?.product_type === game_code), params),
   ),
   show: (id) => readFromConfiguredSource(
-    () => show('/marketplace/listings', id),
-    () => Promise.resolve(mockListings.find(x => String(x.id) === String(id) || String(x.code) === String(id)) || null),
+    () => show('/marketplace/products', id),
+    () => Promise.resolve(mockProducts.find(x => String(x.id) === String(id) || String(x.code) === String(id)) || null),
   ),
 });
 
-export const gameRepository = { ninjas: byProductType('ninja_school'), avatars: byProductType('avatar'), dragonBalls: byProductType('dragon_ball') };
+export const gameRepository = { ninjas: byGameCode('ninja_school'), avatars: byGameCode('avatar'), dragonBalls: byGameCode('dragon_ball') };
 
 
 export const mediaRepository = {
@@ -67,22 +67,16 @@ export const mediaRepository = {
 
 export const productRepository = {
   mine: (params = {}) => list('/customer/products', params),
-  create: (payload) => invalidateAfter(api.post('/customer/products', payload).then(unwrap), ['products', 'my-listings']),
-  update: (id, payload) => invalidateAfter(api.put(`/customer/products/${id}`, payload).then(unwrap), ['products', 'my-listings', 'game-list', 'game-detail']),
-};
-
-export const listingRepository = {
-  mine: (params = {}) => list('/customer/listings', params),
-  create: (payload) => invalidateAfter(api.post('/customer/listings', payload).then(unwrap), ['my-listings', 'game-list']),
-  update: (id, payload) => invalidateAfter(api.put(`/customer/listings/${id}`, payload).then(unwrap), ['my-listings', 'game-list', 'game-detail']),
+  create: (payload) => invalidateAfter(api.post('/customer/products', payload).then(unwrap), ['products', 'my-products']),
+  update: (id, payload) => invalidateAfter(api.put(`/customer/products/${id}`, payload).then(unwrap), ['products', 'my-products', 'game-list', 'game-detail']),
 };
 
 export const transactionRepository = {
   list: (params) => readFromConfiguredSource(() => list('/customer/transactions', params), () => page(mockTransactions, params)),
   show: (id) => readFromConfiguredSource(() => show('/customer/transactions', id), () => Promise.resolve(mockTransactions.find(x => String(x.id) === String(id)) || null)),
-  transact: (listingId, payload = {}) => {
+  transact: (productId, payload = {}) => {
     if (isMockMode()) return Promise.reject(new Error('Đang ở chế độ dữ liệu mẫu. Chuyển VITE_DATA_MODE=api để tạo giao dịch thật.'));
-    return invalidateAfter(api.post(`/customer/listings/${listingId}/transact`, payload).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions', 'game-list', 'game-detail']);
+    return invalidateAfter(api.post(`/customer/products/${productId}/transact`, payload).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions', 'game-list', 'game-detail']);
   },
   action: (id, action) => invalidateAfter(api.post(`/customer/transactions/${id}/actions`, { action }).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions']),
   paymentQr: (transactionId, paymentId) => api.get(`/customer/transactions/${transactionId}/payments/${paymentId}/qr`).then(unwrap),
@@ -92,7 +86,7 @@ export const transactionRepository = {
 
 export const purchaseRepository = {
   list: (params) => transactionRepository.list({ ...params, role: 'buyer' }), show: transactionRepository.show,
-  create: ({ listing_id, ...payload }) => transactionRepository.transact(listing_id, payload),
+  create: ({ product_id, ...payload }) => transactionRepository.transact(product_id, payload),
 };
 
 export const contentRepository = {
@@ -166,14 +160,14 @@ export const marketplaceOperationsRepository = {
 
 export const trustRepository = {
   favorites: (params = {}) => api.get('/customer/favorites', { params }).then(unwrap),
-  favorite: (listingId) => invalidateAfter(api.post(`/customer/favorites/${listingId}`).then(unwrap), ['favorites', 'game-detail']),
-  unfavorite: (listingId) => invalidateAfter(api.delete(`/customer/favorites/${listingId}`).then(unwrap), ['favorites', 'game-detail']),
+  favorite: (productId) => invalidateAfter(api.post(`/customer/favorites/${productId}`).then(unwrap), ['favorites', 'game-detail']),
+  unfavorite: (productId) => invalidateAfter(api.delete(`/customer/favorites/${productId}`).then(unwrap), ['favorites', 'game-detail']),
   savedSearches: () => api.get('/customer/saved-searches').then(unwrap),
   saveSearch: (payload) => invalidateAfter(api.post('/customer/saved-searches', payload).then(unwrap), ['saved-searches']),
   deleteSearch: (id) => invalidateAfter(api.delete(`/customer/saved-searches/${id}`).then(unwrap), ['saved-searches']),
   reviews: (params = {}) => api.get('/customer/reviews', { params }).then(unwrap),
   review: (transactionId, payload) => invalidateAfter(api.post(`/customer/transactions/${transactionId}/reviews`, payload).then(unwrap), ['reviews', 'purchase-detail', 'game-detail']),
-  listingReviews: (listingId, params = {}) => api.get(`/marketplace/listings/${listingId}/reviews`, { params }).then(unwrap),
+  productReviews: (productId, params = {}) => api.get(`/marketplace/products/${productId}/reviews`, { params }).then(unwrap),
   preferences: () => api.get('/customer/notification-preferences').then(unwrap),
   updatePreferences: (items) => invalidateAfter(api.put('/customer/notification-preferences', { items }).then(unwrap), ['notification-preferences']),
   sessions: () => api.get('/customer/sessions').then(unwrap),

@@ -12,7 +12,7 @@ const metaItems = (item) => [
 export default function AccountCard({ item, basePath }) {
   const code = item.code || item.id;
   const product = item.product || item;
-  const currentPrice = item.listing_type === 'rental'
+  const currentPrice = item.rental_enabled && !item.sale_enabled
     ? item.rental_price
     : (item.sale_price || item.selling_price || item.price);
   const oldPrice = item.original_price || item.selling_price;
@@ -26,8 +26,8 @@ export default function AccountCard({ item, basePath }) {
           <b>Lv: {item.level || product.metadata?.level || '—'}</b>
           <b>Sv: {item.server || product.metadata?.server || '—'}</b>
         </span>
-        <span className={`listing-chip ${item.listing_type === 'rental' ? 'rental' : ''}`}>
-          {item.listing_type === 'rental' ? 'CHO THUÊ' : 'ĐANG BÁN'}
+        <span className={`listing-chip ${item.rental_enabled && !item.sale_enabled ? 'rental' : ''}`}>
+          {item.rental_enabled && !item.sale_enabled ? 'CHO THUÊ' : 'ĐANG BÁN'}
         </span>
       </Link>
       <div className="account-card-body">

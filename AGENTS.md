@@ -12,3 +12,7 @@
 - Feature/page code must not create a second owner for forms, tables, modals, drawers, notices, loading, empty states, panels, step headings, record lists, or common table cells.
 - When a UI pattern is needed in two places, move it to a canonical base component instead of copying markup or CSS.
 - Run `npm run check:base-first` together with all other `check:*` gates before delivery.
+
+## Mandatory parent-first workflow
+
+Before changing architecture, base components, CSS, hooks, Product, Transaction, payment, availability, documents, migrations or API contracts, read `docs/canonical/PARENT_FIRST_DEVELOPMENT_POLICY.md` and update `docs/canonical/parent-integration-matrix.json` when the parent source or integration decision changes. Do not start implementation until the parent owner, dependencies, consumers, tests and integration classification are recorded.

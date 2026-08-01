@@ -16,7 +16,7 @@ VITE_APP_NAME=MuaBanNick.Pro
 VITE_DATA_MODE=mock
 ```
 
-- `mock`: full UI/UX preview with local listings, topics, notifications, purchases, wallet history and demo customer. Write operations never fake success.
+- `mock`: full UI/UX preview with local products, topics, notifications, purchases, wallet history and demo customer. Write operations never fake success.
 - `auto`: read from the real API first and fall back to mock data only when a read request fails.
 - `api`: use the real AXIRO mini API only; errors are shown normally.
 
@@ -48,7 +48,7 @@ Do not mix npm and Yarn lockfiles in the same repository workflow.
 ## Canonical modules
 
 - Customer authentication and profile
-- Khu mua bán listings: sale and rental
+- Khu mua bán sản phẩm: sale and rental offer modes
 - Ninja School, Dragon Ball and Avatar catalogs
 - Purchase/rental transaction history
 - Wallet history and bank top-up route

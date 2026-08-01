@@ -1,0 +1,1 @@
+import fs from 'node:fs';for(const f of ['src/App.jsx','src/services/repositories.js']){const s=fs.readFileSync(f,'utf8');if(s.includes('/customer/listings')||s.includes('/marketplace/listings'))throw new Error(f+' still references listing endpoints')}console.log('product-only marketplace gate passed')

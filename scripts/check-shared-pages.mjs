@@ -15,7 +15,7 @@ for (const [file, token] of required) {
 const duplicatedLabelOwners = [
   ['src/pages/WalletTransactionsPage.jsx', 'const statusLabel'],
   ['src/pages/PurchaseDetailPage.jsx', 'const labels ='],
-  ['src/pages/MyListingsPage.jsx', 'const statusLabel'],
+  ['src/pages/MyProductsPage.jsx', 'const typeLabel'],
 ];
 for (const [file, token] of duplicatedLabelOwners) {
   if (fs.readFileSync(file,'utf8').includes(token)) errors.push(`${file} còn tự quản lý enum thay vì utils/labels`);

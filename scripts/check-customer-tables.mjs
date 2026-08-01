@@ -3,7 +3,7 @@ import fs from 'node:fs';
 const read = (path) => fs.readFileSync(path, 'utf8');
 const support = read('src/pages/SupportCasesPage.jsx');
 const trust = read('src/pages/AccountTrustPage.jsx');
-const listings = read('src/pages/MyListingsPage.jsx');
+const listings = read('src/pages/MyProductsPage.jsx');
 const table = read('src/components/base/ResponsiveDataTable.jsx');
 const css = read('src/styles/customer-account.css');
 const index = read('src/index.css');

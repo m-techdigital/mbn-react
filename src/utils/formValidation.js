@@ -2,7 +2,7 @@ const FIELD_LABELS = {
   name: 'Tên khách hàng', username: 'Tên đăng nhập', login: 'Tài khoản', email: 'Địa chỉ thư điện tử', phone: 'Số điện thoại',
   password: 'Mật khẩu', password_confirmation: 'Nhập lại mật khẩu', current_password: 'Mật khẩu hiện tại', avatar: 'Ảnh đại diện', avatar_url: 'Ảnh đại diện',
   amount: 'Số tiền', payment_method: 'Phương thức thanh toán', proof: 'Ảnh biên nhận', external_reference: 'Mã giao dịch ngân hàng',
-  title: 'Tiêu đề', description: 'Mô tả', product_id: 'Sản phẩm', listing_type: 'Loại tin', sale_price: 'Giá bán', rental_price: 'Giá thuê',
+  title: 'Tiêu đề', description: 'Mô tả', product_id: 'Sản phẩm', offer_modes: 'Hình thức giao dịch', sale_price: 'Giá bán', rental_price: 'Giá thuê',
   bank_code: 'Mã ngân hàng', bank_name: 'Tên ngân hàng', account_name: 'Tên chủ tài khoản', account_number: 'Số tài khoản',
   payout_account_id: 'Tài khoản nhận tiền', reason: 'Lý do', transaction_id: 'Giao dịch', code: 'Mã xác thực',
 };

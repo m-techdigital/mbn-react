@@ -26,7 +26,7 @@ export const ACCOUNT_NAV_ITEMS = [
   { to: '/account/notifications', icon: BellOutlined, label: 'Thông báo của tôi' },
   { to: '/account/profile', icon: UserOutlined, label: 'Thông tin cá nhân' },
   { to: '/account/wallet/deposit/bank', icon: WalletOutlined, label: 'Nạp tiền ngân hàng' },
-  { to: '/account/listings', icon: ShoppingCartOutlined, label: 'Tin đăng của tôi' },
+  { to: '/account/products', icon: ShoppingCartOutlined, label: 'Sản phẩm của tôi' },
   { to: '/account/purchases', icon: ShoppingCartOutlined, label: 'Giao dịch mua và thuê' },
   { to: '/account/documents', icon: FileTextOutlined, label: 'Hồ sơ tài liệu' },
   { to: '/account/wallet/transactions', icon: HistoryOutlined, label: 'Biến động số dư' },

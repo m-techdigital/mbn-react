@@ -133,12 +133,12 @@ export default function PurchaseDetailPage() {
 
   const productAttributes = transaction?.product?.attributes && typeof transaction.product.attributes === 'object' ? transaction.product.attributes : {};
   const accountDetails = transaction ? [
-    { label: 'Tên tài khoản / nhân vật', value: transaction.product?.name || transaction.listing?.title || '—' },
+    { label: 'Tên tài khoản / nhân vật', value: transaction.product?.name || '—' },
     { label: 'Trò chơi', value: valueLabel(transaction.product?.game_code || transaction.product?.product_type || '—') },
     { label: 'Máy chủ', value: transaction.product?.server_name || productAttributes.server || '—' },
     { label: 'Cấp độ', value: transaction.product?.level || productAttributes.level || '—' },
-    { label: 'Mã tin đăng', value: transaction.listing?.code || '—' },
-    { label: 'Loại tin', value: valueLabel(transaction.listing?.listing_type || transaction.transaction_type) },
+    { label: 'Mã sản phẩm', value: transaction.product?.code || '—' },
+    { label: 'Loại giao dịch', value: valueLabel(transaction.transaction_type) },
     ...Object.entries(productAttributes).filter(([key]) => !['server','level','password','account_password','secret','pin'].includes(key)).slice(0, 6).map(([key, value]) => ({ label: valueLabel(key), value: typeof value === 'boolean' ? (value ? 'Có' : 'Không') : String(value ?? '—') })),
   ] : [];
 

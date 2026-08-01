@@ -19,11 +19,12 @@ export default function PageShell({
 }) {
   const navigate = useNavigate();
   const resolvedWidth = wide ? 'wide' : width;
+  const normalizedWidth = resolvedWidth;
   const back = onBack === false ? null : (onBack || (() => navigate(-1)));
   const hasTools = Boolean(actions || onReload);
 
   return (
-    <section className={`page-shell page-shell--${resolvedWidth} ${className}`.trim()}>
+    <section className={`page-shell page-shell--${normalizedWidth} ${className}`.trim()}>
       <div className="page-panel">
         {(title || description || back || hasTools) ? (
           <header className="mbn-page-header">

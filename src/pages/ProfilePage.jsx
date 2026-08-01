@@ -71,7 +71,7 @@ export default function ProfilePage() {
 
   return <PageShell title="Hồ sơ khách hàng" description="Quản lý thông tin cá nhân, ảnh đại diện, địa chỉ thư điện tử và mật khẩu." onReload={reloadProfile} loading={reloading} loadingVariant="profile" width="wide" className="profile-page-v46">
     <PageColumns ratio="profile">
-      <PageSection title="Thông tin cá nhân" description="Thông tin hiển thị trên tin đăng và giao dịch.">
+      <PageSection title="Thông tin cá nhân" description="Thông tin hiển thị trên sản phẩm và giao dịch.">
         <div className="mbn-profile-summary">
           <div className="mbn-profile-summary__avatar">{profile.avatar_url ? <MarketplaceImage src={profile.avatar_url} alt="Ảnh đại diện" /> : (customer?.name || 'K').charAt(0).toUpperCase()}</div>
           <div className="mbn-profile-summary__copy"><strong>{customer?.name || 'Khách hàng'}</strong><span>{customer?.code || 'Chưa có mã khách hàng'}</span></div>

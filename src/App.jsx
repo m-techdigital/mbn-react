@@ -20,8 +20,8 @@ const DepositPage = lazy(() => import('./pages/DepositPage'));
 const ComingSoonPage = lazy(() => import('./pages/ComingSoonPage'));
 const DailyEventPage = lazy(() => import('./pages/DailyEventPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
-const MyListingsPage = lazy(() => import('./pages/MyListingsPage'));
-const ListingFormPage = lazy(() => import('./pages/ListingFormPage'));
+const MyProductsPage = lazy(() => import('./pages/MyProductsPage'));
+const ProductFormPage = lazy(() => import('./pages/ProductFormPage'));
 const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
 const DocumentsPage = lazy(() => import('./pages/DocumentsPage'));
 const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
@@ -72,8 +72,8 @@ export default function App() {
             <Route path="/account/notifications" element={protectedPage(NotificationsPage)} />
             <Route path="/account/documents" element={protectedPage(DocumentsPage)} />
             <Route path="/account/profile" element={protectedPage(ProfilePage)} />
-            <Route path="/account/listings" element={protectedPage(MyListingsPage)} />
-            <Route path="/account/listings/new" element={protectedPage(ListingFormPage)} />
+            <Route path="/account/products" element={protectedPage(MyProductsPage)} />
+            <Route path="/account/products/new" element={protectedPage(ProductFormPage)} />
             <Route path="/account/purchases" element={protectedPage(PurchasesPage)} />
             <Route path="/account/purchases/:id" element={protectedPage(PurchaseDetailPage)} />
             <Route path="/account/wallet/transactions" element={protectedPage(WalletTransactionsPage)} />

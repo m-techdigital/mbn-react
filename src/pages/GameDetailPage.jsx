@@ -1,7 +1,7 @@
 import { Image } from 'antd';
 import { HeartFilled, HeartOutlined, LeftOutlined, QrcodeOutlined, RightOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import AccountCard from '../components/account/AccountCard';
 import { games } from '../data/catalog';
 import PageShell from '../components/base/PageShell';
@@ -18,6 +18,7 @@ import MarketplaceImage from '../components/base/MarketplaceImage';
 import { BaseInput } from '../components/base/FormControls';
 
 const typeByPath = (path) => path.includes('ninja-school') ? 'ninjas' : path.includes('ngoc-rong') ? 'dragonBalls' : 'avatars';
+const normalizeOfferMode = (mode) => (mode === 'sell' ? 'sale' : mode === 'rent' ? 'rental' : mode);
 
 export default function GameDetailPage() {
   const { code } = useParams();
@@ -34,8 +35,13 @@ export default function GameDetailPage() {
   );
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState('next');
-  const product = useMemo(() => item?.product ?? {}, [item]);
-  const listingType = item?.listing_type || 'sale';
+  const product = useMemo(() => item ?? {}, [item]);
+  const availableTypes = useMemo(
+    () => [...new Set((item?.offer_modes || item?.transaction_types || []).map(normalizeOfferMode).filter((mode) => ['sale', 'rental'].includes(mode)))],
+    [item?.offer_modes, item?.transaction_types],
+  );
+  const [transactionType, setTransactionType] = useState('sale');
+  const listingType = transactionType;
   const rentalRates = item?.rental_rates || item?.rentalRates || [];
   const [selectedRateId, setSelectedRateId] = useState(null);
   const selectedRate = rentalRates.find((rate) => String(rate.id) === String(selectedRateId)) || rentalRates.find((rate) => rate.is_default) || rentalRates[0] || null;
@@ -51,28 +57,29 @@ export default function GameDetailPage() {
   useEffect(() => {
     setActiveSlide(0);
     setSelectedRateId(null);
-  }, [item?.id]);
+    setTransactionType(availableTypes.includes('sale') ? 'sale' : 'rental');
+  }, [availableTypes, item?.id]);
   useEffect(() => {
     if (!item?.id) return;
-    if (account) trustRepository.favorites({ per_page: 100 }).then((payload) => { const rows = payload?.data || payload || []; setFavorite(rows.some((row) => String(row.listing_id) === String(item.id))); }).catch(() => {});
+    if (account) trustRepository.favorites({ per_page: 100 }).then((payload) => { const rows = payload?.data || payload || []; setFavorite(rows.some((row) => String(row.product_id) === String(item.id))); }).catch(() => {});
   }, [item?.id, account]);
   const toggleFavorite = async () => {
     if (!account) { openLogin(); return; }
-    try { if (favorite) await trustRepository.unfavorite(item.id); else await trustRepository.favorite(item.id); setFavorite((value) => !value); showToast('success', favorite ? 'Đã bỏ lưu tin đăng.' : 'Đã lưu tin đăng.'); }
+    try { if (favorite) await trustRepository.unfavorite(item.id); else await trustRepository.favorite(item.id); setFavorite((value) => !value); showToast('success', favorite ? 'Đã bỏ lưu sản phẩm.' : 'Đã lưu sản phẩm.'); }
     catch (requestError) { showToast('error', getUserFacingError(requestError, 'Không thể cập nhật tin đã lưu.')); }
   };
 
-  const openLogin = () => {
+  const openLogin = useCallback(() => {
     setPurchaseOpen(false);
     window.dispatchEvent(new CustomEvent('mbn:open-auth', { detail: { mode: 'login' } }));
-  };
+  }, []);
 
   const transact = async () => {
     if (!account) { openLogin(); return; }
     try {
       setSubmitting(true);
-      const payload = { payment_method: paymentMethod === 'balance' ? 'wallet' : paymentMethod };
-      if (!item?.id) throw new Error('Không xác định được tin đăng cần giao dịch.');
+      const payload = { transaction_type: listingType, payment_method: paymentMethod === 'balance' ? 'wallet' : paymentMethod };
+      if (!item?.id) throw new Error('Không xác định được sản phẩm cần giao dịch.');
       if (!['balance', 'bank'].includes(paymentMethod)) throw new Error('Phương thức thanh toán không hợp lệ.');
       if (listingType === 'rental') {
         if (!selectedRate?.id) throw new Error('Vui lòng chọn kỳ hạn thuê trước khi tiếp tục.');
@@ -87,7 +94,7 @@ export default function GameDetailPage() {
         payload.purchase_mode = purchaseTab === 'installment' ? 'installment' : purchaseTab === 'deposit' ? 'deposit' : 'full';
         if (payload.purchase_mode === 'installment') {
           const minimumInitialPayment = Number(item?.minimum_initial_payment);
-          if (!Number.isFinite(minimumInitialPayment) || minimumInitialPayment <= 0) throw new Error('Tin đăng chưa có cấu hình số tiền trả trước hợp lệ.');
+          if (!Number.isFinite(minimumInitialPayment) || minimumInitialPayment <= 0) throw new Error('Sản phẩm chưa có cấu hình số tiền trả trước hợp lệ.');
           payload.installment_count = Number(item?.max_installment_count || 3);
           payload.initial_payment_amount = minimumInitialPayment;
           payload.installment_interval_unit = item?.installment_interval_unit || 'week';
@@ -131,7 +138,7 @@ export default function GameDetailPage() {
     .slice(0, 8);
 
   const originalPrice = item?.original_price || Number(price || 0) * 1.2;
-  const deposit = Number(selectedRate?.deposit_amount ?? item?.deposit_amount ?? (Number(price || 0) * 0.3));
+  const deposit = Number(selectedRate?.deposit_amount ?? (listingType === 'rental' ? item?.rental_deposit_amount : item?.sale_deposit_amount) ?? (Number(price || 0) * 0.3));
   const installment = Number(price || 0) * 0.7;
   const remaining = Number(price || 0) - (purchaseTab === 'deposit' ? deposit : installment);
   const detailRows = [
@@ -183,13 +190,14 @@ export default function GameDetailPage() {
             <div><small>Giá niêm yết</small><del>{formatMoney(originalPrice)}</del></div>
             <div><small>{selectedRate?.label || 'Mức giá hiện tại'}</small><strong>{formatMoney(price)}</strong></div>
           </div>
-          {listingType === 'rental' && rentalRates.length > 0 && <div className="rental-rate-selector"><b>Chọn kỳ hạn thuê</b><div>{rentalRates.map((rate) => <button type="button" key={rate.id} className={String(selectedRate?.id)===String(rate.id)?'active':''} onClick={() => setSelectedRateId(rate.id)}><span>{rate.label}</span><strong>{formatMoney(rate.price)}</strong><small>Cọc {formatMoney(rate.deposit_amount || item?.deposit_amount || 0)}</small></button>)}</div></div>}
+          {availableTypes.length > 1 && <div className="transaction-type-selector"><b>Chọn loại giao dịch</b><div>{availableTypes.map((type) => <button type="button" key={type} className={transactionType === type ? 'active' : ''} onClick={() => setTransactionType(type)}>{type === 'rental' ? 'Cho thuê' : 'Bán'}</button>)}</div></div>}
+          {listingType === 'rental' && rentalRates.length > 0 && <div className="rental-rate-selector"><b>Chọn kỳ hạn thuê</b><div>{rentalRates.map((rate) => <button type="button" key={rate.id} className={String(selectedRate?.id)===String(rate.id)?'active':''} onClick={() => setSelectedRateId(rate.id)}><span>{rate.label}</span><strong>{formatMoney(rate.price)}</strong><small>Cọc {formatMoney(rate.deposit_amount ?? item?.rental_deposit_amount ?? 0)}</small></button>)}</div></div>}
           <div className="detail-action-grid">
-            <GamingButton variant="secondary" icon={favorite ? <HeartFilled /> : <HeartOutlined />} onClick={toggleFavorite}>{favorite ? 'Đã lưu tin' : 'Lưu tin'}</GamingButton>
+            <GamingButton variant="secondary" icon={favorite ? <HeartFilled /> : <HeartOutlined />} onClick={toggleFavorite}>{favorite ? 'Đã lưu sản phẩm' : 'Lưu sản phẩm'}</GamingButton>
             <GamingButton variant="primary" icon={<QrcodeOutlined />} onClick={() => openTransaction('qr')}>Thanh toán QR</GamingButton>
             <GamingButton icon={<ShoppingCartOutlined />} onClick={() => openTransaction('info')}>{listingType === 'rental' ? 'Thuê ngay' : 'Mua ngay'}</GamingButton>
-            {listingType === 'sale' && item?.allow_installment && <GamingButton onClick={() => openTransaction('installment')}>Mua trả góp</GamingButton>}
-            {listingType === 'sale' && Number(item?.deposit_amount || 0) > 0 && <GamingButton onClick={() => openTransaction('deposit')}>Đặt cọc giữ tài khoản</GamingButton>}
+            {listingType === 'sale' && item?.installment_enabled && <GamingButton onClick={() => openTransaction('installment')}>Mua trả góp</GamingButton>}
+            {listingType === 'sale' && Number(listingType === 'rental' ? item?.rental_deposit_amount : item?.sale_deposit_amount || 0) > 0 && <GamingButton onClick={() => openTransaction('deposit')}>Đặt cọc giữ tài khoản</GamingButton>}
           </div>
           <div className="contact-buttons"><GamingButton variant="contact">Nhắn tin Zalo</GamingButton><GamingButton variant="contact">Messenger</GamingButton></div>
         </section>

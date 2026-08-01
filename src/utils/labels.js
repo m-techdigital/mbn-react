@@ -9,7 +9,7 @@ const STATUS_LABELS = {
 };
 
 const VALUE_LABELS = {
-  purchase: 'Mua tài khoản', rental: 'Thuê tài khoản', sale: 'Bán tài khoản',
+  purchase: 'Mua tài khoản', rental: 'Thuê tài khoản', sale: 'Bán tài khoản', sell: 'Bán', rent: 'Cho thuê',
   buyer: 'Người mua', seller: 'Người bán', renter: 'Người thuê', lessor: 'Người cho thuê',
   installment: 'Trả góp', deposit: 'Đặt cọc', full: 'Thanh toán đủ', periodic: 'Theo từng chu kỳ', upfront: 'Thu trước toàn kỳ',
   security_deposit: 'Tiền cọc thuê', rental_fee: 'Tiền thuê', principal: 'Tiền mua tài khoản',

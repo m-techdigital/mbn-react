@@ -16,7 +16,7 @@ import { formatMoney } from '../utils/format';
 import { BaseInput, BaseTextarea } from '../components/base/FormControls';
 
 const categoryLabels = {
-  transaction: 'Giao dịch', payment: 'Thanh toán', handover: 'Bàn giao', rental_due: 'Hạn thuê', document: 'Tài liệu', case: 'Yêu cầu hỗ trợ', listing: 'Tin đăng', security: 'Bảo mật', marketing: 'Tin giới thiệu',
+  transaction: 'Giao dịch', payment: 'Thanh toán', handover: 'Bàn giao', rental_due: 'Hạn thuê', document: 'Tài liệu', case: 'Yêu cầu hỗ trợ', product: 'Sản phẩm', security: 'Bảo mật', marketing: 'Tin giới thiệu',
 };
 const channelLabels = { in_app: 'Trong ứng dụng', email: 'Thư điện tử', push: 'Thông báo đẩy' };
 const dateTime = (value) => value ? new Date(value).toLocaleString('vi-VN') : '—';
@@ -49,7 +49,7 @@ export default function AccountTrustPage() {
   }, []);
   useEffect(() => { load().catch(() => {}); }, [load]);
 
-  const removeFavorite = useCallback(async (listingId) => { setBusy(`favorite-${listingId}`); try { await trustRepository.unfavorite(listingId); await load(); } finally { setBusy(''); } }, [load]);
+  const removeFavorite = useCallback(async (productId) => { setBusy(`favorite-${productId}`); try { await trustRepository.unfavorite(productId); await load(); } finally { setBusy(''); } }, [load]);
   const savePreferences = async () => { setBusy('preferences'); try { const result = await trustRepository.updatePreferences(preferences); setPreferences(result || []); showToast('success', 'Đã lưu tùy chọn thông báo.'); } catch (error) { showToast('error', getUserFacingError(error)); } finally { setBusy(''); } };
   const beginTwoFactor = async () => { setBusy('2fa-setup'); try { const data=await trustRepository.beginTwoFactorSetup(); setTwoFactorSetup(data); setRecoveryCodes([]); showToast('success','Đã tạo khóa xác thực.'); } catch(error){ showToast('error',getUserFacingError(error)); } finally { setBusy(''); } };
   const confirmTwoFactor = async (event) => { event.preventDefault(); setBusy('2fa-confirm'); try { const data=await trustRepository.confirmTwoFactor(twoFactorCode); setRecoveryCodes(data?.recovery_codes || []); setTwoFactorCode(''); setTwoFactorSetup(null); await load(); showToast('success','Đã bật xác thực hai lớp.'); } catch(error){ showToast('error',getUserFacingError(error)); } finally { setBusy(''); } };
@@ -57,11 +57,11 @@ export default function AccountTrustPage() {
   const disableTwoFactor = async () => { setBusy('2fa-disable'); try { await trustRepository.disableTwoFactor({ password: twoFactorPassword, code: twoFactorCode }); setTwoFactorPassword(''); setTwoFactorCode(''); setRecoveryCodes([]); await load(); showToast('success','Đã tắt xác thực hai lớp.'); } catch(error){ showToast('error',getUserFacingError(error)); } finally { setBusy(''); } };
 
   const favoriteColumns = useMemo(() => [
-    { key: 'listing', title: 'Tin đăng', width: 260, render: (_, row) => <PrimaryTextCell title={row.listing?.title || row.listing?.code} description={row.listing?.product?.name || 'Tài khoản trò chơi'} /> },
-    { key: 'seller', title: 'Người bán', width: 170, render: (_, row) => row.listing?.owner?.name || '—' },
-    { key: 'price', title: 'Mức giá', width: 150, render: (_, row) => formatMoney(row.listing?.sale_price || row.listing?.rental_price || 0) },
-    { key: 'status', title: 'Trạng thái', width: 140, render: (_, row) => <StatusBadge status={row.listing?.status} /> },
-    { key: 'actions', title: 'Thao tác', width: 130, render: (_, row) => <GamingButton size="sm" variant="danger" loading={busy === `favorite-${row.listing_id}`} onClick={() => removeFavorite(row.listing_id)}>Bỏ lưu</GamingButton> },
+    { key: 'product', title: 'Sản phẩm', width: 260, render: (_, row) => <PrimaryTextCell title={row.product?.name || row.product?.code} description={row.product?.game_code || 'Sản phẩm trò chơi'} /> },
+    { key: 'seller', title: 'Người bán', width: 170, render: (_, row) => row.product?.owner?.name || '—' },
+    { key: 'price', title: 'Mức giá', width: 150, render: (_, row) => formatMoney(row.product?.sale_price || row.product?.rental_price || 0) },
+    { key: 'status', title: 'Trạng thái', width: 140, render: (_, row) => <StatusBadge status={row.product?.status} /> },
+    { key: 'actions', title: 'Thao tác', width: 130, render: (_, row) => <GamingButton size="sm" variant="danger" loading={busy === `favorite-${row.product_id}`} onClick={() => removeFavorite(row.product_id)}>Bỏ lưu</GamingButton> },
   ], [busy, removeFavorite]);
   const reviewColumns = [
     { key: 'transaction', title: 'Giao dịch', width: 160, render: (_, row) => row.transaction?.code || '—' },
@@ -79,7 +79,7 @@ export default function AccountTrustPage() {
 
   return <PageShell title="Tin đã lưu và bảo mật" description="Quản lý tin đã lưu, thông báo, xác thực hai lớp và lịch sử phiên đăng nhập." width="wide">
     <PageStack>
-      <PageSection title="Tin đăng đã lưu" description="Các tài khoản bạn muốn theo dõi hoặc xem lại."><ResponsiveDataTable caption="Tin đăng đã lưu" columns={favoriteColumns} rows={favorites} rowKey="id" minWidth={920} emptyText="Chưa có tin đăng đã lưu." /></PageSection>
+      <PageSection title="Sản phẩm đã lưu" description="Các tài khoản bạn muốn theo dõi hoặc xem lại."><ResponsiveDataTable caption="Sản phẩm đã lưu" columns={favoriteColumns} rows={favorites} rowKey="id" minWidth={920} emptyText="Chưa có sản phẩm đã lưu." /></PageSection>
       <PageSection title="Đánh giá giao dịch"><ResponsiveDataTable caption="Đánh giá giao dịch" columns={reviewColumns} rows={reviews} rowKey="id" minWidth={880} emptyText="Chưa có đánh giá giao dịch." /></PageSection>
       <PageSection title="Tùy chọn thông báo" description="Chọn kênh nhận thông báo cho từng nhóm nội dung.">
         <div className="notification-preference-table" role="table" aria-label="Tùy chọn thông báo">

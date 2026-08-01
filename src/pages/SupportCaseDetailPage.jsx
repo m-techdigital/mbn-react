@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PageShell from '../components/base/PageShell';
 import PageSection, { DefinitionGrid, PageStack } from '../components/base/PageSection';
@@ -16,8 +16,8 @@ const typeLabels = { support:'Hỗ trợ chung', cancellation:'Yêu cầu hủy'
 
 export default function SupportCaseDetailPage(){
  const {id}=useParams(); const [item,setItem]=useState(null); const [loading,setLoading]=useState(true); const [message,setMessage]=useState(''); const [busy,setBusy]=useState(false);
- const load=async()=>{setLoading(true);try{setItem(await marketplaceOperationsRepository.caseDetail(id));}finally{setLoading(false);}};
- useEffect(()=>{load().catch(()=>{});},[id]);
+ const load=useCallback(async()=>{setLoading(true);try{setItem(await marketplaceOperationsRepository.caseDetail(id));}finally{setLoading(false);}},[id]);
+ useEffect(()=>{load().catch(()=>{});},[load]);
  const submit=async(e)=>{e.preventDefault();if(!message.trim())return;setBusy(true);try{await marketplaceOperationsRepository.message(id,{message});setMessage('');showToast('success','Đã gửi phản hồi.');await load();}catch(err){showToast('error',getUserFacingError(err,'Không thể gửi phản hồi.'));}finally{setBusy(false);}};
  return <PageShell title={item?.code||'Chi tiết yêu cầu'} description="Theo dõi nội dung, trạng thái và trao đổi của yêu cầu." loading={loading} width="wide">
   {item?<PageStack>

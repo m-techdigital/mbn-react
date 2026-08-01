@@ -60,10 +60,10 @@ export default function GameListPage() {
         <ul>{notes[type].map((note) => <li key={note}>{note}</li>)}</ul>
       </section>
       <AccountFilters type={type} onSubmit={(values) => setParams({ ...values, page: 1, perPage: 12 })} resultText={`Tìm thấy ${total} tài khoản phù hợp`} />
-      <section className="catalog-trust-strip" aria-label="Thông tin giao dịch"><span>✓ Tin đăng được quản trị viên kiểm tra trước khi hiển thị</span><span>✓ Thanh toán và bàn giao được lưu trong hệ thống</span><span>✓ Có cơ chế khiếu nại và hồ sơ tài liệu</span></section>
+      <section className="catalog-trust-strip" aria-label="Thông tin giao dịch"><span>✓ Sản phẩm được quản trị viên kiểm tra trước khi hiển thị</span><span>✓ Thanh toán và bàn giao được lưu trong hệ thống</span><span>✓ Có cơ chế khiếu nại và hồ sơ tài liệu</span></section>
       {items.length ? (
         <div className="account-grid">{items.map((item) => <AccountCard key={item.id || item.code} item={item} basePath={game.path} />)}</div>
-      ) : !loading && <EmptyState title="Chưa có tài khoản phù hợp" description="Hãy thay đổi điều kiện tìm kiếm hoặc quay lại sau khi có tin đăng mới." />}
+      ) : !loading && <EmptyState title="Chưa có tài khoản phù hợp" description="Hãy thay đổi điều kiện tìm kiếm hoặc quay lại sau khi có sản phẩm mới." />}
       {total > 12 && (
         <div className="pagination-wrap">
           <BasePagination page={params.page} pageSize={12} total={total} onChange={(page) => setParams((current) => ({ ...current, page }))} />

@@ -37,8 +37,8 @@
 
 /* Better scan rhythm for public catalog and account workspace. */
 .site-frame--public .page-content,.site-frame--account .page-content{display:grid;gap:12px}
-.account-card-body h2,.seller-listing-card h2,.mbn-topic-card h2{line-height:1.35!important}
-.account-description,.seller-listing-card p,.mbn-topic-card p{line-height:1.48!important}
+.account-card-body h2,.seller-product-card h2,.mbn-topic-card h2{line-height:1.35!important}
+.account-description,.seller-product-card p,.mbn-topic-card p{line-height:1.48!important}
 
 @media(min-width:769px){
   .mbn-filter__toggle{display:none!important}
