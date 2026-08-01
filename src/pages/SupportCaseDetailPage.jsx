@@ -10,6 +10,7 @@ import StatusBadge from '../components/base/StatusBadge';
 import { marketplaceOperationsRepository } from '../services/repositories';
 import { showToast } from '../utils/toast';
 import { getUserFacingError } from '../utils/userFacingError';
+import { valueLabel } from '../utils/labels';
 
 const typeLabels = { support:'Hỗ trợ chung', cancellation:'Yêu cầu hủy', refund:'Yêu cầu hoàn tiền', handover_issue:'Vấn đề bàn giao', return_issue:'Vấn đề hoàn trả', payment_issue:'Vấn đề thanh toán', dispute:'Tranh chấp', appeal:'Khiếu nại kết quả' };
 
@@ -21,7 +22,7 @@ export default function SupportCaseDetailPage(){
  return <PageShell title={item?.code||'Chi tiết yêu cầu'} description="Theo dõi nội dung, trạng thái và trao đổi của yêu cầu." loading={loading} width="wide">
   {item?<PageStack>
    <PageSection actions={<Link to="/account/cases">← Danh sách yêu cầu</Link>}>
-    <DefinitionGrid items={[{label:'Loại yêu cầu',value:typeLabels[item.case_type]||item.case_type},{label:'Trạng thái',value:<StatusBadge status={item.status}/>},{label:'Giao dịch',value:item.transaction?.code||'—'},{label:'Mức ưu tiên',value:item.priority||'Bình thường'},{label:'Lý do',value:item.reason},{label:'Hạn phản hồi dự kiến',value:item.due_at?new Date(item.due_at).toLocaleString('vi-VN'):'—'}]}/>
+    <DefinitionGrid items={[{label:'Loại yêu cầu',value:typeLabels[item.case_type]||item.case_type},{label:'Trạng thái',value:<StatusBadge status={item.status}/>},{label:'Giao dịch',value:item.transaction?.code||'—'},{label:'Mức ưu tiên',value:valueLabel(item.priority,'Bình thường')},{label:'Lý do',value:item.reason},{label:'Hạn phản hồi dự kiến',value:item.due_at?new Date(item.due_at).toLocaleString('vi-VN'):'—'}]}/>
     <div className="support-case-description"><h3>Mô tả ban đầu</h3><p>{item.description}</p></div>
    </PageSection>
    <PageSection title="Trao đổi" description="Chỉ hiển thị nội dung trao đổi dành cho khách hàng.">

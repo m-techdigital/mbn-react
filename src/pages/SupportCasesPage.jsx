@@ -11,6 +11,7 @@ import { showToast } from '../utils/toast';
 import { getUserFacingError } from '../utils/userFacingError';
 import { BaseInput, BaseSelect, BaseTextarea } from '../components/base/FormControls';
 import { Link } from 'react-router-dom';
+import { valueLabel } from '../utils/labels';
 
 const caseTypes = {
   support: 'Hỗ trợ chung', cancellation: 'Yêu cầu hủy', refund: 'Yêu cầu hoàn tiền', handover_issue: 'Vấn đề bàn giao', return_issue: 'Vấn đề hoàn trả', payment_issue: 'Vấn đề thanh toán', dispute: 'Tranh chấp', appeal: 'Khiếu nại kết quả',
@@ -27,7 +28,7 @@ export default function SupportCasesPage() {
     { key: 'code', title: 'Mã', width: 150, render: (_, row) => <b>{row.code}</b> },
     { key: 'type', title: 'Loại yêu cầu', width: 170, render: (_, row) => caseTypes[row.case_type] || row.case_type },
     { key: 'transaction', title: 'Giao dịch', width: 150, render: (_, row) => row.transaction?.code || '—' },
-    { key: 'priority', title: 'Ưu tiên', width: 110, render: (_, row) => row.priority },
+    { key: 'priority', title: 'Ưu tiên', width: 110, render: (_, row) => valueLabel(row.priority, 'Bình thường') },
     { key: 'status', title: 'Trạng thái', width: 150, render: (_, row) => <StatusBadge status={row.status} /> },
     { key: 'updated', title: 'Cập nhật', width: 180, render: (_, row) => row.last_message_at ? new Date(row.last_message_at).toLocaleString('vi-VN') : '—' },
     { key: 'action', title: 'Chi tiết', width: 110, render: (_, row) => <Link className="mbn-table-action" to={`/account/cases/${row.id}`}>Xem</Link> },

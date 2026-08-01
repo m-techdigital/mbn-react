@@ -14,6 +14,7 @@ const VALUE_LABELS = {
   installment: 'Trả góp', deposit: 'Đặt cọc', full: 'Thanh toán đủ', periodic: 'Theo từng chu kỳ', upfront: 'Thu trước toàn kỳ',
   security_deposit: 'Tiền cọc thuê', rental_fee: 'Tiền thuê', principal: 'Tiền mua tài khoản',
   bank: 'Chuyển khoản ngân hàng', wallet: 'Số dư ví',
+  low: 'Thấp', normal: 'Bình thường', medium: 'Trung bình', high: 'Cao', urgent: 'Khẩn cấp',
   hour: 'giờ', day: 'ngày', week: 'tuần', month: 'tháng',
   available: 'Khoản khả dụng', held_balance: 'Khoản tạm giữ',
   deposit_request: 'Yêu cầu nạp tiền', deposit_confirmed: 'Nạp tiền đã xác nhận', transaction_payment: 'Thanh toán giao dịch',
