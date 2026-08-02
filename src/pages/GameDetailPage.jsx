@@ -78,7 +78,7 @@ export default function GameDetailPage() {
     if (!account) { openLogin(); return; }
     try {
       setSubmitting(true);
-      const payload = { transaction_type: listingType, payment_method: paymentMethod === 'balance' ? 'wallet' : paymentMethod };
+      const payload = { availability_version: item.availability_version, transaction_type: listingType, payment_method: paymentMethod === 'balance' ? 'wallet' : paymentMethod };
       if (!item?.id) throw new Error('Không xác định được sản phẩm cần giao dịch.');
       if (!['balance', 'bank'].includes(paymentMethod)) throw new Error('Phương thức thanh toán không hợp lệ.');
       if (listingType === 'rental') {

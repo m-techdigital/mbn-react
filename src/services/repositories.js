@@ -9,6 +9,10 @@ const normalizeParams = (params = {}) => {
   delete normalized.perPage;
   return normalized;
 };
+const createIdempotencyKey = () => {
+  if (globalThis.crypto?.randomUUID) return globalThis.crypto.randomUUID();
+  return `checkout-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+};
 const list = (resource, params = {}) => api.get(resource, { params: normalizeParams(params) }).then(unwrap);
 const show = (resource, id) => api.get(`${resource}/${id}`).then(unwrap);
 const invalidateAfter = (promise, prefixes = []) => promise.then((result) => {
@@ -75,8 +79,9 @@ export const transactionRepository = {
   list: (params) => readFromConfiguredSource(() => list('/customer/transactions', params), () => page(mockTransactions, params)),
   show: (id) => readFromConfiguredSource(() => show('/customer/transactions', id), () => Promise.resolve(mockTransactions.find(x => String(x.id) === String(id)) || null)),
   transact: (productId, payload = {}) => {
+    const normalized = { ...payload, idempotency_key: payload.idempotency_key || createIdempotencyKey() };
     if (isMockMode()) return Promise.reject(new Error('Đang ở chế độ dữ liệu mẫu. Chuyển VITE_DATA_MODE=api để tạo giao dịch thật.'));
-    return invalidateAfter(api.post(`/customer/products/${productId}/transact`, payload).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions', 'game-list', 'game-detail']);
+    return invalidateAfter(api.post(`/customer/products/${productId}/transact`, normalized).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions', 'game-list', 'game-detail']);
   },
   action: (id, action) => invalidateAfter(api.post(`/customer/transactions/${id}/actions`, { action }).then(unwrap), ['purchases', 'purchase-detail', 'wallet-transactions']),
   paymentQr: (transactionId, paymentId) => api.get(`/customer/transactions/${transactionId}/payments/${paymentId}/qr`).then(unwrap),
