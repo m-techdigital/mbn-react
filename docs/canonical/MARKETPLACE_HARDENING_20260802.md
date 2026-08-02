@@ -5,6 +5,7 @@
 - Nguon doi chieu: `mylands-api-develop-20260802-0359.zip` va `mylands-admin-develop-20260802-0359.zip`.
 - Customer app chi dong bo contract can thiet cho product-only marketplace: `availability_version`, `idempotency_key`, transaction type/payment method.
 - Khong them module hop dong rieng; luong chinh van la giao dich san pham.
+- Contract CRUD khong con la integration surface cua customer/admin; tai lieu giao dich neu co chi hien trong ho so giao dich.
 
 ## Ket qua cap nhat customer app
 
@@ -16,13 +17,13 @@
 ## Dau viec nen bo sung cho admin va phoi hop frontend
 
 1. Hien canh bao san pham vua thay doi trang thai/version trong checkout va yeu cau tai lai.
-2. Bo sung trang admin hold monitor de customer support giai thich vi sao san pham dang bi giu.
-3. Bo sung timeline availability trong admin detail san pham, co link sang transaction.
-4. Bo sung hang doi pending payment/delivery/acceptance tre de admin can thiep som.
+2. Da bo sung trang admin hold monitor de customer support giai thich vi sao san pham dang bi giu.
+3. Da bo sung timeline availability va hang doi pending payment/delivery/acceptance can xu ly trong admin operations-control.
 5. Hien label enum nhat quan cho transaction type, payment method, availability status va payment status.
 6. Canh bao duplicate checkout than thien: neu idempotency tra ve transaction cu, dieu huong den chi tiet giao dich.
 7. Bo sung thong bao stale hold/refund/deposit cho buyer/seller neu backend tra trang thai tuong ung.
 8. Can dong bo copywriting tranh dung "hop dong" khi nghiep vu hien tai chi can "giao dich".
+9. Tam khong phat trien fraud engine, SLA engine hay role/policy nhieu cap cho customer app.
 
 ## Ghi chu UI/UX
 
