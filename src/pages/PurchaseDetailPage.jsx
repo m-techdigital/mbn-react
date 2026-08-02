@@ -7,6 +7,7 @@ import GamingButton from '../components/base/GamingButton';
 import GamingModal from '../components/base/GamingModal';
 import FormField from '../components/base/FormField';
 import { useRemoteData } from '../hooks/useRemoteData';
+import { useMarketplaceOptions } from '../hooks/useMarketplaceOptions';
 import { transactionRepository } from '../services/repositories';
 import { formatMoney } from '../utils/format';
 import { statusLabel, valueLabel } from '../utils/labels';
@@ -63,6 +64,7 @@ const paymentOrder = (left, right) => {
 
 export default function PurchaseDetailPage() {
   const { id } = useParams();
+  const { disputeOutcomeLabels } = useMarketplaceOptions();
   const { data: transaction, loading, error, reload } = useRemoteData(() => transactionRepository.show(id), [id], { queryKey: 'purchase-detail', staleTime: 10000 });
   const [acting, setActing] = useState('');
   const [notice, setNotice] = useState('');
@@ -210,7 +212,7 @@ export default function PurchaseDetailPage() {
             </div>
           </PageSection> : null}
           <PageSection title="Tiến trình giao dịch" description="Lịch sử sự kiện của cả hai bên theo thứ tự thời gian.">
-            <ol className="transaction-timeline">{(transaction.events || []).map((event) => <li className="is-done" key={event.id}><b>{event.title}</b><span>{event.description || dateTime(event.created_at)}</span></li>)}</ol>
+            <ol className="transaction-timeline">{(transaction.events || []).map((event) => { const outcome = event.metadata?.outcome; return <li className="is-done" key={event.id}><b>{event.title}</b><span>{event.description || dateTime(event.created_at)}</span>{outcome ? <small>Kết quả: {disputeOutcomeLabels[outcome] || valueLabel(outcome)}</small> : null}</li>; })}</ol>
           </PageSection>
         </PageStack>
       </PageColumns>

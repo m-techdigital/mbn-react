@@ -11,6 +11,10 @@ export function useMarketplaceOptions() {
     () => Object.fromEntries((state.data?.document_types || []).map(({ value, label }) => [value, label])),
     [state.data],
   );
+  const disputeOutcomeLabels = useMemo(
+    () => Object.fromEntries((state.data?.dispute_outcomes || []).map(({ value, label }) => [value, label])),
+    [state.data],
+  );
 
-  return { ...state, documentTypeLabels };
+  return { ...state, documentTypeLabels, disputeOutcomeLabels };
 }

@@ -2,6 +2,7 @@ import api, { unwrap } from './api';
 import { readFromConfiguredSource, isMockMode } from './dataMode';
 import { mockProducts, mockNotification, mockServices, mockTopics, mockTransactions, mockWalletTransactions } from '../data/mockData';
 import { invalidateQueries } from './queryClient';
+import contract from '../contracts/marketplace-contract.json';
 
 const normalizeParams = (params = {}) => {
   const normalized = { ...params };
@@ -104,8 +105,16 @@ export const contentRepository = {
 
 
 
+const marketplaceOptionFallback = {
+  document_types: contract.option_catalog?.document_types || [],
+  dispute_outcomes: contract.option_catalog?.dispute_outcomes || [],
+};
+
 export const marketplaceOptionsRepository = {
-  get: () => api.get('/marketplace/options').then(unwrap),
+  get: () => api.get('/marketplace/options').then(unwrap).then((payload) => ({
+    document_types: payload?.document_types?.length ? payload.document_types : marketplaceOptionFallback.document_types,
+    dispute_outcomes: payload?.dispute_outcomes?.length ? payload.dispute_outcomes : marketplaceOptionFallback.dispute_outcomes,
+  })).catch(() => marketplaceOptionFallback),
 };
 
 export const documentRepository = {
