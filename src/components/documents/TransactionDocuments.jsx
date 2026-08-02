@@ -86,10 +86,10 @@ export default function TransactionDocuments({ transactionId, transactionCode })
   const currentDocument = documents.find((item) => item.id === preview?.id);
   const alreadyAccepted = Boolean(preview?.accepted_by_current_customer || currentDocument?.accepted_by_current_customer || currentDocument?.acceptances?.some((item) => item.customer_id === customer?.id));
 
-  return <PageSection className="transaction-documents transaction-documents--attached" title="Hồ sơ giao dịch" description={`Chỉ hiển thị hợp đồng và biên bản được phát hành cho giao dịch ${transactionCode || ''}.`} actions={<GamingButton size="sm" variant="secondary" loading={loading} onClick={load}>Tải lại</GamingButton>}>
+  return <PageSection className="transaction-documents transaction-documents--attached" title="Hồ sơ giao dịch" description={`Chỉ hiển thị hồ sơ và biên bản được phát hành cho giao dịch ${transactionCode || ''}.`} actions={<GamingButton size="sm" variant="secondary" loading={loading} onClick={load}>Tải lại</GamingButton>}>
     {notice ? <p className="transaction-documents__notice">{notice}</p> : null}
     {loading ? <p className="transaction-documents__loading">Đang tải hồ sơ giao dịch...</p> : null}
-    {!loading && !documents.length ? <p className="mbn-empty-inline">Chưa có hợp đồng hoặc biên bản được phát hành cho giao dịch này.</p> : null}
+    {!loading && !documents.length ? <p className="mbn-empty-inline">Chưa có hồ sơ hoặc biên bản được phát hành cho giao dịch này.</p> : null}
     {!loading && documents.length ? <div className="transaction-documents__attached-list">{documents.map((document) => {
       const accepted = Boolean(document.accepted_by_current_customer || document.acceptances?.some((item) => item.customer_id === customer?.id));
       return <article key={document.id} className="transaction-document-card">

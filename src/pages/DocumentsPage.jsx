@@ -114,7 +114,7 @@ export default function DocumentsPage() {
     },
   ];
 
-  return <PageShell title="Hồ sơ tài liệu" description="Hợp đồng, phụ lục và biên bản được phát hành theo từng giao dịch." loading={loading} loadingVariant="table" error={error} onReload={reload} width="wide">
+  return <PageShell title="Hồ sơ tài liệu" description="Hồ sơ, phụ lục và biên bản được phát hành theo từng giao dịch." loading={loading} loadingVariant="table" error={error} onReload={reload} width="wide">
     <ResponsiveDataTable
       className="document-table"
       columns={columns}

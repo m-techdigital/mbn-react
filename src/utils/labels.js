@@ -21,7 +21,7 @@ const VALUE_LABELS = {
   escrow_hold: 'Tiền giao dịch đang tạm giữ', escrow_release: 'Giải phóng tiền tạm giữ', settlement_credit: 'Tiền bán/cho thuê được ghi có',
   rental_deposit_refund_credit: 'Hoàn tiền cọc thuê', rental_deposit_refund_debit: 'Khấu trừ tiền cọc đang giữ',
   transaction_refund_credit: 'Hoàn tiền giao dịch', transaction_refund_debit: 'Giảm tiền đang giữ để hoàn', admin_adjustment: 'Điều chỉnh quản trị', withdrawal_reserved: 'Giữ tiền chờ rút', withdrawal_released: 'Hoàn tiền yêu cầu rút', withdrawal_paid: 'Đã chi trả tiền rút', settlement_gross_debit: 'Quyết toán tổng tiền tạm giữ', settlement_net_credit: 'Tiền ròng người bán nhận',
-  sale_contract: 'Hợp đồng mua bán', rental_contract: 'Hợp đồng thuê', installment_appendix: 'Phụ lục trả góp',
+  sale_contract: 'Hồ sơ mua bán', rental_contract: 'Hồ sơ thuê', installment_appendix: 'Phụ lục trả góp',
   deposit_confirmation: 'Thỏa thuận đặt cọc', payment_confirmation: 'Xác nhận thanh toán', handover_minutes: 'Biên bản bàn giao',
   return_minutes: 'Biên bản hoàn trả', dispute_minutes: 'Tiếp nhận tranh chấp', dispute_resolution: 'Xử lý tranh chấp',
   refund_settlement: 'Hoàn tiền và đối soát', completion_minutes: 'Hoàn tất giao dịch', security_checklist: 'Kiểm tra bảo mật',
