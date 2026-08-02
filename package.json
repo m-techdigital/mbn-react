@@ -48,7 +48,9 @@
         "check:customer-tables": "node scripts/check-customer-tables.mjs",
         "check:base-first": "node scripts/check-base-first.mjs",
         "check:product-only-marketplace": "node scripts/check-product-only-marketplace.mjs",
-        "check:parent-offer-mode-alignment": "node scripts/check-parent-offer-mode-alignment.mjs"
+        "check:parent-offer-mode-alignment": "node scripts/check-parent-offer-mode-alignment.mjs",
+        "sync:marketplace-options": "node scripts/sync-marketplace-options.mjs",
+        "check:marketplace-options-sync": "node scripts/sync-marketplace-options.mjs --check"
     },
     "dependencies": {
         "@ant-design/icons": "^6.2.2",
