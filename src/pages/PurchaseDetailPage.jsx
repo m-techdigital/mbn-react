@@ -130,6 +130,7 @@ export default function PurchaseDetailPage() {
     { label: 'Đang tạm giữ', value: formatMoney(transaction.escrow_amount || 0), tone: 'warning' },
     { label: 'Đã giải ngân', value: formatMoney(transaction.released_amount || 0), tone: 'success' },
     { label: 'Đã hoàn tiền', value: formatMoney(transaction.refunded_amount || 0) },
+    ...(transaction.transaction_type === 'rental' ? [{ label: 'Khấu trừ tiền cọc', value: formatMoney(transaction.rental_deposit_deduction_amount || 0), tone: Number(transaction.rental_deposit_deduction_amount || 0) > 0 ? 'warning' : undefined }] : []),
     { label: 'Hạn kế tiếp', value: dateTime(transaction.next_payment_due_at) },
   ] : [];
 
@@ -193,6 +194,7 @@ export default function PurchaseDetailPage() {
         <PageStack>
           <PageSection title="Thông tin tài khoản trò chơi" description="Thông tin nhận diện tài khoản gắn cố định với giao dịch, kể cả sau khi hoàn tất."><div className="purchase-game-summary"><MarketplaceImage src={transaction.product?.image_url || transaction.product?.image_urls?.[0]} alt={transaction.product?.name || 'Tài khoản trò chơi'} /><DefinitionGrid items={accountDetails} /></div></PageSection>
           <PageSection title="Thông tin giao dịch"><DefinitionGrid items={transactionDetails} /></PageSection>
+          {transaction.transaction_type === 'rental' && (Number(transaction.rental_deposit_deduction_amount || 0) > 0 || Number(transaction.refunded_amount || 0) > 0) ? <PageSection title="Quyết toán tiền cọc" description="Giải thích số tiền được hoàn và phần khấu trừ sau khi giao dịch thuê kết thúc."><DefinitionGrid items={[{ label: 'Tiền cọc ban đầu', value: formatMoney(transaction.deposit_amount || 0) }, { label: 'Số tiền khấu trừ', value: formatMoney(transaction.rental_deposit_deduction_amount || 0) }, { label: 'Số tiền đã hoàn', value: formatMoney(transaction.refunded_amount || 0) }, { label: 'Lý do khấu trừ', value: transaction.rental_deposit_deduction_note || 'Không có khấu trừ' }]} /></PageSection> : null}
           <TransactionDocuments transactionId={transaction.id} transactionCode={transaction.code} />
           <PageSection title="Các khoản thanh toán" description="Các khoản cần xử lý được ưu tiên trước, sau đó sắp theo kỳ và ngày đến hạn.">
             {duePayments.length ? <div className="purchase-payment-group"><div className="purchase-payment-group__heading"><b>Cần thanh toán</b><span>{duePayments.length} khoản</span></div>{renderPayments(duePayments)}</div> : null}
