@@ -103,6 +103,11 @@ export const contentRepository = {
 
 
 
+
+export const marketplaceOptionsRepository = {
+  get: () => api.get('/marketplace/options').then(unwrap),
+};
+
 export const documentRepository = {
   mine: () => api.get('/customer/documents').then(unwrap),
   transaction: (transactionId) => api.get(`/customer/transactions/${transactionId}/documents`).then(unwrap),

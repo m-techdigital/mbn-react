@@ -10,11 +10,13 @@ import { documentRepository } from '../../services/repositories';
 import { useAuth } from '../../context/AuthContext';
 import { showToast } from '../../utils/toast';
 import { valueLabel } from '../../utils/labels';
+import { useMarketplaceOptions } from '../../hooks/useMarketplaceOptions';
 
 const statement = 'Tôi đã đọc toàn bộ tài liệu, kiểm tra thông tin giao dịch và đồng ý xác nhận bằng phương thức điện tử trên hệ thống.';
 
 export default function TransactionDocuments({ transactionId, transactionCode }) {
   const { customer } = useAuth();
+  const { documentTypeLabels } = useMarketplaceOptions();
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [working, setWorking] = useState('');
@@ -94,8 +96,8 @@ export default function TransactionDocuments({ transactionId, transactionCode })
       const accepted = Boolean(document.accepted_by_current_customer || document.acceptances?.some((item) => item.customer_id === customer?.id));
       return <article key={document.id} className="transaction-document-card">
         <div className="transaction-document-card__content">
-          <span>{valueLabel(document.document_type, 'Tài liệu giao dịch')}</span>
-          <b>{document.title || valueLabel(document.document_type)}</b>
+          <span>{documentTypeLabels[document.document_type] || valueLabel(document.document_type, 'Tài liệu giao dịch')}</span>
+          <b>{document.title || documentTypeLabels[document.document_type] || valueLabel(document.document_type)}</b>
           <small>{document.code} · Phiên bản {document.version}</small>
         </div>
         <div className="transaction-document-card__status">

@@ -14,11 +14,13 @@ import { useAuth } from '../context/AuthContext';
 import { showToast } from '../utils/toast';
 import { getUserFacingError } from '../utils/userFacingError';
 import { valueLabel } from '../utils/labels';
+import { useMarketplaceOptions } from '../hooks/useMarketplaceOptions';
 
 const statement = 'Tôi đã đọc toàn bộ tài liệu, kiểm tra thông tin giao dịch và đồng ý xác nhận bằng phương thức điện tử trên hệ thống.';
 
 export default function DocumentsPage() {
   const { customer } = useAuth();
+  const { documentTypeLabels } = useMarketplaceOptions();
   const { data, loading, error, reload } = useRemoteData(() => documentRepository.mine(), [], { queryKey: 'documents', staleTime: 30000 });
   const documents = data?.data || data || [];
   const [working, setWorking] = useState('');
@@ -77,7 +79,7 @@ export default function DocumentsPage() {
       key: 'type',
       title: 'Loại tài liệu',
       width: '180px',
-      render: (_, document) => <PrimaryTextCell title={valueLabel(document.document_type, document.title)} description={document.code} />,
+      render: (_, document) => <PrimaryTextCell title={documentTypeLabels[document.document_type] || valueLabel(document.document_type, document.title)} description={document.code} />,
     },
     {
       key: 'title',
