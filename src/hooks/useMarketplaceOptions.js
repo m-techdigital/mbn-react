@@ -11,10 +11,14 @@ export function useMarketplaceOptions() {
     () => Object.fromEntries((state.data?.document_types || []).map(({ value, label }) => [value, label])),
     [state.data],
   );
+  const transactionStatusLabels = useMemo(
+    () => Object.fromEntries((state.data?.transaction_statuses || []).map(({ value, label }) => [value, label])),
+    [state.data],
+  );
   const disputeOutcomeLabels = useMemo(
     () => Object.fromEntries((state.data?.dispute_outcomes || []).map(({ value, label }) => [value, label])),
     [state.data],
   );
 
-  return { ...state, documentTypeLabels, disputeOutcomeLabels };
+  return { ...state, documentTypeLabels, disputeOutcomeLabels, transactionStatusLabels };
 }

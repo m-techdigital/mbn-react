@@ -3207,3 +3207,12 @@ body{width:100%}
 .page-shell--wide,
 .page-shell--full{width:min(var(--mbn-shell-max),calc(100% - (var(--mbn-shell-gutter) * 2)));margin-inline:auto}
 .page-shell>.page-panel{width:100%;min-width:0}
+
+.purchase-next-action__hero { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px; border-radius: 14px; background: var(--surface-soft, rgba(255,255,255,.05)); }
+.purchase-next-action__hero p { margin: 4px 0 0; }
+.purchase-journey-list { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+.purchase-journey-list li { display: grid; gap: 3px; padding: 12px; border: 1px solid var(--border-color, rgba(255,255,255,.12)); border-radius: 12px; }
+.purchase-journey-list li.is-completed { opacity: .78; }
+.purchase-blocking-reasons { margin-top: 14px; padding: 12px; border-radius: 12px; background: rgba(255, 168, 0, .08); }
+.purchase-blocking-reasons p { margin: 6px 0 0; }
+@media (max-width: 640px) { .purchase-next-action__hero { align-items: stretch; flex-direction: column; } .purchase-next-action__hero .mbn-button { min-height: 48px; width: 100%; } }

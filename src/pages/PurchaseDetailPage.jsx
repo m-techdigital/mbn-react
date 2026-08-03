@@ -13,6 +13,7 @@ import { formatMoney } from '../utils/format';
 import { statusLabel, valueLabel } from '../utils/labels';
 import TransactionDocuments from '../components/documents/TransactionDocuments';
 import TransactionAssetSnapshots from '../components/account/TransactionAssetSnapshots';
+import TransactionJourney from '../components/account/TransactionJourney';
 import { supportMessage } from '../utils/apiError';
 import { showToast } from '../utils/toast';
 import MarketplaceImage from '../components/base/MarketplaceImage';
@@ -205,6 +206,7 @@ export default function PurchaseDetailPage() {
           <TransactionAssetSnapshots transactionId={transaction.id} transactionType={transaction.transaction_type} />
         </PageStack>
         <PageStack className="purchase-detail-sidebar">
+          <TransactionJourney journey={transaction.journey} loading={acting} onAction={(action) => run(() => transactionRepository.action(transaction.id, action), action)} />
           {actions.length ? <PageSection className="purchase-detail-action-section" title="Thao tác tiếp theo" description="Chỉ hiển thị các thao tác phù hợp với trạng thái hiện tại.">
             <div className="purchase-detail-actions">
               {actions.filter((action) => action !== 'open_dispute' && action !== 'cancel').map((action) => <GamingButton key={action} variant="primary" loading={acting === action} onClick={() => run(() => transactionRepository.action(transaction.id, action), action)}>{actionLabels[action] || valueLabel(action)}</GamingButton>)}

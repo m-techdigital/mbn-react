@@ -14,6 +14,7 @@ import {
     MARKETPLACE_DOCUMENT_TYPES,
     MARKETPLACE_OPTIONS_CACHE_TTL_SECONDS,
     MARKETPLACE_OPTIONS_CONTRACT_VERSION,
+  MARKETPLACE_TRANSACTION_STATUSES,
 } from "../generated/marketplaceOptions";
 
 const normalizeParams = (params = {}) => {
@@ -246,6 +247,7 @@ export const contentRepository = {
 const marketplaceOptionFallback = {
     document_types: MARKETPLACE_DOCUMENT_TYPES,
     dispute_outcomes: MARKETPLACE_DISPUTE_OUTCOMES,
+  transaction_statuses: MARKETPLACE_TRANSACTION_STATUSES,
     contract_version: MARKETPLACE_OPTIONS_CONTRACT_VERSION,
     cache_ttl_seconds: MARKETPLACE_OPTIONS_CACHE_TTL_SECONDS,
 };
