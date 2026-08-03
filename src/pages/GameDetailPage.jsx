@@ -39,6 +39,17 @@ const normalizeOfferMode = (mode) =>
             ? mode?.code || mode?.value
             : mode;
 const hasValue = (value) => value !== undefined && value !== null && value !== "";
+const firstDefined = (...values) =>
+    values.find((value) => value !== undefined && value !== null && value !== "");
+const numberValue = (...values) => Number(firstDefined(...values, 0) || 0);
+const ratePrice = (rate) =>
+    firstDefined(rate?.price, rate?.amount, rate?.rental_price);
+const rateDeposit = (rate) =>
+    firstDefined(rate?.deposit_amount, rate?.rental_deposit_amount);
+const productAttributes = (record) =>
+    record?.attributes && typeof record.attributes === "object"
+        ? record.attributes
+        : {};
 const inferOfferTypes = (record) => {
     const explicitTypes = [
         ...(record?.transaction_types || []),
@@ -62,17 +73,6 @@ const inferOfferTypes = (record) => {
 
     return [...new Set([...explicitTypes, ...inferredTypes])];
 };
-const firstDefined = (...values) =>
-    values.find((value) => value !== undefined && value !== null && value !== "");
-const numberValue = (...values) => Number(firstDefined(...values, 0) || 0);
-const ratePrice = (rate) =>
-    firstDefined(rate?.price, rate?.amount, rate?.rental_price);
-const rateDeposit = (rate) =>
-    firstDefined(rate?.deposit_amount, rate?.rental_deposit_amount);
-const productAttributes = (record) =>
-    record?.attributes && typeof record.attributes === "object"
-        ? record.attributes
-        : {};
 
 export default function GameDetailPage() {
     const { code } = useParams();
@@ -852,10 +852,6 @@ export default function GameDetailPage() {
                                     trả góp.
                                 </p>
                                 <p>
-                                    - Số tiền thanh toán cuối cùng là phần còn
-                                    lại sau khi trừ khoản đã thanh toán lần đầu.
-                                </p>
-                                <p>
                                     - Phí trả góp: <b>0%</b>.
                                 </p>
                                 <p>
@@ -888,10 +884,6 @@ export default function GameDetailPage() {
                                 <p>
                                     - Thời gian thanh toán phần còn lại:{" "}
                                     <b>7 ngày</b>.
-                                </p>
-                                <p>
-                                    - Số tiền thanh toán cuối cùng là phần còn
-                                    lại sau khi trừ khoản đặt cọc đã ghi nhận.
                                 </p>
                                 <p>
                                     - Phí đặt cọc: <b>0%</b>.

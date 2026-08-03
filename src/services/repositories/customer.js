@@ -120,6 +120,11 @@ export const payoutRepository = {
             api.post("/customer/withdrawals", payload).then(unwrap),
             ["payout", "wallet-transactions"],
         ),
+    cancelWithdrawal: (id) =>
+        invalidateAfter(
+            api.post(`/customer/withdrawals/${id}/cancel`).then(unwrap),
+            ["payout", "wallet-transactions"],
+        ),
 };
 
 export const marketplaceOperationsRepository = {

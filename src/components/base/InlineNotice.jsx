@@ -7,13 +7,7 @@ export default function InlineNotice({
     action,
     className = "",
 }) {
-    const rawContent = children ?? description;
-    const content =
-        rawContent && typeof rawContent === "object"
-            ? rawContent.userMessage ||
-              rawContent.message ||
-              "Nội dung đang tạm thời không khả dụng."
-            : rawContent;
+    const content = children ?? description;
     return (
         <section
             className={`mbn-inline-notice is-${type} ${className}`.trim()}

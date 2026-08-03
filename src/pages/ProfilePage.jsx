@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import PageShell from "../components/base/PageShell";
 import PageSection, {
     DefinitionGrid,
@@ -26,8 +26,6 @@ export default function ProfilePage() {
         phone: "",
         avatar_url: "",
     });
-    const [avatarPreviewUrl, setAvatarPreviewUrl] = useState("");
-    const avatarPreviewRef = useRef("");
     const [avatarName, setAvatarName] = useState("");
     const [newEmail, setNewEmail] = useState("");
     const [password, setPassword] = useState({
@@ -52,47 +50,19 @@ export default function ProfilePage() {
         [customer],
     );
 
-    useEffect(
-        () => () => {
-            if (avatarPreviewRef.current)
-                URL.revokeObjectURL(avatarPreviewRef.current);
-        },
-        [],
-    );
-
-    const replaceAvatarPreview = (nextPreviewUrl = "") => {
-        if (avatarPreviewRef.current) {
-            URL.revokeObjectURL(avatarPreviewRef.current);
-        }
-        avatarPreviewRef.current = nextPreviewUrl;
-        setAvatarPreviewUrl(nextPreviewUrl);
-    };
-
     const uploadAvatar = async (file) => {
         if (!file) return;
-        const previewUrl = URL.createObjectURL(file);
-        replaceAvatarPreview(previewUrl);
         setAvatarName(file.name);
         setBusy("avatar");
-        setProfileErrors((current) => ({
-            ...current,
-            avatar: "",
-            avatar_url: "",
-        }));
+        setProfileErrors((current) => ({ ...current, avatar: "" }));
         try {
             const updated = await profileRepository.updateAvatar(
                 file,
                 setUploadProgress,
             );
-            const avatarUrl =
-                updated?.avatar_url ||
-                updated?.customer?.avatar_url ||
-                updated?.profile?.avatar_url ||
-                updated?.data?.avatar_url ||
-                "";
             setProfile((value) => ({
                 ...value,
-                avatar_url: avatarUrl || previewUrl,
+                avatar_url: updated?.avatar_url || "",
             }));
             await refreshCustomer();
             showToast("success", "Đã cập nhật ảnh đại diện.");
@@ -221,9 +191,9 @@ export default function ProfilePage() {
                 >
                     <div className="mbn-profile-summary">
                         <div className="mbn-profile-summary__avatar">
-                            {avatarPreviewUrl || profile.avatar_url ? (
+                            {profile.avatar_url ? (
                                 <MarketplaceImage
-                                    src={avatarPreviewUrl || profile.avatar_url}
+                                    src={profile.avatar_url}
                                     alt="Ảnh đại diện"
                                 />
                             ) : (
@@ -273,7 +243,7 @@ export default function ProfilePage() {
                         </FormField>
                         <ImageUploadField
                             label="Ảnh đại diện"
-                            value={avatarPreviewUrl || profile.avatar_url}
+                            value={profile.avatar_url}
                             fileName={avatarName}
                             loading={busy === "avatar"}
                             progress={uploadProgress}
@@ -283,7 +253,6 @@ export default function ProfilePage() {
                             }
                             onChange={uploadAvatar}
                             onRemove={() => {
-                                replaceAvatarPreview("");
                                 setProfile((value) => ({
                                     ...value,
                                     avatar_url: "",

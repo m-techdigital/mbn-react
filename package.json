@@ -56,8 +56,10 @@
         "check:repository-ownership": "node scripts/check-repository-ownership.mjs",
         "check:style-ownership": "node scripts/check-style-ownership.mjs",
         "check:maintainability": "node scripts/check-maintainability.mjs",
-        "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership && npm run check:maintainability && npm run check:css-domain-ownership",
-        "check:css-domain-ownership": "node scripts/check-css-domain-ownership.mjs"
+        "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership && npm run check:maintainability && npm run check:css-domain-ownership && npm run check:core-flow-e2e && npm run check:parent-layout-parity",
+        "check:css-domain-ownership": "node scripts/check-css-domain-ownership.mjs",
+        "check:core-flow-e2e": "node scripts/check-core-flow-e2e.mjs",
+        "check:parent-layout-parity": "node scripts/check-parent-layout-parity.mjs"
     },
     "dependencies": {
         "@ant-design/icons": "^6.2.2",

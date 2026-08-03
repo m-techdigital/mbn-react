@@ -31,6 +31,8 @@ export default function PayoutPage() {
         withdrawals: { data: [] },
     });
     const [busy, setBusy] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [loadError, setLoadError] = useState("");
     const [verify, setVerify] = useState({
         document_type: "citizen_id",
         document_number: "",
@@ -51,13 +53,19 @@ export default function PayoutPage() {
         note: "",
     });
     const load = async () => {
+        setLoading(true);
+        setLoadError("");
         try {
             setData(await payoutRepository.overview());
         } catch (e) {
-            showToast(
-                "error",
-                getUserFacingError(e, "Không thể tải thông tin nhận tiền."),
+            const message = getUserFacingError(
+                e,
+                "Không thể tải thông tin nhận tiền.",
             );
+            setLoadError(message);
+            showToast("error", message);
+        } finally {
+            setLoading(false);
         }
     };
     useEffect(() => {
@@ -111,6 +119,29 @@ export default function PayoutPage() {
             dataIndex: "submitted_at",
             render: (v) => (v ? new Date(v).toLocaleString("vi-VN") : "—"),
         },
+        {
+            key: "actions",
+            title: "Thao tác",
+            render: (_, row) =>
+                row.status === "submitted" ? (
+                    <GamingButton
+                        size="small"
+                        variant="secondary"
+                        loading={busy === `cancel-${row.id}`}
+                        onClick={() =>
+                            submit(
+                                `cancel-${row.id}`,
+                                () => payoutRepository.cancelWithdrawal(row.id),
+                                "Đã hủy yêu cầu rút tiền.",
+                            )
+                        }
+                    >
+                        Hủy yêu cầu
+                    </GamingButton>
+                ) : (
+                    "—"
+                ),
+        },
     ];
     const verificationStatus = data.verification?.status || "unverified";
     const journey = data.journey || {};
@@ -123,6 +154,10 @@ export default function PayoutPage() {
             description="Hoàn tất xác minh, thiết lập tài khoản nhận và gửi yêu cầu rút theo từng bước."
             width="wide"
             className="payout-page"
+            loading={loading}
+            error={loadError}
+            onReload={load}
+            loadingVariant="detail"
         >
             <PageStack>
                 <MetricGrid
