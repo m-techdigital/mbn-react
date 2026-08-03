@@ -38,6 +38,7 @@ const normalizeOfferMode = (mode) =>
           : typeof mode === "object"
             ? mode?.code || mode?.value
             : mode;
+const hasValue = (value) => value !== undefined && value !== null && value !== "";
 const inferOfferTypes = (record) => {
     const explicitTypes = [
         ...(record?.transaction_types || []),
@@ -47,14 +48,14 @@ const inferOfferTypes = (record) => {
         .filter((mode) => ["sale", "rental"].includes(mode));
     const inferredTypes = [];
     if (
-        record?.sale_enabled ||
-        record?.sale_price !== undefined ||
+        record?.sale_enabled === true ||
+        hasValue(record?.sale_price) ||
         record?.installment_enabled
     )
         inferredTypes.push("sale");
     if (
-        record?.rental_enabled ||
-        record?.rental_price !== undefined ||
+        record?.rental_enabled === true ||
+        hasValue(record?.rental_price) ||
         (record?.rental_rates || record?.rentalRates || []).length > 0
     )
         inferredTypes.push("rental");

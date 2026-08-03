@@ -46,6 +46,13 @@ if (
         "Game detail must normalize API offer mode objects before choosing sale or rental checkout.",
     );
 if (
+    game.includes("sale_price !== undefined") ||
+    game.includes("rental_price !== undefined")
+)
+    failures.push(
+        "Game detail must not infer sale or rental availability from nullable price fields with undefined-only checks.",
+    );
+if (
     !deposit.includes("Danh sách yêu cầu nạp tiền") ||
     !deposit.includes("GamingModal")
 )
