@@ -11,7 +11,7 @@ import { games } from "../data/catalog";
 import PageShell from "../components/base/PageShell";
 import { useRemoteData } from "../hooks/useRemoteData";
 import { gameRepository, trustRepository } from "../services/repositories";
-import { formatMoney, imageOf } from "../utils/format";
+import { arrayData, formatMoney, imageOf } from "../utils/format";
 import { useAuth } from "../context/AuthContext";
 import GamingModal, { ModalFooterNote } from "../components/base/GamingModal";
 import GamingButton from "../components/base/GamingButton";
@@ -65,6 +65,8 @@ export default function GameDetailPage() {
     const [activeSlide, setActiveSlide] = useState(0);
     const [slideDirection, setSlideDirection] = useState("next");
     const product = useMemo(() => item ?? {}, [item]);
+    const productRecord = item?.product || product;
+    const productMetadata = productRecord?.metadata || {};
     const availableTypes = useMemo(
         () => [
             ...new Set(
@@ -170,7 +172,7 @@ export default function GameDetailPage() {
     }, [product, item]);
 
     const game = games.find((entry) => entry.key === type);
-    const suggestions = (recommendationPage?.data || recommendationPage || [])
+    const suggestions = arrayData(recommendationPage)
         .filter(
             (entry) =>
                 String(entry.id) !== String(item?.id) &&
@@ -191,17 +193,14 @@ export default function GameDetailPage() {
         Number(price || 0) -
         (purchaseTab === "deposit" ? deposit : installment);
     const detailRows = [
-        ["Phái", item?.gender || product.metadata?.gender || "Chưa cập nhật"],
-        ["Cấp độ", item?.level || product.metadata?.level || "Chưa cập nhật"],
-        ["Vũ khí", item?.weapon || product.metadata?.weapon || "Chưa cập nhật"],
-        [
-            "Máy chủ",
-            item?.server || product.metadata?.server || "Chưa cập nhật",
-        ],
+        ["Phái", item?.gender || productMetadata.gender || "Chưa cập nhật"],
+        ["Cấp độ", item?.level || productMetadata.level || "Chưa cập nhật"],
+        ["Vũ khí", item?.weapon || productMetadata.weapon || "Chưa cập nhật"],
+        ["Máy chủ", item?.server || productMetadata.server || "Chưa cập nhật"],
         [
             "Mô tả",
             item?.description ||
-                product.description ||
+                productRecord?.description ||
                 "Chưa có mô tả chi tiết.",
         ],
     ];
@@ -229,6 +228,7 @@ export default function GameDetailPage() {
             error={error}
             onReload={reload}
             width="wide"
+            className="game-detail-page"
         >
             {item && (
                 <>

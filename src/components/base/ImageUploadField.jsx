@@ -22,6 +22,11 @@ export default function ImageUploadField({
     const inputId = useId();
     const inputRef = useRef(null);
     const pick = () => inputRef.current?.click();
+    const handleChange = (event) => {
+        const file = event.target.files?.[0] || null;
+        onChange?.(file, event);
+        event.target.value = "";
+    };
 
     return (
         <div className={`mbn-image-upload ${error ? "has-error" : ""}`.trim()}>
@@ -78,9 +83,7 @@ export default function ImageUploadField({
                     className="mbn-image-upload__input"
                     type="file"
                     accept={accept}
-                    onChange={(event) =>
-                        onChange?.(event.target.files?.[0] || null, event)
-                    }
+                    onChange={handleChange}
                 />
             </div>
         </div>

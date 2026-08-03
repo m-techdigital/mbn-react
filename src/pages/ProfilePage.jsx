@@ -54,15 +54,24 @@ export default function ProfilePage() {
         if (!file) return;
         setAvatarName(file.name);
         setBusy("avatar");
-        setProfileErrors((current) => ({ ...current, avatar: "" }));
+        setProfileErrors((current) => ({
+            ...current,
+            avatar: "",
+            avatar_url: "",
+        }));
         try {
             const updated = await profileRepository.updateAvatar(
                 file,
                 setUploadProgress,
             );
+            const avatarUrl =
+                updated?.avatar_url ||
+                updated?.customer?.avatar_url ||
+                updated?.profile?.avatar_url ||
+                "";
             setProfile((value) => ({
                 ...value,
-                avatar_url: updated?.avatar_url || "",
+                avatar_url: avatarUrl,
             }));
             await refreshCustomer();
             showToast("success", "Đã cập nhật ảnh đại diện.");
