@@ -33,3 +33,15 @@ Không port RBAC, company/project/team, Accounting, Reports, generic workflow/SL
 - `src/styles/app.css` is now an ordered import-only manifest instead of a 17k-line concatenated owner.
 - The 31 source sections keep their previous cascade order and now live in explicit layout, component, page, typography, and versioned integration owners.
 - `check:style-ownership` prevents declarations from being reintroduced into the manifest or canonical owners from disappearing.
+
+## Large stylesheet ownership follow-up
+
+The former large content, mobile and interaction owners are now ordered manifests. Their rules are split into semantic sub-owners while preserving the exact cascade order. New rules must be added to the narrowest semantic owner rather than back into a manifest.
+
+## Large-file ownership follow-up — 2026-08-03
+
+- `GameDetailPage` delegates checkout payload construction, transaction creation, instant QR state and login handoff to `useGamePurchaseFlow`.
+- Product-gallery rendering is delegated to `components/marketplace/GameDetailGallery.jsx`; the detail page keeps route data, selected transaction mode and customer action orchestration.
+- `styles/components/modals.css` is now an import-only manifest with semantic modal owners for foundation, admin information, authentication, purchase/payment and responsive refinements.
+- CSS import order is preserved to keep the previous cascade contract.
+- New content/mobile/interaction style owners are registered in the canonical style manifest and guarded by `check:style-ownership`.

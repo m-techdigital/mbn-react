@@ -1,0 +1,227 @@
+/* interaction hierarchy and responsive disclosure owner. */
+:root {
+    --mbn--focus: 0 0 0 3px rgba(190, 48, 218, 0.16);
+    --mbn--toolbar: #151218;
+}
+
+/* Page header no longer reserves invisible placeholder controls. */
+.mbn-page-header {
+    grid-template-columns: auto minmax(0, 1fr) auto !important;
+    align-items: start !important;
+}
+.mbn-page-header__copy {
+    grid-column: 2 !important;
+    min-width: 0 !important;
+}
+.mbn-page-header__back {
+    grid-column: 1 !important;
+}
+.mbn-page-header__tools {
+    grid-column: 3 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 7px !important;
+    min-width: 0 !important;
+}
+.mbn-page-header__actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 7px !important;
+    min-width: 0 !important;
+}
+.mbn-page-header__actions .mbn-button {
+    max-width: 100% !important;
+}
+.mbn-page-header__icon:disabled {
+    opacity: 0.55 !important;
+    cursor: wait !important;
+}
+
+/* Progressive disclosure keeps dense filters readable without dominating mobile. */
+.mbn-filter {
+    overflow: hidden !important;
+    border-color: #443549 !important;
+    background: linear-gradient(180deg, #171419, #100f12) !important;
+}
+.mbn-filter__toggle {
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 0;
+    border-bottom: 1px solid #362c3a;
+    background: var(--mbn--toolbar);
+    color: #f1ebf3;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+.mbn-filter__toggle > span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    font-size: 12px;
+    font-weight: 800;
+}
+.mbn-filter__toggle b {
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #8d2ca0;
+    color: #fff;
+    font-size: 10px;
+}
+.mbn-filter__toggle-copy {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 0 0 auto;
+    color: #b9afbd;
+    font-size: 10.5px;
+    font-weight: 650;
+}
+.mbn-filter__toggle-copy svg {
+    transition: transform 0.18s ease;
+}
+.mbn-filter.is-collapsed .mbn-filter__toggle {
+    border-bottom: 0;
+}
+.mbn-filter.is-collapsed .mbn-filter__toggle-copy svg {
+    transform: rotate(180deg);
+}
+.mbn-filter__toggle:focus-visible {
+    outline: none;
+    box-shadow: inset var(--mbn--focus);
+}
+.mbn-filter__form[hidden] {
+    display: none !important;
+}
+
+/* Clearer content-state transitions without layout collapse. */
+.page-content {
+    min-height: 80px;
+}
+.page-content.is-loading {
+    pointer-events: none;
+}
+.mbn-empty-state {
+    border-style: dashed !important;
+    background: #111014 !important;
+}
+.mbn-empty-with-action {
+    display: grid !important;
+    justify-items: center !important;
+    gap: 10px !important;
+}
+
+/* Action hierarchy: destructive and primary actions remain visually distinct. */
+.mbn-action-group {
+    align-items: stretch !important;
+}
+.mbn-action-group > .mbn-button,
+.mbn-action-group > a > .mbn-button {
+    min-width: 0 !important;
+}
+
+/* Better scan rhythm for public catalog and account workspace. */
+.site-frame--public .page-content,
+.site-frame--account .page-content {
+    display: grid;
+    gap: 12px;
+}
+.account-card-body h2,
+.seller-product-card h2,
+.mbn-topic-card h2 {
+    line-height: 1.35 !important;
+}
+.account-description,
+.seller-product-card p,
+.mbn-topic-card p {
+    line-height: 1.48 !important;
+}
+
+@media (min-width: 769px) {
+    .mbn-filter__toggle {
+        display: none !important;
+    }
+    .mbn-filter__form[hidden] {
+        display: block !important;
+    }
+    .mbn-filter__form {
+        padding-top: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mbn-page-header {
+        grid-template-columns: 26px minmax(0, 1fr) !important;
+        gap: 7px !important;
+    }
+    .mbn-page-header__tools {
+        grid-column: 1/-1 !important;
+        grid-row: 2 !important;
+        width: 100% !important;
+        justify-content: flex-end !important;
+        padding-left: 33px !important;
+    }
+    .mbn-page-header__actions {
+        flex: 1 1 auto !important;
+        flex-wrap: wrap !important;
+        justify-content: flex-start !important;
+    }
+    .mbn-page-header__actions .mbn-button {
+        height: 30px !important;
+        min-height: 30px !important;
+    }
+    .mbn-page-header__tools > .mbn-page-header__icon {
+        flex: 0 0 26px !important;
+    }
+    .mbn-filter__form {
+        padding: 8px !important;
+    }
+    .mbn-filter__toggle {
+        min-height: 36px !important;
+        padding: 7px 8px !important;
+    }
+    .mbn-filter__fields {
+        padding-top: 0 !important;
+    }
+    .mbn-filter__footer {
+        margin-top: 7px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .mbn-page-header__tools {
+        padding-left: 0 !important;
+    }
+    .mbn-page-header__actions {
+        width: 100% !important;
+    }
+    .mbn-page-header__actions > a,
+    .mbn-page-header__actions > .mbn-button {
+        flex: 1 1 auto !important;
+    }
+    .mbn-page-header__actions > a > .mbn-button {
+        width: 100% !important;
+    }
+    .mbn-filter__toggle-copy {
+        font-size: 10px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mbn-filter__toggle-copy svg {
+        transition: none !important;
+    }
+}
+

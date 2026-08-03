@@ -1,0 +1,248 @@
+/* canonical cross-screen form, modal and content resilience */
+.mbn-page-section,
+.mbn-page-section__body,
+.mbn-page-stack,
+.mbn-base-form,
+.mbn-base-form__section,
+.mbn-base-form__section-body,
+.gaming-modal,
+.gaming-modal__body {
+    min-width: 0;
+}
+.mbn-page-section__body > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* One control contract for every native form surface. */
+.mbn-form-field__control > input,
+.mbn-form-field__control > select,
+.mbn-form-field__control > textarea,
+.mbn-filter__control > input,
+.mbn-filter__control > select,
+.mbn-filter__control > textarea,
+.gaming-modal input,
+.gaming-modal select,
+.gaming-modal textarea,
+.seller-form input,
+.seller-form select,
+.seller-form textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    color: #211923;
+    background: #f8f5fa;
+    border-color: #9d28b9;
+    caret-color: #7c138f;
+    color-scheme: light;
+    font: inherit;
+}
+.mbn-form-field__control > textarea,
+.gaming-modal textarea,
+.seller-form textarea {
+    resize: vertical;
+    overflow-wrap: anywhere;
+}
+.mbn-form-field__control > select option,
+.mbn-filter__control > select option,
+.gaming-modal select option,
+.seller-form select option {
+    background: #fff;
+    color: #211923;
+}
+.mbn-form-field__control > input::placeholder,
+.mbn-form-field__control > textarea::placeholder,
+.mbn-filter__control > input::placeholder,
+.gaming-modal input::placeholder,
+.gaming-modal textarea::placeholder {
+    color: #776d7b;
+    opacity: 1;
+}
+.mbn-form-field__control > :disabled,
+.mbn-filter__control > :disabled,
+.gaming-modal :is(input, select, textarea):disabled {
+    opacity: 0.72;
+    cursor: not-allowed;
+    background: #e8e2eb;
+    color: #625a66;
+}
+
+/* Grids must wrap before controls or copy collapse. */
+.mbn-base-form__grid--2 {
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+}
+.mbn-base-form__grid--3 {
+    grid-template-columns: repeat(3, minmax(190px, 1fr));
+}
+.mbn-filter__fields {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+}
+.mbn-filter__field,
+.mbn-form-field,
+.rental-rate-row > * {
+    min-width: 0;
+}
+
+/* Modal contract shared by auth, purchase, payment, notices and documents. */
+.gaming-modal {
+    width: min(var(--gaming-modal-width), calc(100vw - 24px));
+    display: flex;
+    flex-direction: column;
+}
+.gaming-modal__header h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.gaming-modal__body {
+    width: 100%;
+    overflow-x: hidden;
+}
+.gaming-modal__body > * {
+    min-width: 0;
+    max-width: 100%;
+}
+.gaming-modal__footer {
+    grid-template-columns: minmax(180px, 1fr) repeat(2, minmax(96px, auto));
+    width: 100%;
+}
+.gaming-modal__footer > .mbn-button,
+.gaming-modal__footer > a {
+    min-width: 0;
+}
+.purchase-info-table > div,
+.purchase-bank-list > div,
+.mbn-definition-grid > div {
+    grid-template-columns: minmax(110px, 42%) minmax(0, 1fr);
+}
+.purchase-info-table b,
+.purchase-info-table span,
+.purchase-bank-list dt,
+.purchase-bank-list dd,
+.mbn-definition-grid dt,
+.mbn-definition-grid dd {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.purchase-price-row > span {
+    min-width: 0;
+}
+.purchase-price-row del,
+.purchase-price-row strong {
+    white-space: nowrap;
+    text-decoration-skip-ink: auto;
+}
+
+/* Content pages and numbered guides never squeeze prose into a one-character column. */
+.guide-box {
+    grid-template-columns: 42px minmax(0, 1fr) !important;
+    align-items: start;
+}
+.guide-box > div:last-child {
+    min-width: 0;
+}
+.guide-box h2,
+.guide-box p,
+.guide-support p,
+.mbn-page-section p {
+    word-break: normal;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+.guide-step {
+    flex: 0 0 auto;
+}
+
+/* Table actions remain usable without clipping or invisible controls. */
+.mbn-data-table-wrap,
+.storefront-table-card {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+.document-library__actions,
+.purchase-detail-actions,
+.mbn-action-group {
+    min-width: 0;
+}
+.document-library__actions .mbn-button,
+.purchase-detail-actions .mbn-button {
+    max-width: 100%;
+    white-space: normal;
+}
+
+@media (max-width: 980px) {
+    .mbn-base-form__grid--3 {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+    }
+}
+@media (max-width: 720px) {
+    .mbn-base-form__grid--2,
+    .mbn-base-form__grid--3,
+    .mbn-filter__fields {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+    .mbn-base-form__section {
+        padding: 13px !important;
+    }
+    .mbn-base-form__section-head {
+        gap: 10px;
+    }
+    .mbn-base-form__section-actions {
+        width: 100%;
+    }
+    .mbn-base-form__section-actions > .mbn-button {
+        width: 100%;
+    }
+    .gaming-modal__footer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .gaming-modal__footer-note {
+        grid-column: 1/-1;
+    }
+    .gaming-modal__footer > .mbn-button,
+    .gaming-modal__footer > a {
+        width: 100%;
+    }
+    .purchase-info-table > div,
+    .purchase-bank-list > div,
+    .mbn-definition-grid > div {
+        grid-template-columns: minmax(96px, 40%) minmax(0, 1fr);
+    }
+    .guide-box {
+        grid-template-columns: 34px minmax(0, 1fr) !important;
+        gap: 10px !important;
+    }
+}
+@media (max-width: 420px) {
+    .gaming-modal {
+        width: 100%;
+    }
+    .purchase-info-table > div,
+    .purchase-bank-list > div,
+    .mbn-definition-grid > div {
+        grid-template-columns: 1fr;
+    }
+    .purchase-info-table b,
+    .purchase-info-table span,
+    .purchase-bank-list dt,
+    .purchase-bank-list dd,
+    .mbn-definition-grid dt,
+    .mbn-definition-grid dd {
+        justify-content: flex-start !important;
+        text-align: left !important;
+    }
+    .purchase-price-row > span {
+        display: flex !important;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: flex-start !important;
+    }
+    .document-library__actions {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .document-library__actions .mbn-button {
+        width: 100%;
+    }
+}
+

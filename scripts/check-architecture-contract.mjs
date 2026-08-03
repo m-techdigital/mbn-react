@@ -9,13 +9,17 @@ const failures = [];
 const consolidatedCss =
     index.includes('@import "./styles/foundation.css";') &&
     index.includes('@import "./styles/app.css";');
-for (const token of [
-    "lazy(() => import('./pages/",
-    "<Suspense fallback={<RouteLoadingFallback />}>",
-    "<RouteBoundary>",
-])
-    if (!app.includes(token))
-        failures.push(`App thiếu kiến trúc route: ${token}`);
+const routeContracts = [
+    [/lazy\(\(\) => import\(["']\.\/pages\//, "lazy page routes"],
+    [
+        /<Suspense fallback=\{<RouteLoadingFallback \/>\}>/,
+        "route loading fallback",
+    ],
+    [/<RouteBoundary>/, "route boundary"],
+];
+for (const [pattern, label] of routeContracts)
+    if (!pattern.test(app))
+        failures.push(`App thiếu kiến trúc route: ${label}`);
 for (const source of [header, sidebar, bottom])
     if (!source.includes("../../config/navigation"))
         failures.push("Navigation chưa dùng owner chung");

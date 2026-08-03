@@ -1,0 +1,131 @@
+/* one canonical form-control owner across every feature form. */
+:root {
+    --mbn-form-control-bg: #f8f5fa;
+    --mbn-form-control-text: #211923;
+    --mbn-form-control-placeholder: #776b7c;
+    --mbn-form-control-border: #9d38b5;
+    --mbn-form-control-border-hover: #c226ef;
+    --mbn-form-control-focus: rgba(194, 38, 239, 0.24);
+    --mbn-form-control-disabled-bg: #ddd6e1;
+    --mbn-form-control-disabled-text: #665d69;
+    --mbn-form-label: #f7eff9;
+    --mbn-form-hint: #c7bbc9;
+    --mbn-form-error: #ff8998;
+}
+.mbn-control,
+.mbn-form-field__control > .mbn-control,
+.mbn-filter__control > .mbn-control {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: var(--mbn-control-height, 42px);
+    border: 1px solid var(--mbn-form-control-border);
+    border-radius: 6px;
+    background: var(--mbn-form-control-bg);
+    color: var(--mbn-form-control-text);
+    padding: 9px 12px;
+    font: 600 14px/1.4 inherit;
+    caret-color: #68127a;
+    outline: 0;
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+.mbn-control:hover {
+    border-color: var(--mbn-form-control-border-hover);
+}
+.mbn-control:focus,
+.mbn-control:focus-visible {
+    border-color: var(--mbn-form-control-border-hover);
+    box-shadow: 0 0 0 3px var(--mbn-form-control-focus);
+}
+.mbn-control::placeholder {
+    color: var(--mbn-form-control-placeholder);
+    opacity: 1;
+    font-weight: 500;
+}
+.mbn-control:disabled,
+.mbn-control[readonly] {
+    background: var(--mbn-form-control-disabled-bg);
+    color: var(--mbn-form-control-disabled-text);
+    cursor: not-allowed;
+    opacity: 1;
+}
+.mbn-control option {
+    background: #fff;
+    color: var(--mbn-form-control-text);
+}
+.mbn-control--textarea {
+    min-height: 104px;
+    height: auto !important;
+    resize: vertical;
+    white-space: pre-wrap;
+}
+.mbn-control--select {
+    padding-right: 34px;
+}
+.mbn-control.is-invalid,
+.mbn-form-field.has-error .mbn-control {
+    border-color: var(--mbn-form-error);
+}
+.mbn-form-field__label,
+.mbn-filter__label {
+    color: var(--mbn-form-label) !important;
+}
+.mbn-form-field__hint {
+    color: var(--mbn-form-hint) !important;
+}
+.mbn-form-field__error {
+    color: var(--mbn-form-error) !important;
+}
+.password-field,
+.money-input {
+    border: 1px solid var(--mbn-form-control-border) !important;
+    background: var(--mbn-form-control-bg) !important;
+    color: var(--mbn-form-control-text) !important;
+}
+.password-field:focus-within,
+.money-input:focus-within {
+    border-color: var(--mbn-form-control-border-hover) !important;
+    box-shadow: 0 0 0 3px var(--mbn-form-control-focus);
+}
+.password-field input,
+.money-input input {
+    background: transparent !important;
+    color: var(--mbn-form-control-text) !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.password-field input::placeholder,
+.money-input input::placeholder {
+    color: var(--mbn-form-control-placeholder) !important;
+    opacity: 1;
+}
+.password-field__toggle {
+    color: #4f3d56 !important;
+}
+.mbn-choice__label {
+    color: var(--mbn-form-label);
+}
+.mbn-choice__content small {
+    color: var(--mbn-form-hint);
+}
+.auth-gaming-form .mbn-control,
+.seller-form .mbn-control,
+.gaming-modal .mbn-control,
+.profile-panel .mbn-control,
+.deposit-flow .mbn-control {
+    background: var(--mbn-form-control-bg) !important;
+    color: var(--mbn-form-control-text) !important;
+}
+@media (max-width: 720px) {
+    .mbn-control {
+        min-height: var(--mbn-control-height-mobile, 44px);
+        font-size: 16px;
+    }
+    .mbn-control--textarea {
+        min-height: 112px;
+    }
+}
+

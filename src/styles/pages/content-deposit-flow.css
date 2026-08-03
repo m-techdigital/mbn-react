@@ -1,0 +1,169 @@
+/* nạp tiền có giao dịch, QR và chứng từ */
+.deposit-flow {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+    gap: 18px;
+}
+.deposit-step-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.deposit-step-title > span {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #bd00e8;
+    color: #fff;
+    font-weight: 800;
+}
+.deposit-step-title h2 {
+    margin: 0 0 3px;
+    font-size: 17px;
+}
+.deposit-step-title p {
+    margin: 0;
+    color: #bbb1c0;
+    font-size: 13px;
+}
+.deposit-status {
+    margin: 12px 0;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1px solid #78408a;
+    background: #211326;
+}
+.deposit-status b {
+    font-size: 15px;
+}
+.deposit-status span {
+    color: #c7bdca;
+    font-size: 12px;
+}
+.deposit-status--submitted {
+    border-color: #c78b29;
+    background: #2b2110;
+}
+.deposit-status--confirmed {
+    border-color: #2da87d;
+    background: #10271f;
+}
+.deposit-status--rejected {
+    border-color: #d14b61;
+    background: #2c1218;
+}
+.deposit-payment-grid {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 14px;
+    margin: 12px 0;
+}
+.deposit-qr {
+    padding: 12px;
+    display: grid;
+    place-items: center;
+    gap: 8px;
+    border: 1px solid #49364f;
+    background: #fff;
+}
+.deposit-qr img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.deposit-qr small {
+    color: #332b36;
+    font-size: 11px;
+}
+.deposit-proof {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #443149;
+}
+.deposit-proof input[type="file"] {
+    height: auto;
+    padding: 10px;
+    background: #18131c;
+    color: #fff;
+}
+.deposit-proof-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 230px;
+    margin: 0 0 12px;
+    object-fit: contain;
+    border: 1px solid #5c3567;
+}
+.deposit-guide-card ol {
+    margin: 0;
+    padding-left: 20px;
+}
+.deposit-guide-card ol li {
+    margin: 8px 0;
+    color: #d2cad5;
+    font-size: 14px;
+    line-height: 1.55;
+}
+.transaction-main-status {
+    min-width: 180px;
+    padding: 10px 14px;
+    border: 1px solid #85429a;
+    background: #24122a;
+    text-align: center;
+}
+.transaction-main-status span,
+.transaction-main-status b {
+    display: block;
+}
+.transaction-main-status span {
+    color: #bcaec2;
+    font-size: 11px;
+}
+.transaction-main-status b {
+    margin-top: 3px;
+    color: #fff;
+    font-size: 16px;
+}
+.transaction-main-status--completed,
+.transaction-main-status--confirmed {
+    border-color: #2fae82;
+    background: #10281f;
+}
+.transaction-main-status--cancelled,
+.transaction-main-status--disputed {
+    border-color: #d14f65;
+    background: #2b1218;
+}
+.transaction-main-status--partially_paid,
+.transaction-main-status--pending_payment,
+.transaction-main-status--handover_pending {
+    border-color: #bd872d;
+    background: #2a2110;
+}
+@media (max-width: 800px) {
+    .deposit-flow,
+    .deposit-payment-grid {
+        grid-template-columns: 1fr;
+    }
+    .deposit-qr {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    .deposit-status {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .transaction-main-status {
+        width: 100%;
+        min-width: 0;
+        text-align: left;
+    }
+}

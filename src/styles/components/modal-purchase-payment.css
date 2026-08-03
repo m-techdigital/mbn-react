@@ -1,0 +1,246 @@
+/* Purchase / installment / deposit */
+.purchase-gaming-modal__body {
+    padding: 13px 15px 15px;
+    background: #171719;
+}
+.purchase-mode-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 7px;
+    border: 1px solid #37373c;
+    background: #101011;
+}
+.purchase-mode-tabs button {
+    min-height: 43px;
+    border: 0;
+    border-right: 1px solid #37373c;
+    background: #111;
+    color: #ddd;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.purchase-mode-tabs button:last-child {
+    border-right: 0;
+}
+.purchase-mode-tabs button.active {
+    background: #1f1f22;
+    color: #fff;
+    box-shadow: inset 0 -2px #bd00ff;
+}
+.purchase-info-table {
+    display: grid;
+    gap: 5px;
+    padding: 6px;
+    border: 1px solid #343439;
+    border-radius: 3px;
+    background: #0f0f10;
+}
+.purchase-info-table > div {
+    min-height: 31px;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    border: 1px solid #38383d;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #1c1c1e;
+}
+.purchase-info-table b,
+.purchase-info-table span {
+    padding: 6px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.4;
+}
+.purchase-info-table b {
+    border-right: 1px solid #3b3b40;
+    background: #131314;
+    color: #f0edf2;
+    font-weight: 800;
+}
+.purchase-info-table span {
+    color: #fff;
+    font-weight: 600;
+}
+.purchase-info-table em {
+    color: #ff344f;
+    font-style: normal;
+    font-weight: 800;
+}
+.purchase-price-row {
+    min-height: 58px !important;
+}
+.purchase-price-row span {
+    display: grid;
+    gap: 4px;
+}
+.purchase-price-row del {
+    color: #e72d46;
+    font-weight: 800;
+}
+.purchase-price-row strong {
+    color: #fff;
+    font-size: 13px;
+}
+.money-highlight {
+    color: #ffc000 !important;
+    font-weight: 900 !important;
+}
+.purchase-payment-methods {
+    padding: 12px 5px 5px;
+    display: grid;
+    gap: 10px;
+}
+.purchase-payment-methods label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #f1eef3;
+    font-size: 12px;
+    cursor: pointer;
+}
+.purchase-payment-methods input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.purchase-payment-methods label > span {
+    width: 13px;
+    height: 13px;
+    border: 2px solid #aa19c1;
+    border-radius: 50%;
+    position: relative;
+}
+.purchase-payment-methods input:checked + span::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background: #d32dff;
+    box-shadow: 0 0 7px #d32dff;
+}
+.purchase-qr-section {
+    margin-top: 10px;
+    padding: 14px;
+    border: 1px solid #38383c;
+    border-radius: 3px;
+    background: #1d1d1f;
+    text-align: center;
+}
+.purchase-qr-section h4 {
+    margin: 0 0 10px;
+    color: #f2eff4;
+    font-size: 12px;
+}
+.purchase-qr-card {
+    width: 214px;
+    height: 214px;
+    margin: 0 auto 12px;
+    display: grid;
+    place-items: center;
+    border: 9px solid #fff;
+    border-radius: 9px;
+    background: #fff;
+    color: #111;
+    font-size: 160px;
+    overflow: hidden;
+}
+.purchase-bank-list {
+    margin: 0 auto;
+    max-width: 330px;
+    display: grid;
+    gap: 4px;
+    text-align: left;
+}
+.purchase-bank-list > div {
+    display: grid;
+    grid-template-columns: 105px 1fr;
+    gap: 8px;
+    font-size: 11px;
+}
+.purchase-bank-list dt {
+    color: #bbb;
+}
+.purchase-bank-list dd {
+    margin: 0;
+    color: #ff3550;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+.purchase-policy {
+    padding: 10px 11px 12px;
+    border: 1px solid #00afd4;
+    border-radius: 3px;
+    background: #1b1b1d;
+    color: #eee;
+}
+.purchase-policy h3 {
+    margin: 0 0 9px;
+    padding-left: 9px;
+    border-left: 4px solid #00b9df;
+    color: #00c2ec;
+    font-size: 13px;
+}
+.purchase-policy p {
+    margin: 5px 0;
+    font-size: 11px;
+    line-height: 1.45;
+}
+.purchase-policy__note {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-left: 4px solid #ffc744;
+    border-radius: 4px;
+    background: #332c20;
+    color: #ffe39a;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+    .gaming-modal-layer {
+        padding: 10px;
+        align-items: center;
+    }
+    .gaming-modal {
+        width: 100%;
+        max-height: 94vh;
+    }
+    .gaming-modal__header {
+        min-height: 52px;
+        padding: 0 46px;
+    }
+    .gaming-modal__header h2 {
+        font-size: 14px;
+        letter-spacing: 1.4px;
+    }
+    .gaming-modal__body {
+        padding: 11px;
+    }
+    .gaming-modal__footer {
+        padding: 9px 11px;
+        flex-wrap: wrap;
+    }
+    .gaming-modal__footer-note {
+        width: 100%;
+        margin: 0 0 2px;
+        font-size: 11px;
+    }
+    .admin-contact-actions {
+        grid-template-columns: 1fr;
+    }
+    .purchase-qr-card {
+        width: 180px;
+        height: 180px;
+        font-size: 132px;
+    }
+    .purchase-info-table b,
+    .purchase-info-table span {
+        padding: 6px;
+        font-size: 10.5px;
+    }
+}

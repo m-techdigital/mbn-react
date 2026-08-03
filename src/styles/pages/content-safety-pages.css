@@ -1,0 +1,508 @@
+/* content, safety and missing-page system */
+.knowledge-page {
+    max-width: 880px;
+    margin: 0 auto;
+    display: grid;
+    gap: 12px;
+}
+.knowledge-hero {
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    gap: 15px;
+    align-items: center;
+    border: 1px solid var(--border-strong);
+    background: linear-gradient(135deg, #17111d, #0d0c10);
+    box-shadow: var(--shadow-panel);
+}
+.knowledge-hero__icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #a71dc1;
+    border-radius: 50%;
+    background: #211226;
+    color: #e37cff;
+    font-size: 22px;
+}
+.knowledge-hero span {
+    color: #b866ca;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+.knowledge-hero h2 {
+    margin: 4px 0 5px;
+    color: #fff;
+    font-size: 18px;
+}
+.knowledge-hero p {
+    margin: 0;
+    color: #b9b1bd;
+    font-size: 12px;
+    line-height: 1.55;
+}
+.knowledge-checklist {
+    padding: 14px 16px;
+    border: 1px solid #433149;
+    background: #121014;
+}
+.knowledge-checklist h3 {
+    margin: 0 0 10px;
+    font-size: 12px;
+}
+.knowledge-checklist > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+.knowledge-checklist span {
+    padding: 7px 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #3a313f;
+    border-radius: 3px;
+    background: #18151a;
+    color: #d6d0da;
+    font-size: 10px;
+}
+.knowledge-checklist svg {
+    color: #65dbad;
+}
+.knowledge-sections {
+    display: grid;
+    gap: 9px;
+}
+.knowledge-section {
+    padding: 15px 17px;
+    border: 1px solid #382d3d;
+    background: var(--surface-panel);
+}
+.knowledge-section h3 {
+    margin: 0 0 8px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #2f2933;
+    color: #efdafa;
+    font-size: 13px;
+}
+.knowledge-section p {
+    margin: 6px 0;
+    color: #c4bdc9;
+    font-size: 12px;
+    line-height: 1.65;
+}
+.knowledge-warning {
+    padding: 15px 17px;
+    border: 1px solid #8a5a20;
+    background: rgba(66, 41, 13, 0.36);
+}
+.knowledge-warning h3 {
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #ffd087;
+    font-size: 12px;
+}
+.knowledge-warning ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.knowledge-warning li {
+    margin: 5px 0;
+    color: #dcccb6;
+    font-size: 11px;
+    line-height: 1.55;
+}
+.knowledge-footer {
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr minmax(230px, 0.7fr);
+    gap: 14px;
+    border: 1px solid #342c38;
+    background: #0f0e11;
+}
+.knowledge-footer b {
+    font-size: 11px;
+}
+.knowledge-footer p {
+    margin: 5px 0 0;
+    color: #938c98;
+    font-size: 10px;
+    line-height: 1.5;
+}
+.knowledge-sources {
+    display: grid;
+    gap: 5px;
+}
+.knowledge-sources a {
+    padding: 5px 7px;
+    border-left: 2px solid #8e18a7;
+    color: #c97cda;
+    font-size: 10px;
+}
+.knowledge-hub {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.knowledge-hub section {
+    border: 1px solid #452a4e;
+    background: #101012;
+}
+.knowledge-hub h2 {
+    margin: 0;
+    padding: 12px 14px;
+    border-bottom: 1px solid #35263a;
+    background: linear-gradient(180deg, #211026, #121014);
+    font-size: 13px;
+}
+.knowledge-hub section > div {
+    display: grid;
+}
+.knowledge-hub a {
+    min-height: 44px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #29242d;
+    color: #ddd;
+    font-size: 11px;
+}
+.knowledge-hub a:last-child {
+    border-bottom: 0;
+}
+.knowledge-hub a:hover {
+    background: #1d1021;
+    color: #fff;
+}
+.knowledge-hub a b {
+    color: #cf45e8;
+    font-size: 16px;
+}
+.purchase-detail-card {
+    max-width: 920px;
+    margin: 0 auto;
+    border: 1px solid #5f1971;
+    background: #101012;
+    box-shadow: var(--shadow-panel);
+}
+.purchase-detail-card > header {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid #332a37;
+    background: linear-gradient(180deg, #221027, #111013);
+}
+.purchase-detail-card > header span {
+    color: #b95bca;
+    font-size: 9px;
+    text-transform: uppercase;
+}
+.purchase-detail-card > header h2 {
+    margin: 4px 0;
+    font-size: 16px;
+}
+.purchase-detail-card > header p {
+    margin: 0;
+    color: #99919f;
+    font-size: 10px;
+}
+.purchase-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 14px;
+}
+.purchase-detail-grid section {
+    border: 1px solid #332d36;
+    background: #151517;
+}
+.purchase-detail-grid h3 {
+    margin: 0;
+    padding: 11px 13px;
+    border-bottom: 1px solid #332d36;
+    font-size: 12px;
+}
+.purchase-detail-grid dl {
+    margin: 0;
+}
+.purchase-detail-grid dl > div {
+    display: grid;
+    grid-template-columns: 46% 54%;
+    border-bottom: 1px solid #2d2930;
+}
+.purchase-detail-grid dl > div:last-child {
+    border-bottom: 0;
+}
+.purchase-detail-grid dt,
+.purchase-detail-grid dd {
+    margin: 0;
+    padding: 10px 12px;
+    font-size: 11px;
+}
+.purchase-detail-grid dt {
+    color: #a79fae;
+    background: #111113;
+}
+.purchase-detail-grid dd {
+    color: #fff;
+    font-weight: 700;
+    text-align: right;
+}
+.transaction-timeline {
+    margin: 0;
+    padding: 12px 15px 12px 35px;
+    list-style: none;
+}
+.transaction-timeline li {
+    position: relative;
+    padding: 0 0 15px 12px;
+    border-left: 1px solid #443849;
+}
+.transaction-timeline li:last-child {
+    padding-bottom: 0;
+}
+.transaction-timeline li::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 2px;
+    width: 9px;
+    height: 9px;
+    border: 2px solid #64596a;
+    border-radius: 50%;
+    background: #151517;
+}
+.transaction-timeline li.is-done::before {
+    border-color: #43d49e;
+    background: #1e976f;
+    box-shadow: 0 0 8px rgba(67, 212, 158, 0.3);
+}
+.transaction-timeline b,
+.transaction-timeline span {
+    display: block;
+}
+.transaction-timeline b {
+    font-size: 11px;
+}
+.transaction-timeline span {
+    margin-top: 4px;
+    color: #948d99;
+    font-size: 10px;
+    line-height: 1.45;
+}
+.purchase-detail-actions {
+    padding: 0 14px 14px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.deposit-layout {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 12px;
+}
+.deposit-form-card,
+.deposit-guide-card {
+    padding: 16px;
+    border: 1px solid #512b5d;
+    background: var(--surface-panel);
+    box-shadow: var(--shadow-panel);
+}
+.deposit-form-card h2,
+.deposit-guide-card h2 {
+    margin: 0 0 13px;
+    font-size: 14px;
+}
+.deposit-form-card label {
+    margin-bottom: 10px;
+    display: grid;
+    gap: 6px;
+    color: #b6aebe;
+    font-size: 10px;
+    font-weight: 700;
+}
+.deposit-form-card input,
+.deposit-form-card select {
+    height: 38px;
+    padding: 0 11px;
+    border: 1px solid #5a3864;
+    border-radius: 3px;
+    background: #f5f2f7;
+    color: #28222b;
+    font-size: 12px;
+}
+.deposit-summary {
+    margin: 4px 0 12px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #49364f;
+    background: #151217;
+}
+.deposit-summary span {
+    color: #aaa2af;
+    font-size: 10px;
+}
+.deposit-summary b {
+    font-size: 14px;
+}
+.bank-transfer-card {
+    margin-bottom: 12px;
+    border: 1px solid #433348;
+}
+.bank-transfer-card > div {
+    min-height: 37px;
+    display: grid;
+    grid-template-columns: 42% 58%;
+    border-bottom: 1px solid #342b38;
+}
+.bank-transfer-card > div:last-child {
+    border-bottom: 0;
+}
+.bank-transfer-card span,
+.bank-transfer-card b {
+    padding: 9px 11px;
+    font-size: 11px;
+}
+.bank-transfer-card span {
+    background: #111113;
+    color: #aba3b0;
+}
+.bank-transfer-card b {
+    text-align: right;
+}
+.deposit-guide-card ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.deposit-guide-card li {
+    margin: 7px 0;
+    color: #c8c0cc;
+    font-size: 11px;
+    line-height: 1.55;
+}
+.deposit-guide-card p {
+    margin: 15px 0 0;
+    padding: 10px;
+    border: 1px solid #725120;
+    background: rgba(86, 54, 12, 0.28);
+    color: #d9c7a8;
+    font-size: 10px;
+    line-height: 1.5;
+}
+.coming-soon-card,
+.event-maintenance-card {
+    max-width: 680px;
+    min-height: 270px;
+    margin: 20px auto;
+    padding: 35px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid #6d2380;
+    border-radius: 8px;
+    background: linear-gradient(
+        180deg,
+        rgba(30, 17, 36, 0.97),
+        rgba(10, 9, 13, 0.97)
+    );
+    box-shadow: 0 0 30px rgba(155, 32, 188, 0.18);
+}
+.coming-soon-card > span,
+.event-maintenance-card > span {
+    color: #b44ac7;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+.coming-soon-card h2,
+.event-maintenance-card h2 {
+    margin: 10px 0 8px;
+    font-size: 20px;
+}
+.coming-soon-card p,
+.event-maintenance-card p {
+    max-width: 500px;
+    margin: 0;
+    color: #b9b0c1;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.coming-soon-card div {
+    margin-top: 18px;
+    padding: 10px 14px;
+    display: grid;
+    gap: 4px;
+    border: 1px solid #392d3d;
+    background: #121014;
+}
+.coming-soon-card b {
+    font-size: 11px;
+}
+.coming-soon-card i {
+    color: #93899a;
+    font-size: 10px;
+    font-style: normal;
+}
+.event-maintenance-card ul {
+    max-width: 520px;
+    margin: 18px 0 0;
+    padding-left: 18px;
+    text-align: left;
+}
+.event-maintenance-card li {
+    margin: 5px 0;
+    color: #bdb4c4;
+    font-size: 11px;
+    line-height: 1.5;
+}
+@media (max-width: 800px) {
+    .knowledge-hub {
+        grid-template-columns: 1fr;
+    }
+    .knowledge-footer,
+    .deposit-layout,
+    .purchase-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    .purchase-detail-actions {
+        flex-direction: column;
+    }
+    .purchase-detail-actions a,
+    .purchase-detail-actions .mbn-button {
+        width: 100%;
+    }
+    .knowledge-hero {
+        grid-template-columns: 46px 1fr;
+    }
+    .knowledge-hero__icon {
+        width: 40px;
+        height: 40px;
+    }
+    .purchase-detail-card > header {
+        align-items: flex-start;
+    }
+    .bank-transfer-card > div {
+        grid-template-columns: 1fr;
+    }
+    .bank-transfer-card b {
+        text-align: left;
+        padding-top: 0;
+    }
+    .knowledge-footer {
+        gap: 10px;
+    }
+}
+

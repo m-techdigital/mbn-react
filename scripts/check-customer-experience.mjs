@@ -11,9 +11,10 @@ const image = read("src/components/base/MarketplaceImage.jsx");
 const checks = [
     [
         "support route",
-        nav.includes("to: '/support'") && app.includes('path="/support"'),
+        /to:\s*["']\/support["']/.test(nav) &&
+            /path=["']\/support["']/.test(app),
     ],
-    ["game modal action", nav.includes("action: 'game-catalog'")],
+    ["game modal action", /action:\s*["']game-catalog["']/.test(nav)],
     ["footer guides", footer.includes("contentHubGroups")],
     [
         "case detail",

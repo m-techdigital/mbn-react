@@ -1,0 +1,102 @@
+/* Admin information */
+.admin-info-modal .gaming-modal__body {
+    padding: 13px 16px 10px;
+}
+.admin-info-section {
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    border: 1px solid #3c3c40;
+    border-radius: 2px;
+    background: #202022;
+}
+.admin-info-section h3 {
+    margin: 0 0 10px;
+    color: #f3f1f4;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 700;
+}
+.admin-info-list {
+    margin: 0;
+    display: grid;
+    gap: 5px;
+}
+.admin-info-list > div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px;
+    align-items: baseline;
+}
+.admin-info-list dt,
+.admin-info-list dd {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+}
+.admin-info-list dd {
+    color: #ff334f;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+.admin-notice-list {
+    display: grid;
+    gap: 4px;
+    margin: 10px 0;
+}
+.admin-notice-list > div {
+    min-height: 31px;
+    padding: 5px 8px;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 7px;
+    align-items: center;
+    background: #1e1e21;
+}
+.admin-notice-list span {
+    width: 21px;
+    height: 21px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #9b16b7;
+    color: #fff;
+    font-size: 11px;
+}
+.admin-notice-list p {
+    margin: 0;
+    color: #eee;
+    font-size: 11px;
+    line-height: 1.35;
+}
+.admin-contact-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 11px;
+}
+.admin-contact-actions a {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+}
+.admin-contact-actions__zalo {
+    background: #0aa3ef;
+}
+.admin-contact-actions__messenger {
+    background: linear-gradient(90deg, #a700ff, #6500e8);
+}
+.admin-guide-link {
+    display: block;
+    margin: 10px 0 1px;
+    text-align: center;
+    color: #d86cff;
+    font-size: 11px;
+    text-decoration: none;
+}

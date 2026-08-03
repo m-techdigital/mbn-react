@@ -1,23 +1,16 @@
-import { Image } from "antd";
 import {
     HeartFilled,
     HeartOutlined,
-    LeftOutlined,
     QrcodeOutlined,
-    RightOutlined,
     ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import AccountCard from "../components/account/AccountCard";
 import { games } from "../data/catalog";
 import PageShell from "../components/base/PageShell";
 import { useRemoteData } from "../hooks/useRemoteData";
-import {
-    gameRepository,
-    transactionRepository,
-    trustRepository,
-} from "../services/repositories";
+import { gameRepository, trustRepository } from "../services/repositories";
 import { formatMoney, imageOf } from "../utils/format";
 import { useAuth } from "../context/AuthContext";
 import GamingModal, { ModalFooterNote } from "../components/base/GamingModal";
@@ -27,6 +20,8 @@ import { showToast } from "../utils/toast";
 import { getUserFacingError } from "../utils/userFacingError";
 import MarketplaceImage from "../components/base/MarketplaceImage";
 import { BaseInput } from "../components/base/FormControls";
+import GameDetailGallery from "../components/marketplace/GameDetailGallery";
+import { useGamePurchaseFlow } from "../hooks/marketplace/useGamePurchaseFlow";
 
 const typeByPath = (path) =>
     path.includes("ninja-school")
@@ -95,13 +90,30 @@ export default function GameDetailPage() {
         listingType === "rental"
             ? selectedRate?.price || item?.rental_price
             : item?.sale_price;
-    const [purchaseOpen, setPurchaseOpen] = useState(false);
-    const [purchaseTab, setPurchaseTab] = useState("info");
-    const [paymentMethod, setPaymentMethod] = useState("balance");
-    const [showPolicy, setShowPolicy] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
-    const [instantQr, setInstantQr] = useState(null);
-    const [instantTransactionId, setInstantTransactionId] = useState(null);
+    const {
+        purchaseOpen,
+        purchaseTab,
+        paymentMethod,
+        showPolicy,
+        submitting,
+        instantQr,
+        instantTransactionId,
+        openLogin,
+        openTransaction,
+        transact,
+        setPurchaseOpen,
+        setPurchaseTab,
+        setPaymentMethod,
+        setShowPolicy,
+        setInstantQr,
+        setInstantTransactionId,
+    } = useGamePurchaseFlow({
+        item,
+        account,
+        selectedRate,
+        listingType,
+        navigate,
+    });
     const [favorite, setFavorite] = useState(false);
     useEffect(() => {
         setActiveSlide(0);
@@ -144,136 +156,6 @@ export default function GameDetailPage() {
                     "Không thể cập nhật tin đã lưu.",
                 ),
             );
-        }
-    };
-
-    const openLogin = useCallback(() => {
-        setPurchaseOpen(false);
-        window.dispatchEvent(
-            new CustomEvent("mbn:open-auth", { detail: { mode: "login" } }),
-        );
-    }, []);
-
-    const transact = async () => {
-        if (!account) {
-            openLogin();
-            return;
-        }
-        try {
-            setSubmitting(true);
-            const payload = {
-                availability_version: item.availability_version,
-                transaction_type: listingType,
-                payment_method:
-                    paymentMethod === "balance" ? "wallet" : paymentMethod,
-            };
-            if (!item?.id)
-                throw new Error("Không xác định được sản phẩm cần giao dịch.");
-            if (!["balance", "bank"].includes(paymentMethod))
-                throw new Error("Phương thức thanh toán không hợp lệ.");
-            if (listingType === "rental") {
-                if (!selectedRate?.id)
-                    throw new Error(
-                        "Vui lòng chọn kỳ hạn thuê trước khi tiếp tục.",
-                    );
-                payload.rental_rate_id = selectedRate.id;
-                payload.rental_period_unit =
-                    selectedRate?.period_unit ||
-                    item?.rental_period_unit ||
-                    item?.rental_price_unit ||
-                    "day";
-                payload.rental_period_count = Number(
-                    selectedRate?.period_count ||
-                        item?.minimum_rental_period ||
-                        1,
-                );
-                payload.rental_billing_mode =
-                    item?.rental_billing_mode || "upfront";
-                payload.rental_billing_cycle_unit =
-                    item?.rental_billing_cycle_unit ||
-                    payload.rental_period_unit;
-                payload.rental_billing_cycle_count = Number(
-                    item?.rental_billing_cycle_count || 1,
-                );
-                payload.rental_start_at = new Date().toISOString();
-            } else {
-                payload.purchase_mode =
-                    purchaseTab === "installment"
-                        ? "installment"
-                        : purchaseTab === "deposit"
-                          ? "deposit"
-                          : "full";
-                if (payload.purchase_mode === "installment") {
-                    const minimumInitialPayment = Number(
-                        item?.minimum_initial_payment,
-                    );
-                    if (
-                        !Number.isFinite(minimumInitialPayment) ||
-                        minimumInitialPayment <= 0
-                    )
-                        throw new Error(
-                            "Sản phẩm chưa có cấu hình số tiền trả trước hợp lệ.",
-                        );
-                    payload.installment_count = Number(
-                        item?.max_installment_count || 3,
-                    );
-                    payload.initial_payment_amount = minimumInitialPayment;
-                    payload.installment_interval_unit =
-                        item?.installment_interval_unit || "week";
-                    payload.installment_interval_count = Number(
-                        item?.installment_interval_count || 1,
-                    );
-                }
-            }
-            const transaction = await transactionRepository.transact(
-                item.id,
-                payload,
-            );
-            const transactionData =
-                transaction?.transaction || transaction?.data || transaction;
-            const transactionId = transactionData?.id;
-            const payments = transactionData?.payments || [];
-            const firstPendingPayment =
-                payments.find((payment) =>
-                    ["pending", "rejected", "overdue"].includes(payment.status),
-                ) || payments[0];
-            setPurchaseOpen(false);
-
-            if (
-                paymentMethod === "bank" &&
-                transactionId &&
-                firstPendingPayment?.id
-            ) {
-                const qr = await transactionRepository.paymentQr(
-                    transactionId,
-                    firstPendingPayment.id,
-                );
-                setInstantTransactionId(transactionId);
-                setInstantQr({
-                    ...qr,
-                    payment: firstPendingPayment,
-                    transaction: transactionData,
-                });
-                showToast("success", "Đã tạo giao dịch và mã QR thanh toán.");
-            } else {
-                showToast(
-                    "success",
-                    "Đã tạo giao dịch. Hãy hoàn tất bước thanh toán.",
-                );
-                if (transactionId)
-                    navigate(`/account/purchases/${transactionId}`);
-                else navigate("/account/purchases");
-            }
-        } catch (requestError) {
-            showToast(
-                "error",
-                getUserFacingError(
-                    requestError,
-                    "Chưa thể tạo giao dịch. Vui lòng thử lại.",
-                ),
-            );
-        } finally {
-            setSubmitting(false);
         }
     };
 
@@ -324,12 +206,6 @@ export default function GameDetailPage() {
         ],
     ];
 
-    const openTransaction = (tab) => {
-        setPurchaseTab(tab);
-        setShowPolicy(false);
-        setPaymentMethod(tab === "qr" ? "bank" : "balance");
-        setPurchaseOpen(true);
-    };
     const previousSlide = () => {
         setSlideDirection("prev");
         setActiveSlide(
@@ -357,64 +233,14 @@ export default function GameDetailPage() {
             {item && (
                 <>
                     <div className="detail-layout original-detail v6-detail">
-                        <section className="detail-gallery-slider v6-gallery">
-                            <div className="detail-slider-stage">
-                                <div
-                                    key={`${activeSlide}-${images[activeSlide]}`}
-                                    className={`detail-slide active detail-slide--${slideDirection}`}
-                                >
-                                    <Image
-                                        src={images[activeSlide]}
-                                        preview={{ mask: "Nhấn để phóng to" }}
-                                        fallback="/banner.jpg"
-                                    />
-                                </div>
-                                {images.length > 1 && (
-                                    <>
-                                        <button
-                                            className="detail-slider-arrow prev"
-                                            onClick={previousSlide}
-                                            aria-label="Ảnh trước"
-                                        >
-                                            <LeftOutlined />
-                                        </button>
-                                        <button
-                                            className="detail-slider-arrow next"
-                                            onClick={nextSlide}
-                                            aria-label="Ảnh sau"
-                                        >
-                                            <RightOutlined />
-                                        </button>
-                                        <span className="detail-slide-counter">
-                                            {activeSlide + 1}/{images.length}
-                                        </span>
-                                    </>
-                                )}
-                            </div>
-                            {images.length > 1 && (
-                                <div className="detail-thumbnails">
-                                    {images.map((src, index) => (
-                                        <button
-                                            key={`${src}-${index}`}
-                                            className={
-                                                activeSlide === index
-                                                    ? "active"
-                                                    : ""
-                                            }
-                                            onClick={() => selectSlide(index)}
-                                        >
-                                            <MarketplaceImage
-                                                src={src}
-                                                alt={`Ảnh ${index + 1}`}
-                                            />
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-                            <div className="gallery-caption">
-                                Nhấn vào ảnh để xem dạng phóng to
-                            </div>
-                        </section>
+                        <GameDetailGallery
+                            images={images}
+                            activeSlide={activeSlide}
+                            slideDirection={slideDirection}
+                            onPrevious={previousSlide}
+                            onNext={nextSlide}
+                            onSelect={selectSlide}
+                        />
 
                         <section className="detail-card original-detail-card v6-detail-card">
                             <h3>Thông tin chi tiết</h3>

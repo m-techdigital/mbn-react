@@ -1,0 +1,61 @@
+/* Authentication */
+.auth-gaming-modal__body {
+    padding: 14px;
+    background: #19151f;
+}
+.auth-gaming-form {
+    padding: 14px;
+    border: 1px solid #3b3b40;
+    border-radius: 3px;
+    background: #101012;
+}
+.auth-gaming-form .ant-form-item {
+    margin-bottom: 13px;
+}
+.auth-gaming-form .ant-form-item-label {
+    padding-bottom: 4px;
+}
+.auth-gaming-form .ant-form-item-label > label {
+    color: #ddd !important;
+    font-size: 12px;
+}
+.auth-gaming-form .ant-input,
+.auth-gaming-form .ant-input-affix-wrapper {
+    min-height: 34px;
+    border: 1px solid #d200ff !important;
+    border-radius: 2px !important;
+    background: #f3f5fc !important;
+    color: #111 !important;
+    box-shadow: none !important;
+}
+.auth-gaming-form .ant-input-affix-wrapper input {
+    background: transparent !important;
+}
+.auth-gaming-form .ant-checkbox-wrapper {
+    color: #eee;
+    font-size: 12px;
+}
+.auth-gaming-row {
+    margin: 2px 0 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.auth-gaming-switch {
+    min-width: 92px;
+    padding: 7px 15px;
+    border: 1px solid #8b159f;
+    border-radius: 4px;
+    background: #131315;
+    color: #fff;
+    font-size: 11px;
+    cursor: pointer;
+}
+.auth-gaming-switch:hover {
+    border-color: #d000ff;
+    color: #fff;
+}
+.auth-gaming-form--register {
+    padding-bottom: 15px;
+}

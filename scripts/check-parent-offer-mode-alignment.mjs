@@ -12,8 +12,8 @@ if (form.includes("offer_modes.includes('installment')"))
 if (!detail.includes("normalizeOfferMode"))
     throw new Error("Public detail chưa chuẩn hóa offer mode");
 if (
-    !detail.includes("mode === 'sell' ? 'sale'") ||
-    !detail.includes("mode === 'rent' ? 'rental'")
+    !/mode\s*===\s*[\"']sell[\"']\s*\?\s*[\"']sale[\"']/.test(detail) ||
+    !/mode\s*===\s*[\"']rent[\"']\s*\?\s*[\"']rental[\"']/.test(detail)
 ) {
     throw new Error("Public detail chưa map sell/rent sang sale/rental");
 }

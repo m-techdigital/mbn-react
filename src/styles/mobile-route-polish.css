@@ -1,0 +1,382 @@
+@media (max-width: 768px) {
+    /* Keep high-value summaries dense instead of stacking one full-width card per metric. */
+    .mbn-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+    .mbn-metric-grid article {
+        min-height: 66px !important;
+        padding: 8px 9px !important;
+    }
+    .mbn-metric-grid span,
+    .mbn-metric-grid small {
+        font-size: 10.25px !important;
+        line-height: 1.3 !important;
+    }
+    .mbn-metric-grid b {
+        margin-top: 4px !important;
+        font-size: 13.5px !important;
+        line-height: 1.25 !important;
+    }
+
+    /* Transaction hero and timeline */
+    .mbn-transaction-hero__content {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 8px !important;
+        align-items: start !important;
+    }
+    .mbn-transaction-hero__content h2 {
+        margin: 4px 0 !important;
+        font-size: 16px !important;
+        line-height: 1.3 !important;
+    }
+    .mbn-transaction-hero__content p {
+        font-size: 10.5px !important;
+        line-height: 1.45 !important;
+    }
+    .mbn-transaction-hero__status {
+        justify-items: end !important;
+        gap: 4px !important;
+    }
+    .mbn-transaction-hero__status > span {
+        font-size: 9.75px !important;
+    }
+    .transaction-timeline {
+        gap: 8px !important;
+    }
+    .transaction-timeline li {
+        padding-left: 22px !important;
+    }
+    .transaction-timeline li b {
+        font-size: 12px !important;
+    }
+    .transaction-timeline li span {
+        font-size: 10.5px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Payment items: identity first, amount/status in one compact row, two actions side-by-side. */
+    .mbn-payment-list {
+        gap: 7px !important;
+    }
+    .mbn-payment-item {
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 7px !important;
+        padding: 9px !important;
+        border-radius: 7px !important;
+    }
+    .mbn-payment-item__main {
+        grid-column: 1/-1 !important;
+        gap: 2px !important;
+    }
+    .mbn-payment-item__main b {
+        font-size: 12.5px !important;
+    }
+    .mbn-payment-item__main span {
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+    }
+    .mbn-payment-item__main small {
+        font-size: 9.75px !important;
+        line-height: 1.35 !important;
+        overflow-wrap: anywhere !important;
+    }
+    .mbn-payment-item > strong {
+        font-size: 13px !important;
+        align-self: center !important;
+    }
+    .mbn-payment-item__status {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 6px !important;
+        min-width: 0 !important;
+    }
+    .mbn-payment-item__status small {
+        font-size: 9.75px !important;
+        white-space: nowrap !important;
+    }
+    .mbn-payment-item__actions {
+        grid-column: 1/-1 !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
+    }
+    .mbn-payment-item__actions .mbn-button {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    .payment-due-warning {
+        margin-top: 8px !important;
+        padding: 8px 9px !important;
+        font-size: 11px !important;
+        line-height: 1.45 !important;
+    }
+
+    /* Transaction action area uses a compact two-column command grid. */
+    .purchase-detail-actions {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+    .purchase-detail-actions .mbn-button {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    .purchase-detail-actions .mbn-button--danger {
+        grid-column: 1/-1 !important;
+    }
+
+    /* Documents stay compact; two actions share one row. */
+    .transaction-documents {
+        padding: 9px !important;
+    }
+    .transaction-documents > header h3 {
+        font-size: 15px !important;
+    }
+    .transaction-documents > header span {
+        font-size: 10px !important;
+    }
+    .transaction-documents > header > button {
+        height: 30px !important;
+        padding: 0 9px !important;
+        font-size: 11px !important;
+    }
+    .transaction-documents__list {
+        gap: 7px !important;
+    }
+    .transaction-documents__list article {
+        padding: 9px !important;
+        gap: 7px !important;
+    }
+    .transaction-documents__list article b {
+        font-size: 12.5px !important;
+    }
+    .transaction-documents__list article span,
+    .transaction-documents__list article small {
+        font-size: 10.25px !important;
+        line-height: 1.4 !important;
+    }
+    .transaction-documents__list article > div:last-child {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
+    }
+    .document-library {
+        gap: 8px !important;
+    }
+    .document-library__item {
+        padding: 10px !important;
+        gap: 8px !important;
+    }
+    .document-library__item h3 {
+        font-size: 15px !important;
+        line-height: 1.35 !important;
+    }
+    .document-library__item p {
+        font-size: 10.5px !important;
+        line-height: 1.45 !important;
+    }
+    .document-library__actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
+    }
+    .document-library__actions > *:first-child {
+        grid-column: 1/-1 !important;
+    }
+
+    /* Reading/reference links should look like a compact mobile list, not large cards. */
+    .mbn-source-links,
+    .mbn-related-links {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+    }
+    .mbn-source-links a,
+    .mbn-related-links a {
+        padding: 8px 9px !important;
+        border-radius: 6px !important;
+        font-size: 11.25px !important;
+        line-height: 1.4 !important;
+    }
+    .mbn-reading-list {
+        gap: 6px !important;
+        padding-left: 17px !important;
+        font-size: 12.5px !important;
+        line-height: 1.55 !important;
+    }
+    .mbn-process-list {
+        gap: 8px !important;
+    }
+    .mbn-process-list li {
+        grid-template-columns: 26px minmax(0, 1fr) !important;
+        gap: 8px !important;
+    }
+    .mbn-process-list li > b {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 11px !important;
+    }
+    .mbn-process-list strong {
+        font-size: 12.5px !important;
+    }
+    .mbn-process-list p {
+        font-size: 11.5px !important;
+        line-height: 1.5 !important;
+    }
+    .mbn-responsibility-grid article {
+        padding: 9px !important;
+    }
+
+    /* Product detail: reduce vertical travel while keeping tap targets usable. */
+    .detail-card h3 {
+        margin: 0 0 8px !important;
+        font-size: 15px !important;
+    }
+    .detail-info-table {
+        border-radius: 7px !important;
+        overflow: hidden !important;
+    }
+    .detail-price-row {
+        padding: 8px !important;
+    }
+    .detail-price-row small {
+        font-size: 9.75px !important;
+    }
+    .detail-price-row strong {
+        font-size: 18px !important;
+    }
+    .detail-action-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .detail-action-grid .mbn-button {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: 34px !important;
+        min-height: 34px !important;
+        font-size: 11px !important;
+    }
+    .contact-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .contact-buttons .mbn-button {
+        height: 32px !important;
+        min-height: 32px !important;
+        font-size: 10.75px !important;
+    }
+    .gallery-caption {
+        margin-top: 7px !important;
+        font-size: 11px !important;
+    }
+    .suggested-panel .legacy-section-title {
+        font-size: 13px !important;
+    }
+    .recommendation-shell {
+        padding-inline: 18px !important;
+    }
+
+    /* Purchase/lease confirmation modal */
+    .purchase-gaming-modal .purchase-info-table > div {
+        grid-template-columns: minmax(105px, 38%) minmax(0, 1fr) !important;
+    }
+    .purchase-gaming-modal .purchase-info-table b,
+    .purchase-gaming-modal .purchase-info-table span {
+        padding: 7px 8px !important;
+        font-size: 11.5px !important;
+        line-height: 1.4 !important;
+    }
+    .purchase-gaming-modal .purchase-price-row strong {
+        font-size: 18px !important;
+    }
+    .purchase-gaming-modal .purchase-payment-methods {
+        gap: 6px !important;
+        margin-top: 8px !important;
+    }
+    .purchase-gaming-modal .purchase-payment-methods label {
+        min-height: 34px !important;
+        padding: 7px 8px !important;
+        font-size: 11.5px !important;
+    }
+    .purchase-bank-guidance {
+        grid-template-columns: 26px minmax(0, 1fr) !important;
+        gap: 8px !important;
+        padding: 9px !important;
+    }
+    .purchase-bank-guidance b {
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+    }
+    .purchase-bank-guidance p {
+        font-size: 10.75px !important;
+        line-height: 1.45 !important;
+    }
+    .purchase-policy {
+        font-size: 12px !important;
+        line-height: 1.55 !important;
+    }
+    .purchase-policy h3 {
+        font-size: 14px !important;
+    }
+    .purchase-policy__note {
+        padding: 8px !important;
+        font-size: 11px !important;
+    }
+
+    /* Auth modal density */
+    .auth-gaming-form {
+        gap: 8px !important;
+    }
+    .auth-gaming-row {
+        gap: 6px !important;
+    }
+    .auth-gaming-link,
+    .auth-gaming-switch {
+        font-size: 11px !important;
+    }
+    .demo-account-panel {
+        padding: 8px !important;
+    }
+    .demo-account-grid {
+        gap: 6px !important;
+    }
+
+    /* Avoid sticky header/bottom-nav covering final content. */
+    .page-content,
+    .home-page {
+        scroll-margin-top: 62px !important;
+    }
+    .mbn-page-stack > *:last-child,
+    .page-content > *:last-child {
+        margin-bottom: 6px !important;
+    }
+}
+
+@media (max-width: 520px) {
+    /* Do not collapse summary grids into a long one-column list on phone. */
+    .mbn-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .mbn-definition-grid > div {
+        grid-template-columns: minmax(94px, 35%) minmax(0, 1fr) !important;
+    }
+    .mbn-definition-grid dt,
+    .mbn-definition-grid dd {
+        padding: 7px 8px !important;
+    }
+    .transaction-documents__list article > div:last-child {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .document-library__actions {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .detail-action-grid,
+    .contact-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .purchase-detail-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+

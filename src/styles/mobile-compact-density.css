@@ -1,0 +1,130 @@
+/* Compact density contract — all mobile geometry is intentionally smaller than desktop. */
+@media (max-width: 768px) {
+    .mbn-button {
+        height: 32px !important;
+        min-height: 32px !important;
+        padding: 0 10px !important;
+        border-radius: 6px !important;
+        font-size: 11.5px !important;
+        line-height: 1 !important;
+        gap: 5px !important;
+    }
+    .mbn-button--sm {
+        height: 30px !important;
+        min-height: 30px !important;
+        padding-inline: 8px !important;
+        font-size: 11px !important;
+    }
+    .mbn-button--lg {
+        height: 34px !important;
+        min-height: 34px !important;
+        font-size: 12px !important;
+    }
+    .mbn-button__label {
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+    .mbn-base-form__actions {
+        gap: 6px !important;
+    }
+    .mbn-form-field__hint,
+    .mbn-form-field__error {
+        font-size: 10.5px !important;
+        line-height: 1.35 !important;
+    }
+    .mbn-choice {
+        grid-template-columns: 16px minmax(0, 1fr) !important;
+        gap: 7px !important;
+        padding: 7px !important;
+    }
+    .mbn-choice__indicator {
+        width: 16px !important;
+        height: 16px !important;
+    }
+    .mbn-choice__label {
+        font-size: 11.5px !important;
+        line-height: 1.4 !important;
+    }
+    .mbn-choice__content small {
+        font-size: 10px !important;
+    }
+
+    .mbn-filter__field,
+    .mbn-filter-field {
+        gap: 4px !important;
+    }
+    .mbn-filter__label,
+    .mbn-filter-field__label {
+        font-size: 11px !important;
+        line-height: 1.25 !important;
+    }
+    .mbn-filter__control input,
+    .mbn-filter__control select,
+    .mbn-filter-field input,
+    .mbn-filter-field select {
+        height: 34px !important;
+        min-height: 34px !important;
+        padding-inline: 8px !important;
+        font-size: 16px !important;
+    }
+    .mbn-filter__footer,
+    .mbn-filter-panel__footer {
+        padding-top: 2px !important;
+    }
+    .mbn-filter__result,
+    .mbn-filter-panel__result {
+        font-size: 10.5px !important;
+        line-height: 1.3 !important;
+    }
+    .mbn-filter__actions,
+    .mbn-filter-panel__actions {
+        gap: 6px !important;
+    }
+    .mbn-filter__actions .mbn-button,
+    .mbn-filter-panel__actions .mbn-button {
+        height: 32px !important;
+        min-height: 32px !important;
+        min-width: 68px !important;
+        padding-inline: 9px !important;
+        font-size: 11.5px !important;
+    }
+
+    .mbn-profile-card__header {
+        padding: 10px !important;
+        gap: 8px !important;
+    }
+    .mbn-profile-card__header strong {
+        font-size: 15px !important;
+    }
+    .mbn-profile-card__header span {
+        font-size: 10.75px !important;
+    }
+    .mbn-profile-card .mbn-base-form {
+        padding: 8px !important;
+        gap: 8px !important;
+    }
+
+    .gaming-modal__header {
+        min-height: 46px !important;
+        padding: 0 42px 0 12px !important;
+    }
+    .gaming-modal__header h2 {
+        font-size: 14.5px !important;
+    }
+    .gaming-modal__body {
+        padding: 10px !important;
+        font-size: 12.75px !important;
+        line-height: 1.5 !important;
+    }
+    .gaming-modal__footer {
+        padding: 8px 10px calc(8px + env(safe-area-inset-bottom)) !important;
+        gap: 6px !important;
+    }
+    .gaming-modal__footer > .mbn-button {
+        height: 32px !important;
+        min-height: 32px !important;
+    }
+}
+
+/* route-level mobile polish after visual audit of real 390px screenshots. */

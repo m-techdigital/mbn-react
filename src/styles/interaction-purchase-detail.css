@@ -1,0 +1,230 @@
+/* prevent horizontal container jumps between routes. */
+html {
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+}
+body {
+    width: 100%;
+}
+.page-shell,
+.page-shell--wide,
+.page-shell--reading,
+.page-shell--narrow {
+    width: min(var(--mbn-layout-wide, 1160px), calc(100% - 24px)) !important;
+    max-width: var(--mbn-layout-wide, 1160px) !important;
+    margin-inline: auto !important;
+}
+.page-shell--reading > .page-panel {
+    width: min(100%, var(--mbn-layout-reading, 1040px));
+    margin-inline: auto;
+}
+.page-shell--narrow > .page-panel {
+    width: min(100%, var(--mbn-layout-narrow, 760px));
+    margin-inline: auto;
+}
+@media (max-width: 960px) {
+    .page-shell,
+    .page-shell--wide,
+    .page-shell--reading,
+    .page-shell--narrow {
+        width: min(100% - 18px, var(--mbn-layout-wide, 1160px)) !important;
+    }
+}
+@media (max-width: 720px) {
+    .page-shell,
+    .page-shell--wide,
+    .page-shell--reading,
+    .page-shell--narrow {
+        width: calc(100% - 16px) !important;
+    }
+}
+
+/* deposit payment information is vertical to protect narrow layouts. */
+.deposit-payment-stack {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+    min-width: 0;
+}
+.deposit-payment-stack .deposit-qr {
+    width: min(100%, 320px);
+    margin-inline: auto;
+    text-align: center;
+}
+.deposit-payment-stack .deposit-qr img {
+    display: block;
+    width: min(100%, 260px);
+    aspect-ratio: 1;
+    object-fit: contain;
+    margin-inline: auto;
+    border: 10px solid #fff;
+    border-radius: 8px;
+    background: #fff;
+}
+.deposit-payment-stack .bank-transfer-card {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+/* Purchase detail layout owner: keep transaction actions, documents and payments readable. */
+.purchase-detail-workspace {
+    align-items: start;
+}
+
+.purchase-detail-sidebar {
+    min-width: 0;
+}
+
+.purchase-detail-action-section {
+    position: sticky;
+    top: 12px;
+    z-index: 2;
+}
+
+.purchase-detail-action-section .purchase-detail-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.purchase-detail-action-section .purchase-detail-actions .mbn-button {
+    width: 100%;
+    min-width: 0;
+}
+
+.purchase-payment-group {
+    display: grid;
+    gap: 9px;
+}
+
+.purchase-payment-group + .purchase-payment-group {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-soft);
+}
+
+.purchase-payment-group__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--text-primary);
+}
+
+.purchase-payment-group__heading b {
+    font-size: 13px;
+}
+
+.purchase-payment-group__heading span {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.mbn-payment-item.is-actionable {
+    border-color: rgba(197, 43, 229, 0.62);
+    background: linear-gradient(
+        180deg,
+        rgba(197, 43, 229, 0.08),
+        rgba(23, 21, 25, 1)
+    );
+}
+
+.transaction-documents--attached .mbn-page-section__body {
+    display: grid;
+    gap: 10px;
+}
+
+.transaction-documents__attached-list {
+    display: grid;
+    gap: 9px;
+}
+
+.transaction-document-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 130px auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    background: var(--surface-panel);
+}
+
+.transaction-document-card__content {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+}
+
+.transaction-document-card__content span,
+.transaction-document-card__content small {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.transaction-document-card__content b {
+    overflow-wrap: anywhere;
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.transaction-document-card__status {
+    display: grid;
+    justify-items: start;
+    gap: 5px;
+}
+
+.transaction-document-card__status > b {
+    color: var(--text-secondary);
+    font-size: 11px;
+}
+
+.transaction-document-card__actions {
+    width: 230px;
+}
+
+.mbn-empty-inline {
+    margin: 0;
+    padding: 12px;
+    border: 1px dashed var(--border-soft);
+    border-radius: 8px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+@media (max-width: 980px) {
+    .purchase-detail-action-section {
+        position: static;
+    }
+
+    .transaction-document-card {
+        grid-template-columns: minmax(0, 1fr) 120px;
+    }
+
+    .transaction-document-card__actions {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .transaction-document-card {
+        grid-template-columns: 1fr;
+    }
+
+    .transaction-document-card__status {
+        justify-items: start;
+    }
+
+    .transaction-document-card__actions {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    .transaction-document-card__actions {
+        grid-template-columns: 1fr;
+    }
+}
+
