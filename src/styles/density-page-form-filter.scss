@@ -1,0 +1,112 @@
+/* Page header */
+.mbn-page-header {
+    grid-template-columns: 30px minmax(0, 1fr) 30px !important;
+    gap: 10px !important;
+    margin-bottom: 11px !important;
+}
+.mbn-page-header__icon {
+    width: 30px !important;
+    height: 30px !important;
+    box-shadow: none !important;
+}
+.mbn-page-header__copy h1 {
+    font-size: 19px !important;
+    line-height: 1.25 !important;
+}
+.mbn-page-header__copy p {
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+}
+.mbn-page-header__actions {
+    grid-column: 1/-1;
+    justify-self: end;
+    display: flex;
+    gap: 8px;
+}
+
+/* Forms/buttons */
+.mbn-form-field {
+    gap: 5px !important;
+}
+.mbn-form-field__label {
+    font-size: 12.5px !important;
+}
+.mbn-form-field__hint,
+.mbn-form-field__error {
+    font-size: 10.75px !important;
+}
+.mbn-form-field__control > input,
+.mbn-form-field__control > select,
+.password-field,
+.money-input {
+    height: var(--mbn-v54-control) !important;
+    min-height: var(--mbn-v54-control) !important;
+}
+.mbn-form-field__control > input,
+.mbn-form-field__control > select,
+.password-field input,
+.money-input input {
+    font-size: 13px !important;
+}
+.mbn-form-field__control > textarea {
+    min-height: 88px !important;
+    font-size: 13px !important;
+}
+.mbn-button {
+    height: var(--mbn-v54-button) !important;
+    min-height: var(--mbn-v54-button) !important;
+    padding-inline: 12px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+}
+.mbn-button--sm {
+    height: 31px !important;
+    min-height: 31px !important;
+    font-size: 11px !important;
+}
+.mbn-button--lg {
+    height: 38px !important;
+    min-height: 38px !important;
+}
+
+/* Filters */
+.mbn-filter,
+.mbn-filter-panel {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+}
+.mbn-filter__fields,
+.mbn-filter-panel__fields {
+    gap: 8px !important;
+}
+.mbn-filter__label,
+.mbn-filter-field__label {
+    font-size: 11.5px !important;
+}
+.mbn-filter input,
+.mbn-filter select,
+.mbn-filter-field input,
+.mbn-filter-field select {
+    height: 36px !important;
+    min-height: 36px !important;
+    padding-inline: 9px !important;
+    font-size: 12.5px !important;
+}
+.mbn-filter__footer,
+.mbn-filter-panel__footer {
+    padding-top: 1px !important;
+    gap: 10px !important;
+}
+.mbn-filter__actions,
+.mbn-filter-panel__actions {
+    gap: 6px !important;
+}
+.mbn-filter__actions .mbn-button,
+.mbn-filter-panel__actions .mbn-button {
+    height: 32px !important;
+    min-height: 32px !important;
+    min-width: 72px !important;
+    padding-inline: 10px !important;
+    font-size: 11.5px !important;
+}
+

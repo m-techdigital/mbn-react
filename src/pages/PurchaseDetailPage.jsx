@@ -8,6 +8,7 @@ import PageSection, {
     PageStack,
 } from "../components/base/PageSection";
 import StatusBadge from "../components/base/StatusBadge";
+import TransactionPaymentTimeline from "../components/account/TransactionPaymentTimeline";
 import GamingButton from "../components/base/GamingButton";
 import GamingModal from "../components/base/GamingModal";
 import FormField from "../components/base/FormField";
@@ -229,73 +230,6 @@ export default function PurchaseDetailPage() {
           ]
         : [];
 
-    const renderPayments = (items) => (
-        <div className="mbn-payment-list">
-            {items.map((payment) => (
-                <article
-                    key={payment.id}
-                    className={`mbn-payment-item${actionablePaymentStatuses.has(payment.status) ? " is-actionable" : ""}`}
-                >
-                    <div className="mbn-payment-item__main">
-                        <b>{payment.code}</b>
-                        <span>
-                            {valueLabel(payment.component_type)}
-                            {payment.installment_number
-                                ? ` · kỳ ${payment.installment_number}`
-                                : ""}
-                            {payment.cycle_number
-                                ? ` · chu kỳ ${payment.cycle_number}`
-                                : ""}
-                        </span>
-                        <small>
-                            {payment.period_start
-                                ? `${payment.period_start} → ${payment.period_end || "—"}`
-                                : `Hạn ${payment.due_date || "—"}`}
-                        </small>
-                    </div>
-                    <strong>{formatMoney(payment.amount)}</strong>
-                    <div className="mbn-payment-item__status">
-                        <StatusBadge status={payment.status} />
-                        <small>{statusLabel(payment.settlement_status)}</small>
-                    </div>
-                    {transaction.current_role === "buyer" &&
-                    actionablePaymentStatuses.has(payment.status) ? (
-                        <div className="mbn-payment-item__actions">
-                            <GamingButton
-                                size="sm"
-                                loading={acting === `wallet-${payment.id}`}
-                                onClick={() =>
-                                    run(
-                                        () =>
-                                            transactionRepository.submitPayment(
-                                                transaction.id,
-                                                payment.id,
-                                                {
-                                                    payment_method: "wallet",
-                                                    reference: `WALLET-${transaction.code}-${payment.id}`,
-                                                },
-                                            ),
-                                        `wallet-${payment.id}`,
-                                    )
-                                }
-                            >
-                                Trả bằng số dư
-                            </GamingButton>
-                            <GamingButton
-                                size="sm"
-                                variant="secondary"
-                                loading={acting === `qr-${payment.id}`}
-                                onClick={() => openBankPayment(payment)}
-                            >
-                                Chuyển khoản
-                            </GamingButton>
-                        </div>
-                    ) : null}
-                </article>
-            ))}
-        </div>
-    );
-
     return (
         <PageShell
             title={`Chi tiết giao dịch ${transaction?.code || ""}`}
@@ -432,7 +366,13 @@ export default function PurchaseDetailPage() {
                                                 {duePayments.length} khoản
                                             </span>
                                         </div>
-                                        {renderPayments(duePayments)}
+                                        <TransactionPaymentTimeline
+                                            transaction={transaction}
+                                            items={duePayments}
+                                            acting={acting}
+                                            run={run}
+                                            openBankPayment={openBankPayment}
+                                        />
                                     </div>
                                 ) : null}
                                 {completedPayments.length ? (
@@ -443,7 +383,13 @@ export default function PurchaseDetailPage() {
                                                 {completedPayments.length} khoản
                                             </span>
                                         </div>
-                                        {renderPayments(completedPayments)}
+                                        <TransactionPaymentTimeline
+                                            transaction={transaction}
+                                            items={completedPayments}
+                                            acting={acting}
+                                            run={run}
+                                            openBankPayment={openBankPayment}
+                                        />
                                     </div>
                                 ) : null}
                                 {!sortedPayments.length ? (

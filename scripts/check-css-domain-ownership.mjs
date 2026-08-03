@@ -16,3 +16,18 @@ for (const [file, count] of Object.entries(manifests)) {
     if (residue) throw new Error(`${file} không được chứa declaration runtime`);
 }
 console.log("CSS domain ownership contract: PASS");
+
+// Large presentation owners must remain import-only manifests so domain rules
+// do not collapse back into one cross-page stylesheet.
+for (const manifest of [
+    "marketplace-account-presentation.css",
+    "presentation-density.css",
+]) {
+    const text = fs.readFileSync(path.join(root, manifest), "utf8");
+    const declarations = text
+        .split("\n")
+        .filter((line) => line.trim() && !line.trim().startsWith("@import"));
+    if (declarations.length)
+        throw new Error(`${manifest} phải là import-only manifest`);
+}
+console.log("Large presentation manifest ownership: PASS");

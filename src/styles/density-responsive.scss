@@ -1,0 +1,193 @@
+@media (max-width: 980px) {
+    .mbn-table-scroll-hint {
+        display: block;
+    }
+    .profile-page-v46 .mbn-page-columns--profile {
+        grid-template-columns: 1fr !important;
+        max-width: 760px;
+        margin-inline: auto;
+    }
+    .mbn-page-columns--wide-left {
+        grid-template-columns: 1fr !important;
+    }
+    .mbn-metric-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --mbn-v54-gap: 8px;
+        --mbn-v54-control: 34px;
+        --mbn-v54-button: 32px;
+    }
+    .page-shell--wide .page-panel,
+    .page-shell--reading .page-panel,
+    .page-shell--narrow .page-panel {
+        width: 100% !important;
+    }
+    .mbn-page-header {
+        grid-template-columns: 24px minmax(0, 1fr) 24px !important;
+        gap: 6px !important;
+        margin-bottom: 8px !important;
+    }
+    .mbn-page-header__icon {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .mbn-page-header__copy h1 {
+        font-size: 15px !important;
+    }
+    .mbn-page-header__copy p {
+        font-size: 10.5px !important;
+        line-height: 1.4 !important;
+    }
+    .mbn-page-section__header {
+        padding: 8px 9px !important;
+    }
+    .mbn-page-section__header h2 {
+        font-size: 13.5px !important;
+    }
+    .mbn-page-section__header p {
+        font-size: 10.5px !important;
+    }
+    .mbn-page-section__body {
+        padding: 9px !important;
+    }
+    .mbn-button {
+        height: 32px !important;
+        min-height: 32px !important;
+        padding-inline: 9px !important;
+        font-size: 11.5px !important;
+    }
+    .mbn-button--sm {
+        height: 29px !important;
+        min-height: 29px !important;
+        font-size: 10.5px !important;
+    }
+    .mbn-form-field__control > input,
+    .mbn-form-field__control > select,
+    .password-field,
+    .money-input {
+        height: 34px !important;
+        min-height: 34px !important;
+    }
+    .mbn-form-field__control > input,
+    .mbn-form-field__control > select,
+    .password-field input,
+    .money-input input {
+        font-size: 16px !important;
+    }
+    .mbn-filter__fields,
+    .mbn-filter-panel__fields {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+    .mbn-filter__footer,
+    .mbn-filter-panel__footer {
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 7px !important;
+    }
+    .mbn-filter__actions .mbn-button,
+    .mbn-filter-panel__actions .mbn-button {
+        height: 30px !important;
+        min-height: 30px !important;
+        min-width: 66px !important;
+        font-size: 11px !important;
+    }
+    .mbn-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+    .mbn-metric-grid article {
+        padding: 8px !important;
+    }
+    .mbn-metric-grid b {
+        font-size: 13.5px !important;
+    }
+    .mbn-definition-grid > div {
+        grid-template-columns: minmax(94px, 35%) minmax(0, 1fr) !important;
+    }
+    .mbn-definition-grid dt,
+    .mbn-definition-grid dd {
+        padding: 7px 8px !important;
+        font-size: 11.5px !important;
+    }
+    .account-grid {
+        gap: 8px !important;
+    }
+    .account-card-body {
+        padding: 8px !important;
+    }
+    .account-description {
+        font-size: 11.75px !important;
+    }
+    .account-price,
+    .view-account-button {
+        height: 32px !important;
+        min-height: 32px !important;
+    }
+    .view-account-button {
+        font-size: 10.75px !important;
+    }
+    .mbn-profile-summary {
+        padding: 9px !important;
+    }
+    .mbn-profile-summary__avatar {
+        width: 42px !important;
+        height: 42px !important;
+        flex-basis: 42px !important;
+    }
+    .mbn-profile-summary__copy strong {
+        font-size: 14px !important;
+    }
+    .mbn-profile-summary__copy span {
+        font-size: 10.5px !important;
+    }
+    .mbn-reading-article__body,
+    .mbn-reading-section {
+        font-size: 13px !important;
+        line-height: 1.62 !important;
+    }
+    .gaming-modal__body {
+        padding: 10px !important;
+        font-size: 12.75px !important;
+    }
+    .gaming-modal__footer {
+        padding: 8px 10px calc(8px + env(safe-area-inset-bottom)) !important;
+    }
+    .mbn-table-scroll {
+        border-radius: 7px !important;
+    }
+    .mbn-table__head > div {
+        padding: 8px !important;
+        font-size: 9.5px !important;
+    }
+    .mbn-table__row > div {
+        padding: 8px !important;
+    }
+    .mbn-table__cell {
+        font-size: 11px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .mbn-page-section__header,
+    .mbn-page-section__body {
+        padding-inline: 8px !important;
+    }
+    .mbn-filter,
+    .mbn-filter-panel {
+        padding: 7px !important;
+    }
+    .mbn-filter__fields,
+    .mbn-filter-panel__fields {
+        gap: 5px !important;
+    }
+    .account-footer {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    }
+    .document-table__actions {
+        gap: 4px !important;
+    }
+}

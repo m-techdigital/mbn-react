@@ -1,0 +1,82 @@
+/* Account workspace sidebar. */
+.account-sidebar {
+    top: 106px !important;
+    height: calc(100vh - 106px) !important;
+    padding: 14px 12px 18px !important;
+    border-right: 1px solid #302735 !important;
+    background: linear-gradient(180deg, #111014, #0b0a0c) !important;
+}
+.sidebar-close {
+    display: none !important;
+}
+.sidebar-profile {
+    min-height: 0 !important;
+    padding: 6px 4px 14px !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+}
+.sidebar-avatar {
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 18px !important;
+    border-width: 1px !important;
+    box-shadow: none !important;
+}
+.sidebar-profile > strong {
+    width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 13px !important;
+}
+.sidebar-balance {
+    width: 100% !important;
+    padding: 7px 9px !important;
+    border-radius: 7px !important;
+    font-size: 11.5px !important;
+}
+.sidebar-auth-actions {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7px !important;
+}
+.btn-login,
+.btn-register {
+    min-width: 0 !important;
+    width: 100% !important;
+    height: 32px !important;
+    font-size: 11.5px !important;
+}
+.sidebar-links {
+    padding-top: 12px !important;
+    gap: 5px !important;
+}
+.sidebar-links a {
+    min-height: 38px !important;
+    padding: 7px 9px !important;
+    grid-template-columns: 18px minmax(0, 1fr) 10px !important;
+    gap: 8px !important;
+    border-radius: 7px !important;
+    background: #141216 !important;
+    font-size: 11.75px !important;
+    font-weight: 650 !important;
+}
+.sidebar-links a.active {
+    background: #28182e !important;
+    box-shadow: inset 2px 0 #d600ff !important;
+}
+.sidebar-links i {
+    font-size: 14px !important;
+}
+.sidebar-logout-wrap {
+    margin-top: auto !important;
+    padding-top: 12px !important;
+}
+.sidebar-logout {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    border-radius: 7px !important;
+}
+

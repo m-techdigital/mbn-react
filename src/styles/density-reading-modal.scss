@@ -1,0 +1,54 @@
+/* Reading pages */
+.mbn-reading-article__body,
+.mbn-reading-section {
+    font-size: 14px !important;
+    line-height: 1.68 !important;
+}
+.mbn-topic-grid {
+    gap: 11px !important;
+}
+.mbn-topic-card {
+    padding: 13px !important;
+    gap: 11px !important;
+}
+.mbn-topic-card h2 {
+    font-size: 15px !important;
+}
+.mbn-topic-card p {
+    font-size: 12.5px !important;
+}
+.mbn-process-list {
+    gap: 10px !important;
+}
+.mbn-process-list li {
+    gap: 9px !important;
+}
+.mbn-process-list li > b {
+    width: 28px !important;
+    height: 28px !important;
+}
+.mbn-related-links a,
+.mbn-source-links a {
+    padding: 7px 9px !important;
+    font-size: 12px !important;
+}
+
+/* Modal */
+.gaming-modal {
+    border-radius: 10px !important;
+}
+.gaming-modal__header {
+    min-height: 52px !important;
+    padding: 0 50px 0 15px !important;
+}
+.gaming-modal__header h2 {
+    font-size: 16px !important;
+}
+.gaming-modal__body {
+    padding: 13px !important;
+}
+.gaming-modal__footer {
+    padding: 10px 13px !important;
+    gap: 8px !important;
+}
+

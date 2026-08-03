@@ -13,6 +13,20 @@ const documents = fs.readFileSync(
     "utf8",
 );
 const css = readCanonicalCss();
+const purchaseModal = fs.readFileSync(
+    new URL(
+        "../src/components/marketplace/GamePurchaseModal.jsx",
+        import.meta.url,
+    ),
+    "utf8",
+);
+const purchasePolicy = fs.readFileSync(
+    new URL(
+        "../src/components/marketplace/PurchasePolicyPanel.jsx",
+        import.meta.url,
+    ),
+    "utf8",
+);
 
 const checks = [
     [
@@ -48,6 +62,15 @@ const checks = [
         css.includes(".purchase-detail-action-section") &&
             css.includes(".transaction-document-card"),
         "purchase detail layout stylesheet is required",
+    ],
+    [
+        purchaseModal.includes("PurchasePolicyPanel"),
+        "purchase modal policy must have a dedicated semantic owner",
+    ],
+    [
+        !/hoàn lại\s*<b>?(?:20|30|50)%/i.test(purchasePolicy) &&
+            purchasePolicy.includes("không áp dụng tỷ lệ cố định"),
+        "purchase policy must not hard-code refund percentages outside the API contract",
     ],
 ];
 

@@ -3,6 +3,7 @@ import GamingButton from "../base/GamingButton";
 import GamingModal, { ModalFooterNote } from "../base/GamingModal";
 import { BaseInput } from "../base/FormControls";
 import { formatMoney } from "../../utils/format";
+import PurchasePolicyPanel from "./PurchasePolicyPanel";
 
 export default function GamePurchaseModal({
     account,
@@ -271,63 +272,9 @@ export default function GamePurchaseModal({
                 </>
             )}
 
-            {showPolicy && purchaseTab === "installment" && (
-                <div className="purchase-policy">
-                    <h3>QUY ĐỊNH MUA TRẢ GÓP</h3>
-                    <p>
-                        - Thanh toán trước <b>70%</b> giá trị Nick, bạn sẽ nhận
-                        được <b>Tài khoản và Mật khẩu</b>.
-                    </p>
-                    <p>
-                        - Hạn thanh toán: <b>1 tháng</b> kể từ ngày trả góp.
-                    </p>
-                    <p>
-                        - Phí trả góp: <b>0%</b>.
-                    </p>
-                    <p>
-                        - Hoàn tất 100% giá trị Nick để nhận mã PIN chuyển đăng
-                        ký SIM nếu có.
-                    </p>
-                    <p>
-                        - Nếu hủy trước hạn, hoàn lại{" "}
-                        <b>50% số tiền đã thanh toán</b>.
-                    </p>
-                    <p>
-                        - Nếu quá hạn, giao dịch bị hủy và hoàn lại{" "}
-                        <b>30% số tiền đã thanh toán</b>.
-                    </p>
-                    <div className="purchase-policy__note">
-                        <b>Ví dụ:</b> Nick giá 1.000.000đ → thanh toán trước
-                        700.000đ. Nếu hủy trước hạn nhận lại 350.000đ; nếu quá
-                        hạn nhận lại 210.000đ.
-                    </div>
-                </div>
-            )}
-
-            {showPolicy && purchaseTab === "deposit" && (
-                <div className="purchase-policy">
-                    <h3>QUY ĐỊNH ĐẶT CỌC</h3>
-                    <p>
-                        - Đặt cọc ban đầu <b>30%</b> giá trị tài khoản để giữ
-                        Nick.
-                    </p>
-                    <p>
-                        - Thời gian thanh toán phần còn lại: <b>7 ngày</b>.
-                    </p>
-                    <p>
-                        - Phí đặt cọc: <b>0%</b>.
-                    </p>
-                    <p>
-                        - Nếu quá hạn, giao dịch bị hủy và chỉ hoàn lại{" "}
-                        <b>20% số tiền đã đặt cọc</b>.
-                    </p>
-                    <div className="purchase-policy__note">
-                        <b>Ví dụ:</b> Nick giá 1.000.000đ → đặt cọc trước
-                        300.000đ. Nếu hủy hoặc quá hạn, số tiền hoàn theo chính
-                        sách hiển thị.
-                    </div>
-                </div>
-            )}
+            {showPolicy ? (
+                <PurchasePolicyPanel purchaseTab={purchaseTab} />
+            ) : null}
         </GamingModal>
     );
 }
