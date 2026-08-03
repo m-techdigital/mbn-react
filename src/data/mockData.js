@@ -205,7 +205,6 @@ export const mockProducts = baseMockProducts.flatMap((listing) => [
     cloneProduct(listing, 2),
 ]);
 
-export { detailedTopics as mockTopics } from "./topicContent";
 
 export const mockTransactions = [
     {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import PageShell from "../components/base/PageShell";
 import PageSection, {
@@ -19,65 +19,16 @@ import { statusLabel, valueLabel } from "../utils/labels";
 import TransactionDocuments from "../components/documents/TransactionDocuments";
 import TransactionAssetSnapshots from "../components/account/TransactionAssetSnapshots";
 import TransactionJourney from "../components/account/TransactionJourney";
-import { supportMessage } from "../utils/apiError";
-import { showToast } from "../utils/toast";
 import MarketplaceImage from "../components/base/MarketplaceImage";
 import { BaseInput } from "../components/base/FormControls";
-
-const actionLabels = {
-    seller_handover: "Xác nhận đã bàn giao",
-    buyer_receive: "Xác nhận đã nhận tài khoản",
-    renter_return: "Gửi yêu cầu hoàn trả",
-    lessor_receive_return: "Xác nhận đã nhận lại tài khoản",
-    complete: "Xác nhận hoàn tất",
-};
-const dateTime = (value) =>
-    value ? new Date(value).toLocaleString("vi-VN") : "—";
-const actionablePaymentStatuses = new Set(["pending", "rejected", "overdue"]);
-const paymentComponentOrder = {
-    deposit: 10,
-    initial_payment: 20,
-    principal: 30,
-    installment: 40,
-    rental: 50,
-    rental_cycle: 60,
-    service_fee: 70,
-    tax: 80,
-};
-
-const paymentTime = (payment) => {
-    const value =
-        payment.due_date || payment.period_start || payment.created_at;
-    const timestamp = value
-        ? new Date(value).getTime()
-        : Number.MAX_SAFE_INTEGER;
-    return Number.isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
-};
-
-const paymentOrder = (left, right) => {
-    const leftActionable = actionablePaymentStatuses.has(left.status) ? 0 : 1;
-    const rightActionable = actionablePaymentStatuses.has(right.status) ? 0 : 1;
-    if (leftActionable !== rightActionable)
-        return leftActionable - rightActionable;
-
-    const leftSequence = Number(
-        left.installment_number || left.cycle_number || 0,
-    );
-    const rightSequence = Number(
-        right.installment_number || right.cycle_number || 0,
-    );
-    if (leftSequence !== rightSequence) return leftSequence - rightSequence;
-
-    const dateDifference = paymentTime(left) - paymentTime(right);
-    if (dateDifference !== 0) return dateDifference;
-
-    const componentDifference =
-        (paymentComponentOrder[left.component_type] || 999) -
-        (paymentComponentOrder[right.component_type] || 999);
-    if (componentDifference !== 0) return componentDifference;
-
-    return Number(left.id || 0) - Number(right.id || 0);
-};
+import { usePurchaseDetailActions } from "../hooks/marketplace/usePurchaseDetailActions";
+import {
+    actionablePaymentStatuses,
+    buildPurchaseMetrics,
+    comparePayments,
+    formatDateTime as dateTime,
+    purchaseActionLabels as actionLabels,
+} from "../config/marketplace/purchaseDetail";
 
 export default function PurchaseDetailPage() {
     const { id } = useParams();
@@ -91,83 +42,22 @@ export default function PurchaseDetailPage() {
         queryKey: "purchase-detail",
         staleTime: 10000,
     });
-    const [acting, setActing] = useState("");
-    const [notice, setNotice] = useState("");
-    const [bankPayment, setBankPayment] = useState(null);
-    const [bankQr, setBankQr] = useState(null);
-    const [bankReference, setBankReference] = useState("");
-
-    const run = async (fn, key) => {
-        setActing(key);
-        setNotice("");
-        try {
-            await fn();
-            showToast("success", "Đã cập nhật giao dịch.");
-            await reload();
-        } catch (exception) {
-            const text = supportMessage(
-                exception,
-                "Không thể thực hiện thao tác.",
-            );
-            setNotice(text);
-            showToast("error", text);
-        } finally {
-            setActing("");
-        }
-    };
-
-    const openBankPayment = async (payment) => {
-        setActing(`qr-${payment.id}`);
-        try {
-            const data = await transactionRepository.paymentQr(
-                transaction.id,
-                payment.id,
-            );
-            setBankPayment(payment);
-            setBankQr(data);
-            setBankReference("");
-        } catch (exception) {
-            showToast(
-                "error",
-                supportMessage(exception, "Không thể tạo mã QR thanh toán."),
-            );
-        } finally {
-            setActing("");
-        }
-    };
-
-    const confirmBankPayment = async () => {
-        if (!bankPayment) return;
-        setActing(`bank-${bankPayment.id}`);
-        try {
-            await transactionRepository.submitPayment(
-                transaction.id,
-                bankPayment.id,
-                {
-                    payment_method: "bank",
-                    reference: bankReference || bankQr?.transfer_content,
-                },
-            );
-            showToast("success", "Đã gửi thông tin chuyển khoản để đối soát.");
-            setBankPayment(null);
-            setBankQr(null);
-            await reload();
-        } catch (exception) {
-            showToast(
-                "error",
-                supportMessage(
-                    exception,
-                    "Không thể gửi thông tin chuyển khoản.",
-                ),
-            );
-        } finally {
-            setActing("");
-        }
-    };
+    const {
+        acting,
+        notice,
+        bankPayment,
+        bankQr,
+        bankReference,
+        setBankReference,
+        run,
+        openBankPayment,
+        confirmBankPayment,
+        closeBankPayment,
+    } = usePurchaseDetailActions(transaction, reload);
 
     const actions = transaction?.allowed_actions || [];
     const sortedPayments = useMemo(
-        () => [...(transaction?.payments || [])].sort(paymentOrder),
+        () => [...(transaction?.payments || [])].sort(comparePayments),
         [transaction?.payments],
     );
     const duePayments = sortedPayments.filter((item) =>
@@ -177,59 +67,7 @@ export default function PurchaseDetailPage() {
         (item) => !actionablePaymentStatuses.has(item.status),
     );
 
-    const metrics = transaction
-        ? [
-              {
-                  label: "Tổng phải thanh toán",
-                  value: formatMoney(transaction.total_payable),
-              },
-              {
-                  label: "Phí nền tảng",
-                  value: formatMoney(transaction.service_fee || 0),
-              },
-              {
-                  label: "Đã thanh toán",
-                  value: formatMoney(transaction.paid_amount || 0),
-                  tone: "success",
-              },
-              {
-                  label: "Đang tạm giữ",
-                  value: formatMoney(transaction.escrow_amount || 0),
-                  tone: "warning",
-              },
-              {
-                  label: "Đã giải ngân",
-                  value: formatMoney(transaction.released_amount || 0),
-                  tone: "success",
-              },
-              {
-                  label: "Đã hoàn tiền",
-                  value: formatMoney(transaction.refunded_amount || 0),
-              },
-              ...(transaction.transaction_type === "rental"
-                  ? [
-                        {
-                            label: "Khấu trừ tiền cọc",
-                            value: formatMoney(
-                                transaction.rental_deposit_deduction_amount ||
-                                    0,
-                            ),
-                            tone:
-                                Number(
-                                    transaction.rental_deposit_deduction_amount ||
-                                        0,
-                                ) > 0
-                                    ? "warning"
-                                    : undefined,
-                        },
-                    ]
-                  : []),
-              {
-                  label: "Hạn kế tiếp",
-                  value: dateTime(transaction.next_payment_due_at),
-              },
-          ]
-        : [];
+    const metrics = buildPurchaseMetrics(transaction);
 
     const productAttributes =
         transaction?.product?.attributes &&
@@ -736,19 +574,13 @@ export default function PurchaseDetailPage() {
             <GamingModal
                 open={Boolean(bankPayment)}
                 title="THANH TOÁN CHUYỂN KHOẢN"
-                onClose={() => {
-                    setBankPayment(null);
-                    setBankQr(null);
-                }}
+                onClose={closeBankPayment}
                 width={500}
                 footer={
                     <>
                         <GamingButton
                             variant="danger"
-                            onClick={() => {
-                                setBankPayment(null);
-                                setBankQr(null);
-                            }}
+                            onClick={closeBankPayment}
                         >
                             Hủy
                         </GamingButton>

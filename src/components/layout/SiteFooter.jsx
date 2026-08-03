@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { contentHubGroups } from "../../data/knowledgeBase";
+import { contentHubGroups } from "../../data/knowledgeMeta";
 import MarketplaceImage from "../base/MarketplaceImage";
 
 export default function SiteFooter() {

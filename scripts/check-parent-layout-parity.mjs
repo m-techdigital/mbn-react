@@ -18,7 +18,9 @@ const pageContracts = [
 ]
 
 for (const [file, markers] of pageContracts) {
-    const source = read(file)
+    const source = file === 'src/pages/PayoutPage.jsx'
+        ? [read(file), read('src/components/account/PayoutWithdrawalTable.jsx'), read('src/hooks/marketplace/usePayoutPage.js')].join('\n')
+        : read(file)
     for (const marker of markers) {
         assert(source.includes(marker), `${file} thiếu UI owner chuẩn: ${marker}`)
     }

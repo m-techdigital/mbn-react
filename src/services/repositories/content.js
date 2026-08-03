@@ -1,10 +1,6 @@
 import api, { unwrap } from "../api";
 import { readFromConfiguredSource, isMockMode } from "../dataMode";
-import {
-    mockNotification,
-    mockServices,
-    mockTopics,
-} from "../../data/mockData";
+import { mockNotification, mockServices } from "../../data/mockData";
 import {
     MARKETPLACE_DISPUTE_OUTCOMES,
     MARKETPLACE_DOCUMENT_TYPES,
@@ -21,15 +17,19 @@ export const contentRepository = {
                 api
                     .get("/content", { params: { ...params, type: "topic" } })
                     .then(unwrap),
-            () => Promise.resolve(page(mockTopics, params)),
+            async () => {
+                const { loadDetailedTopics } = await import("../../data/topicContent.js");
+                return page(await loadDetailedTopics(), params);
+            },
         ),
     topic: (slug) =>
         readFromConfiguredSource(
             () => api.get(`/content/slug/${slug}`).then(unwrap),
-            () =>
-                Promise.resolve(
-                    mockTopics.find((item) => item.slug === slug) || null,
-                ),
+            async () => {
+                const { loadDetailedTopics } = await import("../../data/topicContent.js");
+                const topics = await loadDetailedTopics();
+                return topics.find((item) => item.slug === slug) || null;
+            },
         ),
     notification: () => Promise.resolve(mockNotification),
 };

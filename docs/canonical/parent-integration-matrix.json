@@ -90,5 +90,29 @@
       "company_scope",
       "rbac"
     ]
+  },
+  "customer_page_refactor": {
+    "classification": "mini_bounded",
+    "parent_patterns": [
+      "route-level lazy splitting",
+      "one canonical hook owner per page workflow",
+      "config/data owner separated from page render"
+    ],
+    "mini_owners": [
+      "src/hooks/marketplace/useProductForm.js",
+      "src/hooks/marketplace/usePurchaseDetailActions.js",
+      "src/hooks/marketplace/usePayoutPage.js",
+      "src/config/marketplace/purchaseDetail.js",
+      "src/data/knowledge/*",
+      "src/data/topics/*"
+    ],
+    "excluded": [
+      "company_scope",
+      "rbac",
+      "accounting",
+      "reports",
+      "contract_module",
+      "crm_reservation"
+    ]
   }
 }

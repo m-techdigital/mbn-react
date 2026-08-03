@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import PageShell from "../components/base/PageShell";
 import PageSection, {
     DefinitionGrid,
@@ -11,10 +10,7 @@ import FormField from "../components/base/FormField";
 import MoneyInput from "../components/base/MoneyInput";
 import GamingButton from "../components/base/GamingButton";
 import StatusBadge from "../components/base/StatusBadge";
-import ResponsiveDataTable from "../components/base/ResponsiveDataTable";
 import { payoutRepository } from "../services/repositories";
-import { showToast } from "../utils/toast";
-import { getUserFacingError } from "../utils/userFacingError";
 import { formatMoney } from "../utils/format";
 import {
     BaseInput,
@@ -22,132 +18,28 @@ import {
     BaseTextarea,
 } from "../components/base/FormControls";
 import ImageUploadField from "../components/base/ImageUploadField";
+import PayoutWithdrawalTable from "../components/account/PayoutWithdrawalTable";
+import { usePayoutPage } from "../hooks/marketplace/usePayoutPage";
 
 export default function PayoutPage() {
-    const [data, setData] = useState({
-        wallet: {},
-        verification: null,
-        accounts: [],
-        withdrawals: { data: [] },
-    });
-    const [busy, setBusy] = useState("");
-    const [loading, setLoading] = useState(true);
-    const [loadError, setLoadError] = useState("");
-    const [verify, setVerify] = useState({
-        document_type: "citizen_id",
-        document_number: "",
-        document_front: null,
-        document_back: null,
-        selfie: null,
-    });
-    const [account, setAccount] = useState({
-        bank_code: "",
-        bank_name: "",
-        account_name: "",
-        account_number: "",
-        is_default: true,
-    });
-    const [withdraw, setWithdraw] = useState({
-        payout_account_id: "",
-        amount: "",
-        note: "",
-    });
-    const load = async () => {
-        setLoading(true);
-        setLoadError("");
-        try {
-            setData(await payoutRepository.overview());
-        } catch (e) {
-            const message = getUserFacingError(
-                e,
-                "Không thể tải thông tin nhận tiền.",
-            );
-            setLoadError(message);
-            showToast("error", message);
-        } finally {
-            setLoading(false);
-        }
-    };
-    useEffect(() => {
-        load();
-    }, []);
-    const verifiedAccounts = useMemo(
-        () => data.accounts?.filter((x) => x.status === "verified") || [],
-        [data.accounts],
-    );
-    const submit = async (type, fn, success = "Đã gửi yêu cầu.") => {
-        setBusy(type);
-        try {
-            await fn();
-            showToast("success", success);
-            await load();
-        } catch (e) {
-            showToast("error", getUserFacingError(e, "Không thể gửi yêu cầu."));
-        } finally {
-            setBusy("");
-        }
-    };
-    const columns = [
-        { key: "code", title: "Mã yêu cầu", dataIndex: "code" },
-        {
-            key: "amount",
-            title: "Số tiền yêu cầu",
-            dataIndex: "amount",
-            render: (v) => formatMoney(v),
-        },
-        {
-            key: "net",
-            title: "Thực nhận",
-            dataIndex: "net_amount",
-            render: (v) => formatMoney(v),
-        },
-        {
-            key: "account",
-            title: "Tài khoản nhận",
-            render: (_, r) =>
-                `${r.payout_account?.bank_name || ""} • ${r.payout_account?.account_number || ""}`,
-        },
-        {
-            key: "status",
-            title: "Trạng thái",
-            dataIndex: "status",
-            render: (v) => <StatusBadge status={v} />,
-        },
-        {
-            key: "submitted_at",
-            title: "Ngày gửi",
-            dataIndex: "submitted_at",
-            render: (v) => (v ? new Date(v).toLocaleString("vi-VN") : "—"),
-        },
-        {
-            key: "actions",
-            title: "Thao tác",
-            render: (_, row) =>
-                row.status === "submitted" ? (
-                    <GamingButton
-                        size="small"
-                        variant="secondary"
-                        loading={busy === `cancel-${row.id}`}
-                        onClick={() =>
-                            submit(
-                                `cancel-${row.id}`,
-                                () => payoutRepository.cancelWithdrawal(row.id),
-                                "Đã hủy yêu cầu rút tiền.",
-                            )
-                        }
-                    >
-                        Hủy yêu cầu
-                    </GamingButton>
-                ) : (
-                    "—"
-                ),
-        },
-    ];
-    const verificationStatus = data.verification?.status || "unverified";
-    const journey = data.journey || {};
-    const canWithdraw =
-        journey.can_withdraw ??
-        (verificationStatus === "verified" && verifiedAccounts.length > 0);
+    const {
+        data,
+        busy,
+        loading,
+        loadError,
+        verify,
+        setVerify,
+        account,
+        setAccount,
+        withdraw,
+        setWithdraw,
+        load,
+        submit,
+        verifiedAccounts,
+        verificationStatus,
+        journey,
+        canWithdraw,
+    } = usePayoutPage();
     return (
         <PageShell
             title="Nhận tiền và rút tiền"
@@ -585,12 +477,10 @@ export default function PayoutPage() {
                             title="Lịch sử rút tiền"
                             description="Theo dõi số tiền yêu cầu, thực nhận và trạng thái xử lý."
                         >
-                            <ResponsiveDataTable
-                                columns={columns}
+                            <PayoutWithdrawalTable
                                 rows={data.withdrawals?.data || []}
-                                rowKey="id"
-                                minWidth={900}
-                                emptyText="Chưa có yêu cầu rút tiền."
+                                busy={busy}
+                                submit={submit}
                             />
                         </PageSection>
                     </PageStack>

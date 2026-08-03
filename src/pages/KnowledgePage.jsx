@@ -12,11 +12,9 @@ import PageSection, {
     DefinitionGrid,
     PageStack,
 } from "../components/base/PageSection";
-import {
-    contentHubGroups,
-    contentPages,
-    policySources,
-} from "../data/knowledgeBase";
+import { loadKnowledgePage } from "../data/knowledgeBase";
+import { contentHubGroups, policySources } from "../data/knowledgeMeta";
+import { useRemoteData } from "../hooks/useRemoteData";
 
 function BulletList({ items, ordered = false }) {
     if (!items?.length) return null;
@@ -36,15 +34,25 @@ function BulletList({ items, ordered = false }) {
 
 export default function KnowledgePage() {
     const { pathname } = useLocation();
-    const page = contentPages[pathname];
-    if (!page) return <KnowledgeHubPage />;
+    const { data: page, loading, error, reload } = useRemoteData(
+        () => loadKnowledgePage(pathname),
+        [pathname],
+        { queryKey: "knowledge-page", staleTime: 300000 },
+    );
+
+    if (!loading && !error && !page) return <KnowledgeHubPage />;
 
     return (
         <PageShell
-            title={page.title}
-            description={page.summary}
+            title={page?.title || "Trung tâm hướng dẫn và an toàn"}
+            description={page?.summary}
+            loading={loading}
+            loadingVariant="article"
+            error={error}
+            onReload={reload}
             width="reading"
         >
+            {page ? (
             <PageStack>
                 <PageSection className="mbn-knowledge-hero" tone="accent">
                     <div className="mbn-knowledge-hero__content">
@@ -168,6 +176,7 @@ export default function KnowledgePage() {
                     </div>
                 </PageSection>
             </PageStack>
+            ) : null}
         </PageShell>
     );
 }

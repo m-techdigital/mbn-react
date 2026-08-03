@@ -110,6 +110,32 @@ for (const file of [
     }
 }
 
+
+const pageOwners = [
+    ["src/pages/PurchaseDetailPage.jsx", 700, ["usePurchaseDetailActions", "buildPurchaseMetrics"]],
+    ["src/pages/ProductFormPage.jsx", 450, ["useProductForm"]],
+    ["src/pages/PayoutPage.jsx", 520, ["usePayoutPage", "PayoutWithdrawalTable"]],
+];
+for (const [file, maxLines, owners] of pageOwners) {
+    const source = fs.readFileSync(file, "utf8");
+    if (source.split(/\r?\n/).length > maxLines) {
+        failures.push(`${file}: page owner exceeds ${maxLines} lines.`);
+    }
+    for (const owner of owners) {
+        if (!source.includes(owner)) failures.push(`${file}: missing owner ${owner}.`);
+    }
+}
+
+for (const file of [
+    "src/hooks/marketplace/usePurchaseDetailActions.js",
+    "src/hooks/marketplace/useProductForm.js",
+    "src/hooks/marketplace/usePayoutPage.js",
+    "src/components/account/PayoutWithdrawalTable.jsx",
+    "src/data/knowledgeMeta.js",
+]) {
+    if (!fs.existsSync(file)) failures.push(`${file}: missing extracted semantic owner.`);
+}
+
 if (failures.length) {
     console.error(failures.join("\n"));
     process.exit(1);

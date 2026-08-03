@@ -11,7 +11,11 @@ const app = read('src/App.jsx')
 const auth = read('src/services/repositories/auth.js')
 const marketplace = read('src/services/repositories/marketplace.js')
 const customer = read('src/services/repositories/customer.js')
-const payout = read('src/pages/PayoutPage.jsx')
+const payout = [
+    read('src/pages/PayoutPage.jsx'),
+    read('src/components/account/PayoutWithdrawalTable.jsx'),
+    read('src/hooks/marketplace/usePayoutPage.js'),
+].join('\n')
 const purchase = read('src/pages/PurchaseDetailPage.jsx')
 const productForm = read('src/pages/ProductFormPage.jsx')
 
