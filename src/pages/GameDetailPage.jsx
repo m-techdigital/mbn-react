@@ -31,6 +31,17 @@ const typeByPath = (path) =>
           : "avatars";
 const normalizeOfferMode = (mode) =>
     mode === "sell" ? "sale" : mode === "rent" ? "rental" : mode;
+const firstDefined = (...values) =>
+    values.find((value) => value !== undefined && value !== null && value !== "");
+const numberValue = (...values) => Number(firstDefined(...values, 0) || 0);
+const ratePrice = (rate) =>
+    firstDefined(rate?.price, rate?.amount, rate?.rental_price);
+const rateDeposit = (rate) =>
+    firstDefined(rate?.deposit_amount, rate?.rental_deposit_amount);
+const productAttributes = (record) =>
+    record?.attributes && typeof record.attributes === "object"
+        ? record.attributes
+        : {};
 
 export default function GameDetailPage() {
     const { code } = useParams();
@@ -67,6 +78,7 @@ export default function GameDetailPage() {
     const product = useMemo(() => item ?? {}, [item]);
     const productRecord = item?.product || product;
     const productMetadata = productRecord?.metadata || {};
+    const attributes = productAttributes(productRecord);
     const availableTypes = useMemo(
         () => [
             ...new Set(
@@ -90,8 +102,12 @@ export default function GameDetailPage() {
         null;
     const price =
         listingType === "rental"
-            ? selectedRate?.price || item?.rental_price
-            : item?.sale_price;
+            ? numberValue(
+                  ratePrice(selectedRate),
+                  item?.rental_price,
+                  item?.price,
+              )
+            : numberValue(item?.sale_price, item?.price);
     const {
         purchaseOpen,
         purchaseTab,
@@ -180,14 +196,17 @@ export default function GameDetailPage() {
         )
         .slice(0, 8);
 
-    const originalPrice = item?.original_price || Number(price || 0) * 1.2;
+    const originalPrice = numberValue(item?.original_price, price);
     const normalizedPrice = Number(price || 0);
+    const hasOriginalPrice = originalPrice > normalizedPrice;
     const deposit = Number(
-        selectedRate?.deposit_amount ??
-            (listingType === "rental"
-                ? item?.rental_deposit_amount
-                : item?.sale_deposit_amount) ??
-            normalizedPrice * 0.3,
+        firstDefined(
+            rateDeposit(selectedRate),
+            listingType === "rental"
+                ? firstDefined(item?.rental_deposit_amount, item?.deposit_amount)
+                : item?.sale_deposit_amount,
+            0,
+        ),
     );
     const initialPaymentAmount =
         purchaseTab === "installment"
@@ -206,11 +225,43 @@ export default function GameDetailPage() {
         listingType === "rental"
             ? normalizedPrice + deposit
             : initialPaymentAmount;
+    const discountPercent = Number(item?.active_discount || 0);
     const detailRows = [
-        ["Phái", item?.gender || productMetadata.gender || "Chưa cập nhật"],
-        ["Cấp độ", item?.level || productMetadata.level || "Chưa cập nhật"],
-        ["Vũ khí", item?.weapon || productMetadata.weapon || "Chưa cập nhật"],
-        ["Máy chủ", item?.server || productMetadata.server || "Chưa cập nhật"],
+        [
+            "Phái",
+            firstDefined(
+                item?.gender,
+                item?.class,
+                attributes.class,
+                attributes.sex,
+                productMetadata.gender,
+                productMetadata.class,
+                "Chưa cập nhật",
+            ),
+        ],
+        [
+            "Cấp độ",
+            firstDefined(item?.level, productRecord?.level, "Chưa cập nhật"),
+        ],
+        [
+            "Vũ khí",
+            firstDefined(
+                item?.weapon,
+                attributes.weapon,
+                productMetadata.weapon,
+                "Chưa cập nhật",
+            ),
+        ],
+        [
+            "Máy chủ",
+            firstDefined(
+                item?.server,
+                item?.server_name,
+                productRecord?.server_name,
+                productMetadata.server,
+                "Chưa cập nhật",
+            ),
+        ],
         [
             "Mô tả",
             item?.description ||
@@ -269,7 +320,11 @@ export default function GameDetailPage() {
                             <div className="detail-price-row">
                                 <div>
                                     <small>Giá niêm yết</small>
-                                    <del>{formatMoney(originalPrice)}</del>
+                                    {hasOriginalPrice ? (
+                                        <del>{formatMoney(originalPrice)}</del>
+                                    ) : (
+                                        <strong>{formatMoney(price)}</strong>
+                                    )}
                                 </div>
                                 <div>
                                     <small>
@@ -329,15 +384,19 @@ export default function GameDetailPage() {
                                                     <span>{rate.label}</span>
                                                     <strong>
                                                         {formatMoney(
-                                                            rate.price,
+                                                            ratePrice(rate),
                                                         )}
                                                     </strong>
                                                     <small>
                                                         Cọc{" "}
                                                         {formatMoney(
-                                                            rate.deposit_amount ??
+                                                            firstDefined(
+                                                                rate.deposit_amount,
+                                                                rate.rental_deposit_amount,
                                                                 item?.rental_deposit_amount ??
+                                                                    item?.deposit_amount,
                                                                 0,
+                                                            ),
                                                         )}
                                                     </small>
                                                 </button>
@@ -597,12 +656,19 @@ export default function GameDetailPage() {
                                     <div className="purchase-price-row">
                                         <b>
                                             <span>Mức giá</span>
-                                            <em>Giảm giá: 20%</em>
+                                            {discountPercent > 0 && (
+                                                <em>
+                                                    Giảm giá:{" "}
+                                                    {discountPercent}%
+                                                </em>
+                                            )}
                                         </b>
                                         <span>
-                                            <del>
-                                                {formatMoney(originalPrice)}
-                                            </del>
+                                            {hasOriginalPrice && (
+                                                <del>
+                                                    {formatMoney(originalPrice)}
+                                                </del>
+                                            )}
                                             <strong>
                                                 {formatMoney(price)}
                                             </strong>
