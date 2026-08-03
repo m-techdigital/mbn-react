@@ -4,9 +4,9 @@
 
 The former large CSS owners are import-only manifests:
 
-- `mobile-responsive-foundation.css`
+- `mobile-responsive-foundation.scss`
 - `shared-page-architecture.css`
-- `pages/content-editorial-pages.css`
+- `pages/content-editorial-pages.scss`
 - `components/common.css`
 
 Their rules are split into semantic owners for shell/layout, filters, tables, reading/content, account/purchase, documents, catalog/detail, modal and responsive behavior. Import order preserves the previous cascade.

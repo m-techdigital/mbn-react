@@ -34,11 +34,11 @@ const importOnlyManifests = [
     "src/styles/app.css",
     "src/styles/components/modals.css",
     "src/styles/pages/content.css",
-    "src/styles/mobile-responsive-owner.css",
+    "src/styles/mobile-responsive-owner.scss",
     "src/styles/interaction-responsive-disclosure.css",
-    "src/styles/mobile-responsive-foundation.css",
+    "src/styles/mobile-responsive-foundation.scss",
     "src/styles/shared-page-architecture.css",
-    "src/styles/pages/content-editorial-pages.css",
+    "src/styles/pages/content-editorial-pages.scss",
     "src/styles/components/common.css",
 ];
 

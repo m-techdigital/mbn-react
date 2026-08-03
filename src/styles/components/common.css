@@ -1,6 +1,6 @@
-@import "./common-legacy-bridge.css";
-@import "./common-buttons-profile.css";
-@import "./common-page-controls.css";
-@import "./common-catalog-detail.css";
-@import "./common-purchase-modal.css";
-@import "./common-responsive-motion.css";
+@import "./common-legacy-bridge.scss";
+@import "./common-buttons-profile.scss";
+@import "./common-page-controls.scss";
+@import "./common-catalog-detail.scss";
+@import "./common-purchase-modal.scss";
+@import "./common-responsive-motion.scss";

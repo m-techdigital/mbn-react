@@ -1,6 +1,6 @@
 /* Canonical ordered manifest; rules live in semantic owners. */
-@import "./content-core.css";
-@import "./content-safety-pages.css";
-@import "./content-policy-pages.css";
-@import "./content-editorial-pages.css";
-@import "./content-deposit-flow.css";
+@import "./content-core.scss";
+@import "./content-safety-pages.scss";
+@import "./content-policy-pages.scss";
+@import "./content-editorial-pages.scss";
+@import "./content-deposit-flow.scss";

@@ -9,3 +9,4 @@ AXIRO cha là chuẩn kỹ thuật. MBN React chỉ rút gọn phạm vi trải 
 - `NOTIFICATION-PAYOUT-JOURNEY-CLOSURE-20260803.md`
 - `OPERATIONAL-AUDIT-TODAY-QUEUE-CLOSURE-20260803.md`
 - [Large file ownership closure](./LARGE_FILE_OWNERSHIP_CLOSURE_20260803.md)
+- [Large file domain ownership closure](./LARGE_FILE_DOMAIN_OWNERSHIP_20260803.md)

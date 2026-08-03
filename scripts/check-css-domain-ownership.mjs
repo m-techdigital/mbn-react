@@ -2,9 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 const root = path.resolve("src/styles");
 const manifests = {
-    "mobile-responsive-foundation.css": 7,
+    "mobile-responsive-foundation.scss": 7,
     "shared-page-architecture.css": 6,
-    "pages/content-editorial-pages.css": 5,
+    "pages/content-editorial-pages.scss": 5,
     "components/common.css": 6,
 };
 for (const [file, count] of Object.entries(manifests)) {

@@ -2,7 +2,7 @@ import { readCanonicalCss } from "./lib-css-reader.mjs";
 import fs from "node:fs";
 
 const requiredFiles = [
-    "src/styles/mobile-responsive-owner.css",
+    "src/styles/mobile-responsive-owner.scss",
     "src/components/layout/Header.jsx",
     "src/components/base/PageShell.jsx",
     "src/components/base/BaseFilter.jsx",
@@ -19,9 +19,9 @@ for (const file of requiredFiles) {
 const indexCss = fs.readFileSync("src/index.css", "utf8");
 if (
     !indexCss.includes('@import "./styles/app.css";') &&
-    !indexCss.includes('@import "./styles/mobile-responsive-owner.css";')
+    !indexCss.includes('@import "./styles/mobile-responsive-owner.scss";')
 ) {
-    errors.push("mobile-responsive-owner.css chưa được tải.");
+    errors.push("mobile-responsive-owner.scss chưa được tải.");
 }
 if (
     !indexCss.includes('@import "./styles/app.css";') &&
