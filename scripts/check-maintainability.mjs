@@ -20,7 +20,7 @@ for (const file of tracked.filter((entry) => entry.startsWith("src/"))) {
     if (!/\.(js|jsx|ts|tsx|json)$/.test(file)) continue;
     const source = fs.readFileSync(file, "utf8");
     if (
-        /\b(company_id|department_id|change_department|assign_role|manage_organization|change_manager|payroll|accounting|reports|crm|reservation|opportunity|inventory)\b/i.test(
+        /\b(company_id|department_id|change_department|assign_role|manage_organization|change_manager|payroll|accounting|reports|crm|reservation|opportunity|inventory|employee|employees|attendance|payslip|salary|recruitment|resignation|onboarding|offboarding)\b/i.test(
             source,
         )
     ) {
