@@ -150,6 +150,24 @@ export default function PayoutPage() {
                         },
                     ]}
                 />
+                {journey.latest_withdrawal?.status === "submitted" && (
+                    <div className="payout-status-banner is-pending">
+                        Yêu cầu rút tiền đang chờ Admin duyệt. Bạn chưa cần gửi
+                        thêm yêu cầu mới.
+                    </div>
+                )}
+                {journey.latest_withdrawal?.status === "approved" && (
+                    <div className="payout-status-banner is-approved">
+                        Yêu cầu đã được duyệt và đang chờ chi trả. Mã tham chiếu
+                        sẽ hiển thị khi hoàn tất.
+                    </div>
+                )}
+                {verificationStatus === "pending" && (
+                    <div className="payout-status-banner is-pending">
+                        Hồ sơ xác minh đang được kiểm tra. Bạn có thể chuẩn bị
+                        tài khoản nhận tiền trong thời gian chờ.
+                    </div>
+                )}
                 <PageSection
                     title="Lộ trình nhận tiền"
                     description={

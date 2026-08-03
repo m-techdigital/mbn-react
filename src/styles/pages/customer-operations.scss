@@ -1,0 +1,190 @@
+/* Customer experience stabilization v66.26 */
+.deposit-overview-table__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    border: 1px solid var(--mbn-border, #403344);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.deposit-overview-table__cell {
+    min-width: 0;
+    padding: 20px;
+    background: #151217;
+
+    + .deposit-overview-table__cell {
+        border-left: 1px solid var(--mbn-border, #403344);
+    }
+}
+
+.deposit-process-table {
+    display: grid;
+
+    > div {
+        display: grid;
+        grid-template-columns: 38px minmax(0, 1fr);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        > * {
+            padding: 11px 9px;
+        }
+    }
+
+    b {
+        color: #ecabf7;
+        text-align: center;
+    }
+
+    span {
+        color: #d4cbd7;
+        line-height: 1.55;
+    }
+}
+
+.notification-preference-table {
+    display: grid;
+    margin-bottom: 14px;
+    border: 1px solid var(--mbn-border, #403344);
+    border-radius: 10px;
+    overflow: hidden;
+
+    .mbn-choice {
+        justify-content: center;
+    }
+
+    .mbn-choice__content {
+        display: none;
+    }
+}
+
+.notification-preference-table__head,
+.notification-preference-table__row {
+    display: grid;
+    grid-template-columns: minmax(180px, 1.5fr) repeat(3, minmax(140px, 1fr));
+    align-items: center;
+}
+
+.notification-preference-table__head {
+    background: #24172a;
+
+    > * {
+        padding: 12px;
+        color: #f5eefa;
+    }
+}
+
+.notification-preference-table__row {
+    border-top: 1px solid var(--mbn-border, #403344);
+    background: #151217;
+
+    > strong,
+    > div {
+        padding: 10px 12px;
+    }
+}
+
+.simple-notification-section .mbn-page-section__body {
+    padding: 0;
+}
+
+.simple-notification-list {
+    display: grid;
+
+    article {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 16px;
+        padding: 15px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: #151217;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        &.is-unread {
+            background: #201325;
+        }
+    }
+}
+
+.simple-notification-list__content {
+    > div {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
+
+    p {
+        margin: 5px 0;
+        color: #cbc1ce;
+        line-height: 1.5;
+    }
+
+    time {
+        color: #8f8494;
+        font-size: 12px;
+    }
+}
+
+.simple-notification-list__action {
+    display: flex;
+    align-items: center;
+
+    a,
+    button {
+        padding: 7px 12px;
+        border: 1px solid #8f3ca1;
+        border-radius: 7px;
+        background: transparent;
+        color: #f0b8fa;
+        font-weight: 700;
+        cursor: pointer;
+    }
+}
+
+.wallet-page__metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.deposit-overview-shell {
+    grid-template-columns: 1fr !important;
+}
+
+@media (max-width: 900px) {
+    .deposit-overview-table__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .deposit-overview-table__cell + .deposit-overview-table__cell {
+        border-top: 1px solid var(--mbn-border, #403344);
+        border-left: 0;
+    }
+
+    .notification-preference-table {
+        overflow-x: auto;
+    }
+
+    .notification-preference-table__head,
+    .notification-preference-table__row {
+        min-width: 720px;
+    }
+}
+
+@media (max-width: 620px) {
+    .deposit-overview-table__cell {
+        padding: 14px;
+    }
+
+    .simple-notification-list article {
+        grid-template-columns: 1fr;
+    }
+
+    .simple-notification-list__action {
+        justify-content: flex-end;
+    }
+
+    .wallet-page__metrics {
+        grid-template-columns: 1fr !important;
+    }
+}

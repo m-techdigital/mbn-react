@@ -1,0 +1,199 @@
+.payout-stepper {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+
+    span {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-height: 64px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        background: #17121b;
+        color: #a99fae;
+
+        > span {
+            display: grid;
+            gap: 3px;
+            min-height: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+        }
+    }
+
+    small {
+        display: block;
+        color: #a99fae;
+        line-height: 1.35;
+    }
+
+    b {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #2a202f;
+        color: #fff;
+    }
+
+    .is-blocked {
+        opacity: 0.78;
+    }
+
+    .is-done {
+        border-color: rgba(70, 205, 135, 0.4);
+        color: #bcefd2;
+
+        b {
+            background: #1b6b46;
+        }
+    }
+
+    .is-current {
+        border-color: #c52be5;
+        color: #fff;
+
+        b {
+            background: #8e1ca5;
+        }
+    }
+}
+
+.payout-account-list {
+    display: grid;
+    gap: 9px;
+    margin-bottom: 14px;
+
+    article {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1.2fr auto;
+        gap: 10px;
+        align-items: center;
+        padding: 11px;
+        border-radius: 10px;
+        background: #17121b;
+    }
+
+    small {
+        color: #aaa0af;
+    }
+}
+
+.payout-blocked-note {
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(245, 174, 66, 0.35);
+    border-radius: 10px;
+    background: rgba(245, 174, 66, 0.08);
+    color: #f3d29d;
+}
+
+.purchase-next-action__hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--surface-soft, rgba(255, 255, 255, 0.05));
+
+    p {
+        margin: 4px 0 0;
+    }
+}
+
+.purchase-journey-list {
+    display: grid;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        display: grid;
+        gap: 3px;
+        padding: 12px;
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+        border-radius: 12px;
+
+        &.is-completed {
+            opacity: 0.78;
+        }
+    }
+}
+
+.purchase-blocking-reasons {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 168, 0, 0.08);
+
+    p {
+        margin: 6px 0 0;
+    }
+}
+
+.payout-status-banner {
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+
+    &.is-pending {
+        border: 1px solid #ffd591;
+        background: #fff7e6;
+        color: #874d00;
+    }
+
+    &.is-approved {
+        border: 1px solid #91caff;
+        background: #e6f4ff;
+        color: #0958d9;
+    }
+}
+
+@media (max-width: 980px) {
+    .payout-account-list {
+        article {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .mbn-status-badge {
+            justify-self: start;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .purchase-next-action__hero {
+        align-items: stretch;
+        flex-direction: column;
+
+        .mbn-button,
+        .gaming-button {
+            width: 100%;
+            min-height: 48px;
+        }
+    }
+
+    .payout-page .base-form-actions .gaming-button {
+        width: 100%;
+        min-height: 48px;
+    }
+
+    .payout-status-banner {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 620px) {
+    .payout-stepper,
+    .payout-account-list article {
+        grid-template-columns: 1fr;
+    }
+}
