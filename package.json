@@ -52,7 +52,10 @@
         "sync:marketplace-options": "node scripts/sync-marketplace-options.mjs",
         "check:marketplace-options-sync": "node scripts/sync-marketplace-options.mjs --check",
         "check:customer-journey": "node scripts/check-customer-journey.mjs",
-        "check:payout-journey-polish": "node scripts/check-payout-journey-polish.mjs"
+        "check:payout-journey-polish": "node scripts/check-payout-journey-polish.mjs",
+        "check:repository-ownership": "node scripts/check-repository-ownership.mjs",
+        "check:style-ownership": "node scripts/check-style-ownership.mjs",
+        "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership"
     },
     "dependencies": {
         "@ant-design/icons": "^6.2.2",

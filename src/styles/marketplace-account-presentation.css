@@ -1,0 +1,595 @@
+/* unified public marketplace + account workspace presentation owner. */
+:root {
+    --mbn-v62-shell: 1280px;
+    --mbn-v62-reading: 920px;
+    --mbn-v62-account-sidebar: 252px;
+    --mbn-v62-space-1: 4px;
+    --mbn-v62-space-2: 8px;
+    --mbn-v62-space-3: 12px;
+    --mbn-v62-space-4: 16px;
+    --mbn-v62-space-5: 20px;
+    --mbn-v62-surface: #111014;
+    --mbn-v62-surface-raised: #17151a;
+    --mbn-v62-border: #3a303e;
+    --mbn-v62-border-strong: #6b3978;
+    --mbn-v62-muted: #b9afbd;
+    --mbn-v62-text: #f7f3f8;
+}
+
+/* Two clear shells: public marketplace is full width; account area owns the sidebar. */
+.site-frame {
+    display: block !important;
+    min-height: calc(100vh - var(--header-h));
+}
+.site-frame--account {
+    display: grid !important;
+    grid-template-columns: var(--mbn-v62-account-sidebar) minmax(0, 1fr) !important;
+}
+.site-frame--public .site-main {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+.site-frame--account .site-main {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+}
+.site-main {
+    background-position: center top !important;
+}
+.page-shell,
+.home-page {
+    width: min(var(--mbn-v62-shell), 100%) !important;
+    margin-inline: auto !important;
+}
+.page-shell--reading {
+    width: min(var(--mbn-v62-reading), 100%) !important;
+}
+
+/* Header: slimmer hierarchy, clear brand/navigation/account split. */
+.site-header {
+    height: auto !important;
+    border-bottom: 1px solid #2b2430 !important;
+    background: rgba(8, 8, 10, 0.96) !important;
+    backdrop-filter: blur(14px);
+}
+.header-brand-row {
+    height: 64px !important;
+    padding: 7px max(14px, calc((100vw - var(--mbn-v62-shell)) / 2)) !important;
+    border-top: 0 !important;
+    background: linear-gradient(180deg, #18161a, #101012) !important;
+}
+.brand img {
+    width: 154px !important;
+    height: 44px !important;
+}
+.header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+.header-account-pill {
+    height: 38px !important;
+    min-width: 168px !important;
+    max-width: 230px !important;
+    padding: 0 10px !important;
+    justify-content: flex-start !important;
+    border-color: #6f3a7d !important;
+    border-radius: 9px !important;
+    background: #1a151d !important;
+    box-shadow: none !important;
+}
+.header-account-avatar {
+    width: 27px !important;
+    height: 27px !important;
+    flex: 0 0 27px !important;
+}
+.header-account-copy {
+    display: grid !important;
+    gap: 1px !important;
+    min-width: 0 !important;
+    text-align: left !important;
+}
+.header-account-copy b {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 12.5px !important;
+}
+.header-account-copy small {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 10px !important;
+    color: #bcaec1 !important;
+}
+.header-account-caret {
+    margin-left: auto !important;
+}
+.desktop-nav {
+    height: 42px !important;
+    padding: 0 max(14px, calc((100vw - var(--mbn-v62-shell)) / 2)) !important;
+    align-items: center !important;
+    gap: 4px !important;
+    border-top: 1px solid #29232d !important;
+    background: #0d0c0f !important;
+}
+.desktop-nav a {
+    height: 32px !important;
+    min-width: 0 !important;
+    padding: 0 13px !important;
+    border: 0 !important;
+    border-radius: 7px !important;
+    background: transparent !important;
+    color: #c8c0cb !important;
+    font-size: 12.5px !important;
+    box-shadow: none !important;
+}
+.desktop-nav a:hover,
+.desktop-nav a.active {
+    background: #26172c !important;
+    color: #fff !important;
+    box-shadow: inset 0 0 0 1px #693775 !important;
+}
+
+/* Account workspace sidebar. */
+.account-sidebar {
+    top: 106px !important;
+    height: calc(100vh - 106px) !important;
+    padding: 14px 12px 18px !important;
+    border-right: 1px solid #302735 !important;
+    background: linear-gradient(180deg, #111014, #0b0a0c) !important;
+}
+.sidebar-close {
+    display: none !important;
+}
+.sidebar-profile {
+    min-height: 0 !important;
+    padding: 6px 4px 14px !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+}
+.sidebar-avatar {
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 18px !important;
+    border-width: 1px !important;
+    box-shadow: none !important;
+}
+.sidebar-profile > strong {
+    width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 13px !important;
+}
+.sidebar-balance {
+    width: 100% !important;
+    padding: 7px 9px !important;
+    border-radius: 7px !important;
+    font-size: 11.5px !important;
+}
+.sidebar-auth-actions {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7px !important;
+}
+.btn-login,
+.btn-register {
+    min-width: 0 !important;
+    width: 100% !important;
+    height: 32px !important;
+    font-size: 11.5px !important;
+}
+.sidebar-links {
+    padding-top: 12px !important;
+    gap: 5px !important;
+}
+.sidebar-links a {
+    min-height: 38px !important;
+    padding: 7px 9px !important;
+    grid-template-columns: 18px minmax(0, 1fr) 10px !important;
+    gap: 8px !important;
+    border-radius: 7px !important;
+    background: #141216 !important;
+    font-size: 11.75px !important;
+    font-weight: 650 !important;
+}
+.sidebar-links a.active {
+    background: #28182e !important;
+    box-shadow: inset 2px 0 #d600ff !important;
+}
+.sidebar-links i {
+    font-size: 14px !important;
+}
+.sidebar-logout-wrap {
+    margin-top: auto !important;
+    padding-top: 12px !important;
+}
+.sidebar-logout {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    border-radius: 7px !important;
+}
+
+/* Page shell: left-aligned information hierarchy and consistent tool zone. */
+.page-panel {
+    width: 100% !important;
+}
+.mbn-page-header {
+    display: grid !important;
+    grid-template-columns: 30px minmax(0, 1fr) auto !important;
+    align-items: start !important;
+    gap: 10px !important;
+    margin: 0 0 12px !important;
+    padding: 2px 0 !important;
+    text-align: left !important;
+}
+.mbn-page-header__copy h1 {
+    margin: 0 !important;
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.01em !important;
+}
+.mbn-page-header__copy p {
+    max-width: 760px !important;
+    margin: 4px 0 0 !important;
+    color: var(--mbn-v62-muted) !important;
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+}
+.mbn-page-header__icon {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+.mbn-page-header__actions {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+}
+.mbn-page-header > .mbn-page-header__icon:nth-of-type(2) {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+}
+.mbn-page-header:has(.mbn-page-header__actions)
+    > .mbn-page-header__icon:nth-of-type(2) {
+    margin-right: 44px !important;
+}
+
+/* Unified surfaces and typography. */
+.mbn-page-stack,
+.mbn-page-columns {
+    gap: 12px !important;
+}
+.mbn-page-section {
+    border: 1px solid var(--mbn-v62-border) !important;
+    border-radius: 10px !important;
+    background: linear-gradient(
+        180deg,
+        var(--mbn-v62-surface-raised),
+        var(--mbn-v62-surface)
+    ) !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16) !important;
+}
+.mbn-page-section__header {
+    padding: 13px 14px 10px !important;
+    border-bottom: 1px solid #302834 !important;
+}
+.mbn-page-section__header h2 {
+    font-size: 14.5px !important;
+}
+.mbn-page-section__header p {
+    font-size: 11.5px !important;
+    line-height: 1.45 !important;
+}
+.mbn-page-section__body {
+    padding: 14px !important;
+}
+.mbn-button {
+    border-radius: 7px !important;
+    box-shadow: none !important;
+}
+.mbn-form-field__label {
+    font-weight: 700 !important;
+    color: #e8e0eb !important;
+}
+.mbn-form-field__control > input,
+.mbn-form-field__control > select,
+.mbn-form-field__control > textarea,
+.password-field,
+.money-input {
+    border-color: #46394b !important;
+    background: #0e0d10 !important;
+}
+.mbn-form-field__control > input:focus,
+.mbn-form-field__control > select:focus,
+.mbn-form-field__control > textarea:focus {
+    border-color: #b229d0 !important;
+    box-shadow: 0 0 0 3px rgba(178, 41, 208, 0.12) !important;
+}
+
+/* Home: clearer hierarchy and less decorative noise. */
+.home-page {
+    display: grid !important;
+    gap: 14px !important;
+}
+.hero-banner {
+    border: 1px solid #653172 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+}
+.home-shortcuts {
+    margin-top: 0 !important;
+    gap: 10px !important;
+}
+.home-shortcuts a {
+    min-height: 58px !important;
+    padding: 9px 11px !important;
+    border-color: #4a3150 !important;
+    border-radius: 9px !important;
+    background: linear-gradient(135deg, #211526, #111014 72%) !important;
+    box-shadow: none !important;
+}
+.home-shortcuts a:hover {
+    border-color: #a438ba !important;
+    background: #27172d !important;
+}
+.shortcut-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-color: #63366e !important;
+    background: #201523 !important;
+    font-size: 17px !important;
+}
+.legacy-section-title {
+    margin: 4px 0 10px !important;
+    font-size: 14px !important;
+    letter-spacing: 0.2px !important;
+    text-transform: none !important;
+}
+.legacy-service-grid {
+    gap: 10px !important;
+}
+.legacy-service-card {
+    border-color: #423547 !important;
+    border-radius: 9px !important;
+    box-shadow: none !important;
+}
+.legacy-service-card:hover {
+    transform: translateY(-1px) !important;
+    border-color: #963eaa !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22) !important;
+}
+.legacy-service-card strong {
+    height: 34px !important;
+    text-transform: none !important;
+    font-size: 11.5px !important;
+}
+
+/* Catalog: keep filtering obvious and listings easier to scan. */
+.game-intro {
+    border: 1px solid var(--mbn-v62-border) !important;
+    border-radius: 10px !important;
+    background: #131115 !important;
+}
+.catalog-trust-strip {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+    border: 1px solid #3b594f !important;
+    border-radius: 9px !important;
+    background: #102019 !important;
+    color: #bdebdc !important;
+    font-size: 11.25px !important;
+}
+.account-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+}
+.account-card {
+    border-color: #3d3342 !important;
+    border-radius: 10px !important;
+    background: #121014 !important;
+    box-shadow: none !important;
+}
+.account-card:hover {
+    border-color: #80418f !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24) !important;
+}
+.account-description {
+    color: #d6cdd9 !important;
+}
+
+/* Detail: stronger primary purchase path and calmer supporting content. */
+.detail-layout {
+    grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr) !important;
+    gap: 16px !important;
+    padding: 0 !important;
+}
+.detail-gallery,
+.detail-card {
+    border: 1px solid var(--mbn-v62-border) !important;
+    border-radius: 10px !important;
+    background: #111014 !important;
+}
+.detail-card {
+    position: sticky !important;
+    top: 118px !important;
+    align-self: start !important;
+}
+.detail-action-grid {
+    grid-template-columns: 1fr 1fr !important;
+}
+.detail-action-grid .mbn-button:first-child {
+    grid-column: 1/-1 !important;
+}
+.contact-buttons {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+}
+.suggested-panel {
+    border: 1px solid var(--mbn-v62-border) !important;
+    border-radius: 10px !important;
+    background: #111014 !important;
+}
+.mobile-purchase-dock {
+    display: none !important;
+}
+
+/* Tables: denser and calmer on desktop. */
+.mbn-table-scroll {
+    border: 1px solid var(--mbn-v62-border) !important;
+    border-radius: 9px !important;
+    background: #100f12 !important;
+}
+.mbn-table__head {
+    background: #1b171d !important;
+}
+.mbn-table__head > div {
+    font-size: 11px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+.mbn-table__row > div {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+}
+
+@media (max-width: 1180px) {
+    .account-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .detail-layout {
+        grid-template-columns: minmax(0, 1fr) 320px !important;
+    }
+}
+
+@media (max-width: 980px) {
+    .site-frame--account {
+        display: block !important;
+    }
+    .site-frame--public .site-main,
+    .site-frame--account .site-main {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    .account-sidebar {
+        display: none !important;
+    }
+    .account-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .detail-layout {
+        grid-template-columns: 1fr !important;
+    }
+    .detail-card {
+        position: static !important;
+    }
+    .mobile-purchase-dock {
+        display: grid !important;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-h: 56px;
+    }
+    .header-brand-row {
+        height: 56px !important;
+        padding: 6px 8px !important;
+    }
+    .brand img {
+        width: 116px !important;
+        height: 34px !important;
+    }
+    .site-main {
+        padding-top: 8px !important;
+    }
+    .mbn-page-header {
+        grid-template-columns: 26px minmax(0, 1fr) 26px !important;
+        gap: 7px !important;
+        margin-bottom: 9px !important;
+    }
+    .mbn-page-header__copy h1 {
+        font-size: 16px !important;
+    }
+    .mbn-page-header__copy p {
+        font-size: 10.75px !important;
+    }
+    .mbn-page-header__icon {
+        width: 26px !important;
+        height: 26px !important;
+    }
+    .mbn-page-section__header {
+        padding: 9px 10px 8px !important;
+    }
+    .mbn-page-section__body {
+        padding: 10px !important;
+    }
+    .home-page {
+        gap: 10px !important;
+    }
+    .home-shortcuts {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 7px !important;
+    }
+    .home-shortcuts a {
+        min-height: 50px !important;
+        padding: 7px 8px !important;
+    }
+    .shortcut-icon {
+        width: 31px !important;
+        height: 31px !important;
+        flex-basis: 31px !important;
+        font-size: 14px !important;
+    }
+    .legacy-service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 7px !important;
+    }
+    .catalog-trust-strip {
+        grid-template-columns: 1fr !important;
+        gap: 4px !important;
+        padding: 8px !important;
+    }
+    .account-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    .detail-action-grid,
+    .contact-buttons {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .detail-action-grid .mbn-button:first-child {
+        grid-column: 1/-1 !important;
+    }
+    .mobile-purchase-dock {
+        grid-template-columns: minmax(0, 1fr) 56px 112px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .site-main {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+    }
+    .home-shortcuts a {
+        gap: 7px !important;
+    }
+    .home-shortcuts small {
+        font-size: 7.75px !important;
+    }
+    .home-shortcuts b {
+        font-size: 10px !important;
+    }
+    .detail-action-grid,
+    .contact-buttons {
+        gap: 6px !important;
+    }
+}

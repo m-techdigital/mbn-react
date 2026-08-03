@@ -72,7 +72,7 @@ Khi Backend đã chạy `migrate:fresh --seed`, hộp thoại đăng nhập hi�
 
 Frontend sử dụng chính sách **base-first**: page/feature chỉ ghép các owner trong `src/components/base`, không tự dựng lại form, table, modal, drawer, notice, loading hoặc empty state khi đã có base tương ứng.
 
-Tài liệu chi tiết: `BASE-FIRST-UI-ARCHITECTURE-v66.29-REPORT-20260801.md`.
+Tài liệu chi tiết: `docs/canonical/OPERATIONAL-AUDIT-TODAY-QUEUE-CLOSURE-20260803.md`.
 
 Gate bắt buộc:
 

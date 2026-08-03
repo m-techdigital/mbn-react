@@ -1,0 +1,79 @@
+/* architecture/performance UX owner. */
+.mbn-skip-link {
+    position: fixed;
+    left: 12px;
+    top: -60px;
+    z-index: 5000;
+    padding: 8px 12px;
+    border: 1px solid #d42cff;
+    border-radius: 7px;
+    background: #120d16;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    transition: top 0.16s ease;
+}
+.mbn-skip-link:focus {
+    top: 10px;
+}
+.route-boundary {
+    width: min(100% - 24px, 760px);
+    margin: 24px auto;
+    display: grid;
+    gap: 12px;
+}
+.route-boundary--loading {
+    min-height: 280px;
+    align-content: start;
+}
+.route-boundary__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.route-boundary__actions .mbn-button {
+    min-width: 140px;
+}
+.mobile-menu-links a i,
+.mobile-account-links a i {
+    font-style: normal;
+    color: #a795ad;
+    text-align: right;
+}
+.desktop-nav a,
+.sidebar-links a,
+.mobile-menu-links a,
+.mobile-account-links a,
+.bottom-nav a {
+    contain: layout style;
+}
+.site-main:focus {
+    outline: none;
+}
+@media (max-width: 768px) {
+    .route-boundary {
+        width: calc(100% - 12px);
+        margin: 10px auto;
+        gap: 8px;
+    }
+    .route-boundary--loading {
+        min-height: 210px;
+    }
+    .route-boundary__actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
+    .route-boundary__actions .mbn-button {
+        min-width: 0;
+        width: 100%;
+    }
+    .mbn-skip-link {
+        display: none;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .mbn-skip-link {
+        transition: none;
+    }
+}

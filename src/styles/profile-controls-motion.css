@@ -1,0 +1,345 @@
+/* compact controls, stable profile geometry and restored motion/skeleton ownership. */
+:root {
+    --mbn-control-height: 38px;
+    --mbn-control-height-mobile: 40px;
+    --mbn-form-gap: 14px;
+    --mbn-motion-fast: 180ms;
+    --mbn-motion-normal: 280ms;
+}
+
+/* Compact every canonical field without shrinking touch targets on narrow screens. */
+.mbn-form-field__control > input,
+.mbn-form-field__control > select,
+.mbn-base-filter input,
+.mbn-base-filter select,
+.money-input,
+.password-field {
+    min-height: var(--mbn-control-height) !important;
+    height: var(--mbn-control-height) !important;
+}
+.mbn-form-field__control > input,
+.mbn-form-field__control > select,
+.mbn-base-filter input,
+.mbn-base-filter select,
+.password-field input,
+.money-input input {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 13px !important;
+}
+.money-input {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.money-input input {
+    height: 100% !important;
+    min-height: 0 !important;
+    flex: 1;
+    min-width: 0;
+}
+.money-input > span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 11px;
+    border-left: 1px solid #ca2be8;
+    background: #ebe7ef;
+    color: #342c38;
+    font-size: 12px;
+    font-weight: 750;
+}
+.password-field__toggle {
+    width: 38px;
+}
+.mbn-base-form,
+.mbn-form-stack {
+    gap: var(--mbn-form-gap) !important;
+}
+.mbn-form-field {
+    gap: 6px !important;
+}
+.mbn-form-field__label {
+    font-size: 13px !important;
+    line-height: 1.3;
+}
+.mbn-form-field__hint,
+.mbn-form-field__error {
+    font-size: 11px !important;
+    line-height: 1.45;
+}
+
+/* Profile: identity is body content, never squeezed into section actions. */
+.profile-page-v46 .mbn-page-columns--profile {
+    grid-template-columns: minmax(360px, 410px) minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+}
+.profile-page-v46 .mbn-page-stack {
+    gap: 18px;
+}
+.profile-page-v46 .mbn-page-section {
+    overflow: hidden;
+}
+.profile-page-v46 .mbn-page-section__header {
+    min-height: 76px;
+    align-items: center;
+}
+.profile-page-v46 .mbn-page-section__body {
+    display: grid;
+    gap: 16px;
+}
+.mbn-profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #4a3650;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1b1020, #111014);
+}
+.mbn-profile-summary__avatar {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 58px;
+    overflow: hidden;
+    border: 1px solid #d224f4;
+    border-radius: 50%;
+    background: #120b16;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    box-shadow: 0 0 16px rgba(194, 38, 239, 0.18);
+}
+.mbn-profile-summary__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mbn-profile-summary__copy {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+}
+.mbn-profile-summary__copy strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff;
+    font-size: 16px;
+}
+.mbn-profile-summary__copy span {
+    color: #b7aabd;
+    font-size: 12px;
+}
+.profile-page-v46 .mbn-profile-meta {
+    grid-template-columns: 1fr !important;
+    border-radius: 7px;
+    overflow: hidden;
+}
+.profile-page-v46 .mbn-profile-meta > div {
+    grid-template-columns: minmax(105px, 38%) minmax(0, 1fr) !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid #352b39 !important;
+    align-items: center;
+}
+.profile-page-v46 .mbn-profile-meta > div:last-child {
+    border-bottom: 0 !important;
+}
+.profile-page-v46 .mbn-profile-meta dd {
+    min-width: 0;
+    justify-content: flex-end;
+    text-align: right;
+    overflow: visible;
+    white-space: normal;
+}
+.profile-page-v46 .mbn-profile-meta .mbn-status-badge {
+    display: inline-flex !important;
+    max-width: 100%;
+    white-space: nowrap !important;
+    writing-mode: horizontal-tb !important;
+    word-break: normal !important;
+}
+.profile-page-v46 .mbn-image-upload {
+    min-width: 0;
+}
+.profile-page-v46 .mbn-base-form__actions {
+    padding-top: 2px;
+}
+
+/* Restored skeletons: stable shapes matching the canonical page layout. */
+.profile-skeleton {
+    display: grid;
+    grid-template-columns: minmax(360px, 410px) minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+}
+.profile-skeleton > section,
+.profile-skeleton__security > section {
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid #46364b;
+    border-radius: 9px;
+    background: #121015;
+}
+.profile-skeleton__security {
+    display: grid;
+    gap: 18px;
+}
+.profile-skeleton__summary {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #342a38;
+}
+.profile-skeleton__summary > div {
+    display: grid;
+    gap: 8px;
+}
+.profile-skeleton__summary > div .mbn-skeleton:first-child {
+    width: 55%;
+    height: 16px;
+}
+.profile-skeleton__summary > div .mbn-skeleton:last-child {
+    width: 34%;
+    height: 11px;
+}
+.profile-skeleton__avatar {
+    width: 58px !important;
+    height: 58px !important;
+    border-radius: 50% !important;
+}
+.profile-skeleton__field {
+    display: grid;
+    gap: 7px;
+}
+.profile-skeleton__field .mbn-skeleton:first-child {
+    width: 32%;
+    height: 11px;
+}
+.profile-skeleton__field .mbn-skeleton:last-child {
+    height: 38px;
+}
+.profile-skeleton__button {
+    height: 38px;
+}
+
+/* Motion is attached to base owners, so architecture refactors cannot silently remove it. */
+.page-content.is-ready > .mbn-page-columns,
+.page-content.is-ready > .mbn-page-stack,
+.page-content.is-ready > .mbn-page-section,
+.page-content.is-ready > .mbn-topic-grid,
+.page-content.is-ready > .mbn-table,
+.page-content.is-ready > .mbn-base-filter {
+    animation: mbn-v46-content-in var(--mbn-motion-normal)
+        cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+.mbn-page-section,
+.mbn-topic-card,
+.account-card,
+.mbn-table__row,
+.mbn-button {
+    transition:
+        border-color var(--mbn-motion-fast) ease,
+        background-color var(--mbn-motion-fast) ease,
+        box-shadow var(--mbn-motion-fast) ease,
+        transform var(--mbn-motion-fast) ease,
+        opacity var(--mbn-motion-fast) ease;
+}
+.mbn-page-section:hover {
+    border-color: #594160;
+}
+.mbn-topic-card:hover,
+.account-card:hover {
+    transform: translateY(-2px);
+}
+.mbn-button:not(:disabled):active {
+    transform: translateY(1px) scale(0.995);
+}
+.async-image img {
+    opacity: 0;
+    transition:
+        opacity 260ms ease,
+        transform 360ms ease;
+}
+.async-image.is-loaded img {
+    opacity: 1;
+}
+.account-card:hover .async-image.is-loaded img {
+    transform: scale(1.012);
+}
+.mbn-skeleton::after {
+    animation: mbn-v46-shimmer 1.15s ease-in-out infinite !important;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.075),
+        rgba(202, 55, 242, 0.14),
+        transparent
+    ) !important;
+}
+@keyframes mbn-v46-content-in {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes mbn-v46-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 900px) {
+    .profile-page-v46 .mbn-page-columns--profile,
+    .profile-skeleton {
+        grid-template-columns: 1fr;
+        max-width: 720px;
+        margin-inline: auto;
+    }
+}
+@media (max-width: 640px) {
+    :root {
+        --mbn-control-height: var(--mbn-control-height-mobile);
+    }
+    .profile-page-v46 .mbn-page-columns--profile {
+        gap: 12px;
+    }
+    .profile-page-v46 .mbn-page-stack {
+        gap: 12px;
+    }
+    .mbn-profile-summary__avatar {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+    }
+    .profile-skeleton {
+        gap: 12px;
+    }
+    .profile-skeleton__security {
+        gap: 12px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .page-content.is-ready > *,
+    .mbn-page-section,
+    .mbn-topic-card,
+    .account-card,
+    .mbn-table__row,
+    .mbn-button,
+    .async-image img,
+    .mbn-skeleton::after {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}

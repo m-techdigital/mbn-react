@@ -1,24 +1,23 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-import EmptyState from '../components/base/EmptyState'
-import GamingButton from '../components/base/GamingButton'
-import MarketplaceImage from '../components/base/MarketplaceImage'
-import PageSection from '../components/base/PageSection'
-import PageShell from '../components/base/PageShell'
-import StatusBadge from '../components/base/StatusBadge'
-import { useRemoteData } from '../hooks/useRemoteData'
-import { productRepository } from '../services/repositories'
-import { arrayData, formatMoney } from '../utils/format'
-import { valueLabel } from '../utils/labels'
-
+import EmptyState from "../components/base/EmptyState";
+import GamingButton from "../components/base/GamingButton";
+import MarketplaceImage from "../components/base/MarketplaceImage";
+import PageSection from "../components/base/PageSection";
+import PageShell from "../components/base/PageShell";
+import StatusBadge from "../components/base/StatusBadge";
+import { useRemoteData } from "../hooks/useRemoteData";
+import { productRepository } from "../services/repositories";
+import { arrayData, formatMoney } from "../utils/format";
+import { valueLabel } from "../utils/labels";
 
 export default function MyProductsPage() {
     const { data, loading, error, reload } = useRemoteData(
         () => productRepository.mine({ per_page: 50 }),
         [],
-        { queryKey: 'my-products', staleTime: 15000 },
-    )
-    const rows = arrayData(data)
+        { queryKey: "my-products", staleTime: 15000 },
+    );
+    const rows = arrayData(data);
 
     return (
         <PageShell
@@ -44,16 +43,23 @@ export default function MyProductsPage() {
                 {rows.length ? (
                     <section className="seller-products-grid">
                         {rows.map((item) => (
-                            <article className="seller-product-card" key={item.id}>
+                            <article
+                                className="seller-product-card"
+                                key={item.id}
+                            >
                                 <MarketplaceImage
                                     src={
                                         item.image_url ||
-                                        '/images/mock/accounts/ninja-1.jpg'
+                                        "/images/mock/accounts/ninja-1.jpg"
                                     }
                                     alt={item.name}
                                 />
                                 <div>
-                                    <StatusBadge status={item.approval_status || item.status} />
+                                    <StatusBadge
+                                        status={
+                                            item.approval_status || item.status
+                                        }
+                                    />
                                     <h2>{item.name}</h2>
                                     <p>
                                         {item.game_code} · {item.product_type}
@@ -63,24 +69,35 @@ export default function MyProductsPage() {
                                             <dt>Loại giao dịch</dt>
                                             <dd>
                                                 {(item.offer_modes || [])
-                                                    .map((type) => valueLabel(type))
-                                                    .concat(item.installment_enabled ? ['Trả góp'] : []).join(', ') || '—'}
+                                                    .map((type) =>
+                                                        valueLabel(type),
+                                                    )
+                                                    .concat(
+                                                        item.installment_enabled
+                                                            ? ["Trả góp"]
+                                                            : [],
+                                                    )
+                                                    .join(", ") || "—"}
                                             </dd>
                                         </div>
                                         <div>
                                             <dt>Giá bán</dt>
                                             <dd>
                                                 {item.sale_enabled
-                                                    ? formatMoney(item.sale_price)
-                                                    : '—'}
+                                                    ? formatMoney(
+                                                          item.sale_price,
+                                                      )
+                                                    : "—"}
                                             </dd>
                                         </div>
                                         <div>
                                             <dt>Giá thuê</dt>
                                             <dd>
                                                 {item.rental_enabled
-                                                    ? formatMoney(item.rental_price)
-                                                    : '—'}
+                                                    ? formatMoney(
+                                                          item.rental_price,
+                                                      )
+                                                    : "—"}
                                             </dd>
                                         </div>
                                         <div>
@@ -90,7 +107,8 @@ export default function MyProductsPage() {
                                     </dl>
                                     {item.rejection_reason ? (
                                         <p className="seller-product-card__reason">
-                                            Lý do từ chối: {item.rejection_reason}
+                                            Lý do từ chối:{" "}
+                                            {item.rejection_reason}
                                         </p>
                                     ) : null}
                                 </div>
@@ -105,5 +123,5 @@ export default function MyProductsPage() {
                 ) : null}
             </PageSection>
         </PageShell>
-    )
+    );
 }

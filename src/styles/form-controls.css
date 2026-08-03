@@ -1,204 +1,206 @@
 /* Canonical form-control owner. Imported after app.css so page-level legacy rules
    cannot change control text, placeholder, state, or autofill colors. */
 :root {
-  --mbn-form-control-bg: #18131c;
-  --mbn-form-control-text: #f8f3fb;
-  --mbn-form-control-placeholder: #aaa0af;
-  --mbn-form-control-border: #65306f;
-  --mbn-form-control-border-hover: #c52be5;
-  --mbn-form-control-focus: rgba(197, 43, 229, .28);
-  --mbn-form-control-readonly-bg: #211a25;
-  --mbn-form-control-readonly-text: #ded5e2;
-  --mbn-form-control-disabled-bg: #29222d;
-  --mbn-form-control-disabled-text: #918696;
-  --mbn-form-control-error: #e34b64;
-  --mbn-form-control-height: 44px;
+    --mbn-form-control-bg: #18131c;
+    --mbn-form-control-text: #f8f3fb;
+    --mbn-form-control-placeholder: #aaa0af;
+    --mbn-form-control-border: #65306f;
+    --mbn-form-control-border-hover: #c52be5;
+    --mbn-form-control-focus: rgba(197, 43, 229, 0.28);
+    --mbn-form-control-readonly-bg: #211a25;
+    --mbn-form-control-readonly-text: #ded5e2;
+    --mbn-form-control-disabled-bg: #29222d;
+    --mbn-form-control-disabled-text: #918696;
+    --mbn-form-control-error: #e34b64;
+    --mbn-form-control-height: 44px;
 }
 
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .mbn-base-filter input,
-  .mbn-base-filter select,
-  .legacy-filter input,
-  .legacy-filter select,
-  .seller-form input,
-  .seller-form select,
-  .seller-form textarea,
-  .deposit-field input,
-  .deposit-field select,
-  .deposit-field textarea,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .profile-edit-form select,
-  .profile-edit-form textarea,
-  .security-form-card input,
-  .security-form-card select,
-  .security-form-card textarea,
-  .gaming-modal input,
-  .gaming-modal select,
-  .gaming-modal textarea
-):not([type='checkbox']):not([type='radio']):not([type='file']) {
-  color: var(--mbn-form-control-text) !important;
-  background-color: var(--mbn-form-control-bg) !important;
-  border-color: var(--mbn-form-control-border) !important;
-  caret-color: var(--mbn-form-control-text) !important;
-  -webkit-text-fill-color: var(--mbn-form-control-text) !important;
-  color-scheme: dark;
-  opacity: 1;
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .mbn-base-filter input,
+        .mbn-base-filter select,
+        .legacy-filter input,
+        .legacy-filter select,
+        .seller-form input,
+        .seller-form select,
+        .seller-form textarea,
+        .deposit-field input,
+        .deposit-field select,
+        .deposit-field textarea,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .profile-edit-form select,
+        .profile-edit-form textarea,
+        .security-form-card input,
+        .security-form-card select,
+        .security-form-card textarea,
+        .gaming-modal input,
+        .gaming-modal select,
+        .gaming-modal textarea
+    ):not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+    color: var(--mbn-form-control-text) !important;
+    background-color: var(--mbn-form-control-bg) !important;
+    border-color: var(--mbn-form-control-border) !important;
+    caret-color: var(--mbn-form-control-text) !important;
+    -webkit-text-fill-color: var(--mbn-form-control-text) !important;
+    color-scheme: dark;
+    opacity: 1;
 }
 
 :is(.mbn-control, .password-field > input, .money-input > input)::placeholder,
 :is(
-  .mbn-base-filter input,
-  .legacy-filter input,
-  .seller-form input,
-  .seller-form textarea,
-  .deposit-field input,
-  .deposit-field textarea,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .profile-edit-form textarea,
-  .security-form-card input,
-  .security-form-card textarea,
-  .gaming-modal input,
-  .gaming-modal textarea
+    .mbn-base-filter input,
+    .legacy-filter input,
+    .seller-form input,
+    .seller-form textarea,
+    .deposit-field input,
+    .deposit-field textarea,
+    .payment-reference-field input,
+    .profile-edit-form input,
+    .profile-edit-form textarea,
+    .security-form-card input,
+    .security-form-card textarea,
+    .gaming-modal input,
+    .gaming-modal textarea
 )::placeholder {
-  color: var(--mbn-form-control-placeholder) !important;
-  -webkit-text-fill-color: var(--mbn-form-control-placeholder) !important;
-  opacity: 1 !important;
+    color: var(--mbn-form-control-placeholder) !important;
+    -webkit-text-fill-color: var(--mbn-form-control-placeholder) !important;
+    opacity: 1 !important;
 }
 
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .mbn-base-filter input,
-  .mbn-base-filter select,
-  .legacy-filter input,
-  .legacy-filter select,
-  .seller-form input,
-  .seller-form select,
-  .seller-form textarea,
-  .deposit-field input,
-  .deposit-field select,
-  .deposit-field textarea,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .profile-edit-form select,
-  .profile-edit-form textarea,
-  .security-form-card input,
-  .security-form-card select,
-  .security-form-card textarea,
-  .gaming-modal input,
-  .gaming-modal select,
-  .gaming-modal textarea
-):not([type='checkbox']):not([type='radio']):not([type='file']):hover:not(:disabled) {
-  border-color: var(--mbn-form-control-border-hover) !important;
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .mbn-base-filter input,
+        .mbn-base-filter select,
+        .legacy-filter input,
+        .legacy-filter select,
+        .seller-form input,
+        .seller-form select,
+        .seller-form textarea,
+        .deposit-field input,
+        .deposit-field select,
+        .deposit-field textarea,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .profile-edit-form select,
+        .profile-edit-form textarea,
+        .security-form-card input,
+        .security-form-card select,
+        .security-form-card textarea,
+        .gaming-modal input,
+        .gaming-modal select,
+        .gaming-modal textarea
+    ):not([type="checkbox"]):not([type="radio"]):not([type="file"]):hover:not(
+        :disabled
+    ) {
+    border-color: var(--mbn-form-control-border-hover) !important;
 }
 
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .mbn-base-filter input,
-  .mbn-base-filter select,
-  .legacy-filter input,
-  .legacy-filter select,
-  .seller-form input,
-  .seller-form select,
-  .seller-form textarea,
-  .deposit-field input,
-  .deposit-field select,
-  .deposit-field textarea,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .profile-edit-form select,
-  .profile-edit-form textarea,
-  .security-form-card input,
-  .security-form-card select,
-  .security-form-card textarea,
-  .gaming-modal input,
-  .gaming-modal select,
-  .gaming-modal textarea
-):not([type='checkbox']):not([type='radio']):not([type='file']):focus {
-  outline: 0 !important;
-  border-color: var(--mbn-form-control-border-hover) !important;
-  box-shadow: 0 0 0 3px var(--mbn-form-control-focus) !important;
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .mbn-base-filter input,
+        .mbn-base-filter select,
+        .legacy-filter input,
+        .legacy-filter select,
+        .seller-form input,
+        .seller-form select,
+        .seller-form textarea,
+        .deposit-field input,
+        .deposit-field select,
+        .deposit-field textarea,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .profile-edit-form select,
+        .profile-edit-form textarea,
+        .security-form-card input,
+        .security-form-card select,
+        .security-form-card textarea,
+        .gaming-modal input,
+        .gaming-modal select,
+        .gaming-modal textarea
+    ):not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus {
+    outline: 0 !important;
+    border-color: var(--mbn-form-control-border-hover) !important;
+    box-shadow: 0 0 0 3px var(--mbn-form-control-focus) !important;
 }
 
 :is(.password-field, .money-input):focus-within {
-  border-color: var(--mbn-form-control-border-hover) !important;
-  box-shadow: 0 0 0 3px var(--mbn-form-control-focus) !important;
+    border-color: var(--mbn-form-control-border-hover) !important;
+    box-shadow: 0 0 0 3px var(--mbn-form-control-focus) !important;
 }
 
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .mbn-base-filter input,
-  .mbn-base-filter select,
-  .legacy-filter input,
-  .legacy-filter select,
-  .seller-form input,
-  .seller-form select,
-  .seller-form textarea,
-  .deposit-field input,
-  .deposit-field select,
-  .deposit-field textarea,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .profile-edit-form select,
-  .profile-edit-form textarea,
-  .security-form-card input,
-  .security-form-card select,
-  .security-form-card textarea,
-  .gaming-modal input,
-  .gaming-modal select,
-  .gaming-modal textarea
-):not([type='checkbox']):not([type='radio']):not([type='file'])[readonly] {
-  color: var(--mbn-form-control-readonly-text) !important;
-  -webkit-text-fill-color: var(--mbn-form-control-readonly-text) !important;
-  background-color: var(--mbn-form-control-readonly-bg) !important;
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .mbn-base-filter input,
+        .mbn-base-filter select,
+        .legacy-filter input,
+        .legacy-filter select,
+        .seller-form input,
+        .seller-form select,
+        .seller-form textarea,
+        .deposit-field input,
+        .deposit-field select,
+        .deposit-field textarea,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .profile-edit-form select,
+        .profile-edit-form textarea,
+        .security-form-card input,
+        .security-form-card select,
+        .security-form-card textarea,
+        .gaming-modal input,
+        .gaming-modal select,
+        .gaming-modal textarea
+    ):not([type="checkbox"]):not([type="radio"]):not([type="file"])[readonly] {
+    color: var(--mbn-form-control-readonly-text) !important;
+    -webkit-text-fill-color: var(--mbn-form-control-readonly-text) !important;
+    background-color: var(--mbn-form-control-readonly-bg) !important;
 }
 
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .mbn-base-filter input,
-  .mbn-base-filter select,
-  .legacy-filter input,
-  .legacy-filter select,
-  .seller-form input,
-  .seller-form select,
-  .seller-form textarea,
-  .deposit-field input,
-  .deposit-field select,
-  .deposit-field textarea,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .profile-edit-form select,
-  .profile-edit-form textarea,
-  .security-form-card input,
-  .security-form-card select,
-  .security-form-card textarea,
-  .gaming-modal input,
-  .gaming-modal select,
-  .gaming-modal textarea
-):not([type='checkbox']):not([type='radio']):not([type='file']):disabled {
-  color: var(--mbn-form-control-disabled-text) !important;
-  -webkit-text-fill-color: var(--mbn-form-control-disabled-text) !important;
-  background-color: var(--mbn-form-control-disabled-bg) !important;
-  cursor: not-allowed;
-  opacity: 1 !important;
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .mbn-base-filter input,
+        .mbn-base-filter select,
+        .legacy-filter input,
+        .legacy-filter select,
+        .seller-form input,
+        .seller-form select,
+        .seller-form textarea,
+        .deposit-field input,
+        .deposit-field select,
+        .deposit-field textarea,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .profile-edit-form select,
+        .profile-edit-form textarea,
+        .security-form-card input,
+        .security-form-card select,
+        .security-form-card textarea,
+        .gaming-modal input,
+        .gaming-modal select,
+        .gaming-modal textarea
+    ):not([type="checkbox"]):not([type="radio"]):not([type="file"]):disabled {
+    color: var(--mbn-form-control-disabled-text) !important;
+    -webkit-text-fill-color: var(--mbn-form-control-disabled-text) !important;
+    background-color: var(--mbn-form-control-disabled-bg) !important;
+    cursor: not-allowed;
+    opacity: 1 !important;
 }
 
 .mbn-control.is-invalid,
-.mbn-control[aria-invalid='true'] {
-  border-color: var(--mbn-form-control-error) !important;
-  box-shadow: 0 0 0 2px rgba(227, 75, 100, .18) !important;
+.mbn-control[aria-invalid="true"] {
+    border-color: var(--mbn-form-control-error) !important;
+    box-shadow: 0 0 0 2px rgba(227, 75, 100, 0.18) !important;
 }
 
 select.mbn-control option,
@@ -209,83 +211,92 @@ select.mbn-control option,
 .profile-edit-form select option,
 .security-form-card select option,
 .gaming-modal select option {
-  color: var(--mbn-form-control-text) !important;
-  background: var(--mbn-form-control-bg) !important;
+    color: var(--mbn-form-control-text) !important;
+    background: var(--mbn-form-control-bg) !important;
 }
 
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .seller-form input,
-  .deposit-field input,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .security-form-card input,
-  .gaming-modal input
+    .mbn-control,
+    .password-field > input,
+    .money-input > input,
+    .seller-form input,
+    .deposit-field input,
+    .payment-reference-field input,
+    .profile-edit-form input,
+    .security-form-card input,
+    .gaming-modal input
 ):-webkit-autofill,
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .seller-form input,
-  .deposit-field input,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .security-form-card input,
-  .gaming-modal input
-):-webkit-autofill:hover,
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .seller-form input,
+        .deposit-field input,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .security-form-card input,
+        .gaming-modal input
+    ):-webkit-autofill:hover,
 :is(
-  .mbn-control,
-  .password-field > input,
-  .money-input > input,
-  .seller-form input,
-  .deposit-field input,
-  .payment-reference-field input,
-  .profile-edit-form input,
-  .security-form-card input,
-  .gaming-modal input
-):-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--mbn-form-control-text) !important;
-  caret-color: var(--mbn-form-control-text) !important;
-  -webkit-box-shadow: 0 0 0 1000px var(--mbn-form-control-bg) inset !important;
-  box-shadow: 0 0 0 1000px var(--mbn-form-control-bg) inset !important;
-  transition: background-color 9999s ease-out 0s;
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .seller-form input,
+        .deposit-field input,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .security-form-card input,
+        .gaming-modal input
+    ):-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--mbn-form-control-text) !important;
+    caret-color: var(--mbn-form-control-text) !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--mbn-form-control-bg) inset !important;
+    box-shadow: 0 0 0 1000px var(--mbn-form-control-bg) inset !important;
+    transition: background-color 9999s ease-out 0s;
 }
 
 .password-field,
 .money-input {
-  border-color: var(--mbn-form-control-border) !important;
-  background: var(--mbn-form-control-bg) !important;
+    border-color: var(--mbn-form-control-border) !important;
+    background: var(--mbn-form-control-bg) !important;
 }
 
 .password-field__toggle,
 .money-input > span {
-  color: #f8f3fb !important;
-  background: #241b29 !important;
-  border-color: #65306f !important;
+    color: #f8f3fb !important;
+    background: #241b29 !important;
+    border-color: #65306f !important;
 }
 
 .mbn-choice input,
-input[type='checkbox'],
-input[type='radio'] {
-  accent-color: #c52be5;
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: #c52be5;
 }
 
-
 /* Native browser affordances must remain visible on the dark canonical surface. */
-:is(.mbn-control, .password-field > input, .money-input > input)::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(1.25);
-  opacity: .82;
-  cursor: pointer;
+:is(
+    .mbn-control,
+    .password-field > input,
+    .money-input > input
+)::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(1.25);
+    opacity: 0.82;
+    cursor: pointer;
 }
 
 :is(.mbn-control, .password-field > input, .money-input > input)::selection {
-  color: #ffffff;
-  background: rgba(197, 43, 229, .58);
+    color: #ffffff;
+    background: rgba(197, 43, 229, 0.58);
 }
 
-
 /* Validation feedback remains owned by canonical form controls. */
-.mbn-form-field.has-error .mbn-control,.mbn-image-upload.has-error .mbn-image-upload__box{border-color:var(--mbn-form-control-error)!important;box-shadow:0 0 0 2px rgba(255,79,118,.14)!important}
-.mbn-image-upload__error{color:var(--mbn-form-control-error)!important;font-weight:700}
+.mbn-form-field.has-error .mbn-control,
+.mbn-image-upload.has-error .mbn-image-upload__box {
+    border-color: var(--mbn-form-control-error) !important;
+    box-shadow: 0 0 0 2px rgba(255, 79, 118, 0.14) !important;
+}
+.mbn-image-upload__error {
+    color: var(--mbn-form-control-error) !important;
+    font-weight: 700;
+}

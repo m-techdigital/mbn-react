@@ -1,9 +1,7 @@
+import { readCanonicalCss } from "./lib-css-reader.mjs";
 import fs from "node:fs";
 
-const css = fs.readFileSync(
-    new URL("../src/styles/app.css", import.meta.url),
-    "utf8",
-);
+const css = readCanonicalCss();
 const compactCss = css.replace(/\s+/g, "");
 const header = fs.readFileSync(
     new URL("../src/components/layout/Header.jsx", import.meta.url),
