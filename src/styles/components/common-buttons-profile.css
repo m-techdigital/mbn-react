@@ -1,0 +1,184 @@
+/* Canonical storefront button system */
+.mbn-button {
+    min-height: 36px;
+    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #9515b4;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #171419, #0d0d0f);
+    color: #fff;
+    font: 800 11px/1.2 inherit;
+    letter-spacing: 0.15px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    transition:
+        border-color 0.16s ease,
+        background 0.16s ease,
+        box-shadow 0.16s ease,
+        transform 0.16s ease;
+}
+.mbn-button:hover:not(:disabled) {
+    border-color: #d200ff;
+    background: linear-gradient(180deg, #241129, #121014);
+    box-shadow: 0 0 13px rgba(189, 0, 255, 0.25);
+    transform: translateY(-1px);
+}
+.mbn-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+.mbn-button:disabled {
+    opacity: 0.52;
+    cursor: not-allowed;
+}
+.mbn-button--primary {
+    border-color: #d200ff;
+    background: linear-gradient(90deg, #c800f5, #720099);
+    box-shadow: 0 0 10px rgba(189, 0, 255, 0.22);
+}
+.mbn-button--primary:hover:not(:disabled) {
+    background: linear-gradient(90deg, #dd1cff, #8b00b6);
+}
+.mbn-button--contact {
+    border-color: #741089;
+    background: #111113;
+}
+.mbn-button--block {
+    width: 100%;
+}
+.mbn-button__icon {
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+}
+.mbn-button__label {
+    white-space: normal;
+}
+
+.customer-profile-card {
+    max-width: 760px;
+    margin: 12px auto 0;
+    border: 1px solid #6f1681;
+    border-radius: 4px;
+    background: rgba(12, 9, 16, 0.86);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+}
+.customer-profile-card__head {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid #2e2434;
+    background: linear-gradient(
+        180deg,
+        rgba(145, 19, 173, 0.16),
+        rgba(9, 8, 12, 0.75)
+    );
+}
+.customer-profile-avatar {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #bd00ff;
+    border-radius: 50%;
+    background: #18111d;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 900;
+    box-shadow: 0 0 15px rgba(189, 0, 255, 0.25);
+}
+.customer-profile-card__head strong {
+    display: block;
+    font-size: 15px;
+}
+.customer-profile-card__head span {
+    display: block;
+    margin-top: 4px;
+    color: #9f95a8;
+    font-size: 11px;
+}
+.customer-profile-table {
+    display: grid;
+}
+.customer-profile-table > div {
+    min-height: 45px;
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    border-bottom: 1px solid #2e2832;
+}
+.customer-profile-table > div:last-child {
+    border-bottom: 0;
+}
+.customer-profile-table span,
+.customer-profile-table b {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+.customer-profile-table span {
+    border-right: 1px solid #352b3a;
+    background: rgba(255, 255, 255, 0.025);
+    color: #aaa1b2;
+    font-weight: 600;
+}
+.customer-profile-table b {
+    color: #f3edf7;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+.customer-profile-table .status-value {
+    color: #69e6b5;
+    text-transform: capitalize;
+}
+@media (max-width: 620px) {
+    .customer-profile-table > div {
+        grid-template-columns: 1fr;
+    }
+    .customer-profile-table span {
+        padding-bottom: 5px;
+        border-right: 0;
+    }
+    .customer-profile-table b {
+        padding-top: 4px;
+    }
+    .customer-profile-card__head {
+        padding: 14px;
+    }
+}
+
+/* v12: unified storefront controls */
+.mbn-button {
+    min-height: 38px;
+    padding: 8px 13px;
+    border-radius: 4px;
+}
+.mbn-button__label {
+    white-space: nowrap;
+}
+.customer-profile-card {
+    max-width: 700px;
+}
+.customer-profile-card__head {
+    padding: 16px 18px;
+}
+.customer-profile-table > div {
+    grid-template-columns: 190px minmax(0, 1fr);
+    min-height: 44px;
+}
+.customer-profile-table span,
+.customer-profile-table b {
+    padding: 11px 14px;
+}
+@media (max-width: 560px) {
+    .customer-profile-table > div {
+        grid-template-columns: 1fr;
+    }
+    .customer-profile-table span {
+        border-bottom: 1px solid #2e2832;
+    }
+}

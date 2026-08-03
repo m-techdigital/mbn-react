@@ -1,0 +1,107 @@
+/* Unified table owner. */
+.mbn-table-shell {
+    min-width: 0;
+}
+.mbn-table-shell__caption {
+    margin: 0 0 10px;
+    color: #bdb3c1;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.mbn-table {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--mbn-v45-border);
+    border-radius: 8px;
+    background: var(--mbn-v45-panel);
+}
+.mbn-table__head,
+.mbn-table__row {
+    display: grid;
+    min-width: 0;
+}
+.mbn-table__head {
+    background: #201723;
+    border-bottom: 1px solid var(--mbn-v45-border);
+}
+.mbn-table__head > div {
+    padding: 11px 12px;
+    color: #c9becd;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.mbn-table__body {
+    min-width: 0;
+}
+.mbn-table__row {
+    border-bottom: 1px solid var(--mbn-v45-border-soft);
+}
+.mbn-table__row:last-child {
+    border-bottom: 0;
+}
+.mbn-table__row > div {
+    min-width: 0;
+    padding: 12px;
+    border-right: 1px solid var(--mbn-v45-border-soft);
+    display: flex;
+    align-items: center;
+}
+.mbn-table__row > div:last-child {
+    border-right: 0;
+}
+.mbn-table__cell {
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mbn-table .is-right {
+    text-align: right;
+    justify-content: flex-end;
+}
+.mbn-table .is-center {
+    text-align: center;
+    justify-content: center;
+}
+.mbn-table .is-fixed-right {
+    position: sticky;
+    right: 0;
+    z-index: 2;
+    background: #171419;
+    box-shadow: -7px 0 12px rgba(0, 0, 0, 0.28);
+}
+.mbn-table__head .is-fixed-right {
+    z-index: 3;
+    background: #201723;
+}
+.table-primary-cell {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+}
+.table-primary-cell b,
+.table-primary-cell small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.table-primary-cell small {
+    color: #aaa0ae;
+    font-size: 11px;
+}
+.table-view-link {
+    min-width: 58px;
+    height: 32px;
+    padding: 0 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ad2ac8;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 750;
+    text-decoration: none;
+}

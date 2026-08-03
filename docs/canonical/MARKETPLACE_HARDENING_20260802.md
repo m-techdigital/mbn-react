@@ -19,11 +19,11 @@
 1. Hien canh bao san pham vua thay doi trang thai/version trong checkout va yeu cau tai lai.
 2. Da bo sung trang admin hold monitor de customer support giai thich vi sao san pham dang bi giu.
 3. Da bo sung timeline availability va hang doi pending payment/delivery/acceptance can xu ly trong admin operations-control.
-5. Hien label enum nhat quan cho transaction type, payment method, availability status va payment status.
-6. Canh bao duplicate checkout than thien: neu idempotency tra ve transaction cu, dieu huong den chi tiet giao dich.
-7. Bo sung thong bao stale hold/refund/deposit cho buyer/seller neu backend tra trang thai tuong ung.
-8. Can dong bo copywriting tranh dung "hop dong" khi nghiep vu hien tai chi can "giao dich".
-9. Tam khong phat trien fraud engine, SLA engine hay role/policy nhieu cap cho customer app.
+4. Hien label enum nhat quan cho transaction type, payment method, availability status va payment status.
+5. Canh bao duplicate checkout than thien: neu idempotency tra ve transaction cu, dieu huong den chi tiet giao dich.
+6. Bo sung thong bao stale hold/refund/deposit cho buyer/seller neu backend tra trang thai tuong ung.
+7. Can dong bo copywriting tranh dung "hop dong" khi nghiep vu hien tai chi can "giao dich".
+8. Tam khong phat trien fraud engine, SLA engine hay role/policy nhieu cap cho customer app.
 
 ## Ghi chu UI/UX
 

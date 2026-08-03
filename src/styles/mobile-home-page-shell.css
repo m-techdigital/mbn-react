@@ -1,0 +1,88 @@
+@media (max-width: 768px) {
+    /* Home composition */
+    .hero-banner {
+        border-radius: 6px !important;
+    }
+    .home-shortcuts {
+        margin-top: 8px !important;
+        gap: 8px !important;
+    }
+    .home-shortcuts a {
+        min-height: 54px !important;
+        padding: 8px !important;
+        gap: 8px !important;
+        border-radius: 7px !important;
+    }
+    .shortcut-icon {
+        width: 34px !important;
+        height: 34px !important;
+        flex: 0 0 34px !important;
+        font-size: 16px !important;
+        border-radius: 7px !important;
+    }
+    .home-shortcuts small {
+        font-size: 8.25px !important;
+        line-height: 1.15 !important;
+    }
+    .home-shortcuts b {
+        margin-top: 1px !important;
+        font-size: 10.75px !important;
+        line-height: 1.25 !important;
+    }
+    .legacy-section-title {
+        margin-top: 14px !important;
+        margin-bottom: 9px !important;
+        font-size: 13px !important;
+        letter-spacing: 0.3px !important;
+    }
+    .legacy-service-grid {
+        gap: 8px !important;
+    }
+    .legacy-service-card {
+        border-radius: 7px !important;
+    }
+    .legacy-service-card strong {
+        height: 28px !important;
+        padding-inline: 5px !important;
+        font-size: 9.2px !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Page shell */
+    .page-shell--wide .page-panel,
+    .page-shell--reading .page-panel,
+    .page-shell--narrow .page-panel {
+        width: 100% !important;
+    }
+    .mbn-page-header {
+        grid-template-columns: 24px minmax(0, 1fr) 24px !important;
+        gap: 6px !important;
+        margin-bottom: 8px !important;
+        align-items: start !important;
+    }
+    .mbn-page-header__icon {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 10px !important;
+        box-shadow: none !important;
+    }
+    .mbn-page-header__copy {
+        padding-top: 0 !important;
+    }
+    .mbn-page-header__copy h1 {
+        font-size: 15.5px !important;
+        line-height: 1.25 !important;
+    }
+    .mbn-page-header__copy p {
+        margin-top: 2px !important;
+        font-size: 10.75px !important;
+        line-height: 1.45 !important;
+    }
+    .mbn-page-header__actions {
+        margin-top: 0 !important;
+    }
+    .mbn-page-header__actions > .mbn-button {
+        width: auto !important;
+        min-width: 0 !important;
+    }
+}

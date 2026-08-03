@@ -1,0 +1,178 @@
+/* shared page architecture and visual ownership. */
+:root {
+    --mbn-v45-wide: 1160px;
+    --mbn-v45-reading: 960px;
+    --mbn-v45-narrow: 720px;
+    --mbn-v45-gap: 16px;
+    --mbn-v45-panel: #121015;
+    --mbn-v45-panel-2: #18151b;
+    --mbn-v45-border: #47394d;
+    --mbn-v45-border-soft: #312935;
+    --mbn-v45-accent: #c226ef;
+    --mbn-v45-text: #fffaff;
+    --mbn-v45-muted: #c5bac9;
+}
+.page-shell {
+    max-width: none !important;
+    padding-inline: 0 !important;
+}
+.page-shell--wide .page-panel {
+    width: min(var(--mbn-v45-wide), calc(100% - 32px));
+}
+.page-shell--reading .page-panel {
+    width: min(var(--mbn-v45-reading), calc(100% - 32px));
+}
+.page-shell--narrow .page-panel {
+    width: min(var(--mbn-v45-narrow), calc(100% - 32px));
+}
+.page-panel {
+    margin-inline: auto;
+    min-width: 0;
+}
+.page-content {
+    min-width: 0;
+}
+.mbn-page-stack {
+    display: grid;
+    gap: var(--mbn-v45-gap);
+    min-width: 0;
+}
+.mbn-page-columns {
+    display: grid;
+    gap: var(--mbn-v45-gap);
+    align-items: start;
+    min-width: 0;
+}
+.mbn-page-columns--balanced {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.mbn-page-columns--wide-left {
+    grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.85fr);
+}
+.mbn-page-section {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--mbn-v45-border);
+    border-radius: 9px;
+    background: var(--mbn-v45-panel);
+}
+.mbn-page-section--accent {
+    border-color: #7b318a;
+    background: linear-gradient(
+        180deg,
+        rgba(194, 38, 239, 0.1),
+        var(--mbn-v45-panel) 52%
+    );
+}
+.mbn-page-section--success {
+    border-color: #2c755d;
+}
+.mbn-page-section--warning {
+    border-color: #8e682b;
+}
+.mbn-page-section--reading {
+    background: #151218;
+}
+.mbn-page-section__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--mbn-v45-border-soft);
+    background: rgba(255, 255, 255, 0.012);
+}
+.mbn-page-section__header h2 {
+    margin: 0;
+    color: var(--mbn-v45-text);
+    font-size: 16px;
+    line-height: 1.35;
+}
+.mbn-page-section__header p {
+    margin: 4px 0 0;
+    color: var(--mbn-v45-muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+.mbn-page-section__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e47cff;
+}
+.mbn-page-section__body {
+    padding: 16px;
+    min-width: 0;
+}
+.mbn-definition-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    border: 1px solid var(--mbn-v45-border-soft);
+    border-radius: 7px;
+    overflow: hidden;
+}
+.mbn-definition-grid > div {
+    display: grid;
+    grid-template-columns: minmax(120px, 38%) minmax(0, 1fr);
+    min-width: 0;
+    border-bottom: 1px solid var(--mbn-v45-border-soft);
+}
+.mbn-definition-grid > div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+}
+.mbn-definition-grid > div:nth-child(odd) {
+    border-right: 1px solid var(--mbn-v45-border-soft);
+}
+.mbn-definition-grid dt,
+.mbn-definition-grid dd {
+    margin: 0;
+    padding: 10px 12px;
+    min-width: 0;
+    font-size: 13px;
+    line-height: 1.45;
+}
+.mbn-definition-grid dt {
+    color: #bdb2c1;
+    background: #171419;
+}
+.mbn-definition-grid dd {
+    color: #fff;
+    overflow-wrap: anywhere;
+}
+.mbn-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+}
+.mbn-metric-grid article {
+    min-width: 0;
+    padding: 13px 14px;
+    border: 1px solid var(--mbn-v45-border);
+    border-radius: 8px;
+    background: var(--mbn-v45-panel);
+}
+.mbn-metric-grid span,
+.mbn-metric-grid small {
+    display: block;
+    color: #bdb2c1;
+    font-size: 12px;
+    line-height: 1.4;
+}
+.mbn-metric-grid b {
+    display: block;
+    margin-top: 6px;
+    color: #fff;
+    font-size: 17px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+.mbn-metric-grid article.is-success b {
+    color: #59ddb2;
+}
+.mbn-metric-grid article.is-warning b {
+    color: #ffd17d;
+}
+.mbn-metric-grid article.is-danger b {
+    color: #ff8297;
+}

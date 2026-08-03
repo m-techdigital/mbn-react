@@ -12,6 +12,7 @@ const accountCss = fs.readFileSync(
     new URL("../src/styles/customer-account.css", import.meta.url),
     "utf8",
 );
+const compactAccountCss = accountCss.replace(/\s+/g, "");
 const forbidden = [
     "external_reference",
     "available_before",
@@ -42,7 +43,7 @@ for (const contract of [
     ".wallet-page__metrics",
     "@media (max-width:1180px)",
 ]) {
-    if (!accountCss.includes(contract)) {
+    if (!compactAccountCss.includes(contract.replace(/\s+/g, ""))) {
         console.error(`Missing customer account layout contract: ${contract}`);
         process.exit(1);
     }

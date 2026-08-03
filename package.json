@@ -56,7 +56,8 @@
         "check:repository-ownership": "node scripts/check-repository-ownership.mjs",
         "check:style-ownership": "node scripts/check-style-ownership.mjs",
         "check:maintainability": "node scripts/check-maintainability.mjs",
-        "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership && npm run check:maintainability"
+        "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership && npm run check:maintainability && npm run check:css-domain-ownership",
+        "check:css-domain-ownership": "node scripts/check-css-domain-ownership.mjs"
     },
     "dependencies": {
         "@ant-design/icons": "^6.2.2",

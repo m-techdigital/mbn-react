@@ -7,8 +7,8 @@
 
 - Admin transaction timeline hiển thị `dispute outcome` bằng label từ options catalog.
 - Rental lifecycle có hai tình huống E2E bổ sung:
-  - thuê quá hạn;
-  - hoàn trả và hoàn tất có khấu trừ một phần tiền cọc.
+    - thuê quá hạn;
+    - hoàn trả và hoàn tất có khấu trừ một phần tiền cọc.
 - Khấu trừ cọc chỉ được thực hiện khi Admin hoàn tất giao dịch thuê.
 - Số tiền khấu trừ không được vượt tiền cọc và bắt buộc có lý do.
 - Phần tiền cọc còn lại được hoàn cho người thuê; phần khấu trừ được giải ngân cho bên cho thuê.

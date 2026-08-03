@@ -36,6 +36,10 @@ const importOnlyManifests = [
     "src/styles/pages/content.css",
     "src/styles/mobile-responsive-owner.css",
     "src/styles/interaction-responsive-disclosure.css",
+    "src/styles/mobile-responsive-foundation.css",
+    "src/styles/shared-page-architecture.css",
+    "src/styles/pages/content-editorial-pages.css",
+    "src/styles/components/common.css",
 ];
 
 for (const file of importOnlyManifests) {
@@ -53,9 +57,20 @@ for (const file of importOnlyManifests) {
     }
 }
 
-const manifests = importOnlyManifests
-    .map((file) => fs.readFileSync(file, "utf8"))
-    .join("\n");
+const collectImportedStyles = (file, collected = new Set()) => {
+    const source = fs.readFileSync(file, "utf8");
+    const directory = path.dirname(file);
+    for (const match of source.matchAll(/@import\s+["']([^"']+)["'];?/g)) {
+        if (!match[1].startsWith(".")) continue;
+        const imported = path.normalize(path.join(directory, match[1]));
+        const relative = imported.replaceAll("\\", "/");
+        if (collected.has(relative)) continue;
+        collected.add(relative);
+        if (fs.existsSync(imported)) collectImportedStyles(imported, collected);
+    }
+    return collected;
+};
+const manifestedStyles = collectImportedStyles("src/styles/app.css");
 for (const file of tracked.filter(
     (entry) => entry.startsWith("src/styles/") && /\.(css|scss)$/.test(entry),
 )) {
@@ -66,8 +81,7 @@ for (const file of tracked.filter(
         file.startsWith("src/styles/interaction-");
     if (!mustBeManifested) continue;
     if (importOnlyManifests.includes(file)) continue;
-    const relative = file.replace("src/styles/", "");
-    if (!manifests.includes(`"./${relative}"`)) {
+    if (!manifestedStyles.has(file)) {
         failures.push(
             `${file}: style owner chưa được nối vào app.css hoặc manifest con.`,
         );

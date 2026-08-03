@@ -10,10 +10,7 @@ const filter = fs.readFileSync(
     new URL("src/components/base/BaseFilter.jsx", root),
     "utf8",
 );
-const css = fs.readFileSync(
-    new URL("src/styles/interaction-responsive-disclosure.css", root),
-    "utf8",
-);
+const css = readCanonicalCss();
 const failures = [];
 const consolidatedCss =
     index.includes('@import "./styles/foundation.css";') &&

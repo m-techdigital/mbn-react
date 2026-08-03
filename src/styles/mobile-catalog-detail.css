@@ -1,0 +1,142 @@
+@media (max-width: 768px) {
+    /* Cards and catalog */
+    .game-intro {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        padding: 7px !important;
+    }
+    .game-intro img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        aspect-ratio: 2.25/1 !important;
+        object-fit: cover !important;
+    }
+    .game-intro ul {
+        padding-left: 17px !important;
+        font-size: 12px !important;
+        line-height: 1.45 !important;
+    }
+    .account-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    .account-card {
+        border-radius: 8px !important;
+    }
+    .account-image {
+        height: auto !important;
+        aspect-ratio: 16/9 !important;
+    }
+    .account-card-body {
+        padding: 8px !important;
+    }
+    .account-description {
+        min-height: 0 !important;
+        padding: 7px !important;
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+    }
+    .account-stats {
+        padding: 7px 0 !important;
+    }
+    .account-stats span {
+        font-size: 9.5px !important;
+    }
+    .account-stats b {
+        font-size: 11.5px !important;
+    }
+    .account-footer {
+        grid-template-columns: minmax(0, 1fr) 118px !important;
+        gap: 6px !important;
+    }
+    .account-price,
+    .view-account-button {
+        height: 34px !important;
+        min-height: 34px !important;
+        border-radius: 6px !important;
+    }
+    .account-price {
+        padding: 0 8px !important;
+    }
+    .account-price em {
+        font-size: 9.5px !important;
+        padding-inline: 4px !important;
+    }
+    .account-price del {
+        font-size: 8.5px !important;
+    }
+    .account-price b {
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+    .view-account-button {
+        padding-inline: 8px !important;
+        font-size: 11px !important;
+        gap: 4px !important;
+        white-space: nowrap !important;
+    }
+    .view-account-button span {
+        overflow: hidden !important;
+        text-overflow: clip !important;
+        white-space: nowrap !important;
+    }
+
+    /* Detail */
+    .detail-layout {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        padding: 7px !important;
+    }
+    .detail-slide img {
+        height: auto !important;
+        max-height: 260px !important;
+        aspect-ratio: 16/10 !important;
+        object-fit: contain !important;
+    }
+    .detail-slider-arrow {
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .detail-thumbnails button {
+        width: 56px !important;
+        height: 40px !important;
+        flex: 0 0 56px;
+    }
+    .detail-card {
+        position: static !important;
+    }
+    .detail-info-table b,
+    .detail-info-table span {
+        padding: 7px 6px !important;
+        font-size: 12px !important;
+    }
+    .detail-price-row,
+    .detail-action-grid,
+    .contact-buttons {
+        gap: 6px !important;
+    }
+    .detail-action-grid .mbn-button,
+    .contact-buttons .mbn-button {
+        min-height: 36px !important;
+    }
+    .rental-rate-selector > div {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .suggested-panel {
+        margin-top: 10px !important;
+        padding: 10px 7px !important;
+    }
+    .recommendation-shell {
+        padding: 0 24px !important;
+    }
+    .recommendation-card {
+        flex-basis: 100% !important;
+    }
+    .mobile-purchase-dock {
+        left: 0 !important;
+        right: 0 !important;
+        bottom: var(--mbn-mobile-bottom-nav) !important;
+        padding: 7px 8px calc(7px + env(safe-area-inset-bottom)) !important;
+    }
+}

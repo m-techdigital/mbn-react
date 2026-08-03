@@ -1,0 +1,201 @@
+/* Reading pages and knowledge pages use the same surface grammar. */
+.mbn-reading-article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-bottom: 18px;
+    color: #c9bdcc;
+    font-size: 12px;
+}
+.mbn-reading-article__meta span {
+    padding: 5px 8px;
+    border: 1px solid #4b3b51;
+    border-radius: 999px;
+}
+.mbn-reading-article__body,
+.mbn-reading-section {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #eee7f0;
+}
+.mbn-reading-article__body h2,
+.mbn-reading-article__body h3 {
+    color: #fff;
+    line-height: 1.4;
+}
+.mbn-reading-article__body p,
+.mbn-reading-section p {
+    margin: 0 0 12px;
+}
+.mbn-reading-article__body img {
+    max-width: 100%;
+    height: auto;
+}
+.mbn-related-links,
+.mbn-source-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.mbn-related-links a,
+.mbn-source-links a {
+    padding: 8px 11px;
+    border: 1px solid #743783;
+    border-radius: 6px;
+    color: #f3d9f8;
+    text-decoration: none;
+}
+.mbn-topic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+.mbn-topic-card {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: start;
+    padding: 16px;
+    border: 1px solid var(--mbn-v45-border);
+    border-radius: 8px;
+    background: var(--mbn-v45-panel);
+    color: #fff;
+    text-decoration: none;
+}
+.mbn-topic-card:hover {
+    border-color: #bc2ad8;
+    background: #17121a;
+}
+.mbn-topic-card__index {
+    color: #d261e7;
+    font-size: 18px;
+    font-weight: 800;
+}
+.mbn-topic-card__category {
+    color: #d488e3;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+.mbn-topic-card h2 {
+    margin: 4px 0 7px;
+    font-size: 16px;
+}
+.mbn-topic-card p {
+    margin: 0 0 8px;
+    color: #c8bdcc;
+    font-size: 13px;
+    line-height: 1.55;
+}
+.mbn-topic-card small {
+    color: #9f95a4;
+}
+.mbn-topic-card > b {
+    align-self: center;
+    color: #e9c5ef;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.mbn-knowledge-hero__content {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+.mbn-knowledge-hero__icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 42px;
+    border: 1px solid #c22be1;
+    border-radius: 50%;
+    color: #ef8bff;
+}
+.mbn-knowledge-hero__content p {
+    margin: 5px 0;
+    color: #ddd3e0;
+    line-height: 1.6;
+}
+.mbn-knowledge-hero__content small {
+    color: #aaa0af;
+}
+.mbn-check-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+.mbn-check-grid span {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    color: #e9e1ec;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.mbn-check-grid svg {
+    color: #50d8a8;
+    margin-top: 2px;
+}
+.mbn-process-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+}
+.mbn-process-list li {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 10px;
+}
+.mbn-process-list li > b {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #9e18bb;
+}
+.mbn-process-list p {
+    margin: 4px 0 0;
+    color: #c7bdca;
+    line-height: 1.55;
+}
+.mbn-reading-list {
+    margin: 0;
+    padding-left: 20px;
+    display: grid;
+    gap: 8px;
+    line-height: 1.65;
+}
+.mbn-responsibility-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+.mbn-responsibility-grid article {
+    padding: 13px;
+    border: 1px solid #3f3344;
+    border-radius: 7px;
+    background: #171419;
+}
+.mbn-knowledge-hub {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+.mbn-knowledge-links {
+    display: grid;
+}
+.mbn-knowledge-links a {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #302733;
+    color: #eee7f0;
+    text-decoration: none;
+}
+.mbn-knowledge-links a:last-child {
+    border-bottom: 0;
+}

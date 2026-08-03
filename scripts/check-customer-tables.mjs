@@ -6,6 +6,7 @@ const trust = read("src/pages/AccountTrustPage.jsx");
 const listings = read("src/pages/MyProductsPage.jsx");
 const table = read("src/components/base/ResponsiveDataTable.jsx");
 const css = read("src/styles/customer-account.css");
+const compactCss = css.replace(/\s+/g, "");
 const index = read("src/index.css");
 const failures = [];
 
@@ -22,7 +23,7 @@ if (listings.includes("Đăng tài khoản đầu tiên"))
     failures.push("Không được hiển thị CTA Đăng tài khoản đầu tiên");
 
 for (const token of [
-    '<table className="mbn-semantic-table"',
+    'className="mbn-semantic-table"',
     "<thead>",
     "<tbody>",
     "<th",
@@ -39,7 +40,7 @@ for (const token of [
     "@media(max-width:980px)",
     "width:max-content",
 ]) {
-    if (!css.includes(token))
+    if (!compactCss.includes(token.replace(/\s+/g, "")))
         failures.push(`Thiếu contract table mobile scroll ngang: ${token}`);
 }
 if (css.includes(".mbn-semantic-table thead{display:none"))

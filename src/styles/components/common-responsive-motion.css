@@ -1,0 +1,83 @@
+@media (max-width: 1120px) {
+    .legacy-filter {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .legacy-filter__actions {
+        grid-column: auto;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 760px) {
+    .legacy-filter {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .detail-slider-stage {
+        height: auto;
+        min-height: 280px;
+    }
+    .detail-slide img {
+        height: auto;
+        max-height: 480px;
+    }
+}
+@media (max-width: 560px) {
+    .legacy-filter {
+        grid-template-columns: 1fr;
+    }
+    .legacy-filter__actions {
+        grid-template-columns: 1fr 1fr;
+    }
+    .gaming-modal__footer {
+        grid-template-columns: 1fr 1fr;
+    }
+    .gaming-modal__footer-note {
+        grid-column: 1/-1;
+    }
+    .modal-action-button {
+        width: 100%;
+        min-width: 0;
+    }
+    .account-footer {
+        grid-template-columns: 1fr;
+    }
+    .account-price,
+    .view-account-button {
+        height: 40px;
+    }
+}
+
+/* v14: interaction and sharpness */
+a,
+button,
+input,
+select {
+    font-family: var(--font-ui);
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring) !important;
+}
+img {
+    image-rendering: auto;
+    -webkit-user-drag: none;
+}
+.mbn-button {
+    font-weight: 800;
+    letter-spacing: 0.12px;
+}
+.mbn-button__label {
+    line-height: 1.1;
+}
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

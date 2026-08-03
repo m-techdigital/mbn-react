@@ -31,7 +31,7 @@ if (
     failures.push(
         "All PageShell variants must share the same outer width owner.",
     );
-if (!loader.includes("VITE_ROUTE_OVERLAY_DELAY_MS', 260"))
+if (!/VITE_ROUTE_OVERLAY_DELAY_MS["']\s*,\s*260/.test(loader))
     failures.push(
         "Route overlay must not flash during fast route transitions.",
     );

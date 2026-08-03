@@ -1,0 +1,76 @@
+.gaming-modal-layer {
+    align-items: center;
+    overflow: auto;
+}
+.gaming-modal {
+    max-height: min(760px, calc(100vh - 28px));
+    overflow: hidden;
+}
+.gaming-modal__header {
+    flex: 0 0 56px;
+}
+.gaming-modal__body {
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+.gaming-modal__footer {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+}
+.gaming-modal__footer-note {
+    line-height: 1.4;
+}
+.modal-action-button {
+    width: 104px;
+    min-width: 104px;
+}
+.purchase-info-table > div {
+    grid-template-columns: 48% 52%;
+}
+.purchase-info-table b,
+.purchase-info-table span {
+    font-size: 11px;
+    line-height: 1.3;
+}
+.purchase-price-row span {
+    gap: 4px;
+}
+.purchase-payment-methods label {
+    font-size: 12px;
+}
+.purchase-qr-section {
+    border-radius: 3px;
+}
+.purchase-qr-card {
+    width: 210px;
+    height: 210px;
+    margin: 8px auto;
+    background: #fff;
+    color: #111;
+}
+.purchase-bank-list > div {
+    min-height: 28px;
+}
+.purchase-bank-list dt,
+.purchase-bank-list dd {
+    font-size: 11px;
+}
+
+.customer-profile-card {
+    max-width: 720px;
+    background: #101012;
+    border-color: #5c176d;
+}
+.customer-profile-table > div {
+    background: #151517;
+}
+.customer-profile-table span {
+    background: #121214;
+    color: #b9b0be;
+}
+.customer-profile-table b {
+    background: #18181b;
+}

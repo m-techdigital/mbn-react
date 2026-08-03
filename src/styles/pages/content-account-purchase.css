@@ -1,0 +1,75 @@
+.profile-edit-form {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+}
+.profile-edit-form label {
+    display: grid;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.profile-edit-form input {
+    min-height: 42px;
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    padding: 10px 12px;
+    background: #fff;
+    color: #1a1320;
+}
+.profile-edit-form__meta {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 8px;
+    padding: 12px;
+    background: var(--surface-panel-2);
+    border-radius: 8px;
+}
+.profile-edit-form__message,
+.deposit-notice,
+.purchase-detail-notice {
+    padding: 10px 12px;
+    border: 1px solid rgba(189, 0, 255, 0.4);
+    background: rgba(189, 0, 255, 0.1);
+    border-radius: 7px;
+}
+.payment-plan-list {
+    display: grid;
+    gap: 8px;
+}
+.payment-plan-list > div {
+    display: grid;
+    grid-template-columns: minmax(140px, 1fr) 110px 120px auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    background: var(--surface-panel-2);
+    border: 1px solid var(--border-soft);
+    border-radius: 7px;
+}
+.payment-plan-list span {
+    display: grid;
+}
+.payment-plan-list small {
+    color: var(--text-muted);
+}
+.payment-plan-list em {
+    font-style: normal;
+}
+.purchase-detail-actions {
+    flex-wrap: wrap;
+}
+@media (max-width: 700px) {
+    .profile-edit-form__meta {
+        grid-template-columns: 1fr;
+    }
+    .payment-plan-list > div {
+        grid-template-columns: 1fr 1fr;
+    }
+    .payment-plan-list .mbn-button {
+        grid-column: 1/-1;
+    }
+    .purchase-detail-actions .mbn-button {
+        width: 100%;
+    }
+}

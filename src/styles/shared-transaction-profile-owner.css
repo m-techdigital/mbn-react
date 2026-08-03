@@ -1,0 +1,103 @@
+/* Transaction detail uses shared sections, not page-specific shells. */
+.mbn-transaction-hero__content {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: center;
+}
+.mbn-transaction-hero__content > div:first-child > span {
+    color: #d66de9;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+.mbn-transaction-hero__content h2 {
+    margin: 5px 0;
+    font-size: 19px;
+}
+.mbn-transaction-hero__content p {
+    margin: 0;
+    color: #bfb4c3;
+    font-size: 12px;
+}
+.mbn-transaction-hero__status {
+    display: grid;
+    justify-items: end;
+    gap: 6px;
+}
+.mbn-transaction-hero__status > span {
+    color: #aaa0af;
+    font-size: 11px;
+}
+.mbn-payment-list {
+    display: grid;
+    gap: 9px;
+}
+.mbn-payment-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) 120px 150px auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #3d3341;
+    border-radius: 7px;
+    background: #171519;
+}
+.mbn-payment-item__main {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+.mbn-payment-item__main span,
+.mbn-payment-item__main small {
+    color: #bdb2c1;
+    white-space: normal;
+}
+.mbn-payment-item__status {
+    display: grid;
+    gap: 4px;
+}
+.mbn-payment-item__status small {
+    color: #aaa0af;
+}
+.mbn-payment-item__actions {
+    display: flex;
+    gap: 6px;
+}
+.purchase-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.purchase-detail-actions .mbn-button {
+    min-width: 150px;
+}
+.payment-due-warning {
+    margin: 12px 0 0;
+    padding: 11px 12px;
+    border: 1px solid #956a25;
+    border-radius: 6px;
+    background: #2c2110;
+    color: #ffdda0;
+}
+
+/* Profile uses same page panel and vertical rhythm. */
+.profile-page-v44 .mbn-profile-layout {
+    max-width: 1080px;
+    grid-template-columns: minmax(340px, 390px) minmax(0, 1fr);
+    gap: 16px;
+}
+.profile-page-v44 .mbn-profile-security {
+    gap: 16px;
+}
+.profile-page-v44 .mbn-profile-card {
+    border-radius: 9px;
+}
+.profile-page-v44 .mbn-profile-card__header {
+    padding: 16px;
+}
+.profile-page-v44 .mbn-profile-card .mbn-base-form {
+    padding: 16px;
+}
+.profile-page-v44 .mbn-profile-card__title {
+    padding: 16px 16px 0;
+}

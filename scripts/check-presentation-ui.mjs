@@ -48,7 +48,7 @@ for (const token of [
     if (!css.includes(token))
         failures.push(`Thiếu presentation contract: ${token}`);
 }
-if (!pageShell.includes("const resolvedWidth = wide ? 'wide' : width"))
+if (!/const resolvedWidth = wide \? ["']wide["'] : width/.test(pageShell))
     failures.push("PageShell chưa tương thích legacy wide prop");
 if (!table.includes("Vuốt ngang để xem đầy đủ bảng"))
     failures.push("Bảng chưa có hướng dẫn cuộn ngang trên mobile");

@@ -1,0 +1,162 @@
+@media (max-width: 768px) {
+    /* Documents, notifications, reading */
+    .transaction-documents {
+        margin-top: 10px !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+    }
+    .transaction-documents > header {
+        align-items: flex-start !important;
+    }
+    .transaction-documents__list article,
+    .document-library__item {
+        padding: 10px !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    .transaction-documents__list article > div:last-child,
+    .document-library__actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        width: 100% !important;
+    }
+    .transaction-documents__list article > div:last-child > *:last-child,
+    .document-library__actions > *:last-child {
+        grid-column: auto !important;
+    }
+    .notification-list {
+        gap: 8px !important;
+    }
+    .notification-item {
+        padding: 10px !important;
+        grid-template-columns: 8px minmax(0, 1fr) !important;
+    }
+    .notification-item__head {
+        display: grid !important;
+        gap: 3px !important;
+    }
+    .notification-item__head strong {
+        font-size: 13px !important;
+    }
+    .notification-item p {
+        font-size: 12.25px !important;
+        line-height: 1.45 !important;
+    }
+    .mbn-topic-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    .mbn-topic-card {
+        grid-template-columns: 30px minmax(0, 1fr) !important;
+        gap: 9px !important;
+        padding: 10px !important;
+    }
+    .mbn-topic-card > b {
+        grid-column: 2 !important;
+        justify-self: start !important;
+    }
+    .mbn-reading-article__body,
+    .mbn-reading-section {
+        font-size: 13.25px !important;
+        line-height: 1.62 !important;
+    }
+    .mbn-check-grid,
+    .mbn-responsibility-grid,
+    .mbn-knowledge-hub {
+        grid-template-columns: 1fr !important;
+    }
+    .mbn-knowledge-hero__content {
+        display: grid !important;
+        grid-template-columns: 34px minmax(0, 1fr) !important;
+        gap: 9px !important;
+    }
+
+    /* Profile */
+    .mbn-profile-summary {
+        padding: 10px !important;
+        gap: 10px !important;
+        border-radius: 8px !important;
+    }
+    .mbn-profile-summary__avatar {
+        width: 44px !important;
+        height: 44px !important;
+        flex-basis: 44px !important;
+        font-size: 17px !important;
+    }
+    .mbn-profile-summary__copy strong {
+        font-size: 15px !important;
+    }
+    .mbn-profile-summary__copy span {
+        font-size: 11px !important;
+    }
+    .mbn-profile-card__header {
+        padding: 11px !important;
+        gap: 9px !important;
+    }
+    .mbn-profile-card__header strong {
+        font-size: 15.5px !important;
+    }
+    .mbn-profile-card__header span {
+        font-size: 11px !important;
+    }
+    .mbn-profile-card .mbn-base-form {
+        padding: 9px !important;
+        gap: 8px !important;
+    }
+    .mbn-profile-meta dd {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+    }
+    .mbn-profile-meta .mbn-status-badge {
+        display: inline-flex !important;
+        min-width: max-content !important;
+        white-space: nowrap !important;
+        writing-mode: horizontal-tb !important;
+    }
+
+    /* Modal as bottom sheet */
+    .gaming-modal-layer {
+        align-items: flex-end !important;
+        padding: 6px 6px 0 !important;
+    }
+    .gaming-modal {
+        width: 100% !important;
+        max-height: 92dvh !important;
+        border-radius: 14px 14px 0 0 !important;
+    }
+    .gaming-modal__header {
+        min-height: 48px !important;
+        padding: 10px 44px 10px 12px !important;
+    }
+    .gaming-modal__header h2 {
+        font-size: 15px !important;
+        line-height: 1.3 !important;
+    }
+    .gaming-modal__close {
+        right: 9px !important;
+        top: 8px !important;
+        width: 32px !important;
+        height: 32px !important;
+    }
+    .gaming-modal__body {
+        padding: 10px !important;
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+    .gaming-modal__footer {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 7px !important;
+        padding: 9px 10px calc(9px + env(safe-area-inset-bottom)) !important;
+    }
+    .gaming-modal__footer-note {
+        grid-column: 1/-1 !important;
+    }
+    .gaming-modal__footer > .mbn-button {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+}
