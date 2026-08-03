@@ -181,17 +181,31 @@ export default function GameDetailPage() {
         .slice(0, 8);
 
     const originalPrice = item?.original_price || Number(price || 0) * 1.2;
+    const normalizedPrice = Number(price || 0);
     const deposit = Number(
         selectedRate?.deposit_amount ??
             (listingType === "rental"
                 ? item?.rental_deposit_amount
                 : item?.sale_deposit_amount) ??
-            Number(price || 0) * 0.3,
+            normalizedPrice * 0.3,
     );
-    const installment = Number(price || 0) * 0.7;
-    const remaining =
-        Number(price || 0) -
-        (purchaseTab === "deposit" ? deposit : installment);
+    const initialPaymentAmount =
+        purchaseTab === "installment"
+            ? Number(item?.minimum_initial_payment || normalizedPrice * 0.7)
+            : purchaseTab === "deposit"
+              ? deposit
+              : normalizedPrice;
+    const finalPaymentAmount = Math.max(
+        0,
+        normalizedPrice -
+            (purchaseTab === "deposit" || purchaseTab === "installment"
+                ? initialPaymentAmount
+                : normalizedPrice),
+    );
+    const amountDueNow =
+        listingType === "rental"
+            ? normalizedPrice + deposit
+            : initialPaymentAmount;
     const detailRows = [
         ["Phái", item?.gender || productMetadata.gender || "Chưa cập nhật"],
         ["Cấp độ", item?.level || productMetadata.level || "Chưa cập nhật"],
@@ -572,6 +586,12 @@ export default function GameDetailPage() {
                                                     {formatMoney(deposit)}
                                                 </span>
                                             </div>
+                                            <div>
+                                                <b>Cần thanh toán khi tạo thuê</b>
+                                                <span className="money-highlight">
+                                                    {formatMoney(amountDueNow)}
+                                                </span>
+                                            </div>
                                         </>
                                     )}
                                     <div className="purchase-price-row">
@@ -591,22 +611,27 @@ export default function GameDetailPage() {
                                     {purchaseTab === "installment" && (
                                         <>
                                             <div>
-                                                <b>Thanh toán lần 1</b>
+                                                <b>Cần thanh toán lần đầu</b>
                                                 <span className="money-highlight">
-                                                    {formatMoney(installment)}
+                                                    {formatMoney(
+                                                        initialPaymentAmount,
+                                                    )}
                                                 </span>
                                             </div>
                                             <div>
-                                                <b>Số tiền còn lại</b>
+                                                <b>Cần thanh toán cuối cùng</b>
                                                 <span>
-                                                    {formatMoney(remaining)}
+                                                    {formatMoney(
+                                                        finalPaymentAmount,
+                                                    )}
                                                 </span>
                                             </div>
                                             <div>
                                                 <b>Hoàn tiền khi hủy</b>
                                                 <span>
                                                     {formatMoney(
-                                                        installment * 0.5,
+                                                        initialPaymentAmount *
+                                                            0.5,
                                                     )}
                                                 </span>
                                             </div>
@@ -627,9 +652,11 @@ export default function GameDetailPage() {
                                                 </span>
                                             </div>
                                             <div>
-                                                <b>Số tiền còn lại</b>
+                                                <b>Cần thanh toán cuối cùng</b>
                                                 <span>
-                                                    {formatMoney(remaining)}
+                                                    {formatMoney(
+                                                        finalPaymentAmount,
+                                                    )}
                                                 </span>
                                             </div>
                                             <div>
@@ -645,6 +672,23 @@ export default function GameDetailPage() {
                                                 </span>
                                             </div>
                                         </>
+                                    )}
+                                    {purchaseTab === "info" &&
+                                        listingType === "sale" && (
+                                            <div>
+                                                <b>Cần thanh toán khi mua</b>
+                                                <span className="money-highlight">
+                                                    {formatMoney(amountDueNow)}
+                                                </span>
+                                            </div>
+                                        )}
+                                    {purchaseTab === "qr" && (
+                                        <div>
+                                            <b>Cần thanh toán qua QR</b>
+                                            <span className="money-highlight">
+                                                {formatMoney(amountDueNow)}
+                                            </span>
+                                        </div>
                                     )}
                                 </div>
 
@@ -717,6 +761,10 @@ export default function GameDetailPage() {
                                     trả góp.
                                 </p>
                                 <p>
+                                    - Số tiền thanh toán cuối cùng là phần còn
+                                    lại sau khi trừ khoản đã thanh toán lần đầu.
+                                </p>
+                                <p>
                                     - Phí trả góp: <b>0%</b>.
                                 </p>
                                 <p>
@@ -749,6 +797,10 @@ export default function GameDetailPage() {
                                 <p>
                                     - Thời gian thanh toán phần còn lại:{" "}
                                     <b>7 ngày</b>.
+                                </p>
+                                <p>
+                                    - Số tiền thanh toán cuối cùng là phần còn
+                                    lại sau khi trừ khoản đặt cọc đã ghi nhận.
                                 </p>
                                 <p>
                                     - Phí đặt cọc: <b>0%</b>.
