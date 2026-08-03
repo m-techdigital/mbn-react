@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PageShell from "../components/base/PageShell";
 import PageSection, {
     DefinitionGrid,
@@ -27,6 +27,7 @@ export default function ProfilePage() {
         avatar_url: "",
     });
     const [avatarPreviewUrl, setAvatarPreviewUrl] = useState("");
+    const avatarPreviewRef = useRef("");
     const [avatarName, setAvatarName] = useState("");
     const [newEmail, setNewEmail] = useState("");
     const [password, setPassword] = useState({
@@ -53,18 +54,24 @@ export default function ProfilePage() {
 
     useEffect(
         () => () => {
-            if (avatarPreviewUrl) URL.revokeObjectURL(avatarPreviewUrl);
+            if (avatarPreviewRef.current)
+                URL.revokeObjectURL(avatarPreviewRef.current);
         },
-        [avatarPreviewUrl],
+        [],
     );
+
+    const replaceAvatarPreview = (nextPreviewUrl = "") => {
+        if (avatarPreviewRef.current) {
+            URL.revokeObjectURL(avatarPreviewRef.current);
+        }
+        avatarPreviewRef.current = nextPreviewUrl;
+        setAvatarPreviewUrl(nextPreviewUrl);
+    };
 
     const uploadAvatar = async (file) => {
         if (!file) return;
         const previewUrl = URL.createObjectURL(file);
-        setAvatarPreviewUrl((current) => {
-            if (current) URL.revokeObjectURL(current);
-            return previewUrl;
-        });
+        replaceAvatarPreview(previewUrl);
         setAvatarName(file.name);
         setBusy("avatar");
         setProfileErrors((current) => ({
@@ -276,9 +283,7 @@ export default function ProfilePage() {
                             }
                             onChange={uploadAvatar}
                             onRemove={() => {
-                                if (avatarPreviewUrl)
-                                    URL.revokeObjectURL(avatarPreviewUrl);
-                                setAvatarPreviewUrl("");
+                                replaceAvatarPreview("");
                                 setProfile((value) => ({
                                     ...value,
                                     avatar_url: "",
