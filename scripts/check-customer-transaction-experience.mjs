@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { normalizeOfferMode } from "../src/utils/offerModes.js";
 const purchase = fs.readFileSync("src/pages/PurchaseDetailPage.jsx", "utf8");
 const game = fs.readFileSync("src/pages/GameDetailPage.jsx", "utf8");
 const purchaseFlow = fs.readFileSync(
@@ -38,7 +39,8 @@ if (
         "Instant wallet checkout must submit the first payable payment after transaction creation.",
     );
 if (
-    !game.includes('typeof mode === "object"') ||
+    normalizeOfferMode({ code: "sell" }) !== "sale" ||
+    normalizeOfferMode({ value: "rent" }) !== "rental" ||
     !game.includes("inferOfferTypes") ||
     !game.includes("record?.sale_enabled")
 )

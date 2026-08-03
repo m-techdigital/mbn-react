@@ -18,6 +18,7 @@ import GamingButton from "../components/base/GamingButton";
 import EmptyState from "../components/base/EmptyState";
 import { showToast } from "../utils/toast";
 import { getUserFacingError } from "../utils/userFacingError";
+import { normalizeOfferMode } from "../utils/offerModes";
 import MarketplaceImage from "../components/base/MarketplaceImage";
 import GameDetailGallery from "../components/marketplace/GameDetailGallery";
 import GamePurchaseModal from "../components/marketplace/GamePurchaseModal";
@@ -29,15 +30,6 @@ const typeByPath = (path) =>
         : path.includes("ngoc-rong")
           ? "dragonBalls"
           : "avatars";
-const normalizeOfferMode = (mode) =>
-    (typeof mode === "object" ? mode?.code || mode?.value : mode) === "sell"
-        ? "sale"
-        : (typeof mode === "object" ? mode?.code || mode?.value : mode) ===
-            "rent"
-          ? "rental"
-          : typeof mode === "object"
-            ? mode?.code || mode?.value
-            : mode;
 const hasValue = (value) => value !== undefined && value !== null && value !== "";
 const firstDefined = (...values) =>
     values.find((value) => value !== undefined && value !== null && value !== "");

@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { normalizeOfferMode } from "../src/utils/offerModes.js";
 
 const form = fs.readFileSync("src/pages/ProductFormPage.jsx", "utf8");
 const detail = fs.readFileSync("src/pages/GameDetailPage.jsx", "utf8");
@@ -12,8 +13,10 @@ if (form.includes("offer_modes.includes('installment')"))
 if (!detail.includes("normalizeOfferMode"))
     throw new Error("Public detail chưa chuẩn hóa offer mode");
 if (
-    !/mode\s*===\s*[\"']sell[\"']\s*\?\s*[\"']sale[\"']/.test(detail) ||
-    !/mode\s*===\s*[\"']rent[\"']\s*\?\s*[\"']rental[\"']/.test(detail)
+    normalizeOfferMode("sell") !== "sale" ||
+    normalizeOfferMode({ code: "sell" }) !== "sale" ||
+    normalizeOfferMode("rent") !== "rental" ||
+    normalizeOfferMode({ value: "rent" }) !== "rental"
 ) {
     throw new Error("Public detail chưa map sell/rent sang sale/rental");
 }
