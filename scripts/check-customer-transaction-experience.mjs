@@ -38,6 +38,14 @@ if (
         "Instant wallet checkout must submit the first payable payment after transaction creation.",
     );
 if (
+    !game.includes('typeof mode === "object"') ||
+    !game.includes("inferOfferTypes") ||
+    !game.includes("record?.sale_enabled")
+)
+    failures.push(
+        "Game detail must normalize API offer mode objects before choosing sale or rental checkout.",
+    );
+if (
     !deposit.includes("Danh sách yêu cầu nạp tiền") ||
     !deposit.includes("GamingModal")
 )

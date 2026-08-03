@@ -30,7 +30,37 @@ const typeByPath = (path) =>
           ? "dragonBalls"
           : "avatars";
 const normalizeOfferMode = (mode) =>
-    mode === "sell" ? "sale" : mode === "rent" ? "rental" : mode;
+    (typeof mode === "object" ? mode?.code || mode?.value : mode) === "sell"
+        ? "sale"
+        : (typeof mode === "object" ? mode?.code || mode?.value : mode) ===
+            "rent"
+          ? "rental"
+          : typeof mode === "object"
+            ? mode?.code || mode?.value
+            : mode;
+const inferOfferTypes = (record) => {
+    const explicitTypes = [
+        ...(record?.transaction_types || []),
+        ...(record?.offer_modes || []),
+    ]
+        .map(normalizeOfferMode)
+        .filter((mode) => ["sale", "rental"].includes(mode));
+    const inferredTypes = [];
+    if (
+        record?.sale_enabled ||
+        record?.sale_price !== undefined ||
+        record?.installment_enabled
+    )
+        inferredTypes.push("sale");
+    if (
+        record?.rental_enabled ||
+        record?.rental_price !== undefined ||
+        (record?.rental_rates || record?.rentalRates || []).length > 0
+    )
+        inferredTypes.push("rental");
+
+    return [...new Set([...explicitTypes, ...inferredTypes])];
+};
 const firstDefined = (...values) =>
     values.find((value) => value !== undefined && value !== null && value !== "");
 const numberValue = (...values) => Number(firstDefined(...values, 0) || 0);
@@ -80,14 +110,8 @@ export default function GameDetailPage() {
     const productMetadata = productRecord?.metadata || {};
     const attributes = productAttributes(productRecord);
     const availableTypes = useMemo(
-        () => [
-            ...new Set(
-                (item?.offer_modes || item?.transaction_types || [])
-                    .map(normalizeOfferMode)
-                    .filter((mode) => ["sale", "rental"].includes(mode)),
-            ),
-        ],
-        [item?.offer_modes, item?.transaction_types],
+        () => inferOfferTypes(item),
+        [item],
     );
     const [transactionType, setTransactionType] = useState("sale");
     const listingType = transactionType;
