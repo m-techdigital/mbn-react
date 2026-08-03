@@ -51,7 +51,8 @@
         "check:parent-offer-mode-alignment": "node scripts/check-parent-offer-mode-alignment.mjs",
         "sync:marketplace-options": "node scripts/sync-marketplace-options.mjs",
         "check:marketplace-options-sync": "node scripts/sync-marketplace-options.mjs --check",
-        "check:customer-journey": "node scripts/check-customer-journey.mjs"
+        "check:customer-journey": "node scripts/check-customer-journey.mjs",
+        "check:payout-journey-polish": "node scripts/check-payout-journey-polish.mjs"
     },
     "dependencies": {
         "@ant-design/icons": "^6.2.2",
