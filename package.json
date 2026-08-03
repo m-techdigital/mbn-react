@@ -62,7 +62,12 @@
     "check:parent-layout-parity": "node scripts/check-parent-layout-parity.mjs",
     "check:release-package": "node scripts/check-release-package.mjs",
     "check:semantic-owners": "node scripts/check-semantic-owners.mjs",
-    "e2e:browser-core": "node scripts/e2e-browser-core.mjs"
+    "e2e:browser-core": "node scripts/e2e-browser-core.mjs",
+    "e2e:transactional-api": "node scripts/e2e-transactional-api.mjs",
+    "analyze:bundle": "node scripts/analyze-bundle.mjs",
+    "build:analyze": "npm run build && npm run analyze:bundle",
+    "check:e2e-fixtures": "node scripts/check-e2e-fixture-contract.mjs",
+    "check:release-readiness": "npm run check:release-package && npm run check:semantic-owners && npm run check:e2e-fixtures && npm run check:marketplace-options-sync"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",

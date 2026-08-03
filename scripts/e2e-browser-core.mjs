@@ -53,6 +53,17 @@ const browser = spawn(chrome, [
 ], { stdio: "ignore" });
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const waitForBrowserExit = () =>
+    new Promise((resolve) => {
+        if (browser.exitCode !== null || browser.signalCode) {
+            resolve();
+            return;
+        }
+        browser.once("exit", resolve);
+        browser.once("error", resolve);
+        browser.kill("SIGTERM");
+        setTimeout(resolve, 3000);
+    });
 const waitUntil = async (probe, label, timeout = timeoutMs) => {
     const started = Date.now();
     while (Date.now() - started < timeout) {
@@ -125,6 +136,25 @@ const clickText = async (text) => {
     if (!clicked) throw new Error(`Không tìm thấy action: ${text}`);
 };
 
+const openLoginModal = async () => {
+    await evaluate('window.dispatchEvent(new CustomEvent("mbn:open-auth", { detail: { mode: "login" } }))');
+    const openedByEvent = await waitUntil(
+        () => evaluate('document.body?.innerText?.includes("ĐĂNG NHẬP TÀI KHOẢN")').catch(() => false),
+        "login modal event",
+        2500,
+    ).catch(() => false);
+    if (openedByEvent) return;
+    await navigate("/account/profile");
+    const openedByRouteGuard = await waitUntil(
+        () => evaluate('document.body?.innerText?.includes("ĐĂNG NHẬP TÀI KHOẢN")').catch(() => false),
+        "login modal protected route",
+        timeoutMs,
+    ).catch(() => false);
+    if (openedByRouteGuard) return;
+    const bodyText = await evaluate("document.body?.innerText?.slice(0, 1000) || ''");
+    throw new Error(`Không mở được modal đăng nhập. Body hiện tại: ${bodyText}`);
+};
+
 try {
     await waitUntil(
         () => json(`http://127.0.0.1:${port}/json/version`).catch(() => null),
@@ -153,7 +183,7 @@ try {
     await send("DOM.enable");
     await navigate("/");
 
-    await evaluate('window.dispatchEvent(new CustomEvent("mbn:open-auth", { detail: { mode: "login" } }))');
+    await openLoginModal();
     await assertText("ĐĂNG NHẬP TÀI KHOẢN", "login modal");
     await evaluate(`(() => {
         const username = document.querySelector('input[autocomplete="username"]');
@@ -193,15 +223,23 @@ try {
     }
 
     const offerChecks = [
-        [process.env.MBN_E2E_PURCHASE_PATH, "Mua ngay"],
-        [process.env.MBN_E2E_RENTAL_PATH, "Thuê ngay"],
-        [process.env.MBN_E2E_INSTALLMENT_PATH, "Mua trả góp"],
-    ].filter(([route]) => route);
-    for (const [route, action] of offerChecks) {
+        [process.env.MBN_E2E_PURCHASE_PATH || "/teamobi/ninja-school/NSO-0102", "Mua ngay", ["Thuê ngay"]],
+        [process.env.MBN_E2E_RENTAL_PATH || "/teamobi/ninja-school/NSO-0201", "Thuê ngay", ["Mua trả góp"]],
+        [process.env.MBN_E2E_INSTALLMENT_PATH || "/teamobi/ngoc-rong/NRO-0301", "Mua trả góp", ["Thuê ngay"]],
+    ];
+    for (const [route, action, forbiddenActions] of offerChecks) {
         await navigate(route);
         await assertText(action, `${route} action`);
+        for (const forbidden of forbiddenActions) {
+            const visible = await evaluate(`document.body?.innerText?.includes(${JSON.stringify(forbidden)})`);
+            if (visible) throw new Error(`${route} hiển thị action không hợp lệ: ${forbidden}`);
+        }
         await clickText(action);
         await assertText("Thanh toán", `${route} payment modal`);
+        await waitUntil(
+            () => evaluate('Boolean([...document.querySelectorAll("body *")].find((node) => /Tổng|Cần thanh toán|Thanh toán ban đầu/.test(node.textContent || "")))'),
+            `${route} payment amount`,
+        );
         await evaluate(`document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))`);
         console.log(`PASS offer ${action}`);
     }
@@ -226,10 +264,18 @@ try {
             nodeId: inputNode.nodeId,
             files: [path.resolve(process.env.MBN_E2E_AVATAR_PATH)],
         });
-        await sleep(1000);
-        console.log("PASS avatar file selection");
+        await assertText("Đã cập nhật ảnh đại diện", "avatar upload success");
+        const avatarBeforeReload = await evaluate('document.querySelector(".mbn-profile-summary__avatar img")?.getAttribute("src") || ""');
+        if (!avatarBeforeReload) throw new Error("Avatar không hiển thị sau upload.");
+        await navigate("/account/profile");
+        const avatarAfterReload = await evaluate('document.querySelector(".mbn-profile-summary__avatar img")?.getAttribute("src") || ""');
+        if (!avatarAfterReload || avatarAfterReload !== avatarBeforeReload) {
+            throw new Error("Avatar bị mất hoặc thay đổi sau khi tải lại trang.");
+        }
+        console.log("PASS avatar upload persistence");
     }
 
+    await navigate("/account/profile");
     await clickText("Đăng xuất");
     await waitUntil(
         () => evaluate('document.body?.innerText?.includes("Đăng nhập")'),
@@ -239,6 +285,6 @@ try {
     console.log("Browser core flow PASS");
 } finally {
     try { socket?.close(); } catch {}
-    browser.kill("SIGTERM");
-    fs.rmSync(profileDir, { recursive: true, force: true });
+    await waitForBrowserExit();
+    fs.rmSync(profileDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
 }
