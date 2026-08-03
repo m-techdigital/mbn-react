@@ -1,16 +1,30 @@
 import { useEffect, useMemo, useState } from "react";
 
 const DEFAULT_FALLBACK = "/images/avatar-placeholder.svg";
+const configuredApiUrl = String(import.meta.env.VITE_API_URL || "").trim();
+
+function apiOrigin() {
+    if (!configuredApiUrl) return "";
+    try {
+        return new URL(configuredApiUrl, window.location.origin).origin;
+    } catch {
+        return "";
+    }
+}
 
 function normalizeMediaSource(source) {
     if (!source || typeof source !== "string") return source;
+    if (source.startsWith("blob:") || source.startsWith("data:")) return source;
     try {
         const url = new URL(source, window.location.origin);
+        const origin = apiOrigin();
         if (
             url.pathname.startsWith("/storage/") &&
-            ["localhost", "127.0.0.1"].includes(url.hostname)
+            source.startsWith("/") &&
+            origin &&
+            origin !== window.location.origin
         )
-            return `${url.pathname}${url.search}`;
+            return `${origin}${url.pathname}${url.search}`;
     } catch {
         // Keep the original value when the source is not a valid URL.
     }

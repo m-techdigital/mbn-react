@@ -26,6 +26,7 @@ export default function ProfilePage() {
         phone: "",
         avatar_url: "",
     });
+    const [avatarPreviewUrl, setAvatarPreviewUrl] = useState("");
     const [avatarName, setAvatarName] = useState("");
     const [newEmail, setNewEmail] = useState("");
     const [password, setPassword] = useState({
@@ -50,8 +51,20 @@ export default function ProfilePage() {
         [customer],
     );
 
+    useEffect(
+        () => () => {
+            if (avatarPreviewUrl) URL.revokeObjectURL(avatarPreviewUrl);
+        },
+        [avatarPreviewUrl],
+    );
+
     const uploadAvatar = async (file) => {
         if (!file) return;
+        const previewUrl = URL.createObjectURL(file);
+        setAvatarPreviewUrl((current) => {
+            if (current) URL.revokeObjectURL(current);
+            return previewUrl;
+        });
         setAvatarName(file.name);
         setBusy("avatar");
         setProfileErrors((current) => ({
@@ -68,10 +81,11 @@ export default function ProfilePage() {
                 updated?.avatar_url ||
                 updated?.customer?.avatar_url ||
                 updated?.profile?.avatar_url ||
+                updated?.data?.avatar_url ||
                 "";
             setProfile((value) => ({
                 ...value,
-                avatar_url: avatarUrl,
+                avatar_url: avatarUrl || previewUrl,
             }));
             await refreshCustomer();
             showToast("success", "Đã cập nhật ảnh đại diện.");
@@ -200,9 +214,9 @@ export default function ProfilePage() {
                 >
                     <div className="mbn-profile-summary">
                         <div className="mbn-profile-summary__avatar">
-                            {profile.avatar_url ? (
+                            {avatarPreviewUrl || profile.avatar_url ? (
                                 <MarketplaceImage
-                                    src={profile.avatar_url}
+                                    src={avatarPreviewUrl || profile.avatar_url}
                                     alt="Ảnh đại diện"
                                 />
                             ) : (
@@ -252,7 +266,7 @@ export default function ProfilePage() {
                         </FormField>
                         <ImageUploadField
                             label="Ảnh đại diện"
-                            value={profile.avatar_url}
+                            value={avatarPreviewUrl || profile.avatar_url}
                             fileName={avatarName}
                             loading={busy === "avatar"}
                             progress={uploadProgress}
@@ -262,6 +276,9 @@ export default function ProfilePage() {
                             }
                             onChange={uploadAvatar}
                             onRemove={() => {
+                                if (avatarPreviewUrl)
+                                    URL.revokeObjectURL(avatarPreviewUrl);
+                                setAvatarPreviewUrl("");
                                 setProfile((value) => ({
                                     ...value,
                                     avatar_url: "",
