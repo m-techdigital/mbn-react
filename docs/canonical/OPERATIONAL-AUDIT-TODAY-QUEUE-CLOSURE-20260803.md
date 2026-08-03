@@ -50,4 +50,5 @@ The former large content, mobile and interaction owners are now ordered manifest
 
 - `npm run check:maintainability` blocks V55/V66-style temporary file names, CSS rules returning to manifest files, missing semantic style imports and `GameDetailPage` drifting away from its gallery/purchase-flow owners.
 - The guard blocks company/department runtime scope keys from returning to `src`.
+- The guard also blocks parent-only payroll/accounting/report/CRM/reservation/opportunity/inventory keys from customer runtime source.
 - `check:ownership` now runs this guard together with style and repository ownership checks.

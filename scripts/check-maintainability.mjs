@@ -19,9 +19,13 @@ for (const file of tracked) {
 for (const file of tracked.filter((entry) => entry.startsWith("src/"))) {
     if (!/\.(js|jsx|ts|tsx|json)$/.test(file)) continue;
     const source = fs.readFileSync(file, "utf8");
-    if (/\b(company_id|department_id|change_department)\b/i.test(source)) {
+    if (
+        /\b(company_id|department_id|change_department|assign_role|manage_organization|change_manager|payroll|accounting|reports|crm|reservation|opportunity|inventory)\b/i.test(
+            source,
+        )
+    ) {
         failures.push(
-            `${file}: Mini customer app không được giữ company/department runtime scope.`,
+            `${file}: Mini customer app không được giữ parent-only runtime scope.`,
         );
     }
 }
