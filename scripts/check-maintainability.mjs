@@ -16,6 +16,16 @@ for (const file of tracked) {
     }
 }
 
+for (const file of tracked.filter((entry) => entry.startsWith("src/"))) {
+    if (!/\.(js|jsx|ts|tsx|json)$/.test(file)) continue;
+    const source = fs.readFileSync(file, "utf8");
+    if (/\b(company_id|department_id|change_department)\b/i.test(source)) {
+        failures.push(
+            `${file}: Mini customer app không được giữ company/department runtime scope.`,
+        );
+    }
+}
+
 const importOnlyManifests = [
     "src/styles/app.css",
     "src/styles/components/modals.css",
