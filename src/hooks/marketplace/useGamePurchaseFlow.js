@@ -137,6 +137,34 @@ export function useGamePurchaseFlow({
                     transaction: transactionData,
                 });
                 showToast("success", "Đã tạo giao dịch và mã QR thanh toán.");
+            } else if (
+                paymentMethod === "balance" &&
+                transactionId &&
+                firstPendingPayment?.id
+            ) {
+                try {
+                    await transactionRepository.submitPayment(
+                        transactionId,
+                        firstPendingPayment.id,
+                        {
+                            payment_method: "wallet",
+                            reference: `WALLET-${transactionData?.code || transactionId}-${firstPendingPayment.id}`,
+                        },
+                    );
+                    showToast(
+                        "success",
+                        "Đã tạo giao dịch và thanh toán bằng số dư ví.",
+                    );
+                } catch (walletError) {
+                    showToast(
+                        "error",
+                        getUserFacingError(
+                            walletError,
+                            "Đã tạo giao dịch nhưng chưa thể thanh toán bằng số dư ví. Vui lòng kiểm tra số dư hoặc chọn chuyển khoản.",
+                        ),
+                    );
+                }
+                navigate(`/account/purchases/${transactionId}`);
             } else {
                 showToast(
                     "success",

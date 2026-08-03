@@ -1,6 +1,10 @@
 import fs from "node:fs";
 const purchase = fs.readFileSync("src/pages/PurchaseDetailPage.jsx", "utf8");
 const game = fs.readFileSync("src/pages/GameDetailPage.jsx", "utf8");
+const purchaseFlow = fs.readFileSync(
+    "src/hooks/marketplace/useGamePurchaseFlow.js",
+    "utf8",
+);
 const deposit = fs.readFileSync("src/pages/DepositPage.jsx", "utf8");
 const sidebar = fs.readFileSync(
     "src/components/layout/AccountSidebar.jsx",
@@ -24,6 +28,14 @@ if (
 )
     failures.push(
         "Recommendations must use a normal list grid without slider arrows.",
+    );
+if (
+    !purchaseFlow.includes('paymentMethod === "balance"') ||
+    !purchaseFlow.includes("transactionRepository.submitPayment") ||
+    !purchaseFlow.includes('payment_method: "wallet"')
+)
+    failures.push(
+        "Instant wallet checkout must submit the first payable payment after transaction creation.",
     );
 if (
     !deposit.includes("Danh sách yêu cầu nạp tiền") ||
