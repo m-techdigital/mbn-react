@@ -45,3 +45,8 @@ The former large content, mobile and interaction owners are now ordered manifest
 - `styles/components/modals.css` is now an import-only manifest with semantic modal owners for foundation, admin information, authentication, purchase/payment and responsive refinements.
 - CSS import order is preserved to keep the previous cascade contract.
 - New content/mobile/interaction style owners are registered in the canonical style manifest and guarded by `check:style-ownership`.
+
+## Regression guards
+
+- `npm run check:maintainability` blocks V55/V66-style temporary file names, CSS rules returning to manifest files, missing semantic style imports and `GameDetailPage` drifting away from its gallery/purchase-flow owners.
+- `check:ownership` now runs this guard together with style and repository ownership checks.

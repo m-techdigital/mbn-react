@@ -55,7 +55,8 @@
         "check:payout-journey-polish": "node scripts/check-payout-journey-polish.mjs",
         "check:repository-ownership": "node scripts/check-repository-ownership.mjs",
         "check:style-ownership": "node scripts/check-style-ownership.mjs",
-        "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership"
+        "check:maintainability": "node scripts/check-maintainability.mjs",
+        "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership && npm run check:maintainability"
     },
     "dependencies": {
         "@ant-design/icons": "^6.2.2",
