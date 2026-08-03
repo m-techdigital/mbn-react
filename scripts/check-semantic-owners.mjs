@@ -65,6 +65,18 @@ if (mockData.includes('from "./topicContent"')) {
     failures.push("mock data: topic content must not return to the initial bundle.");
 }
 
+const browserSmoke = fs.readFileSync(path.join(root, "scripts/e2e-browser-core.mjs"), "utf8");
+for (const marker of ["avatar-e2e.png", "avatar persistence after re-login", "Mua ngay", "Thuê ngay", "Mua trả góp"]) {
+    if (!browserSmoke.includes(marker)) failures.push(`browser smoke: missing ${marker}.`);
+}
+const rentalMoney = await importModule("src/utils/rentalMoney.js");
+const rental = rentalMoney.rentalMoneyBreakdown({ rentalAmount: 120000, depositAmount: 300000, deductionAmount: 50000 });
+if (rental.initialAmount !== 420000 || rental.refundableAmount !== 250000) failures.push("rental money: shared calculation contract is incorrect.");
+for (const owner of ["src/styles/components/motion.css", "src/styles/experience-feedback.css"]) {
+    const manifest = fs.readFileSync(path.join(root, owner), "utf8");
+    if (!manifest.trim().startsWith("@import") || manifest.split(/\r?\n/).length > 8) failures.push(`${owner}: must remain an import-only manifest.`);
+}
+
 if (failures.length) {
     console.error(failures.join("\n"));
     process.exit(1);

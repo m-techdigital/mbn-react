@@ -8,6 +8,8 @@ const login = process.env.MBN_E2E_LOGIN || "";
 const password = process.env.MBN_E2E_PASSWORD || "";
 const port = Number(process.env.MBN_E2E_DEBUG_PORT || 9333);
 const timeoutMs = Number(process.env.MBN_E2E_TIMEOUT_MS || 15000);
+const defaultAvatarPath = path.resolve("tests/fixtures/avatar-e2e.png");
+const avatarPath = process.env.MBN_E2E_AVATAR_PATH || (fs.existsSync(defaultAvatarPath) ? defaultAvatarPath : "");
 
 const chromeCandidates = [
     process.env.CHROME_BIN,
@@ -155,6 +157,49 @@ const openLoginModal = async () => {
     throw new Error(`Không mở được modal đăng nhập. Body hiện tại: ${bodyText}`);
 };
 
+const submitLoginForm = async () => {
+    await evaluate(`(() => {
+        const username = document.querySelector('input[autocomplete="username"]');
+        const passwordInput = document.querySelector('input[autocomplete="current-password"]');
+        const set = (element, value) => {
+            const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set;
+            setter.call(element, value);
+            element.dispatchEvent(new Event("input", { bubbles: true }));
+            element.dispatchEvent(new Event("change", { bubbles: true }));
+        };
+        if (!username || !passwordInput) return false;
+        set(username, ${JSON.stringify(login)});
+        set(passwordInput, ${JSON.stringify(password)});
+        username.closest("form")?.requestSubmit();
+        return true;
+    })()`);
+};
+
+const waitForLoginSuccess = async (label) => {
+    const succeeded = await waitUntil(
+        () => evaluate('!document.body?.innerText?.includes("ĐĂNG NHẬP TÀI KHOẢN")'),
+        label,
+        timeoutMs * 2,
+    ).catch(() => false);
+    if (succeeded) return;
+
+    const bodyText = await evaluate("document.body?.innerText?.slice(0, 1000) || ''");
+    if (bodyText.includes("Too Many Attempts")) {
+        console.log("WAIT auth throttle window");
+        await sleep(65000);
+        await submitLoginForm();
+        const retrySucceeded = await waitUntil(
+            () => evaluate('!document.body?.innerText?.includes("ĐĂNG NHẬP TÀI KHOẢN")'),
+            `${label} retry`,
+            timeoutMs * 2,
+        ).catch(() => false);
+        if (retrySucceeded) return;
+    }
+
+    const latestBodyText = await evaluate("document.body?.innerText?.slice(0, 1000) || ''");
+    throw new Error(`Đăng nhập không thành công. Body hiện tại: ${latestBodyText}`);
+};
+
 try {
     await waitUntil(
         () => json(`http://127.0.0.1:${port}/json/version`).catch(() => null),
@@ -185,27 +230,8 @@ try {
 
     await openLoginModal();
     await assertText("ĐĂNG NHẬP TÀI KHOẢN", "login modal");
-    await evaluate(`(() => {
-        const username = document.querySelector('input[autocomplete="username"]');
-        const passwordInput = document.querySelector('input[autocomplete="current-password"]');
-        const set = (element, value) => {
-            const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set;
-            setter.call(element, value);
-            element.dispatchEvent(new Event("input", { bubbles: true }));
-            element.dispatchEvent(new Event("change", { bubbles: true }));
-        };
-        if (!username || !passwordInput) return false;
-        set(username, ${JSON.stringify(login)});
-        set(passwordInput, ${JSON.stringify(password)});
-        const form = username.closest("form");
-        form?.requestSubmit();
-        return true;
-    })()`);
-    await waitUntil(
-        () => evaluate('!document.body?.innerText?.includes("ĐĂNG NHẬP TÀI KHOẢN")'),
-        "login success",
-        timeoutMs * 2,
-    );
+    await submitLoginForm();
+    await waitForLoginSuccess("login success");
     console.log("PASS login");
 
     const routeChecks = [
@@ -252,7 +278,8 @@ try {
         console.log("PASS transaction detail");
     }
 
-    if (process.env.MBN_E2E_AVATAR_PATH) {
+    let uploadedAvatarSrc = "";
+    if (avatarPath) {
         await navigate("/account/profile");
         const documentNode = await send("DOM.getDocument", { depth: -1 });
         const inputNode = await send("DOM.querySelector", {
@@ -262,16 +289,27 @@ try {
         if (!inputNode.nodeId) throw new Error("Không tìm thấy avatar file input.");
         await send("DOM.setFileInputFiles", {
             nodeId: inputNode.nodeId,
-            files: [path.resolve(process.env.MBN_E2E_AVATAR_PATH)],
+            files: [path.resolve(avatarPath)],
         });
         await assertText("Đã cập nhật ảnh đại diện", "avatar upload success");
         const avatarBeforeReload = await evaluate('document.querySelector(".mbn-profile-summary__avatar img")?.getAttribute("src") || ""');
-        if (!avatarBeforeReload) throw new Error("Avatar không hiển thị sau upload.");
+        if (!avatarBeforeReload || !avatarBeforeReload.includes("/storage/")) {
+            throw new Error("Avatar không hiển thị bằng ảnh đã upload.");
+        }
         await navigate("/account/profile");
-        const avatarAfterReload = await evaluate('document.querySelector(".mbn-profile-summary__avatar img")?.getAttribute("src") || ""');
-        if (!avatarAfterReload || avatarAfterReload !== avatarBeforeReload) {
+        const avatarAfterReload = await waitUntil(
+            () => evaluate('document.querySelector(".mbn-profile-summary__avatar img")?.getAttribute("src") || ""').then((value) => value && value.includes("/storage/") ? value : ""),
+            "avatar hydrate after reload",
+            timeoutMs,
+        );
+        const sameAvatar = await evaluate(`(() => {
+            const normalize = (value) => { try { const url = new URL(value, location.origin); return url.pathname; } catch { return value; } };
+            return normalize(${JSON.stringify(avatarBeforeReload)}) === normalize(${JSON.stringify(avatarAfterReload)});
+        })()`);
+        if (!avatarAfterReload || !sameAvatar) {
             throw new Error("Avatar bị mất hoặc thay đổi sau khi tải lại trang.");
         }
+        uploadedAvatarSrc = avatarAfterReload;
         console.log("PASS avatar upload persistence");
     }
 
@@ -282,6 +320,29 @@ try {
         "logout",
     );
     console.log("PASS logout");
+
+    if (uploadedAvatarSrc) {
+        await navigate("/");
+        await openLoginModal();
+        await assertText("ĐĂNG NHẬP TÀI KHOẢN", "re-login modal");
+        await submitLoginForm();
+        await waitForLoginSuccess("re-login success");
+        await navigate("/account/profile");
+        const avatarAfterRelogin = await waitUntil(
+            () => evaluate('document.querySelector(".mbn-profile-summary__avatar img")?.getAttribute("src") || ""').then((value) => value && value.includes("/storage/") ? value : ""),
+            "avatar hydrate after re-login",
+            timeoutMs,
+        );
+        const sameAvatarAfterRelogin = await evaluate(`(() => {
+            const normalize = (value) => { try { const url = new URL(value, location.origin); return url.pathname; } catch { return value; } };
+            return normalize(${JSON.stringify(uploadedAvatarSrc)}) === normalize(${JSON.stringify(avatarAfterRelogin)});
+        })()`);
+        if (!avatarAfterRelogin || !sameAvatarAfterRelogin) {
+            throw new Error("Avatar bị mất hoặc thay đổi sau logout/login lại.");
+        }
+        console.log("PASS avatar persistence after re-login");
+        await clickText("Đăng xuất");
+    }
     console.log("Browser core flow PASS");
 } finally {
     try { socket?.close(); } catch {}

@@ -1,12 +1,10 @@
 import fs from "node:fs";
+import { readCanonicalCss } from "./lib-css-reader.mjs";
 const index = fs.readFileSync(
     new URL("../src/index.css", import.meta.url),
     "utf8",
 );
-const css = fs.readFileSync(
-    new URL("../src/styles/experience-feedback.css", import.meta.url),
-    "utf8",
-);
+const css = readCanonicalCss();
 const table = fs.readFileSync(
     new URL("../src/components/base/ResponsiveDataTable.jsx", import.meta.url),
     "utf8",

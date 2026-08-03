@@ -1,0 +1,218 @@
+/* Profile information density and stable metadata alignment. */
+.profile-page-v46 .mbn-page-section {
+    min-width: 0;
+}
+.profile-page-v46 .mbn-page-section__body {
+    display: grid;
+    gap: 12px;
+}
+.mbn-profile-summary {
+    margin: 0;
+}
+.mbn-profile-meta {
+    grid-template-columns: 1fr !important;
+}
+.mbn-profile-meta > div {
+    grid-template-columns: 130px minmax(0, 1fr) !important;
+}
+.mbn-profile-meta dd {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+}
+.mbn-profile-meta .mbn-status-badge {
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+/* Document tables and transaction documents share one action language. */
+.document-table__actions {
+    width: 100%;
+}
+.document-table__actions .mbn-button,
+.document-table__actions .gaming-link {
+    width: 100%;
+    min-width: 0;
+}
+.document-table__acceptance {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+}
+.transaction-documents {
+    margin-top: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+}
+.transaction-documents > .mbn-page-section__body {
+    display: grid;
+    gap: 8px;
+}
+.transaction-documents__notice,
+.transaction-documents__loading {
+    margin: 0;
+    padding: 9px 10px;
+    border: 1px solid #49344f;
+    border-radius: 7px;
+    background: #171219;
+    color: #cfc3d2;
+}
+
+/* Topic and policy pages: common reading rhythm. */
+.mbn-reading-article__body h2,
+.mbn-reading-section h2 {
+    margin-top: 1.45em;
+    margin-bottom: 0.55em;
+    font-size: 1.18em;
+}
+.mbn-reading-article__body h3,
+.mbn-reading-section h3 {
+    margin-top: 1.25em;
+    margin-bottom: 0.45em;
+    font-size: 1.06em;
+}
+.mbn-reading-article__body p,
+.mbn-reading-section p {
+    margin: 0.65em 0;
+}
+.mbn-reading-article__body ul,
+.mbn-reading-article__body ol,
+.mbn-reading-section ul,
+.mbn-reading-section ol {
+    padding-left: 1.35em;
+}
+.mbn-reading-article__body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Muted information must remain legible. */
+.mbn-page-section__header p,
+.mbn-form-field__hint,
+.table-primary-cell small,
+.notification-item time {
+    color: #b8acbc !important;
+}
+
+@media (max-width: 980px) {
+    .mbn-table-scroll::before,
+    .mbn-table-scroll::after {
+        width: 14px;
+    }
+    .mbn-table-scroll::before {
+        margin-right: -14px;
+    }
+    .mbn-table-scroll::after {
+        margin-left: -14px;
+    }
+    .mbn-action-group--three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .mbn-action-group--three > *:first-child {
+        grid-column: 1/-1;
+    }
+    .deposit-payment-grid {
+        grid-template-columns: 190px minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .mbn-action-group {
+        gap: 5px;
+    }
+    .mbn-action-group--two,
+    .mbn-action-group--three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .mbn-action-group--three > *:first-child {
+        grid-column: 1/-1;
+    }
+    .guide-box .mbn-page-section__body {
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 9px;
+    }
+    .guide-step {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+    .guide-box h2 {
+        font-size: 13px;
+    }
+    .guide-box p,
+    .guide-support p {
+        font-size: 12px;
+        line-height: 1.52;
+    }
+    .deposit-payment-grid {
+        grid-template-columns: 1fr;
+    }
+    .deposit-qr img {
+        width: min(180px, 70vw);
+    }
+    .bank-transfer-card > div {
+        grid-template-columns: 105px minmax(0, 1fr);
+        padding: 8px 9px;
+    }
+    .deposit-step-title {
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 8px;
+        margin-bottom: 9px;
+    }
+    .deposit-step-title > span {
+        width: 26px;
+        height: 26px;
+        font-size: 10.5px;
+    }
+    .deposit-step-title h2 {
+        font-size: 13.5px;
+    }
+    .deposit-step-title p {
+        font-size: 10.75px;
+    }
+    .deposit-status {
+        padding: 8px;
+        margin: 9px 0;
+    }
+    .mbn-profile-meta > div {
+        grid-template-columns: 110px minmax(0, 1fr) !important;
+    }
+    .mbn-profile-meta dd {
+        justify-content: flex-end;
+        text-align: right;
+    }
+    .document-table__acceptance {
+        justify-items: start;
+    }
+}
+
+@media (max-width: 420px) {
+    .mbn-action-group--three {
+        grid-template-columns: 1fr 1fr;
+    }
+    .mbn-action-group--three > *:first-child {
+        grid-column: 1/-1;
+    }
+    .bank-transfer-card > div {
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 7px;
+    }
+    .mbn-profile-meta > div {
+        grid-template-columns: 105px minmax(0, 1fr) !important;
+    }
+    .mbn-profile-meta dt,
+    .mbn-profile-meta dd {
+        padding-inline: 8px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mbn-table-scroll::before,
+    .mbn-table-scroll::after {
+        transition: none;
+    }
+}
+

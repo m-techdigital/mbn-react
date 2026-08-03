@@ -5,7 +5,7 @@ const customerPassword = process.env.MBN_E2E_PASSWORD || "change-me";
 const adminUsername = process.env.MBN_E2E_ADMIN_LOGIN || "admin";
 const adminPassword = process.env.MBN_E2E_ADMIN_PASSWORD || "change-me";
 const allowMutation = process.env.MBN_E2E_ALLOW_MUTATION === "1";
-const contractVersion = "2026-08-03.1";
+const contractVersion = "2026-08-04.1";
 
 if (!allowMutation) {
     console.error("Transactional E2E sẽ thay đổi dữ liệu. Thiết lập MBN_E2E_ALLOW_MUTATION=1 sau khi chạy migrate:fresh --seed trên DB kiểm thử.");

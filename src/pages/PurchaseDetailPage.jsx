@@ -22,6 +22,7 @@ import TransactionJourney from "../components/account/TransactionJourney";
 import MarketplaceImage from "../components/base/MarketplaceImage";
 import { BaseInput } from "../components/base/FormControls";
 import { usePurchaseDetailActions } from "../hooks/marketplace/usePurchaseDetailActions";
+import { rentalMoneyBreakdown } from "../utils/rentalMoney";
 import {
     actionablePaymentStatuses,
     buildPurchaseMetrics,
@@ -68,6 +69,11 @@ export default function PurchaseDetailPage() {
     );
 
     const metrics = buildPurchaseMetrics(transaction);
+    const rentalMoney = rentalMoneyBreakdown({
+        rentalAmount: transaction?.transaction_value,
+        depositAmount: transaction?.deposit_amount,
+        deductionAmount: transaction?.rental_deposit_deduction_amount,
+    });
 
     const productAttributes =
         transaction?.product?.attributes &&
@@ -187,8 +193,24 @@ export default function PurchaseDetailPage() {
                             value: valueLabel(transaction.rental_billing_mode),
                         },
                         {
-                            label: "Tiền cọc hoàn lại",
-                            value: formatMoney(transaction.deposit_amount || 0),
+                            label: "Tiền thuê",
+                            value: formatMoney(rentalMoney.rentalAmount),
+                        },
+                        {
+                            label: "Tiền cọc",
+                            value: formatMoney(rentalMoney.depositAmount),
+                        },
+                        {
+                            label: "Cần thanh toán ban đầu",
+                            value: formatMoney(rentalMoney.initialAmount),
+                        },
+                        {
+                            label: "Khấu trừ tiền cọc",
+                            value: formatMoney(rentalMoney.deductionAmount),
+                        },
+                        {
+                            label: "Số tiền cọc hoàn lại",
+                            value: formatMoney(rentalMoney.refundableAmount),
                         },
                     ]
                   : []),

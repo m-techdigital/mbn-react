@@ -67,7 +67,8 @@
     "analyze:bundle": "node scripts/analyze-bundle.mjs",
     "build:analyze": "npm run build && npm run analyze:bundle",
     "check:e2e-fixtures": "node scripts/check-e2e-fixture-contract.mjs",
-    "check:release-readiness": "npm run check:release-package && npm run check:semantic-owners && npm run check:e2e-fixtures && npm run check:marketplace-options-sync"
+    "check:release-readiness": "npm run check:release-package && npm run check:semantic-owners && npm run check:e2e-fixtures && npm run check:marketplace-options-sync",
+    "release:all": "bash ../axiro-base-api/scripts/release-all.sh"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",

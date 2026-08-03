@@ -1,0 +1,283 @@
+.route-progress {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+}
+.route-progress span {
+    display: block;
+    width: 38%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #bd00ff,
+        #ef8cff,
+        transparent
+    );
+    box-shadow: 0 0 12px #bd00ff;
+    transform: translateX(-120%);
+}
+.route-progress.is-visible {
+    opacity: 1;
+}
+.route-progress.is-visible span {
+    animation: route-progress 420ms ease-out both;
+}
+@keyframes route-progress {
+    to {
+        transform: translateX(360%);
+    }
+}
+.page-content.is-ready {
+    animation: content-enter 0.28s ease-out both;
+}
+@keyframes content-enter {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.mbn-skeleton {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #211a25;
+}
+.mbn-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        rgba(189, 0, 255, 0.1),
+        transparent
+    );
+    animation: skeleton-shimmer 1.25s ease-in-out infinite;
+}
+@keyframes skeleton-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+.card-skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+.card-skeleton {
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    border: 1px solid #3c2b44;
+    background: #101012;
+}
+.card-skeleton > .mbn-skeleton {
+    height: 15px;
+}
+.card-skeleton__image {
+    height: 214px !important;
+}
+.card-skeleton__footer {
+    height: 38px !important;
+}
+.detail-skeleton {
+    max-width: 1156px;
+    margin: auto;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 12px;
+    background: rgba(7, 4, 13, 0.52);
+}
+.detail-skeleton__gallery {
+    display: grid;
+    gap: 10px;
+}
+.detail-skeleton__stage {
+    height: 430px;
+}
+.detail-skeleton__thumbs {
+    display: flex;
+    gap: 8px;
+}
+.detail-skeleton__thumbs .mbn-skeleton {
+    width: 82px;
+    height: 56px;
+}
+.detail-skeleton__panel {
+    padding: 12px;
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    border: 1px solid #3c343f;
+    background: #101012;
+}
+.detail-skeleton__panel .mbn-skeleton {
+    height: 38px;
+}
+.table-skeleton {
+    display: grid;
+    gap: 7px;
+}
+.table-skeleton .mbn-skeleton {
+    height: 46px;
+}
+.async-image {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0b0a0c;
+}
+.async-image > img {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition:
+        opacity 0.3s ease,
+        transform 0.35s ease;
+}
+.async-image.is-loaded > img {
+    opacity: 1;
+}
+.async-image__placeholder {
+    position: absolute;
+    inset: 0;
+}
+.account-card:hover .async-image > img {
+    transform: scale(1.025);
+}
+.account-card {
+    animation: card-enter 0.32s ease-out both;
+}
+.account-card:nth-child(2) {
+    animation-delay: 0.035s;
+}
+.account-card:nth-child(3) {
+    animation-delay: 0.07s;
+}
+.account-card:nth-child(4) {
+    animation-delay: 0.105s;
+}
+.account-card:nth-child(5) {
+    animation-delay: 0.14s;
+}
+.account-card:nth-child(6) {
+    animation-delay: 0.175s;
+}
+@keyframes card-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.detail-slide.active {
+    animation: detail-image-enter 0.24s ease-out both;
+}
+@keyframes detail-image-enter {
+    from {
+        opacity: 0.35;
+        transform: scale(0.992);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.gaming-modal-layer {
+    animation: overlay-enter 0.18s ease-out both;
+}
+.gaming-modal {
+    animation: modal-enter 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes overlay-enter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes modal-enter {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.mbn-button__spinner {
+    will-change: transform;
+}
+.heading-round-action,
+.detail-slider-arrow,
+.recommendation-arrow {
+    transition:
+        transform 0.16s ease,
+        box-shadow 0.16s ease,
+        border-color 0.16s ease;
+}
+.heading-round-action:hover,
+.detail-slider-arrow:hover,
+.recommendation-arrow:hover {
+    transform: translateY(-1px);
+}
+@media (max-width: 900px) {
+    .card-skeleton-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .detail-skeleton {
+        grid-template-columns: 1fr;
+    }
+    .detail-skeleton__panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 580px) {
+    .card-skeleton-grid {
+        grid-template-columns: 1fr;
+    }
+    .detail-skeleton__stage {
+        height: 270px;
+    }
+    .detail-skeleton__panel {
+        grid-template-columns: 1fr;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .route-progress,
+    .route-progress span,
+    .page-content.is-ready,
+    .mbn-skeleton::after,
+    .account-card,
+    .detail-slide.active,
+    .gaming-modal-layer,
+    .gaming-modal,
+    .async-image > img {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
+

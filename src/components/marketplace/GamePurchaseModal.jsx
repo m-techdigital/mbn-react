@@ -134,7 +134,11 @@ export default function GamePurchaseModal({
                                     </span>
                                 </div>
                                 <div>
-                                    <b>Tiền cọc hoàn lại</b>
+                                    <b>Tiền thuê</b>
+                                    <span>{formatMoney(price)}</span>
+                                </div>
+                                <div>
+                                    <b>Tiền cọc</b>
                                     <span>{formatMoney(deposit)}</span>
                                 </div>
                                 <div>
@@ -172,12 +176,8 @@ export default function GamePurchaseModal({
                                     <span>{formatMoney(finalPaymentAmount)}</span>
                                 </div>
                                 <div>
-                                    <b>Hoàn tiền khi hủy</b>
-                                    <span>
-                                        {formatMoney(
-                                            initialPaymentAmount * 0.5,
-                                        )}
-                                    </span>
+                                    <b>Điều kiện hủy</b>
+                                    <span>Phụ thuộc trạng thái thanh toán và hồ sơ giao dịch.</span>
                                 </div>
                                 <div>
                                     <b>Hạn thanh toán</b>
@@ -198,8 +198,8 @@ export default function GamePurchaseModal({
                                     <span>{formatMoney(finalPaymentAmount)}</span>
                                 </div>
                                 <div>
-                                    <b>Hoàn tiền khi hủy</b>
-                                    <span>{formatMoney(deposit * 0.2)}</span>
+                                    <b>Điều kiện hủy</b>
+                                    <span>Phụ thuộc trạng thái giao dịch và thỏa thuận đặt cọc.</span>
                                 </div>
                                 <div>
                                     <b>Hạn thanh toán</b>

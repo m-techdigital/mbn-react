@@ -1,0 +1,65 @@
+/* Route transitions and scroll restoration */
+.route-progress {
+    opacity: 0;
+}
+.route-progress span {
+    width: 18%;
+    transform: translateX(-120%);
+    transition:
+        width 0.22s ease,
+        transform 0.28s ease,
+        opacity 0.18s ease;
+}
+.route-progress.is-loading {
+    opacity: 1;
+}
+.route-progress.is-loading span {
+    width: 72%;
+    transform: translateX(18%);
+    animation: route-progress-pulse 1s ease-in-out infinite alternate;
+}
+.route-progress.is-finishing {
+    opacity: 1;
+}
+.route-progress.is-finishing span {
+    width: 100%;
+    transform: translateX(0);
+    animation: none;
+}
+.route-progress.is-idle {
+    opacity: 0;
+    transition-delay: 0.12s;
+}
+@keyframes route-progress-pulse {
+    from {
+        filter: brightness(0.95);
+    }
+    to {
+        filter: brightness(1.35);
+    }
+}
+.page-content.is-loading {
+    min-height: 220px;
+    opacity: 1;
+}
+.page-content.is-ready {
+    will-change: opacity, transform;
+}
+.detail-layout,
+.suggested-panel {
+    scroll-margin-top: calc(var(--header-h) + 14px);
+}
+@media (prefers-reduced-motion: reduce) {
+    .route-progress span {
+        animation: none !important;
+        transition: none !important;
+    }
+    .route-progress.is-loading span {
+        width: 72%;
+        transform: none;
+    }
+    .route-progress.is-finishing span {
+        width: 100%;
+    }
+}
+

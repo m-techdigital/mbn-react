@@ -27,6 +27,12 @@ const containsTechnicalText = (value = "") =>
     TECHNICAL_PATTERNS.some((pattern) => pattern.test(String(value)));
 
 const TRANSLATED_MESSAGES = [
+    [/sản phẩm đã được giữ chỗ/i, "Sản phẩm đang được một giao dịch khác giữ chỗ. Vui lòng chọn sản phẩm khác hoặc thử lại sau."],
+    [/số dư.*không đủ|insufficient.*balance/i, "Số dư ví không đủ để thanh toán khoản này. Vui lòng nạp thêm tiền hoặc chọn chuyển khoản."],
+    [/không.*trả góp|installment.*not.*available/i, "Sản phẩm này hiện không hỗ trợ trả góp hoặc cấu hình trả góp đã thay đổi."],
+    [/không.*cho thuê|rental.*not.*available/i, "Sản phẩm này hiện không còn khả dụng để thuê."],
+    [/khoản thanh toán không thể gửi lại/i, "Khoản thanh toán này đã được xử lý hoặc không còn ở trạng thái có thể gửi lại."],
+    [/tài khoản nhận tiền chưa được xác minh/i, "Tài khoản nhận tiền chưa được xác minh. Vui lòng hoàn tất xác minh trước khi rút tiền."],
     [/invalid credentials/i, "Tên đăng nhập hoặc mật khẩu không đúng."],
     [/unauthenticated/i, "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại."],
     [

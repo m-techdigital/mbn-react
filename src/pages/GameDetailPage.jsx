@@ -23,6 +23,7 @@ import MarketplaceImage from "../components/base/MarketplaceImage";
 import GameDetailGallery from "../components/marketplace/GameDetailGallery";
 import GamePurchaseModal from "../components/marketplace/GamePurchaseModal";
 import { useGamePurchaseFlow } from "../hooks/marketplace/useGamePurchaseFlow";
+import { rentalMoneyBreakdown } from "../utils/rentalMoney";
 
 const typeByPath = (path) =>
     path.includes("ninja-school")
@@ -238,9 +239,10 @@ export default function GameDetailPage() {
                 ? initialPaymentAmount
                 : normalizedPrice),
     );
+    const rentalMoney = rentalMoneyBreakdown({ rentalAmount: normalizedPrice, depositAmount: deposit });
     const amountDueNow =
         listingType === "rental"
-            ? normalizedPrice + deposit
+            ? rentalMoney.initialAmount
             : initialPaymentAmount;
     const discountPercent = Number(item?.active_discount || 0);
     const detailRows = [

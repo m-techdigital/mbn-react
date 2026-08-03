@@ -1,0 +1,106 @@
+/* Trust, reviews, preferences and saved searches */
+.seller-reputation-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid var(--mbn-border, #403344);
+    border-radius: 8px;
+    background: #171419;
+}
+.seller-reputation-summary strong {
+    font-size: 20px;
+    color: #fff;
+}
+.seller-reputation-summary span {
+    color: #c8bdcc;
+    font-size: 12px;
+}
+.marketplace-review-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 9px;
+}
+.marketplace-review-list article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 12px;
+    padding: 9px;
+    border: 1px solid var(--mbn-border, #403344);
+    border-radius: 8px;
+    background: #151317;
+}
+.marketplace-review-list article p {
+    grid-column: 1/-1;
+    margin: 0;
+    color: #d6ccd9;
+}
+.notification-preference-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.notification-preference-grid article {
+    display: grid;
+    gap: 6px;
+    padding: 10px;
+    border: 1px solid var(--mbn-border, #403344);
+    border-radius: 8px;
+    background: #171419;
+}
+.notification-preference-grid label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #d2c6d5;
+}
+@media (max-width: 768px) {
+    .notification-preference-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .seller-reputation-summary strong {
+        font-size: 17px;
+    }
+}
+@media (max-width: 430px) {
+    .notification-preference-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.two-factor-panel {
+    display: grid;
+    gap: 12px;
+}
+.two-factor-panel > .mbn-status-badge {
+    justify-self: start;
+}
+.recovery-code-panel {
+    padding: 12px;
+    border: 1px solid #633b70;
+    border-radius: 8px;
+    background: #151017;
+}
+.recovery-code-panel > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 9px;
+}
+.recovery-code-panel code {
+    padding: 8px;
+    border: 1px solid #3c3040;
+    border-radius: 6px;
+    background: #0d0b0e;
+    color: #fff;
+    text-align: center;
+}
+.two-factor-panel textarea {
+    resize: vertical;
+}
+@media (max-width: 520px) {
+    .recovery-code-panel > div {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,44 @@
+/* Case center and asset snapshots */
+.asset-snapshot-list {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.asset-snapshot-list article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    padding: 10px;
+    border: 1px solid var(--mbn-border, #403344);
+    border-radius: 8px;
+    background: var(--mbn-panel-soft, #171419);
+}
+.asset-snapshot-list article > div {
+    display: grid;
+    gap: 2px;
+}
+.asset-snapshot-list article small {
+    color: #b9adbd;
+}
+.asset-snapshot-list article p {
+    grid-column: 1/-1;
+    margin: 0;
+    color: #d8cedb;
+    line-height: 1.5;
+}
+.marketplace-case-message {
+    padding: 10px;
+    border: 1px solid var(--mbn-border, #403344);
+    border-radius: 8px;
+    background: #171419;
+}
+@media (max-width: 768px) {
+    .asset-snapshot-list article {
+        padding: 8px;
+    }
+    .asset-snapshot-list {
+        gap: 6px;
+        margin-bottom: 9px;
+    }
+}
+
