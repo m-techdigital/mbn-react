@@ -1,3 +1,4 @@
+import "../../styles/components/common-purchase-modal.scss";
 import { QrcodeOutlined } from "@ant-design/icons";
 import GamingButton from "../base/GamingButton";
 import GamingModal, { ModalFooterNote } from "../base/GamingModal";

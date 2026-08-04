@@ -30,7 +30,9 @@
     ".env.example",
     ".env.production.example",
     "scripts/check-global-style-boundary.mjs",
-    "src/styles/app.css"
+    "src/styles/app.css",
+    "src/components/base/GamingModal.jsx",
+    "src/components/marketplace/GamePurchaseModal.jsx"
   ],
   "recovered_files": [
     ".env.example",

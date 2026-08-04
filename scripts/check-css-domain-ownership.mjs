@@ -5,7 +5,7 @@ const manifests = {
     "mobile-responsive-foundation.scss": 7,
     "shared-page-architecture.css": 6,
     "pages/content-editorial-pages.scss": 5,
-    "components/common.css": 6,
+    "components/common.css": 5,
 };
 for (const [file, count] of Object.entries(manifests)) {
     const source = fs.readFileSync(path.join(root, file), "utf8");

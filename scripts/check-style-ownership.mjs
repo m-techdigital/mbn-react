@@ -11,7 +11,6 @@ const expected = [
     'layout/navigation.css',
     'components/common.css',
     'components/forms.css',
-    'components/modals.css',
     'components/motion.css',
     'typography.css',
     'readability.css',

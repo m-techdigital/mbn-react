@@ -1,3 +1,4 @@
+import "../../styles/components/modals.css";
 import { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { CloseOutlined } from "@ant-design/icons";
