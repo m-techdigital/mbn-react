@@ -10,7 +10,7 @@ const readWithImports = (file, seen = new Set()) => {
     seen.add(absolute);
     const source = fs.readFileSync(absolute, "utf8");
     const directory = path.dirname(absolute);
-    return source.replace(/@import\s+["']([^"']+)["'];?/g, (_, relative) => {
+    return source.replace(/@(import|forward)\s+["']([^"']+)["'];?/g, (_, _kind, relative) => {
         if (!relative.startsWith(".")) return "";
         return readWithImports(path.resolve(directory, relative), seen);
     });

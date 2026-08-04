@@ -1,3 +1,4 @@
+import "../styles/mobile-catalog-detail.scss";
 import "../styles/pages/catalog.css";
 import { useMemo, useState } from "react";
 import { useLocation } from "react-router";

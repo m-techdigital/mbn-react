@@ -1,3 +1,4 @@
+import "../styles/mobile-catalog-detail.scss";
 import "../styles/pages/detail.css";
 import {
     HeartFilled,

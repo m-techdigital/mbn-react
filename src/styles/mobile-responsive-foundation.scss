@@ -1,7 +1,7 @@
-@import "./mobile-breakpoint-foundation.scss";
-@import "./mobile-header-navigation.scss";
-@import "./mobile-home-page-shell.scss";
-@import "./mobile-surfaces-forms.scss";
-@import "./mobile-catalog-detail.scss";
-@import "./mobile-documents-profile-modal.scss";
-@import "./mobile-compact-accessibility.scss";
+@forward "./mobile-breakpoint-foundation.scss";
+@forward "./mobile-header-navigation.scss";
+@forward "./mobile-home-page-shell.scss";
+@forward "./mobile-surfaces-forms.scss";
+@forward "./mobile-catalog-detail.scss";
+@forward "./mobile-documents-profile-modal.scss";
+@forward "./mobile-compact-accessibility.scss";

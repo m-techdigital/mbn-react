@@ -20,22 +20,15 @@ const expected = [
     'components/motion.css',
     'typography.css',
     'readability.css',
-    'account-privacy-upload.css',
-    'profile-security-motion.css',
     'feedback-form-alignment.css',
     'page-geometry-responsive-tables.css',
-    'form-table-document-polish.css',
     'cross-page-behavior.css',
     'base-layout-foundation.css',
     'base-layout-refinement.css',
     'canonical-page-owners.css',
     'shared-page-architecture.css',
-    'profile-controls-motion.css',
     'mobile-responsive-owner.scss',
-    'mobile-responsive-foundation.scss',
     'mobile-compact-density.scss',
-    'mobile-route-polish.scss',
-    'mobile-table-resilience.scss',
     'presentation-density.css',
     'experience-feedback.css',
     'accessibility-route-experience.css',
@@ -58,12 +51,12 @@ for (const relative of expected) {
         throw new Error(`Missing or empty canonical style owner: ${relative}`);
 }
 const routeOwned = {
-    "src/pages/HomePage.jsx": ["../styles/pages/home.css"],
-    "src/pages/GameListPage.jsx": ["../styles/pages/catalog.css"],
-    "src/pages/GameDetailPage.jsx": ["../styles/pages/detail.css"],
+    "src/pages/HomePage.jsx": ["../styles/pages/home.css", "../styles/mobile-home-page-shell.scss"],
+    "src/pages/GameListPage.jsx": ["../styles/pages/catalog.css", "../styles/mobile-catalog-detail.scss"],
+    "src/pages/GameDetailPage.jsx": ["../styles/pages/detail.css", "../styles/mobile-catalog-detail.scss"],
     "src/pages/PayoutPage.jsx": ["../styles/pages/payout.scss"],
     "src/pages/PurchaseDetailPage.jsx": ["../styles/marketplace-finance.css", "../styles/interaction-purchase-detail.css"],
-    "src/components/account/AccountRouteShell.jsx": ["../../styles/customer-account.css", "../../styles/marketplace-account-presentation.css"],
+    "src/components/account/AccountRouteShell.jsx": ["../../styles/customer-account.css", "../../styles/marketplace-account-presentation.css", "../../styles/account-privacy-upload.css", "../../styles/profile-security-motion.css", "../../styles/form-table-document-polish.css", "../../styles/profile-controls-motion.css", "../../styles/mobile-route-polish.scss", "../../styles/mobile-table-resilience.scss"],
 };
 for (const [file, owners] of Object.entries(routeOwned)) {
     const routeSource = fs.readFileSync(path.join(root, file), "utf8");

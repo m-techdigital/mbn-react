@@ -1,5 +1,5 @@
 /* Canonical ordered manifest; rules live in semantic owners. */
-@import "./mobile-responsive-foundation.scss";
-@import "./mobile-compact-density.scss";
-@import "./mobile-route-polish.scss";
-@import "./mobile-table-resilience.scss";
+@forward "./mobile-responsive-foundation.scss";
+@forward "./mobile-compact-density.scss";
+@forward "./mobile-route-polish.scss";
+@forward "./mobile-table-resilience.scss";

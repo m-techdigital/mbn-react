@@ -1,5 +1,5 @@
-@import "./content-topics.scss";
-@import "./content-seller-tools.scss";
-@import "./content-account-purchase.scss";
-@import "./content-notifications.scss";
-@import "./content-documents-audit.scss";
+@forward "./content-topics.scss";
+@forward "./content-seller-tools.scss";
+@forward "./content-account-purchase.scss";
+@forward "./content-notifications.scss";
+@forward "./content-documents-audit.scss";

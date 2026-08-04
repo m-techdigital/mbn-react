@@ -21,7 +21,9 @@ const tracked = (() => {
     }
 })();
 
-for (const file of tracked) {
+const trackedExisting = tracked.filter((file) => fs.existsSync(file));
+
+for (const file of trackedExisting) {
     if (/(^|[-_])v\d{2,}([-_.]|$)/i.test(path.basename(file))) {
         failures.push(
             `${file}: không dùng tên file đánh dấu V55/V66 hoặc version marker tạm.`,
@@ -29,7 +31,7 @@ for (const file of tracked) {
     }
 }
 
-for (const file of tracked.filter((entry) => entry.startsWith("src/"))) {
+for (const file of trackedExisting.filter((entry) => entry.startsWith("src/"))) {
     if (!/\.(js|jsx|ts|tsx|json)$/.test(file)) continue;
     const source = fs.readFileSync(file, "utf8");
     if (
@@ -62,10 +64,11 @@ for (const file of importOnlyManifests) {
         .filter((line) => line.trim())
         .filter((line) => !line.trim().startsWith("/*"))
         .filter((line) => !line.trim().startsWith("*"))
-        .filter((line) => !line.trim().startsWith("@import"));
+        .filter((line) => !line.trim().startsWith("@import"))
+        .filter((line) => !line.trim().startsWith("@forward"));
     if (nonImportRules.length) {
         failures.push(
-            `${file}: manifest chỉ được chứa @import, không chứa rule CSS.`,
+            `${file}: manifest chỉ được chứa @import/@forward, không chứa rule CSS.`,
         );
     }
 }
@@ -73,9 +76,9 @@ for (const file of importOnlyManifests) {
 const collectImportedStyles = (file, collected = new Set()) => {
     const source = fs.readFileSync(file, "utf8");
     const directory = path.dirname(file);
-    for (const match of source.matchAll(/@import\s+["']([^"']+)["'];?/g)) {
-        if (!match[1].startsWith(".")) continue;
-        const imported = path.normalize(path.join(directory, match[1]));
+    for (const match of source.matchAll(/@(import|forward)\s+["']([^"']+)["'];?/g)) {
+        if (!match[2].startsWith(".")) continue;
+        const imported = path.normalize(path.join(directory, match[2]));
         const relative = imported.replaceAll("\\", "/");
         if (collected.has(relative)) continue;
         collected.add(relative);
@@ -85,7 +88,7 @@ const collectImportedStyles = (file, collected = new Set()) => {
 };
 const manifestedStyles = collectImportedStyles("src/styles/app.css");
 const routeOwnedStyles = new Set();
-for (const file of tracked.filter((entry) => entry.startsWith("src/") && /\.(js|jsx)$/.test(entry))) {
+for (const file of trackedExisting.filter((entry) => entry.startsWith("src/") && /\.(js|jsx)$/.test(entry))) {
     const source = fs.readFileSync(file, "utf8");
     const directory = path.dirname(file);
     for (const match of source.matchAll(/import\s+["']([^"']+\.(?:css|scss))["'];?/g)) {
@@ -95,7 +98,7 @@ for (const file of tracked.filter((entry) => entry.startsWith("src/") && /\.(js|
         if (fs.existsSync(imported)) collectImportedStyles(imported, routeOwnedStyles);
     }
 }
-for (const file of tracked.filter(
+for (const file of trackedExisting.filter(
     (entry) => entry.startsWith("src/styles/") && /\.(css|scss)$/.test(entry),
 )) {
     const mustBeManifested =

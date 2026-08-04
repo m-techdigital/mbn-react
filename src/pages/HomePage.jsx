@@ -1,3 +1,4 @@
+import "../styles/mobile-home-page-shell.scss";
 import "../styles/pages/home.css";
 import { useEffect, useState } from "react";
 import {
