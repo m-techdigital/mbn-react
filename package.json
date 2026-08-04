@@ -56,7 +56,7 @@
         "check:repository-ownership": "node scripts/check-repository-ownership.mjs",
         "check:style-ownership": "node scripts/check-style-ownership.mjs",
         "check:maintainability": "node scripts/check-maintainability.mjs",
-        "check:ownership": "npm run check:recovery-baseline && npm run check:style-ownership && npm run check:sass-module-ownership && npm run check:initial-bundle-ownership && npm run check:repository-ownership && npm run check:maintainability && npm run check:css-domain-ownership && npm run check:core-flow-e2e && npm run check:parent-layout-parity && npm run check:release-package && npm run check:semantic-owners",
+        "check:ownership": "npm run check:recovery-baseline && npm run check:style-ownership && npm run check:global-style-boundary && npm run check:sass-module-ownership && npm run check:initial-bundle-ownership && npm run check:repository-ownership && npm run check:maintainability && npm run check:css-domain-ownership && npm run check:core-flow-e2e && npm run check:parent-layout-parity && npm run check:release-package && npm run check:semantic-owners",
         "check:css-domain-ownership": "node scripts/check-css-domain-ownership.mjs",
         "check:core-flow-e2e": "node scripts/check-core-flow-e2e.mjs",
         "check:parent-layout-parity": "node scripts/check-parent-layout-parity.mjs",
@@ -74,7 +74,8 @@
         "check:dependency-security": "node scripts/check-dependency-security.mjs",
         "check:initial-bundle-ownership": "node scripts/check-initial-bundle-ownership.mjs",
         "check:sass-module-ownership": "node scripts/check-sass-module-ownership.mjs",
-        "check:recovery-baseline": "node scripts/check-recovery-baseline.mjs"
+        "check:recovery-baseline": "node scripts/check-recovery-baseline.mjs",
+        "check:global-style-boundary": "node scripts/check-global-style-boundary.mjs"
     },
     "dependencies": {
         "@ant-design/icons": "^6.2.2",

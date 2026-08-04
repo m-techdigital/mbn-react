@@ -4,11 +4,6 @@
 @import "./components/common.css";
 @import "./components/forms.css";
 @import "./components/modals.css";
-@import "./components/modal-foundation.css";
-@import "./components/modal-authentication.css";
-@import "./components/modal-purchase-payment.css";
-@import "./components/modal-admin-information.css";
-@import "./components/modal-responsive-refinements.css";
 @import "./components/motion.css";
 @import "./typography.css";
 @import "./readability.css";
@@ -28,4 +23,3 @@
 @import "./interaction-form-control-owner.css";
 @import "./interaction-form-modal-resilience.css";
 @import "./interaction-detail-safeguards.css";
-@import "./interaction-responsive-disclosure.css";

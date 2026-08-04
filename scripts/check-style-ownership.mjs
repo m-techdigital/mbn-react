@@ -12,11 +12,6 @@ const expected = [
     'components/common.css',
     'components/forms.css',
     'components/modals.css',
-    'components/modal-foundation.css',
-    'components/modal-authentication.css',
-    'components/modal-purchase-payment.css',
-    'components/modal-admin-information.css',
-    'components/modal-responsive-refinements.css',
     'components/motion.css',
     'typography.css',
     'readability.css',
@@ -36,7 +31,6 @@ const expected = [
     'interaction-form-control-owner.css',
     'interaction-form-modal-resilience.css',
     'interaction-detail-safeguards.css',
-    'interaction-responsive-disclosure.css',
 ];
 if (source.split(/\r?\n/).length > 80)
     throw new Error("src/styles/app.css must remain an import-only manifest.");

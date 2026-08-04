@@ -1,5 +1,5 @@
 {
-  "audit_date": "2026-08-04",
+  "audit_date": "2026-08-05",
   "audit_window": "from approximately 18:56 local time through the 23:19 baseline",
   "repository": "mbn",
   "result": "no_missing_functional_capabilities_detected",
@@ -28,7 +28,9 @@
     "src/styles/mobile-responsive-owner.scss",
     "src/styles/pages/content-route.scss",
     ".env.example",
-    ".env.production.example"
+    ".env.production.example",
+    "scripts/check-global-style-boundary.mjs",
+    "src/styles/app.css"
   ],
   "recovered_files": [
     ".env.example",
