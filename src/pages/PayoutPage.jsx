@@ -19,6 +19,7 @@ import {
 } from "../components/base/FormControls";
 import ImageUploadField from "../components/base/ImageUploadField";
 import PayoutWithdrawalTable from "../components/account/PayoutWithdrawalTable";
+import PayoutStatePanel from "../components/account/PayoutStatePanel";
 import { usePayoutPage } from "../hooks/marketplace/usePayoutPage";
 
 export default function PayoutPage() {
@@ -95,6 +96,7 @@ export default function PayoutPage() {
                         tài khoản nhận tiền trong thời gian chờ.
                     </div>
                 )}
+                <PayoutStatePanel withdrawal={journey.latest_withdrawal} />
                 <PageSection
                     title="Lộ trình nhận tiền"
                     description={

@@ -39,3 +39,5 @@ if (failed.length) {
     process.exit(1);
 }
 console.log("Customer experience contract passed.");
+
+// PayoutStatePanel is guarded by check-semantic-owners.

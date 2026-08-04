@@ -77,6 +77,13 @@ for (const owner of ["src/styles/components/motion.css", "src/styles/experience-
     if (!manifest.trim().startsWith("@import") || manifest.split(/\r?\n/).length > 8) failures.push(`${owner}: must remain an import-only manifest.`);
 }
 
+
+const payoutPage = fs.readFileSync(path.join(root, 'src/pages/PayoutPage.jsx'), 'utf8');
+const payoutStatePanel = fs.readFileSync(path.join(root, 'src/components/account/PayoutStatePanel.jsx'), 'utf8');
+if (!payoutPage.includes('PayoutStatePanel')) failures.push('payout: state panel owner is missing.');
+for (const marker of ['Tiền đang được tạm giữ', 'tiền tạm giữ phải được hoàn', 'Tham chiếu chi trả']) {
+    if (!payoutStatePanel.includes(marker)) failures.push(`payout state panel: missing ${marker}.`);
+}
 if (failures.length) {
     console.error(failures.join("\n"));
     process.exit(1);

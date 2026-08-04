@@ -25,3 +25,5 @@ if (missing.length) {
     process.exit(1);
 }
 console.log("MBN payout flow contract OK");
+
+// PayoutStatePanel is guarded by check-semantic-owners.

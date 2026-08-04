@@ -107,6 +107,27 @@ const evaluate = async (expression, awaitPromise = true) => {
     return result.result?.value;
 };
 
+
+const setViewport = async (width, height, mobile = false) => {
+    await send("Emulation.setDeviceMetricsOverride", {
+        width,
+        height,
+        deviceScaleFactor: 1,
+        mobile,
+    });
+};
+
+const assertNoHorizontalOverflow = async (label) => {
+    const metrics = await evaluate(`(() => ({
+        width: window.innerWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+        bodyScrollWidth: document.body?.scrollWidth || 0
+    }))()`);
+    if (Math.max(metrics.scrollWidth, metrics.bodyScrollWidth) > metrics.width + 4) {
+        throw new Error(`${label} bị tràn ngang: ${JSON.stringify(metrics)}`);
+    }
+};
+
 const navigate = async (route) => {
     await send("Page.navigate", { url: new URL(route, baseUrl).href });
     await waitUntil(
@@ -253,6 +274,25 @@ try {
         [process.env.MBN_E2E_RENTAL_PATH || "/teamobi/ninja-school/NSO-0201", "Thuê ngay", ["Mua trả góp"]],
         [process.env.MBN_E2E_INSTALLMENT_PATH || "/teamobi/ngoc-rong/NRO-0301", "Mua trả góp", ["Thuê ngay"]],
     ];
+    const responsiveChecks = [
+        { name: "desktop", width: 1440, height: 1000, mobile: false },
+        { name: "tablet", width: 834, height: 1112, mobile: true },
+        { name: "mobile", width: 390, height: 844, mobile: true },
+    ];
+    for (const viewport of responsiveChecks) {
+        await setViewport(viewport.width, viewport.height, viewport.mobile);
+        for (const route of [
+            process.env.MBN_E2E_PURCHASE_PATH || "/teamobi/ninja-school/NSO-0102",
+            "/account/purchases",
+            "/account/profile",
+        ]) {
+            await navigate(route);
+            await assertNoHorizontalOverflow(`${viewport.name} ${route}`);
+        }
+        console.log(`PASS responsive layout ${viewport.name}`);
+    }
+    await setViewport(1440, 1000, false);
+
     for (const [route, action, forbiddenActions] of offerChecks) {
         await navigate(route);
         await assertText(action, `${route} action`);
