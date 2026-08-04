@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { formatMoney, imageOf } from "../../utils/format";
 import AsyncImage from "../base/AsyncImage";
 

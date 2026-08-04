@@ -8,6 +8,10 @@ const indexCss = fs.readFileSync(
     new URL("../src/index.css", import.meta.url),
     "utf8",
 );
+const accountShell = fs.readFileSync(
+    new URL("../src/components/account/AccountRouteShell.jsx", import.meta.url),
+    "utf8",
+);
 const accountCss = fs.readFileSync(
     new URL("../src/styles/customer-account.css", import.meta.url),
     "utf8",
@@ -27,14 +31,16 @@ if (leaked.length) {
     );
     process.exit(1);
 }
-const accountImport = indexCss.indexOf(
-    '@import \"./styles/customer-account.css\";',
-);
-const formImport = indexCss.indexOf('@import \"./styles/form-controls.css\";');
+const accountImport = accountShell.indexOf("customer-account.css");
+const formImport = accountShell.indexOf("form-controls.css");
 if (accountImport < 0 || formImport < 0 || accountImport > formImport) {
     console.error(
-        "customer-account.css must load after app.css and before final form-controls.css.",
+        "AccountRouteShell must load customer-account.css before final form-controls.css.",
     );
+    process.exit(1);
+}
+if (indexCss.includes("customer-account.css")) {
+    console.error("customer-account.css must remain outside the initial index.css graph.");
     process.exit(1);
 }
 for (const contract of [

@@ -3,7 +3,7 @@ import {
     FileProtectOutlined,
     SafetyCertificateOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import PageShell from "../components/base/PageShell";
 import PageSection from "../components/base/PageSection";
 import { useAuth } from "../context/AuthContext";

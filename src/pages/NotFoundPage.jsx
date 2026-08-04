@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import MarketplaceImage from "../components/base/MarketplaceImage";
 import PageShell from "../components/base/PageShell";
 

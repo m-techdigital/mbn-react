@@ -56,7 +56,7 @@
     "check:repository-ownership": "node scripts/check-repository-ownership.mjs",
     "check:style-ownership": "node scripts/check-style-ownership.mjs",
     "check:maintainability": "node scripts/check-maintainability.mjs",
-    "check:ownership": "npm run check:style-ownership && npm run check:repository-ownership && npm run check:maintainability && npm run check:css-domain-ownership && npm run check:core-flow-e2e && npm run check:parent-layout-parity && npm run check:release-package && npm run check:semantic-owners",
+    "check:ownership": "npm run check:style-ownership && npm run check:initial-bundle-ownership && npm run check:repository-ownership && npm run check:maintainability && npm run check:css-domain-ownership && npm run check:core-flow-e2e && npm run check:parent-layout-parity && npm run check:release-package && npm run check:semantic-owners",
     "check:css-domain-ownership": "node scripts/check-css-domain-ownership.mjs",
     "check:core-flow-e2e": "node scripts/check-core-flow-e2e.mjs",
     "check:parent-layout-parity": "node scripts/check-parent-layout-parity.mjs",
@@ -68,15 +68,19 @@
     "build:analyze": "npm run build && npm run analyze:bundle",
     "check:e2e-fixtures": "node scripts/check-e2e-fixture-contract.mjs",
     "check:release-readiness": "npm run check:release-package && npm run check:semantic-owners && npm run check:e2e-fixtures && npm run check:marketplace-options-sync",
-    "release:all": "bash ../axiro-base-api/scripts/release-all.sh"
+    "release:all": "bash ../axiro-base-api/scripts/release-all.sh",
+    "audit:security": "npm audit --audit-level=moderate",
+    "e2e:visual-regression": "node scripts/e2e-visual-regression.mjs",
+    "check:dependency-security": "node scripts/check-dependency-security.mjs",
+    "check:initial-bundle-ownership": "node scripts/check-initial-bundle-ownership.mjs"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",
     "antd": "^6.3.7",
-    "axios": "^1.16.0",
+    "axios": "^1.19.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.15.0"
+    "react-router": "^8.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

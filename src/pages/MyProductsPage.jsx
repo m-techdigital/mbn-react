@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import EmptyState from "../components/base/EmptyState";
 import GamingButton from "../components/base/GamingButton";

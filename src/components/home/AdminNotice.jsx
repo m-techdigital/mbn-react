@@ -3,7 +3,7 @@ import {
     CustomerServiceOutlined,
     SafetyCertificateOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import GamingModal, { ModalFooterNote } from "../base/GamingModal";
 

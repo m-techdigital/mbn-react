@@ -15,20 +15,22 @@ const repositories = [
     .map(read)
     .join("\n");
 const pageShell = read("src/components/base/PageShell.jsx");
+const accountShell = read("src/components/account/AccountRouteShell.jsx");
 
 if (
     !index.includes('@import \"./styles/foundation.css\";') ||
     !index.includes('@import \"./styles/app.css\";') ||
-    !index.includes('@import \"./styles/customer-account.css\";') ||
     !index.includes('@import \"./styles/form-controls.css\";')
 )
     failures.push(
-        "CSS chưa dùng các owner foundation/app/customer-account/form-controls.",
+        "CSS initial chưa dùng đúng foundation/app/base-primitives/form-controls owners.",
     );
-if ((index.match(/@import/g) || []).length !== 6)
+if ((index.match(/@import/g) || []).length !== 5)
     failures.push(
-        "index.css phải chỉ có Tailwind + foundation + app + customer-account + base-primitives + form-controls.",
+        "index.css phải chỉ có Tailwind + foundation + app + base-primitives + form-controls.",
     );
+if (!accountShell.includes("customer-account.css"))
+    failures.push("Customer account styles phải thuộc lazy AccountRouteShell.");
 for (const file of [
     "src/components/base/MarketplaceImage.jsx",
     "src/components/base/AsyncContent.jsx",

@@ -1,5 +1,6 @@
+import "../styles/pages/catalog.css";
 import { useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import AccountCard from "../components/account/AccountCard";
 import AccountFilters from "../components/account/AccountFilters";
 import PageShell from "../components/base/PageShell";

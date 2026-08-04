@@ -1,10 +1,11 @@
+import "../styles/pages/detail.css";
 import {
     HeartFilled,
     HeartOutlined,
     QrcodeOutlined,
     ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import AccountCard from "../components/account/AccountCard";
 import { games } from "../data/catalog";

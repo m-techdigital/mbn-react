@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { contentHubGroups } from "../../data/knowledgeMeta";
 import MarketplaceImage from "../base/MarketplaceImage";
 

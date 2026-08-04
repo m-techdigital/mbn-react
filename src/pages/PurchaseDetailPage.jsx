@@ -1,5 +1,7 @@
+import "../styles/marketplace-finance.css";
+import "../styles/interaction-purchase-detail.css";
 import { useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import PageShell from "../components/base/PageShell";
 import PageSection, {
     DefinitionGrid,

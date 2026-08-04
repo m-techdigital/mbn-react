@@ -1,3 +1,4 @@
+import "../styles/pages/content-route.css";
 import {
     CheckCircleOutlined,
     ClockCircleOutlined,
@@ -6,7 +7,7 @@ import {
     SafetyCertificateOutlined,
     TeamOutlined,
 } from "@ant-design/icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import PageShell from "../components/base/PageShell";
 import PageSection, {
     DefinitionGrid,

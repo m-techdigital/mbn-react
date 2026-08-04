@@ -84,6 +84,17 @@ const collectImportedStyles = (file, collected = new Set()) => {
     return collected;
 };
 const manifestedStyles = collectImportedStyles("src/styles/app.css");
+const routeOwnedStyles = new Set();
+for (const file of tracked.filter((entry) => entry.startsWith("src/") && /\.(js|jsx)$/.test(entry))) {
+    const source = fs.readFileSync(file, "utf8");
+    const directory = path.dirname(file);
+    for (const match of source.matchAll(/import\s+["']([^"']+\.(?:css|scss))["'];?/g)) {
+        if (!match[1].startsWith(".")) continue;
+        const imported = path.normalize(path.join(directory, match[1])).replaceAll("\\", "/");
+        routeOwnedStyles.add(imported);
+        if (fs.existsSync(imported)) collectImportedStyles(imported, routeOwnedStyles);
+    }
+}
 for (const file of tracked.filter(
     (entry) => entry.startsWith("src/styles/") && /\.(css|scss)$/.test(entry),
 )) {
@@ -94,7 +105,7 @@ for (const file of tracked.filter(
         file.startsWith("src/styles/interaction-");
     if (!mustBeManifested) continue;
     if (importOnlyManifests.includes(file)) continue;
-    if (!manifestedStyles.has(file)) {
+    if (!manifestedStyles.has(file) && !routeOwnedStyles.has(file)) {
         failures.push(
             `${file}: style owner chưa được nối vào app.css hoặc manifest con.`,
         );

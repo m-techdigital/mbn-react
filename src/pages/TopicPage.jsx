@@ -1,4 +1,5 @@
-import { Link, useParams } from "react-router-dom";
+import "../styles/pages/content-route.css";
+import { Link, useParams } from "react-router";
 import PageShell from "../components/base/PageShell";
 import PageSection, { PageStack } from "../components/base/PageSection";
 import EmptyState from "../components/base/EmptyState";

@@ -8,6 +8,7 @@ const table = read("src/components/base/ResponsiveDataTable.jsx");
 const css = read("src/styles/customer-account.css");
 const compactCss = css.replace(/\s+/g, "");
 const index = read("src/index.css");
+const accountShell = read("src/components/account/AccountRouteShell.jsx");
 const failures = [];
 
 if (support.indexOf("Gửi yêu cầu mới") > support.indexOf("Các yêu cầu đã gửi"))
@@ -45,8 +46,10 @@ for (const token of [
 }
 if (css.includes(".mbn-semantic-table thead{display:none"))
     failures.push("Không được ẩn header table trên mobile");
-if (!index.includes("customer-account.css"))
-    failures.push("customer-account.css phải được import sau app.css");
+if (!accountShell.includes("customer-account.css"))
+    failures.push("customer-account.css phải thuộc AccountRouteShell lazy owner");
+if (index.includes("customer-account.css"))
+    failures.push("customer-account.css không được quay lại initial index.css");
 
 if (failures.length) {
     console.error(failures.join("\n"));

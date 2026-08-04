@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+import "../styles/pages/content-route.css";
+import { useLocation } from "react-router";
 import PageShell from "../components/base/PageShell";
 import InlineNotice from "../components/base/InlineNotice";
 import PageSection, { PageStack } from "../components/base/PageSection";

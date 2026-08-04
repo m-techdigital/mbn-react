@@ -1,3 +1,4 @@
+import "../styles/pages/payout.scss";
 import PageShell from "../components/base/PageShell";
 import PageSection, {
     DefinitionGrid,

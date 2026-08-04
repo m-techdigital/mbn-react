@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import { BOTTOM_NAV_ITEMS } from "../../config/navigation";
 
 export default function BottomNav() {

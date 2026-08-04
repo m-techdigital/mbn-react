@@ -6,7 +6,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const readWithImports = (file, seen = new Set()) => {
     const absolute = path.resolve(file);
-    if (seen.has(absolute)) return "";
+    if (seen.has(absolute) || !fs.existsSync(absolute)) return "";
     seen.add(absolute);
     const source = fs.readFileSync(absolute, "utf8");
     const directory = path.dirname(absolute);
@@ -16,8 +16,28 @@ const readWithImports = (file, seen = new Set()) => {
     });
 };
 
+const walk = (directory) =>
+    fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+        const absolute = path.join(directory, entry.name);
+        if (entry.isDirectory()) return walk(absolute);
+        return [absolute];
+    });
+
+const routeStyleRoots = () => {
+    const roots = new Set([path.join(root, "src/index.css")]);
+    for (const file of walk(path.join(root, "src")).filter((entry) => /\.(js|jsx)$/.test(entry))) {
+        const source = fs.readFileSync(file, "utf8");
+        const directory = path.dirname(file);
+        for (const match of source.matchAll(/import\s+["']([^"']+\.(?:css|scss))["'];?/g)) {
+            if (match[1].startsWith(".")) roots.add(path.resolve(directory, match[1]));
+        }
+    }
+    return [...roots];
+};
+
 export const readCanonicalCss = () => {
-    const raw = readWithImports(path.join(root, "src/styles/app.css"));
+    const seen = new Set();
+    const raw = routeStyleRoots().map((file) => readWithImports(file, seen)).join("\n");
     const compact = raw.replace(/\s+/g, "");
     return `${raw}\n${compact}`;
 };

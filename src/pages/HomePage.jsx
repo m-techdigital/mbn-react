@@ -1,3 +1,4 @@
+import "../styles/pages/home.css";
 import { useEffect, useState } from "react";
 import {
     HistoryOutlined,
@@ -5,7 +6,7 @@ import {
     WalletOutlined,
     CreditCardOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import AdminNotice from "../components/home/AdminNotice";
 import { games, services } from "../data/catalog";
 import { useAuth } from "../context/AuthContext";

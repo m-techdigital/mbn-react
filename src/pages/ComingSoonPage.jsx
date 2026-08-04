@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import PageShell from "../components/base/PageShell";
 const pages = {
     "/garena/lien-quan-mobile": [

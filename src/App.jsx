@@ -1,12 +1,12 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import AppLayout from "./components/layout/AppLayout";
-import ProtectedRoute from "./components/account/ProtectedRoute";
 import ContractCompatibilityBanner from "./components/system/ContractCompatibilityBanner";
 import RouteBoundary, {
     RouteLoadingFallback,
 } from "./components/system/RouteBoundary";
 
+const AccountRouteShell = lazy(() => import("./components/account/AccountRouteShell"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const GameListPage = lazy(() => import("./pages/GameListPage"));
 const GameDetailPage = lazy(() => import("./pages/GameDetailPage"));
@@ -62,9 +62,9 @@ const knowledgePaths = [
 ];
 
 const protectedPage = (Page) => (
-    <ProtectedRoute>
+    <AccountRouteShell>
         <Page />
-    </ProtectedRoute>
+    </AccountRouteShell>
 );
 
 export default function App() {

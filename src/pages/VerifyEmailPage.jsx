@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router";
 import InlineNotice from "../components/base/InlineNotice";
 import PageShell from "../components/base/PageShell";
 import { SurfacePanel } from "../components/base/ContentPrimitives";

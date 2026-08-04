@@ -1,6 +1,6 @@
 import GamingModal from "../base/GamingModal";
 import { games } from "../../data/catalog";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import MarketplaceImage from "../base/MarketplaceImage";
 
 export default function GameCatalogModal({ open, onClose }) {

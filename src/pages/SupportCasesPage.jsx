@@ -17,7 +17,7 @@ import {
     BaseSelect,
     BaseTextarea,
 } from "../components/base/FormControls";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { valueLabel } from "../utils/labels";
 
 const caseTypes = {

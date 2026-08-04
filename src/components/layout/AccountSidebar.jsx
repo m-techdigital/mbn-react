@@ -1,5 +1,5 @@
 import { UserOutlined } from "@ant-design/icons";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import {
     ACCOUNT_NAV_ITEMS,
     LOGOUT_ICON,
