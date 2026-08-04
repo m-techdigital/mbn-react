@@ -86,6 +86,7 @@ const json = async (url, options) => {
 
 let socket;
 const pending = new Map();
+const networkResponses = [];
 let messageId = 0;
 const send = (method, params = {}) =>
     new Promise((resolve, reject) => {
@@ -237,6 +238,14 @@ try {
     });
     socket.addEventListener("message", (event) => {
         const message = JSON.parse(event.data);
+        if (message.method === "Network.responseReceived") {
+            networkResponses.push({
+                url: message.params?.response?.url || "",
+                status: message.params?.response?.status || 0,
+                mimeType: message.params?.response?.mimeType || "",
+            });
+            if (networkResponses.length > 100) networkResponses.shift();
+        }
         if (!message.id || !pending.has(message.id)) return;
         const handler = pending.get(message.id);
         pending.delete(message.id);
@@ -245,6 +254,7 @@ try {
     });
 
     await send("Page.enable");
+    await send("Network.enable");
     await send("Runtime.enable");
     await send("DOM.enable");
     await navigate("/");
@@ -321,17 +331,34 @@ try {
     let uploadedAvatarSrc = "";
     if (avatarPath) {
         await navigate("/account/profile");
-        const documentNode = await send("DOM.getDocument", { depth: -1 });
-        const inputNode = await send("DOM.querySelector", {
-            nodeId: documentNode.root.nodeId,
-            selector: 'input[type="file"]',
-        });
-        if (!inputNode.nodeId) throw new Error("Không tìm thấy avatar file input.");
+        await assertText("Ảnh đại diện", "profile avatar field");
+        const inputNodeId = await waitUntil(async () => {
+            const documentNode = await send("DOM.getDocument", { depth: -1 });
+            const inputNode = await send("DOM.querySelector", {
+                nodeId: documentNode.root.nodeId,
+                selector: 'input[type="file"]',
+            });
+            return inputNode.nodeId || 0;
+        }, "avatar file input");
         await send("DOM.setFileInputFiles", {
-            nodeId: inputNode.nodeId,
+            nodeId: inputNodeId,
             files: [path.resolve(avatarPath)],
         });
-        await assertText("Đã cập nhật ảnh đại diện", "avatar upload success");
+        await evaluate(`(() => {
+            const input = document.querySelector('input[type="file"]');
+            if (!input) return false;
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+            return true;
+        })()`);
+        await assertText("Đã cập nhật ảnh đại diện", "avatar upload success").catch((error) => {
+            const avatarResponse = [...networkResponses].reverse().find((entry) =>
+                entry.url.includes("/customer/profile/avatar")
+            );
+            throw new Error(
+                `${error.message}. Avatar response: ${JSON.stringify(avatarResponse || null)}`,
+            );
+        });
         const avatarBeforeReload = await evaluate('document.querySelector(".mbn-profile-summary__avatar img")?.getAttribute("src") || ""');
         if (!avatarBeforeReload || !avatarBeforeReload.includes("/storage/")) {
             throw new Error("Avatar không hiển thị bằng ảnh đã upload.");
