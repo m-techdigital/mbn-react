@@ -1,0 +1,39 @@
+{
+  "audit_date": "2026-08-04",
+  "audit_window": "from approximately 18:56 local time through the 23:19 baseline",
+  "repository": "mbn",
+  "result": "no_missing_functional_capabilities_detected",
+  "contract_sha256": "69a52564e59efe3fa259385dabb26015ea25163d8b31a1c1ef8d20727a98401a",
+  "compared_artifacts": [
+    "mbn-react-final-canonical-closure-20260804-clean.zip",
+    "mbn-react-bundle-security-visual-closure-20260804-clean.zip",
+    "mbn-react-20260804-2217-clean.zip",
+    "mbn-react-20260804-2232-clean.zip",
+    "mbn-react-route-css-release-20260804-clean.zip"
+  ],
+  "critical_files": [
+    "src/app/RootApp.jsx",
+    "src/app/providers/MbnThemeProvider.jsx",
+    "src/components/account/AccountRouteShell.jsx",
+    "src/components/account/PayoutStatePanel.jsx",
+    "src/components/account/TransactionPaymentTimeline.jsx",
+    "src/hooks/marketplace/usePurchaseDetailActions.js",
+    "src/hooks/marketplace/useProductForm.js",
+    "src/hooks/marketplace/usePayoutPage.js",
+    "src/services/repositories/auth.js",
+    "src/services/repositories/marketplace.js",
+    "scripts/e2e-browser-core.mjs",
+    "scripts/e2e-transactional-api.mjs",
+    "scripts/e2e-visual-regression.mjs",
+    "src/styles/mobile-responsive-owner.scss",
+    "src/styles/pages/content-route.scss",
+    ".env.example",
+    ".env.production.example"
+  ],
+  "recovered_files": [
+    ".env.example",
+    ".env.production.example"
+  ],
+  "cleanup": [],
+  "policy": "A newly supplied ZIP is not automatically newer. Compare it with this manifest and the finalized Git hashes before applying changes."
+}
