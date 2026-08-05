@@ -28,17 +28,20 @@ export default function MyProductsPage() {
             error={error}
             onReload={reload}
             width="wide"
-            actions={
-                <Link to="/account/products/new">
-                    <GamingButton variant="primary" size="sm">
-                        Đăng sản phẩm
-                    </GamingButton>
-                </Link>
-            }
         >
             <PageSection
                 title="Danh sách sản phẩm"
                 description={`${rows.length} sản phẩm được tìm thấy.`}
+                actions={
+                    <Link
+                        to="/account/products/new"
+                        className="seller-products-create-link"
+                    >
+                        <GamingButton variant="primary" size="sm">
+                            Đăng sản phẩm
+                        </GamingButton>
+                    </Link>
+                }
             >
                 {rows.length ? (
                     <section className="seller-products-grid">

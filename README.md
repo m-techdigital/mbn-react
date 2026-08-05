@@ -79,3 +79,25 @@ Gate bắt buộc:
 ```bash
 npm run check:base-first
 ```
+
+## Khắc phục lỗi dependency build bị thiếu
+
+Lỗi điển hình:
+
+```text
+ERR_MODULE_NOT_FOUND: Cannot find module node_modules/@rolldown/pluginutils/dist/index.mjs
+```
+
+`package-lock.json` của dự án đã khóa `@vitejs/plugin-react` và `@rolldown/pluginutils`. Lỗi trên thường do `node_modules` cũ/bị cài dở, giải nén source mới đè lên workspace cũ, hoặc dùng `npm install` để vá riêng package làm cây dependency không còn khớp lockfile.
+
+Cách khôi phục canonical:
+
+```bash
+rm -rf node_modules
+npm cache verify
+npm ci
+npm run check:build-dependencies
+npm run build
+```
+
+Không copy hoặc giữ lại `node_modules` giữa các ZIP/baseline. Không sửa bằng `npm install @rolldown/pluginutils` vì cách đó chỉ che trạng thái cài đặt hỏng và có thể làm thay đổi lockfile. `npm run dev` và `npm run build` đều tự chạy dependency guard trước khi khởi động Vite.

@@ -150,7 +150,7 @@
     }
 }
 
-/* v14: remove generic mobile drawer and restore source-like navigation */
+/* remove generic mobile drawer and restore source-like navigation */
 .mobile-menu-button {
     width: 38px;
     height: 38px;
@@ -262,7 +262,7 @@ body.mobile-menu-open {
     }
 }
 
-/* v20 mobile touch targets */
+/* mobile touch targets */
 @media (max-width: 768px) {
     .mobile-menu-button,
     .menu-button {
@@ -279,7 +279,7 @@ body.mobile-menu-open {
     }
 }
 
-/* v33: trạng thái điều hướng rõ ràng và tối ưu điện thoại */
+/* trạng thái điều hướng rõ ràng và tối ưu điện thoại */
 .desktop-nav a.active,
 .mobile-menu-links a.active,
 .bottom-nav a.active {

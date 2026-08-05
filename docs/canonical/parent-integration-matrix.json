@@ -114,5 +114,58 @@
       "contract_module",
       "crm_reservation"
     ]
+  },
+  "style_cascade_stability": {
+    "classification": "mini_bounded",
+    "owner": "src/index.css",
+    "rule": "All stylesheet side effects are loaded in one deterministic manifest; lazy route modules must not import CSS/SCSS.",
+    "consumers": [
+      "public marketplace",
+      "account workspace",
+      "purchase detail",
+      "documents",
+      "modals"
+    ],
+    "checks": [
+      "check:deterministic-styles",
+      "check:initial-bundle-ownership",
+      "check:style-ownership",
+      "check:ui-shell-owners",
+      "check:mobile-shell-owner"
+    ],
+    "final_geometry_owner": "src/styles/desktop-visual-shell-owner.css",
+    "final_geometry_scope": [
+      "fixed header exact offset",
+      "shared desktop navigation geometry",
+      "symmetric page header actions",
+      "non-nested account sidebar scrolling",
+      "purchase detail right rail presentation",
+      "document PDF modal ownership"
+    ]
+  },
+  "desktop_public_sidebar_shell": {
+    "classification": "mini_bounded",
+    "owner": "AppLayout + AccountSidebar + desktop-visual-shell-owner.css",
+    "reason": "MBN uses one authenticated/anonymous sidebar owner across all desktop routes; it is fixed beneath the shared header, aligned to the 1280px shell, and owns a bounded vertical scroll area.",
+    "consumers": [
+      "public routes",
+      "account routes",
+      "authenticated customers",
+      "anonymous visitors"
+    ],
+    "checks": [
+      "check:desktop-shell",
+      "check:ui-shell-owners",
+      "check:base-first",
+      "lint",
+      "build"
+    ],
+    "geometry": {
+      "desktop_position": "fixed",
+      "top": "shared header offset",
+      "horizontal_alignment": "shared 1280px logo/account shell",
+      "scroll_owner": "sidebar vertical viewport",
+      "content_offset": "canonical sidebar width"
+    }
   }
 }

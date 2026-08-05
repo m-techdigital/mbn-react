@@ -40,17 +40,15 @@ export default function AppLayout() {
             <FullScreenLoader />
             <ScrollManager />
             <Header onAccount={openAccount} />
-            <div
-                className={`site-frame ${isAccountWorkspace ? "site-frame--account" : "site-frame--public"}`}
-            >
-                {isAccountWorkspace ? (
-                    <AccountSidebar onAuth={openAuth} />
-                ) : null}
-                <main id="main-content" className="site-main" tabIndex="-1">
-                    <Outlet />
-                </main>
+            <div className="site-frame site-frame--workspace">
+                <AccountSidebar onAuth={openAuth} />
+                <div className="site-content-column">
+                    <main id="main-content" className="site-main" tabIndex="-1">
+                        <Outlet />
+                    </main>
+                    {!isAccountWorkspace ? <SiteFooter /> : null}
+                </div>
             </div>
-            {!isAccountWorkspace ? <SiteFooter /> : null}
             <FloatingRail />
             <BottomNav />
             <AuthModal

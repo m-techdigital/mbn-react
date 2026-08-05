@@ -15,6 +15,11 @@ import {
     WalletOutlined,
 } from "@ant-design/icons";
 
+export const isGameCatalogPath = (path) =>
+    path.startsWith("/teamobi/") ||
+    path.startsWith("/garena/") ||
+    path.startsWith("/g4m/");
+
 export const PRIMARY_NAV_ITEMS = [
     {
         to: "/",
@@ -27,10 +32,7 @@ export const PRIMARY_NAV_ITEMS = [
         action: "game-catalog",
         icon: AppstoreOutlined,
         label: "Tài khoản trò chơi",
-        match: (path) =>
-            path.startsWith("/teamobi/") ||
-            path.startsWith("/garena/") ||
-            path.startsWith("/g4m/"),
+        match: isGameCatalogPath,
     },
     {
         to: "/support",
@@ -46,6 +48,18 @@ export const PRIMARY_NAV_ITEMS = [
         match: (path) =>
             path.startsWith("/topics") || path.startsWith("/events/"),
     },
+];
+
+
+export const PUBLIC_SIDEBAR_ITEMS = [
+    { to: "/", icon: HomeFilled, label: "Trang chủ" },
+    {
+        to: "/teamobi/ninja-school",
+        icon: ShoppingOutlined,
+        label: "Tài khoản trò chơi",
+    },
+    { to: "/topics", icon: ReadOutlined, label: "Bài đăng và cẩm nang" },
+    { to: "/support", icon: CustomerServiceOutlined, label: "Hỗ trợ khách hàng" },
 ];
 
 export const ACCOUNT_NAV_ITEMS = [
@@ -112,7 +126,13 @@ export const SUPPORT_NAV_ITEMS = [
 
 export const BOTTOM_NAV_ITEMS = [
     { to: "/", icon: HomeFilled, label: "Trang chủ" },
-    { to: "/teamobi/ninja-school", icon: ShoppingOutlined, label: "Tài khoản" },
+    {
+        to: "/teamobi/ninja-school",
+        icon: ShoppingOutlined,
+        label: "Tài khoản",
+        action: "game-catalog",
+        match: isGameCatalogPath,
+    },
     { to: "/support", icon: CustomerServiceOutlined, label: "Hỗ trợ" },
     { to: "/topics", icon: ReadOutlined, label: "Bài đăng" },
 ];
@@ -120,9 +140,15 @@ export const BOTTOM_NAV_ITEMS = [
 export const LOGOUT_ICON = LogoutOutlined;
 
 export function isPrimaryNavActive(item, path) {
-    return item.match
-        ? item.match(path)
-        : item.to === "/"
-          ? path === "/"
-          : path.startsWith(item.to);
+    if (typeof item?.match === "function") {
+        return item.match(path);
+    }
+
+    if (item?.match != null) {
+        console.warn(
+            `[navigation] Bỏ qua matcher không hợp lệ của mục "${item.label ?? item.to ?? "không xác định"}".`,
+        );
+    }
+
+    return item?.to === "/" ? path === "/" : path.startsWith(item?.to ?? "");
 }

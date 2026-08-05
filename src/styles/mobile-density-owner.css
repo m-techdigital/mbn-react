@@ -1,0 +1,251 @@
+/* Canonical mobile UX density owner. Keep immediately before form-controls.css. */
+@media (max-width: 768px) {
+    :root {
+        --header-h: 56px;
+        --mbn-bottom-nav-h: 56px;
+    }
+
+    /* Fixed header has exactly one offset; remove the former empty spacer. */
+    .site-header,
+    .header-brand-row {
+        height: var(--header-h) !important;
+        min-height: var(--header-h) !important;
+    }
+    .site-frame {
+        padding-top: var(--header-h) !important;
+    }
+    .site-main {
+        padding: 6px 7px calc(var(--mbn-bottom-nav-h) + 10px + env(safe-area-inset-bottom)) !important;
+    }
+    .page-shell,
+    .home-page,
+    .page-panel,
+    .page-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Back, title and reload are a single immutable row. */
+    .mbn-page-header {
+        min-height: 38px !important;
+        margin: 0 0 7px !important;
+        display: grid !important;
+        grid-template-columns: 30px minmax(0, 1fr) 30px !important;
+        grid-template-rows: auto !important;
+        align-items: center !important;
+        gap: 6px !important;
+    }
+    .mbn-page-header__back {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        justify-self: start !important;
+    }
+    .mbn-page-header__copy {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        align-self: center !important;
+        padding: 0 !important;
+    }
+    .mbn-page-header__tools {
+        grid-column: 3 !important;
+        grid-row: 1 !important;
+        width: 30px !important;
+        min-width: 30px !important;
+        margin: 0 !important;
+        display: grid !important;
+        place-items: center !important;
+        justify-self: end !important;
+        align-self: center !important;
+    }
+    .mbn-page-header__actions {
+        grid-column: auto !important;
+        margin: 0 !important;
+    }
+    .mbn-page-header__icon,
+    .mbn-page-header__tools > .mbn-page-header__icon {
+        width: 30px !important;
+        min-width: 30px !important;
+        height: 30px !important;
+        min-height: 30px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: grid !important;
+        place-items: center !important;
+        font-size: 12px !important;
+        line-height: 1 !important;
+    }
+    .mbn-page-header__copy h1 {
+        font-size: 15px !important;
+        line-height: 1.2 !important;
+    }
+    .mbn-page-header__copy p {
+        margin-top: 2px !important;
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+    }
+
+    /* Drawer owns its viewport and scrolls vertically instead of clipping. */
+    .mobile-menu-panel {
+        width: min(300px, 86vw) !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        padding: 0 10px 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain !important;
+        scrollbar-gutter: stable !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .mobile-menu-head {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 2 !important;
+        flex: 0 0 54px !important;
+        height: 54px !important;
+        background: #0d0d0f !important;
+    }
+    .mobile-menu-head img {
+        width: 116px !important;
+        height: 32px !important;
+    }
+    .mobile-menu-links,
+    .mobile-account-links {
+        gap: 6px !important;
+    }
+    .mobile-menu-links {
+        padding: 10px 0 !important;
+    }
+    .mobile-account-section {
+        min-height: 0 !important;
+        padding-bottom: 8px !important;
+    }
+    .mobile-menu-links > :is(a, button),
+    .mobile-account-links > :is(a, button),
+    .mobile-menu-account,
+    .mobile-menu-logout {
+        min-height: 38px !important;
+        padding: 0 9px !important;
+        gap: 8px !important;
+        font-size: 12px !important;
+        line-height: 1.2 !important;
+    }
+    .mobile-account-summary {
+        min-height: 58px !important;
+        padding: 8px 9px !important;
+        font-size: 12px !important;
+    }
+    .mobile-account-summary small {
+        font-size: 10px !important;
+    }
+
+    /* Bottom navigation has four items, not a five-column ghost slot. */
+    .bottom-nav {
+        height: calc(var(--mbn-bottom-nav-h) + env(safe-area-inset-bottom)) !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        padding-bottom: env(safe-area-inset-bottom) !important;
+    }
+    .bottom-nav a {
+        min-width: 0 !important;
+        min-height: var(--mbn-bottom-nav-h) !important;
+        gap: 2px !important;
+        padding: 5px 2px 4px !important;
+        font-size: 9px !important;
+        line-height: 1.1 !important;
+    }
+    .bottom-nav a svg {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    /* Global phone density: mobile must not visually exceed desktop. */
+    .page-content,
+    .page-panel,
+    .mbn-page-section,
+    .content-card,
+    .detail-card,
+    .gaming-card,
+    .empty-state,
+    .site-footer {
+        font-size: 12px !important;
+    }
+    .mbn-page-section__header,
+    .content-card__header,
+    .panel-header {
+        padding: 9px 10px !important;
+    }
+    .mbn-page-section__body,
+    .content-card__body,
+    .panel-body {
+        padding: 9px 10px !important;
+    }
+    .mbn-page-section h2,
+    .content-card h2,
+    .panel-header h2 {
+        font-size: 13px !important;
+        line-height: 1.25 !important;
+    }
+    .mbn-button,
+    button,
+    .button,
+    [role="button"] {
+        font-size: 11px;
+    }
+    .mbn-button {
+        min-height: 34px !important;
+        padding: 6px 10px !important;
+    }
+    table th,
+    table td {
+        font-size: 10.5px !important;
+        line-height: 1.35 !important;
+        padding: 7px 8px !important;
+    }
+
+    /* Compact mobile footer; bottom nav remains the primary footer menu. */
+    .site-footer {
+        margin-top: 12px !important;
+        padding: 0 7px calc(var(--mbn-bottom-nav-h) + 10px + env(safe-area-inset-bottom)) !important;
+    }
+    .site-footer__inner {
+        padding: 12px !important;
+        border-radius: 9px 9px 0 0 !important;
+    }
+    .site-footer__brand,
+    .site-footer__links {
+        gap: 10px !important;
+    }
+    .site-footer__links {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        padding-top: 12px !important;
+    }
+    .site-footer__column h2 {
+        font-size: 11px !important;
+    }
+    .site-footer__column a,
+    .site-footer__identity p,
+    .site-footer__assurance span {
+        font-size: 10px !important;
+        line-height: 1.4 !important;
+    }
+    .site-footer__bottom {
+        padding: 9px 10px !important;
+        font-size: 9px !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .site-main {
+        padding-inline: 5px !important;
+    }
+    .mobile-menu-panel {
+        width: min(286px, 88vw) !important;
+    }
+    .site-footer__links {
+        grid-template-columns: 1fr !important;
+    }
+    .mbn-page-header__copy h1 {
+        font-size: 14px !important;
+    }
+}

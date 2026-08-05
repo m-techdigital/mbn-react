@@ -182,7 +182,7 @@ export default function ProfilePage() {
             loading={reloading}
             loadingVariant="profile"
             width="wide"
-            className="profile-page-v46"
+            className="profile-page"
         >
             <PageColumns ratio="profile">
                 <PageSection

@@ -1,5 +1,50 @@
 @import "tailwindcss";
+
+/*
+ * Canonical deterministic stylesheet manifest.
+ *
+ * Route modules are lazy, but CSS cascade order must never depend on which route
+ * the customer opened first. Keep every stylesheet side effect in this manifest;
+ * page/components must not import CSS directly.
+ */
 @import "./styles/foundation.css";
 @import "./styles/app.css";
 @import "./styles/base-primitives.css";
+/* Shared overlays and purchase controls. */
+@import "./styles/components/modals.css";
+@import "./styles/components/common-purchase-modal.scss";
+
+/* Public marketplace route owners. */
+@import "./styles/mobile-home-page-shell.scss";
+@import "./styles/mobile-catalog-detail.scss";
+@import "./styles/pages/home.css";
+@import "./styles/pages/catalog.css";
+@import "./styles/pages/detail.css";
+@import "./styles/pages/content-route.scss";
+
+/* Account route owners; selectors are canonical and load in a fixed order. */
+@import "./styles/account-privacy-upload.css";
+@import "./styles/profile-security-motion.css";
+@import "./styles/form-table-document-polish.css";
+@import "./styles/profile-controls-motion.css";
+@import "./styles/mobile-surfaces-forms.scss";
+@import "./styles/mobile-documents-profile-modal.scss";
+@import "./styles/mobile-route-polish.scss";
+@import "./styles/mobile-table-resilience.scss";
+@import "./styles/customer-account.css";
+@import "./styles/account-layout-polish.css";
+@import "./styles/marketplace-account-presentation.css";
+@import "./styles/marketplace-finance.css";
+@import "./styles/interaction-purchase-detail.css";
+@import "./styles/pages/customer-operations.scss";
+@import "./styles/pages/payout.scss";
+
+@import "./styles/mobile-shell-owner.css";
+
+/* Desktop shell owner; form normalization must remain last. */
+@import "./styles/desktop-visual-shell-owner.css";
+@import "./styles/mobile-document-catalog-owner.css";
+@import "./styles/ui-shell-canonical.css";
+
+/* Final canonical form normalization owner. */
 @import "./styles/form-controls.css";

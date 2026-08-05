@@ -11,8 +11,8 @@ const consolidatedCss =
     index.includes('@import "./styles/app.css";');
 if (!consolidatedCss && !index.includes("mobile-responsive-owner.scss"))
     failures.push("mobile-responsive-owner.scss chưa được import");
-if (index.includes("mobile-system-v47.css"))
-    failures.push("mobile-system-v47.css vẫn còn được import");
+if (index.includes("mobile-system-legacy.css"))
+    failures.push("mobile-system-legacy.css vẫn còn được import");
 for (const token of [
     "--mbn-mobile-control:34px",
     "grid-template-columns:repeat(2,minmax(0,1fr))",

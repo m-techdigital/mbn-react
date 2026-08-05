@@ -46,10 +46,10 @@ for (const token of [
 }
 if (css.includes(".mbn-semantic-table thead{display:none"))
     failures.push("Không được ẩn header table trên mobile");
-if (!accountShell.includes("customer-account.css"))
-    failures.push("customer-account.css phải thuộc AccountRouteShell lazy owner");
-if (index.includes("customer-account.css"))
-    failures.push("customer-account.css không được quay lại initial index.css");
+if (accountShell.includes("customer-account.css"))
+    failures.push("AccountRouteShell không được side-effect import customer-account.css");
+if (!index.includes("customer-account.css"))
+    failures.push("customer-account.css phải thuộc deterministic index.css owner");
 
 if (failures.length) {
     console.error(failures.join("\n"));

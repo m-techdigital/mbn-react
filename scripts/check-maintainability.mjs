@@ -50,7 +50,7 @@ const importOnlyManifests = [
     "src/styles/components/modals.css",
     "src/styles/pages/content.css",
     "src/styles/mobile-responsive-owner.scss",
-    "src/styles/interaction-responsive-disclosure.css",
+    "src/styles/interaction-disclosure-owner.css",
     "src/styles/mobile-responsive-foundation.scss",
     "src/styles/shared-page-architecture.css",
     "src/styles/pages/content-editorial-pages.scss",

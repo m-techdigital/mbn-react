@@ -1,8 +1,8 @@
 /* Profile information density and stable metadata alignment. */
-.profile-page-v46 .mbn-page-section {
+.profile-page .mbn-page-section {
     min-width: 0;
 }
-.profile-page-v46 .mbn-page-section__body {
+.profile-page .mbn-page-section__body {
     display: grid;
     gap: 12px;
 }

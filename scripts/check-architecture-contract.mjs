@@ -36,7 +36,7 @@ if (
         !index
             .trim()
             .endsWith(
-                '@import "./styles/interaction-responsive-disclosure.css";',
+                '@import "./styles/interaction-disclosure-owner.css";',
             ))
 )
     failures.push(

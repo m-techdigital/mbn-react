@@ -156,14 +156,14 @@ export default function DocumentsPage() {
         {
             key: "actions",
             title: "Thao tác",
-            width: "286px",
+            width: "206px",
             fixed: "right",
             render: (_, document) => {
                 const accepted = isAccepted(document);
                 return (
                     <ActionGroup
                         className="document-table__actions"
-                        columns="three"
+                        columns="two"
                     >
                         <GamingButton
                             size="sm"
@@ -172,14 +172,6 @@ export default function DocumentsPage() {
                             onClick={() => view(document)}
                         >
                             {accepted ? "Xem tài liệu" : "Xem và xác nhận"}
-                        </GamingButton>
-                        <GamingButton
-                            size="sm"
-                            variant="secondary"
-                            loading={working === `download-${document.id}`}
-                            onClick={() => download(document)}
-                        >
-                            Tải PDF
                         </GamingButton>
                         <GamingLink
                             size="sm"
@@ -210,9 +202,57 @@ export default function DocumentsPage() {
                 rows={documents}
                 rowKey="id"
                 minWidth={1020}
-                caption="Danh sách tài liệu điện tử được phát hành theo từng giao dịch. Vuốt ngang bảng trên điện thoại để xem đầy đủ thông tin."
+                caption="Danh sách tài liệu điện tử được phát hành theo từng giao dịch."
                 emptyText="Chưa có tài liệu."
             />
+            <div className="document-mobile-list" aria-label="Danh sách hồ sơ tài liệu">
+                {documents.map((document) => {
+                    const accepted = isAccepted(document);
+                    return (
+                        <article className="document-mobile-card" key={document.id}>
+                            <button
+                                type="button"
+                                className="document-mobile-card__title"
+                                onClick={() => view(document)}
+                            >
+                                <strong>{document.title}</strong>
+                                <small>
+                                    {documentTypeLabels[document.document_type] ||
+                                        valueLabel(document.document_type, document.title)}
+                                    {` · ${document.code} · Phiên bản ${document.version}`}
+                                </small>
+                            </button>
+                            <div className="document-mobile-card__meta">
+                                <div>
+                                    <b>{document.transaction?.code || "—"}</b>
+                                    <span>Giao dịch</span>
+                                </div>
+                                <div className="document-table__acceptance">
+                                    <b>{(document.acceptances || []).length}/2 bên</b>
+                                    <span>{accepted ? "Bạn đã xác nhận" : "Chưa xác nhận"}</span>
+                                </div>
+                            </div>
+                            <div className="document-mobile-card__actions">
+                                <GamingButton
+                                    size="sm"
+                                    variant="secondary"
+                                    loading={working === `view-${document.id}`}
+                                    onClick={() => view(document)}
+                                >
+                                    {accepted ? "Xem hồ sơ" : "Xem và xác nhận"}
+                                </GamingButton>
+                                <GamingLink
+                                    size="sm"
+                                    variant="secondary"
+                                    to={`/account/purchases/${document.transaction_id}`}
+                                >
+                                    Giao dịch
+                                </GamingLink>
+                            </div>
+                        </article>
+                    );
+                })}
+            </div>
             <GamingModal
                 open={Boolean(preview)}
                 title={preview?.title || "Xem tài liệu"}
@@ -221,6 +261,14 @@ export default function DocumentsPage() {
                 footer={
                     preview ? (
                         <>
+                            <GamingButton
+                                className="document-modal-download"
+                                variant="secondary"
+                                loading={working === `download-${preview.id}`}
+                                onClick={() => download(preview)}
+                            >
+                                Tải PDF
+                            </GamingButton>
                             <GamingButton
                                 variant="secondary"
                                 onClick={() => setPreview(null)}

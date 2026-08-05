@@ -13,6 +13,11 @@
 @import "./base-layout-refinement.css";
 @import "./canonical-page-owners.css";
 @import "./shared-page-architecture.css";
+@import "./marketplace-shell-header.scss";
+@import "./marketplace-page-surfaces.scss";
+@import "./marketplace-catalog-detail.scss";
+@import "./marketplace-responsive.scss";
+@import "./interaction-customer-shell.css";
 @import "./mobile-responsive-owner.scss";
 @import "./mobile-compact-density.scss";
 @import "./presentation-density.css";

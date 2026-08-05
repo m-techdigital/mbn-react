@@ -15,9 +15,9 @@ if (!profile.includes("mbn-profile-summary"))
     failures.push("ProfilePage chưa dùng khối nhận diện canonical.");
 if (!css.includes("--mbn-control-height:38px"))
     failures.push("Chiều cao control canonical chưa được khóa ở 38px.");
-if (!css.includes("@keyframes mbn-v46-content-in"))
+if (!css.includes("@keyframes profile-content-in"))
     failures.push("Thiếu animation nội dung canonical.");
-if (!css.includes("@keyframes mbn-v46-shimmer"))
+if (!css.includes("@keyframes profile-skeleton-shimmer"))
     failures.push("Thiếu shimmer skeleton canonical.");
 if (failures.length) {
     console.error(failures.join("\n"));

@@ -196,3 +196,19 @@ The route/CSS ownership changes in the next source package invalidate the 0040 b
 - API source-clean package guard now fails on runtime files under `storage/logs`, `storage/app/public`, `storage/framework/testing` and `storage/app/backups`, except `.gitignore` placeholders.
 - Existing runtime logs, uploaded marketplace media and generated test files were removed from source-clean state before repackaging.
 - API release-package, recovery-baseline and maintainability guards pass after the storage cleanup.
+
+## 2026-08-05 MBN responsive shell and CSS ownership recheck
+
+- MBN now keeps one deterministic stylesheet manifest and no route/component side-effect CSS imports. `npm run audit:styles` reports `0` direct CSS imports from `src/components` and `src/pages`.
+- Desktop sidebar right-edge compression was traced to stable scrollbar gutter ownership on the sidebar stack. The canonical shell owner now uses border-box geometry and disables reserved scrollbar gutter on the fixed desktop sidebar/navigation viewport.
+- Browser DOM metrics at `1920x1200` confirm the sidebar remains `284px` wide and the navigation content/link width resolves to `255px`, matching the sidebar inner width after `14px` left/right padding.
+- The current CSS architecture is still debt-heavy: `109` style files, `5` closure/regression-named owners and `33` files with legacy version tokens. These are accepted as staged consolidation debt, not a merge blocker, because manifest ownership, global style boundary, lint and production build pass.
+- Root-level temporary MBN closure notes and generated screenshot artifacts were folded into this release follow-up and removed from source-clean state. Canonical long-lived follow-up remains in `docs/canonical/NEXT-BACKLOG.md`.
+
+## 2026-08-05 MBN semantic CSS owner cleanup
+
+- Temporary CSS owner file names were renamed to semantic owners, including desktop shell, mobile shell, mobile visual, mobile density, mobile document/catalog and responsive shell ownership.
+- Runtime class names such as `profile-page-v*` and `wallet-summary-strip--v*` were replaced by semantic class names.
+- Versioned design tokens such as `--mbn-v45-*`, `--mbn-v54-*`, `--mbn-v55-*` and `--mbn-v62-*` were moved to semantic token names in active stylesheet rules.
+- `npm run audit:styles` is now part of `check:ownership` and fails if route/component CSS imports, temporary owner file names or versioned CSS/class tokens return.
+- Current strict audit reports `109` style files, `0` temporary owner files, `0` version-token files and `0` direct CSS imports. Lint, UI shell owners, ownership and production build pass after the cleanup.

@@ -1,4 +1,3 @@
-import "../styles/pages/content-route.scss";
 import {
     CheckCircleOutlined,
     ClockCircleOutlined,

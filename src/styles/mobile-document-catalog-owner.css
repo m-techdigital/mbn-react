@@ -1,0 +1,107 @@
+/* Mobile document cards and compact catalog actions only. Responsive shell is owned by responsive-shell-owner.css. */
+
+@media (max-width: 768px) {
+    /* Documents use compact cards on phones instead of a 1020px table. */
+    .document-table {
+        display: none !important;
+    }
+    .document-mobile-list {
+        display: grid !important;
+        gap: 8px !important;
+    }
+    .document-mobile-card {
+        display: grid;
+        gap: 8px;
+        padding: 10px;
+        border: 1px solid #49324f;
+        border-radius: 9px;
+        background: #151217;
+        box-shadow: 0 5px 16px rgba(0, 0, 0, .18);
+    }
+    .document-mobile-card__title {
+        appearance: none;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #fff;
+        text-align: left;
+        font: inherit;
+        cursor: pointer;
+    }
+    .document-mobile-card__title strong {
+        display: block;
+        font-size: 12px;
+        line-height: 1.35;
+    }
+    .document-mobile-card__title small,
+    .document-mobile-card__meta span {
+        color: #b9afbd;
+        font-size: 9.5px;
+        line-height: 1.35;
+    }
+    .document-mobile-card__meta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px;
+        padding-top: 7px;
+        border-top: 1px solid #302a32;
+    }
+    .document-mobile-card__meta b {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 10.5px;
+    }
+    .document-mobile-card__actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 7px;
+    }
+    .document-mobile-card__actions :is(.mbn-button, .gaming-link, a) {
+        min-height: 30px !important;
+        height: 30px !important;
+        padding: 0 9px !important;
+        font-size: 10px !important;
+    }
+
+    /* Catalog cards: reduce CTA height and keep price/action balanced. */
+    .account-card-body {
+        padding: 8px !important;
+    }
+    .account-description {
+        min-height: 30px !important;
+        padding: 6px 7px !important;
+        font-size: 10px !important;
+    }
+    .account-stats {
+        gap: 4px !important;
+        padding: 6px 0 !important;
+    }
+    .account-stats span {
+        font-size: 8.5px !important;
+    }
+    .account-stats b {
+        font-size: 10px !important;
+    }
+    .account-footer {
+        grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr) !important;
+        gap: 6px !important;
+    }
+    .account-price,
+    .view-account-button {
+        min-height: 34px !important;
+        height: 34px !important;
+        padding: 0 8px !important;
+    }
+    .account-price b,
+    .view-account-button {
+        font-size: 10.5px !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .document-mobile-list {
+        display: none !important;
+    }
+}

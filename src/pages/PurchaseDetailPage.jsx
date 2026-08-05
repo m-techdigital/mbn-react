@@ -1,5 +1,3 @@
-import "../styles/marketplace-finance.css";
-import "../styles/interaction-purchase-detail.css";
 import { useMemo } from "react";
 import { Link, useParams } from "react-router";
 import PageShell from "../components/base/PageShell";
@@ -19,7 +17,6 @@ import { useMarketplaceOptions } from "../hooks/useMarketplaceOptions";
 import { transactionRepository } from "../services/repositories";
 import { formatMoney } from "../utils/format";
 import { statusLabel, valueLabel } from "../utils/labels";
-import TransactionDocuments from "../components/documents/TransactionDocuments";
 import TransactionAssetSnapshots from "../components/account/TransactionAssetSnapshots";
 import TransactionJourney from "../components/account/TransactionJourney";
 import MarketplaceImage from "../components/base/MarketplaceImage";
@@ -352,10 +349,6 @@ export default function PurchaseDetailPage() {
                                     />
                                 </PageSection>
                             ) : null}
-                            <TransactionDocuments
-                                transactionId={transaction.id}
-                                transactionCode={transaction.code}
-                            />
                             <PageSection
                                 title="Các khoản thanh toán"
                                 description="Các khoản cần xử lý được ưu tiên trước, sau đó sắp theo kỳ và ngày đến hạn."

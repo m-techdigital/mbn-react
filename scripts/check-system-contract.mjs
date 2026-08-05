@@ -25,12 +25,12 @@ if (
     failures.push(
         "CSS initial chưa dùng đúng foundation/app/base-primitives/form-controls owners.",
     );
-if ((index.match(/@import/g) || []).length !== 5)
-    failures.push(
-        "index.css phải chỉ có Tailwind + foundation + app + base-primitives + form-controls.",
-    );
-if (!accountShell.includes("customer-account.css"))
-    failures.push("Customer account styles phải thuộc lazy AccountRouteShell.");
+if ((index.match(/@import/g) || []).length < 10)
+    failures.push("index.css phải giữ deterministic stylesheet manifest đầy đủ.");
+if (!index.includes("customer-account.css"))
+    failures.push("Customer account styles phải thuộc deterministic index.css owner.");
+if (/^import\s+["'][^"']+\.(?:css|scss)["'];?\s*$/m.test(accountShell))
+    failures.push("AccountRouteShell không được tạo route-order CSS side effect.");
 for (const file of [
     "src/components/base/MarketplaceImage.jsx",
     "src/components/base/AsyncContent.jsx",

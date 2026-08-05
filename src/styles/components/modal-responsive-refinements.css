@@ -493,3 +493,16 @@
         min-height: 54px;
     }
 }
+
+@media (max-width: 600px) {
+    .gaming-modal__header {
+        padding-left: 16px;
+        padding-right: 48px;
+    }
+
+    .gaming-modal__close {
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+    }
+}

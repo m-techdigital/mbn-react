@@ -1,4 +1,3 @@
-import "../styles/pages/content-route.scss";
 import { Link, useParams } from "react-router";
 import PageShell from "../components/base/PageShell";
 import PageSection, { PageStack } from "../components/base/PageSection";

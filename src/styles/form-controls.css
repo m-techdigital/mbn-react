@@ -274,6 +274,24 @@ input[type="radio"] {
     accent-color: #c52be5;
 }
 
+/*
+ * BaseChoice renders the native checkbox/radio for accessibility only.
+ * Keep it out of layout even though this file is the final form-control owner.
+ */
+.mbn-choice > .mbn-choice__native {
+    position: absolute !important;
+    inset: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    min-width: 1px !important;
+    min-height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
 /* Native browser affordances must remain visible on the dark canonical surface. */
 :is(
     .mbn-control,
@@ -299,4 +317,54 @@ input[type="radio"] {
 .mbn-image-upload__error {
     color: var(--mbn-form-control-error) !important;
     font-weight: 700;
+}
+
+/* Mobile form density belongs to the form owner. */
+@media (max-width: 768px) {
+    :root { --mbn-form-control-height: 36px; }
+    :is(
+        .mbn-control,
+        .password-field > input,
+        .money-input > input,
+        .mbn-base-filter input,
+        .mbn-base-filter select,
+        .legacy-filter input,
+        .legacy-filter select,
+        .seller-form input,
+        .seller-form select,
+        .seller-form textarea,
+        .deposit-field input,
+        .deposit-field select,
+        .deposit-field textarea,
+        .payment-reference-field input,
+        .profile-edit-form input,
+        .profile-edit-form select,
+        .profile-edit-form textarea,
+        .security-form-card input,
+        .security-form-card select,
+        .security-form-card textarea,
+        .gaming-modal input,
+        .gaming-modal select,
+        .gaming-modal textarea
+    ):not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+        min-height: var(--mbn-form-control-height) !important;
+        height: auto;
+        padding: 7px 9px !important;
+        font-size: 12px !important;
+        line-height: 1.25 !important;
+    }
+    :is(
+        .seller-form textarea,
+        .deposit-field textarea,
+        .profile-edit-form textarea,
+        .security-form-card textarea,
+        .gaming-modal textarea
+    ) {
+        min-height: 72px !important;
+        resize: vertical;
+    }
+    .password-field,
+    .money-input { min-height: var(--mbn-form-control-height) !important; }
+    .password-field > input,
+    .money-input > input { min-height: 34px !important; }
 }

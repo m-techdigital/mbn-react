@@ -21,6 +21,11 @@ const expected = [
     'base-layout-refinement.css',
     'canonical-page-owners.css',
     'shared-page-architecture.css',
+    'marketplace-shell-header.scss',
+    'marketplace-page-surfaces.scss',
+    'marketplace-catalog-detail.scss',
+    'marketplace-responsive.scss',
+    'interaction-customer-shell.css',
     'mobile-responsive-owner.scss',
     'mobile-compact-density.scss',
     'presentation-density.css',
@@ -43,18 +48,41 @@ for (const relative of expected) {
     )
         throw new Error(`Missing or empty canonical style owner: ${relative}`);
 }
-const routeOwned = {
-    "src/pages/HomePage.jsx": ["../styles/pages/home.css", "../styles/mobile-home-page-shell.scss"],
-    "src/pages/GameListPage.jsx": ["../styles/pages/catalog.css", "../styles/mobile-catalog-detail.scss"],
-    "src/pages/GameDetailPage.jsx": ["../styles/pages/detail.css", "../styles/mobile-catalog-detail.scss"],
-    "src/pages/PayoutPage.jsx": ["../styles/pages/payout.scss"],
-    "src/pages/PurchaseDetailPage.jsx": ["../styles/marketplace-finance.css", "../styles/interaction-purchase-detail.css"],
-    "src/components/account/AccountRouteShell.jsx": ["../../styles/customer-account.css", "../../styles/marketplace-account-presentation.css", "../../styles/account-privacy-upload.css", "../../styles/profile-security-motion.css", "../../styles/form-table-document-polish.css", "../../styles/profile-controls-motion.css", "../../styles/mobile-route-polish.scss", "../../styles/mobile-table-resilience.scss"],
-};
-for (const [file, owners] of Object.entries(routeOwned)) {
+const deterministicIndex = fs.readFileSync(path.join(root, "src/index.css"), "utf8");
+const deterministicOwners = [
+    "./styles/pages/home.css",
+    "./styles/pages/catalog.css",
+    "./styles/pages/detail.css",
+    "./styles/mobile-home-page-shell.scss",
+    "./styles/mobile-catalog-detail.scss",
+    "./styles/pages/payout.scss",
+    "./styles/marketplace-finance.css",
+    "./styles/interaction-purchase-detail.css",
+    "./styles/customer-account.css",
+    "./styles/marketplace-account-presentation.css",
+    "./styles/account-privacy-upload.css",
+    "./styles/profile-security-motion.css",
+    "./styles/form-table-document-polish.css",
+    "./styles/profile-controls-motion.css",
+    "./styles/mobile-route-polish.scss",
+    "./styles/mobile-table-resilience.scss",
+];
+for (const owner of deterministicOwners) {
+    if (!deterministicIndex.includes(`@import "${owner}";`)) {
+        throw new Error(`src/index.css missing deterministic style owner ${owner}`);
+    }
+}
+for (const file of [
+    "src/pages/HomePage.jsx",
+    "src/pages/GameListPage.jsx",
+    "src/pages/GameDetailPage.jsx",
+    "src/pages/PayoutPage.jsx",
+    "src/pages/PurchaseDetailPage.jsx",
+    "src/components/account/AccountRouteShell.jsx",
+]) {
     const routeSource = fs.readFileSync(path.join(root, file), "utf8");
-    for (const owner of owners) {
-        if (!routeSource.includes(owner)) throw new Error(`${file} missing route style owner ${owner}`);
+    if (/^import\s+["'][^"']+\.(?:css|scss)["'];?\s*$/m.test(routeSource)) {
+        throw new Error(`${file} must not create route-order CSS side effects`);
     }
 }
 console.log(`Style ownership valid: ${expected.length} ordered owners.`);

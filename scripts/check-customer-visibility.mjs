@@ -16,7 +16,12 @@ const accountCss = fs.readFileSync(
     new URL("../src/styles/customer-account.css", import.meta.url),
     "utf8",
 );
+const shellCss = fs.readFileSync(
+    new URL("../src/styles/responsive-shell-owner.css", import.meta.url),
+    "utf8",
+);
 const compactAccountCss = accountCss.replace(/\s+/g, "");
+const compactShellCss = shellCss.replace(/\s+/g, "");
 const forbidden = [
     "external_reference",
     "available_before",
@@ -31,26 +36,35 @@ if (leaked.length) {
     );
     process.exit(1);
 }
-const accountImport = accountShell.indexOf("customer-account.css");
-const formImport = accountShell.indexOf("form-controls.css");
+const accountImport = indexCss.indexOf("customer-account.css");
+const formImport = indexCss.indexOf("form-controls.css");
 if (accountImport < 0 || formImport < 0 || accountImport > formImport) {
     console.error(
-        "AccountRouteShell must load customer-account.css before final form-controls.css.",
+        "index.css must load deterministic customer-account.css before final form-controls.css.",
     );
     process.exit(1);
 }
-if (indexCss.includes("customer-account.css")) {
-    console.error("customer-account.css must remain outside the initial index.css graph.");
+if (/^import\s+["'][^"']+\.(?:css|scss)["'];?\s*$/m.test(accountShell)) {
+    console.error("AccountRouteShell must not create route-order CSS side effects.");
     process.exit(1);
 }
 for (const contract of [
-    ".site-frame--account",
+    ".site-frame--workspace",
     "overflow-x:clip",
     ".wallet-page__metrics",
-    "@media (max-width:1180px)",
 ]) {
     if (!compactAccountCss.includes(contract.replace(/\s+/g, ""))) {
         console.error(`Missing customer account layout contract: ${contract}`);
+        process.exit(1);
+    }
+}
+for (const contract of [
+    "@media(min-width:769px)and(max-width:1180px)",
+    "--mbn-sidebar-compact:224px",
+    ".site-content-column",
+]) {
+    if (!compactShellCss.includes(contract.replace(/\s+/g, ""))) {
+        console.error(`Missing canonical responsive shell contract: ${contract}`);
         process.exit(1);
     }
 }

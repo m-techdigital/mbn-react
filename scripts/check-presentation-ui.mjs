@@ -33,17 +33,17 @@ if (
         !index
             .trim()
             .endsWith(
-                '@import "./styles/interaction-responsive-disclosure.css";',
+                '@import "./styles/interaction-disclosure-owner.css";',
             ))
 )
     failures.push(
-        "Experience v55, architecture v56 và UI v62 phải tồn tại; interaction v63 là owner cuối",
+        "Experience, architecture và UI semantic owners phải tồn tại; interaction owner là lớp cuối",
     );
 for (const token of [
-    "--mbn-v54-control:38px",
+    "--control-height: 38px",
     ".mbn-table-scroll-hint",
     "@media(max-width:768px)",
-    ".profile-page-v46 .mbn-page-columns--profile",
+    ".profile-page .mbn-page-columns--profile",
 ]) {
     if (!css.includes(token))
         failures.push(`Thiếu presentation contract: ${token}`);

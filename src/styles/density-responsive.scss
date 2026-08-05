@@ -2,7 +2,7 @@
     .mbn-table-scroll-hint {
         display: block;
     }
-    .profile-page-v46 .mbn-page-columns--profile {
+    .profile-page .mbn-page-columns--profile {
         grid-template-columns: 1fr !important;
         max-width: 760px;
         margin-inline: auto;
@@ -17,9 +17,9 @@
 
 @media (max-width: 768px) {
     :root {
-        --mbn-v54-gap: 8px;
-        --mbn-v54-control: 34px;
-        --mbn-v54-button: 32px;
+        --layout-gap: 8px;
+        --control-height: 34px;
+        --button-height: 32px;
     }
     .page-shell--wide .page-panel,
     .page-shell--reading .page-panel,

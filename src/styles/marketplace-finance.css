@@ -122,10 +122,10 @@
     color: #ffe2a1;
     border-radius: 8px;
 }
-.wallet-summary-strip--v31 {
+.wallet-summary-strip--account {
     grid-template-columns: repeat(5, minmax(0, 1fr));
 }
-.wallet-summary-strip--v31 small {
+.wallet-summary-strip--account small {
     display: block;
     margin-top: 4px;
     color: #b8a9bf;
@@ -181,7 +181,7 @@
     .transaction-money-summary {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .wallet-summary-strip--v31 {
+    .wallet-summary-strip--account {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .storefront-table--ledger .storefront-table__head {
@@ -216,7 +216,7 @@
     .transaction-money-summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .wallet-summary-strip--v31 {
+    .wallet-summary-strip--account {
         grid-template-columns: 1fr;
     }
     .payment-source-actions {
@@ -225,4 +225,18 @@
     .payment-source-actions .mbn-button {
         flex: 1;
     }
+}
+
+/* Keep rental rate content legible and separated even when a narrow detail rail is used. */
+.rental-rate-selector button span,
+.rental-rate-selector button strong,
+.rental-rate-selector button small {
+    display: block;
+    width: 100%;
+    line-height: 1.35;
+    white-space: normal;
+}
+.rental-rate-selector button strong,
+.rental-rate-selector button small {
+    margin-top: 2px;
 }

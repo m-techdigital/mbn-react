@@ -19,10 +19,10 @@ if (
     !consolidatedCss &&
     !index
         .trim()
-        .endsWith('@import "./styles/interaction-responsive-disclosure.css";')
+        .endsWith('@import "./styles/interaction-disclosure-owner.css";')
 )
     failures.push(
-        "interaction-responsive-disclosure.css phải được import cuối",
+        "interaction-disclosure-owner.css phải được import cuối",
     );
 if (shell.includes("is-placeholder"))
     failures.push("PageShell vẫn còn placeholder controls");

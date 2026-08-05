@@ -160,3 +160,28 @@
         min-width: 0 !important;
     }
 }
+
+/* HTML document previews may contain inline light backgrounds from the
+   generated template. The customer modal owns the dark reading surface. */
+.mbn-document-preview,
+.mbn-document-preview * {
+    box-sizing: border-box;
+}
+
+.mbn-document-preview :is(table, tbody, thead, tr, td, th, section, article, div, p) {
+    background-color: #171719 !important;
+    color: #f1edf3 !important;
+}
+
+.mbn-document-preview :is(td, th) {
+    border-color: #625866 !important;
+}
+
+.mbn-document-preview :is(td, th):first-child {
+    background-color: #211b23 !important;
+    color: #f1edf3 !important;
+}
+
+.document-modal-download {
+    margin-right: auto;
+}

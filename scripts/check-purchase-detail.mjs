@@ -47,8 +47,8 @@ const checks = [
         "payments must be grouped by customer priority",
     ],
     [
-        page.includes("transactionCode={transaction.code}"),
-        "documents must be scoped and labelled by transaction",
+        !page.includes("TransactionDocuments"),
+        "purchase detail must not embed issued legal documents that can be mistaken for the current transaction summary",
     ],
     [
         documents.includes("Hồ sơ giao dịch"),
@@ -82,5 +82,5 @@ if (failed.length) {
     process.exit(1);
 }
 console.log(
-    "Purchase detail contract passed: documents, timeline, actions and payments follow the canonical customer flow.",
+    "Purchase detail contract passed: legal documents remain in their dedicated library; timeline, actions and payments follow the canonical customer flow.",
 );

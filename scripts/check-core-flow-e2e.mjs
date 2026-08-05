@@ -29,7 +29,7 @@ for (const contract of ['create:', 'submitPayment', 'openDispute']) {
 assert(customer.includes('cancelWithdrawal'), 'Thiếu contract hủy payout phía khách hàng.')
 assert(payout.includes('loading={loading}') && payout.includes('error={loadError}') && payout.includes('onReload={load}'), 'Payout phải truyền loading/error/retry qua PageShell owner canonical.')
 assert(payout.includes('Hủy yêu cầu'), 'Payout thiếu action hủy khi còn chờ duyệt.')
-assert(purchase.includes('TransactionDocuments'), 'Purchase detail thiếu document flow.')
+assert(!purchase.includes('TransactionDocuments'), 'Purchase detail không được nhúng hồ sơ pháp lý dễ gây hiểu nhầm; hồ sơ thuộc thư viện tài liệu.')
 assert(productForm.includes('BaseForm'), 'Đăng bán phải dùng form owner canonical.')
 
 console.log('Customer core-flow E2E source gate: PASS')

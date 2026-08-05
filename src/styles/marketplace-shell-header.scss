@@ -1,19 +1,19 @@
 /* unified public marketplace + account workspace presentation owner. */
 :root {
-    --mbn-v62-shell: 1280px;
-    --mbn-v62-reading: 920px;
-    --mbn-v62-account-sidebar: 252px;
-    --mbn-v62-space-1: 4px;
-    --mbn-v62-space-2: 8px;
-    --mbn-v62-space-3: 12px;
-    --mbn-v62-space-4: 16px;
-    --mbn-v62-space-5: 20px;
-    --mbn-v62-surface: #111014;
-    --mbn-v62-surface-raised: #17151a;
-    --mbn-v62-border: #3a303e;
-    --mbn-v62-border-strong: #6b3978;
-    --mbn-v62-muted: #b9afbd;
-    --mbn-v62-text: #f7f3f8;
+    --marketplace-shell-width: 1280px;
+    --marketplace-reading-width: 920px;
+    --account-sidebar-width: 252px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --surface-base: #111014;
+    --surface-raised: #17151a;
+    --border-default: #3a303e;
+    --border-strong: #6b3978;
+    --text-muted: #b9afbd;
+    --text-default: #f7f3f8;
 }
 
 /* Two clear shells: public marketplace is full width; account area owns the sidebar. */
@@ -23,7 +23,7 @@
 }
 .site-frame--account {
     display: grid !important;
-    grid-template-columns: var(--mbn-v62-account-sidebar) minmax(0, 1fr) !important;
+    grid-template-columns: var(--account-sidebar-width) minmax(0, 1fr) !important;
 }
 .site-frame--public .site-main {
     padding-left: 20px !important;
@@ -38,11 +38,11 @@
 }
 .page-shell,
 .home-page {
-    width: min(var(--mbn-v62-shell), 100%) !important;
+    width: min(var(--marketplace-shell-width), 100%) !important;
     margin-inline: auto !important;
 }
 .page-shell--reading {
-    width: min(var(--mbn-v62-reading), 100%) !important;
+    width: min(var(--marketplace-reading-width), 100%) !important;
 }
 
 /* Header: slimmer hierarchy, clear brand/navigation/account split. */
@@ -54,7 +54,7 @@
 }
 .header-brand-row {
     height: 64px !important;
-    padding: 7px max(14px, calc((100vw - var(--mbn-v62-shell)) / 2)) !important;
+    padding: 7px max(14px, calc((100vw - var(--marketplace-shell-width)) / 2)) !important;
     border-top: 0 !important;
     background: linear-gradient(180deg, #18161a, #101012) !important;
 }
@@ -107,7 +107,7 @@
 }
 .desktop-nav {
     height: 42px !important;
-    padding: 0 max(14px, calc((100vw - var(--mbn-v62-shell)) / 2)) !important;
+    padding: 0 max(14px, calc((100vw - var(--marketplace-shell-width)) / 2)) !important;
     align-items: center !important;
     gap: 4px !important;
     border-top: 1px solid #29232d !important;
@@ -131,3 +131,36 @@
     box-shadow: inset 0 0 0 1px #693775 !important;
 }
 
+
+/* 2026-08 marketplace owner: one desktop navigation geometry for links and actions. */
+.desktop-nav > a,
+.desktop-nav > button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 13px !important;
+    border: 0 !important;
+    border-radius: 7px !important;
+    background: transparent !important;
+    color: #c8c0cb !important;
+    font: inherit !important;
+    font-size: 12.5px !important;
+    line-height: 1 !important;
+    box-shadow: none !important;
+}
+.desktop-nav > a:hover,
+.desktop-nav > a.active,
+.desktop-nav > button:hover,
+.desktop-nav > button.active {
+    background: #26172c !important;
+    color: #fff !important;
+    box-shadow: inset 0 0 0 1px #693775 !important;
+}
+.desktop-nav > a > svg,
+.desktop-nav > button > svg {
+    flex: 0 0 auto !important;
+}

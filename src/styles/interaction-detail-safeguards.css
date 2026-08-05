@@ -31,7 +31,7 @@
     }
 }
 
-/* Canonical UI regression fixes */
+/* Canonical UI hardening */
 .guide-box {
     display: block !important;
     padding: 0 !important;

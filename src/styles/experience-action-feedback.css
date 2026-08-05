@@ -1,9 +1,9 @@
 /* interaction and information-density owner. Loaded last. */
 :root {
-    --mbn-v55-focus: 0 0 0 2px rgba(216, 63, 255, 0.28);
-    --mbn-v55-success: #56d9aa;
-    --mbn-v55-warning: #f4c968;
-    --mbn-v55-danger: #ff7184;
+    --focus-ring: 0 0 0 2px rgba(216, 63, 255, 0.28);
+    --state-success: #56d9aa;
+    --state-warning: #f4c968;
+    --state-danger: #ff7184;
 }
 
 /* Shared action ownership */
@@ -46,7 +46,7 @@
 .mobile-menu-button:focus-visible,
 .mbn-notification-trigger:focus-visible {
     outline: 0;
-    box-shadow: var(--mbn-v55-focus) !important;
+    box-shadow: var(--focus-ring) !important;
 }
 
 /* Scrollable data tables: contain overflow and communicate hidden columns. */

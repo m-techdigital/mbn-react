@@ -1,12 +1,10 @@
-import "../styles/mobile-catalog-detail.scss";
-import "../styles/pages/detail.css";
 import {
     HeartFilled,
     HeartOutlined,
     QrcodeOutlined,
     ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import AccountCard from "../components/account/AccountCard";
 import { games } from "../data/catalog";
@@ -104,6 +102,27 @@ export default function GameDetailPage() {
     const product = useMemo(() => item ?? {}, [item]);
     const productRecord = item?.product || product;
     const productMetadata = productRecord?.metadata || {};
+    const availabilityStatus = String(
+        item?.availability_status ||
+            productRecord?.availability_status ||
+            item?.status ||
+            productRecord?.status ||
+            "published",
+    ).toLowerCase();
+    const isUnavailable =
+        item?.is_available === false ||
+        item?.available === false ||
+        Boolean(item?.active_transaction_id || item?.current_transaction_id) ||
+        [
+            "held",
+            "reserved",
+            "sold",
+            "rented",
+            "completed",
+            "unavailable",
+            "inactive",
+            "draft",
+        ].includes(availabilityStatus);
     const attributes = productAttributes(productRecord);
     const availableTypes = useMemo(
         () => inferOfferTypes(item),
@@ -306,6 +325,10 @@ export default function GameDetailPage() {
         setActiveSlide(index);
     };
 
+    if (item && isUnavailable) {
+        return <Navigate to="/not-found" replace />;
+    }
+
     return (
         <PageShell
             title={item?.title || `Nick game - Mã số: ${code}`}
@@ -318,7 +341,7 @@ export default function GameDetailPage() {
         >
             {item && (
                 <>
-                    <div className="detail-layout original-detail v6-detail">
+                    <div className="detail-layout original-detail marketplace-detail-layout">
                         <GameDetailGallery
                             images={images}
                             activeSlide={activeSlide}
@@ -328,7 +351,7 @@ export default function GameDetailPage() {
                             onSelect={selectSlide}
                         />
 
-                        <section className="detail-card original-detail-card v6-detail-card">
+                        <section className="detail-card original-detail-card marketplace-detail-card">
                             <h3>Thông tin chi tiết</h3>
                             <div className="detail-info-table">
                                 {detailRows.map(([label, value]) => (
@@ -480,7 +503,7 @@ export default function GameDetailPage() {
                                             Đặt cọc giữ tài khoản
                                         </GamingButton>
                                     )}
-                            </div>
+                                </div>
                             <div className="contact-buttons">
                                 <GamingButton variant="contact">
                                     Nhắn tin Zalo
@@ -492,11 +515,12 @@ export default function GameDetailPage() {
                         </section>
                     </div>
 
-                    <div
-                        className="mobile-purchase-dock"
-                        role="region"
-                        aria-label="Thao tác mua hoặc thuê"
-                    >
+                    {!isUnavailable && (
+                        <div
+                            className="mobile-purchase-dock"
+                            role="region"
+                            aria-label="Thao tác mua hoặc thuê"
+                        >
                         <div>
                             <small>Mức giá</small>
                             <strong>{formatMoney(price)}</strong>
@@ -517,9 +541,10 @@ export default function GameDetailPage() {
                                 ? "Thuê ngay"
                                 : "Mua ngay"}
                         </GamingButton>
-                    </div>
+                        </div>
+                    )}
 
-                    <section className="suggested-panel v6-suggested-panel">
+                    <section className="suggested-panel detail-suggestion-panel">
                         <div className="legacy-section-title">
                             TÀI KHOẢN GỢI Ý
                         </div>

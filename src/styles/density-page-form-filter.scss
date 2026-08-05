@@ -39,8 +39,8 @@
 .mbn-form-field__control > select,
 .password-field,
 .money-input {
-    height: var(--mbn-v54-control) !important;
-    min-height: var(--mbn-v54-control) !important;
+    height: var(--control-height) !important;
+    min-height: var(--control-height) !important;
 }
 .mbn-form-field__control > input,
 .mbn-form-field__control > select,
@@ -53,8 +53,8 @@
     font-size: 13px !important;
 }
 .mbn-button {
-    height: var(--mbn-v54-button) !important;
-    min-height: var(--mbn-v54-button) !important;
+    height: var(--button-height) !important;
+    min-height: var(--button-height) !important;
     padding-inline: 12px !important;
     border-radius: 6px !important;
     font-size: 12px !important;

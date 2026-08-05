@@ -227,3 +227,47 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Customer transaction journey owner. Owned by PurchaseDetailPage. */
+.purchase-next-action__hero,
+.purchase-guidance-item,
+.purchase-journey-list li,
+.transaction-timeline li {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+}
+
+.purchase-guidance-item__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+}
+
+.purchase-journey-list,
+.transaction-timeline {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.purchase-journey-list li,
+.transaction-timeline li {
+    padding: 11px 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 7px;
+    background: var(--surface-panel);
+}
+
+.purchase-journey-list li b,
+.transaction-timeline li b {
+    color: var(--text-primary);
+}
+
+.purchase-journey-list li span,
+.transaction-timeline li span {
+    color: var(--text-secondary);
+    line-height: 1.55;
+}

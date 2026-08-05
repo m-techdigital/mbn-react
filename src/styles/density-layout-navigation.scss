@@ -1,44 +1,44 @@
-/* final presentation owner for consistent desktop + mobile density. */
+/* Semantic presentation owner for consistent desktop + mobile density. */
 :root {
-    --mbn-v54-wide: 1180px;
-    --mbn-v54-reading: 980px;
-    --mbn-v54-narrow: 720px;
-    --mbn-v54-panel: #121015;
-    --mbn-v54-panel-raised: #18151b;
-    --mbn-v54-border: #4a3a50;
-    --mbn-v54-border-soft: #312936;
-    --mbn-v54-control: 38px;
-    --mbn-v54-button: 34px;
-    --mbn-v54-radius: 8px;
-    --mbn-v54-gap: 14px;
+    --layout-wide-width: 1180px;
+    --layout-reading-width: 980px;
+    --layout-narrow-width: 720px;
+    --surface-base: #121015;
+    --surface-raised: #18151b;
+    --border-default: #4a3a50;
+    --border-soft: #312936;
+    --control-height: 38px;
+    --button-height: 34px;
+    --radius-panel: 8px;
+    --layout-gap: 14px;
 }
 
 /* Layout ownership */
 .page-shell--wide .page-panel {
-    width: min(var(--mbn-v54-wide), calc(100% - 28px)) !important;
+    width: min(var(--layout-wide-width), calc(100% - 28px)) !important;
 }
 .page-shell--reading .page-panel {
-    width: min(var(--mbn-v54-reading), calc(100% - 28px)) !important;
+    width: min(var(--layout-reading-width), calc(100% - 28px)) !important;
 }
 .page-shell--narrow .page-panel {
-    width: min(var(--mbn-v54-narrow), calc(100% - 28px)) !important;
+    width: min(var(--layout-narrow-width), calc(100% - 28px)) !important;
 }
 .page-content {
     min-width: 0;
 }
 .mbn-page-stack,
 .mbn-page-columns {
-    gap: var(--mbn-v54-gap) !important;
+    gap: var(--layout-gap) !important;
 }
 .mbn-page-section {
-    border-color: var(--mbn-v54-border) !important;
-    border-radius: var(--mbn-v54-radius) !important;
-    background: var(--mbn-v54-panel) !important;
+    border-color: var(--border-default) !important;
+    border-radius: var(--radius-panel) !important;
+    background: var(--surface-base) !important;
 }
 .mbn-page-section__header {
     padding: 13px 15px !important;
     gap: 12px !important;
-    border-color: var(--mbn-v54-border-soft) !important;
+    border-color: var(--border-soft) !important;
 }
 .mbn-page-section__header h2 {
     font-size: 15px !important;

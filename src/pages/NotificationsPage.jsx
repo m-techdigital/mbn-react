@@ -1,4 +1,3 @@
-import "../styles/pages/customer-operations.scss";
 import { useMemo } from "react";
 import { Link } from "react-router";
 import AsyncContent from "../components/base/AsyncContent";
@@ -17,6 +16,16 @@ import { notifyNotificationCountChanged } from "../utils/notificationEvents";
 
 const formatTime = (value) =>
     value ? new Date(value).toLocaleString("vi-VN") : "—";
+
+const normalizeNotificationTarget = (url = "") => {
+    const value = String(url || "").trim();
+    if (!value) return "";
+    if (value === "/account/transactions") return "/account/purchases";
+    if (value.startsWith("/account/transactions/")) {
+        return value.replace("/account/transactions/", "/account/purchases/");
+    }
+    return value;
+};
 
 export default function NotificationsPage() {
     const { data, loading, error, reload } = useRemoteData(
@@ -89,7 +98,7 @@ export default function NotificationsPage() {
                                 <div className="simple-notification-list__action">
                                     {item.action_url ? (
                                         <Link
-                                            to={item.action_url}
+                                            to={normalizeNotificationTarget(item.action_url)}
                                             onClick={() => read(item)}
                                         >
                                             Xem

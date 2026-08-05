@@ -5,9 +5,9 @@
     line-height: 1.45 !important;
 }
 .mbn-table-scroll {
-    border: 1px solid var(--mbn-v54-border) !important;
+    border: 1px solid var(--border-default) !important;
     border-radius: 8px !important;
-    background: var(--mbn-v54-panel) !important;
+    background: var(--surface-base) !important;
 }
 .mbn-table-scroll-hint {
     display: none;
@@ -75,14 +75,14 @@
 .view-account-button {
     font-size: 11.5px !important;
 }
-.profile-page-v46 .mbn-page-columns--profile {
+.profile-page .mbn-page-columns--profile {
     grid-template-columns: minmax(350px, 400px) minmax(0, 1fr) !important;
     gap: 15px !important;
 }
-.profile-page-v46 .mbn-page-stack {
+.profile-page .mbn-page-stack {
     gap: 15px !important;
 }
-.profile-page-v46 .mbn-page-section__header {
+.profile-page .mbn-page-section__header {
     min-height: 0 !important;
 }
 .mbn-profile-summary {

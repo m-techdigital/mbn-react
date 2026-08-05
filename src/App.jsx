@@ -174,6 +174,14 @@ export default function App() {
                             element={protectedPage(PurchasesPage)}
                         />
                         <Route
+                            path="/account/transactions"
+                            element={protectedPage(PurchasesPage)}
+                        />
+                        <Route
+                            path="/account/transactions/:id"
+                            element={protectedPage(PurchaseDetailPage)}
+                        />
+                        <Route
                             path="/account/purchases/:id"
                             element={protectedPage(PurchaseDetailPage)}
                         />
@@ -205,6 +213,7 @@ export default function App() {
                             path="/account/wallet/deposit/card"
                             element={protectedPage(DepositPage)}
                         />
+                        <Route path="/not-found" element={<NotFoundPage />} />
                         <Route path="*" element={<NotFoundPage />} />
                     </Route>
                 </Routes>

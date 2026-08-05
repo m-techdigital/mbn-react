@@ -27,3 +27,11 @@
 3. Run API targeted/full tests even though API runtime is unchanged, because release evidence must represent one synchronized three-repo source set.
 4. Commit and push all three repositories, run `composer release:all`, finalize only a hash-matched passed summary, then package directly from the finalized clean HEADs.
 5. Continue splitting only when the fresh bundle report identifies a real route/global dependency owner; do not create cosmetic files or reintroduce shared AntD vendor chunks.
+
+## MBN CSS consolidation backlog
+
+1. Reduce the remaining style-file count by merging overlapping semantic owners into shell, route, component and form ownership groups.
+2. Keep legacy `vXX`/`mbn-vXX` class and token names blocked by `npm run audit:styles`; any required compatibility must use semantic aliases instead.
+3. Keep `src/index.css` and `src/styles/app.css` as import-only manifests; do not reintroduce CSS side-effect imports in route or component chunks.
+4. Track `npm run audit:styles` before each package handoff until the style file count and version-token count trend down.
+5. Prioritize MBN CSS payload reduction from the current heavy production CSS output before adding new visual features.

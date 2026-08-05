@@ -81,23 +81,23 @@
 }
 
 /* Profile uses same page panel and vertical rhythm. */
-.profile-page-v44 .mbn-profile-layout {
+.profile-page .mbn-profile-layout {
     max-width: 1080px;
     grid-template-columns: minmax(340px, 390px) minmax(0, 1fr);
     gap: 16px;
 }
-.profile-page-v44 .mbn-profile-security {
+.profile-page .mbn-profile-security {
     gap: 16px;
 }
-.profile-page-v44 .mbn-profile-card {
+.profile-page .mbn-profile-card {
     border-radius: 9px;
 }
-.profile-page-v44 .mbn-profile-card__header {
+.profile-page .mbn-profile-card__header {
     padding: 16px;
 }
-.profile-page-v44 .mbn-profile-card .mbn-base-form {
+.profile-page .mbn-profile-card .mbn-base-form {
     padding: 16px;
 }
-.profile-page-v44 .mbn-profile-card__title {
+.profile-page .mbn-profile-card__title {
     padding: 16px 16px 0;
 }

@@ -1,0 +1,547 @@
+/*
+ * Mobile shell owner.
+ * Keep this semantic owner before form normalization to fix cross-route cascade conflicts
+ * without reintroducing route-loaded styles.
+ */
+
+/* Header is fixed on every viewport; content begins below it. */
+.site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 1200;
+}
+.site-frame {
+    padding-top: var(--header-h);
+}
+.account-sidebar {
+    top: var(--header-h);
+}
+
+/* Shared nav geometry: links and action buttons must render identically. */
+.desktop-nav > a,
+.desktop-nav > button,
+.mobile-menu-links > a,
+.mobile-menu-links > button {
+    appearance: none;
+    font: inherit;
+}
+.desktop-nav > button {
+    min-width: 108px;
+    height: 42px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #8200a3;
+    border-bottom: 0;
+    background: linear-gradient(180deg, #252327, #101011);
+    color: #e8e4ea;
+    font-weight: 700;
+}
+.desktop-nav > button.active,
+.desktop-nav > button:hover {
+    border-color: #e100ff;
+    background: linear-gradient(180deg, #4d105e, #181019);
+    color: #fff;
+}
+.mobile-menu-links > button {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 12px;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) 12px;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #29242d;
+    border-radius: 5px;
+    background: #151517;
+    color: #eee;
+    font-weight: 700;
+    text-align: left;
+}
+.mobile-menu-links > :is(a, button) > svg {
+    justify-self: center;
+}
+.mobile-menu-links > :is(a, button) > span {
+    min-width: 0;
+}
+.mobile-menu-links > :is(a, button) > i {
+    justify-self: end;
+}
+.mobile-menu-links > button.active {
+    border-color: #bd00ff;
+    background: #25102b;
+    box-shadow: inset 3px 0 #d100ff;
+}
+
+/* Restore professional transaction journey cards. */
+.purchase-next-action .page-section__body,
+.purchase-next-action__hero,
+.purchase-guidance-list,
+.purchase-journey-list,
+.purchase-blocking-reasons,
+.transaction-timeline {
+    min-width: 0;
+}
+.purchase-next-action__hero {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid #4a3150;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(189, 0, 255, .1), #151217 62%);
+}
+.purchase-next-action__hero b,
+.purchase-guidance-item > b,
+.purchase-blocking-reasons > b {
+    display: block;
+    margin-bottom: 4px;
+}
+.purchase-next-action__hero p,
+.purchase-guidance-item p,
+.purchase-blocking-reasons p {
+    margin: 0;
+    color: var(--mbn-muted);
+    line-height: 1.55;
+}
+.purchase-guidance-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+.purchase-guidance-item,
+.purchase-blocking-reasons {
+    padding: 12px 14px;
+    border: 1px solid #352d39;
+    border-radius: 8px;
+    background: #151517;
+}
+.purchase-guidance-item__facts {
+    margin-top: 7px;
+}
+.purchase-guidance-item__facts span {
+    padding: 4px 8px;
+    border: 1px solid #3d3341;
+    border-radius: 999px;
+    background: #0f0f11;
+    color: #ded8e1;
+    white-space: nowrap;
+}
+.purchase-journey-list {
+    margin-top: 12px;
+}
+.purchase-journey-list li,
+.transaction-timeline li {
+    grid-template-columns: minmax(132px, .45fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: 14px;
+}
+.purchase-journey-list li b,
+.transaction-timeline li b {
+    overflow-wrap: anywhere;
+}
+.purchase-journey-list li span,
+.transaction-timeline li span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.purchase-blocking-reasons {
+    margin-top: 12px;
+    border-color: rgba(255, 193, 7, .45);
+    background: rgba(255, 193, 7, .06);
+}
+
+/* Account-card action row remains horizontal and balanced on phones. */
+.account-footer {
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+}
+.account-price,
+.view-account-button {
+    min-width: 0;
+    min-height: 40px;
+}
+.account-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.view-account-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-h: 60px;
+    }
+    .site-frame {
+        padding-top: var(--header-h);
+    }
+    .site-main {
+        padding: 8px 7px calc(70px + env(safe-area-inset-bottom));
+    }
+    .page-shell,
+    .home-page {
+        width: 100%;
+    }
+
+    /* Header and drawer scale down together. */
+    .header-brand-row {
+        padding-inline: 10px;
+    }
+    .brand img {
+        width: 118px;
+        height: 36px;
+    }
+    .header-actions {
+        gap: 7px;
+    }
+    .mobile-menu-button,
+    .notification-trigger {
+        width: 38px !important;
+        min-width: 38px !important;
+        height: 38px !important;
+        min-height: 38px !important;
+    }
+    .mobile-menu-panel {
+        width: min(300px, 86vw);
+        padding: 0 12px 16px;
+    }
+    .mobile-menu-head {
+        height: 58px;
+    }
+    .mobile-menu-head img {
+        width: 124px;
+        height: 36px;
+    }
+    .mobile-menu-links {
+        gap: 8px;
+        padding: 12px 0;
+    }
+    .mobile-menu-links > :is(a, button) {
+        width: 100%;
+        min-height: 42px;
+        padding: 0 11px;
+        grid-template-columns: 20px minmax(0, 1fr) 12px;
+        gap: 9px;
+        font-size: 13px;
+    }
+
+    /* Back/title/reload share one row and one vertical center. */
+    .mbn-page-header {
+        min-height: 42px;
+        grid-template-columns: 34px minmax(0, 1fr) 34px;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+    .mbn-page-header__icon,
+    .mbn-page-header__tools > .mbn-page-header__icon {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        min-height: 30px !important;
+        margin: 0 !important;
+        align-self: center;
+    }
+    .mbn-page-header__tools {
+        width: 34px;
+        display: grid;
+        place-items: center;
+    }
+    .mbn-page-header__copy h1 {
+        font-size: 16px;
+        line-height: 1.25;
+    }
+    .mbn-page-header__copy p {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    /* Modal sheet: smaller typography and a geometrically centered close button. */
+    .gaming-modal__header {
+        min-height: 50px;
+        padding: 0 50px 0 14px;
+        display: flex;
+        align-items: center;
+    }
+    .gaming-modal__header h2 {
+        font-size: 14px;
+        line-height: 1.25;
+        letter-spacing: .55px;
+    }
+    .gaming-modal__close {
+        top: 50% !important;
+        right: 10px !important;
+        transform: translateY(-50%) !important;
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        min-height: 34px !important;
+        display: grid !important;
+        place-items: center !important;
+        padding: 0 !important;
+        line-height: 1 !important;
+    }
+    .gaming-modal__close svg {
+        display: block;
+        width: 16px;
+        height: 16px;
+    }
+    .gaming-modal__body {
+        padding: 10px 10px 14px;
+        font-size: 12.5px;
+        line-height: 1.45;
+    }
+    .gaming-modal__footer {
+        min-height: 56px;
+        padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+    }
+    .gaming-modal__footer-note {
+        font-size: 11px;
+        line-height: 1.35;
+    }
+    .gaming-modal .mbn-button,
+    .gaming-modal .modal-button {
+        min-height: 36px;
+        padding: 6px 11px;
+        font-size: 11.5px;
+    }
+    .purchase-gaming-modal .purchase-info-table > div {
+        min-height: 38px;
+    }
+    .purchase-gaming-modal .purchase-info-table b,
+    .purchase-gaming-modal .purchase-info-table span,
+    .purchase-gaming-modal .purchase-payment-methods label {
+        font-size: 12px;
+    }
+
+    /* Detail page uses compact controls and never collapses into a narrow rail. */
+    .game-detail-page,
+    .game-detail-page .page-panel,
+    .game-detail-page .page-content,
+    .detail-layout,
+    .detail-card,
+    .suggested-panel {
+        min-width: 0;
+        width: 100%;
+    }
+    .detail-layout {
+        gap: 10px;
+    }
+    .detail-card {
+        padding: 10px;
+    }
+    .detail-card h3 {
+        font-size: 15px;
+    }
+    .detail-info-table > div {
+        min-height: 38px;
+    }
+    .detail-info-table b,
+    .detail-info-table span,
+    .detail-price-row small,
+    .rental-rate-selector {
+        font-size: 11px;
+    }
+    .detail-price-row strong {
+        font-size: 15px;
+    }
+    .detail-actions .mbn-button,
+    .contact-buttons .mbn-button,
+    .mobile-purchase-dock .mbn-button {
+        min-height: 34px;
+        padding: 5px 9px;
+        font-size: 10.5px;
+    }
+    .mobile-purchase-dock {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 6px;
+        padding: 7px 8px;
+    }
+    .mobile-purchase-dock small {
+        font-size: 9px;
+    }
+    .mobile-purchase-dock strong {
+        font-size: 13px;
+    }
+
+    .detail-suggestion-panel .recommendation-list-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .account-card-body {
+        padding: 9px;
+    }
+    .account-description,
+    .account-stats span,
+    .account-stats b {
+        font-size: 10.5px;
+    }
+    .account-footer {
+        display: grid !important;
+        grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) !important;
+        gap: 6px;
+    }
+    .account-price,
+    .view-account-button {
+        width: 100%;
+        min-height: 36px;
+        margin: 0;
+        padding: 5px 7px;
+        font-size: 11px;
+    }
+    .account-price b {
+        font-size: 13px;
+    }
+
+    /* Transaction journey becomes stacked cards on narrow screens. */
+    .purchase-next-action__hero {
+        grid-template-columns: 1fr;
+        gap: 9px;
+        padding: 10px;
+    }
+    .purchase-guidance-item,
+    .purchase-blocking-reasons,
+    .purchase-journey-list li,
+    .transaction-timeline li {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+    .purchase-journey-list li,
+    .transaction-timeline li {
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+    .purchase-guidance-item__facts {
+        gap: 5px;
+    }
+    .purchase-guidance-item__facts span {
+        width: 100%;
+        white-space: normal;
+        font-size: 11px;
+    }
+
+    /* Keep quick navigation visible above the bottom navigation. */
+    .floating-rail {
+        right: 8px;
+        bottom: calc(68px + env(safe-area-inset-bottom));
+        z-index: 95;
+        display: grid !important;
+        gap: 5px;
+    }
+    .floating-rail button {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 390px) {
+    .site-main {
+        padding-inline: 5px;
+    }
+    .brand img {
+        width: 108px;
+    }
+    .mbn-page-header__copy h1 {
+        font-size: 15px;
+    }
+    .gaming-modal__body {
+        font-size: 12px;
+    }
+    .detail-card,
+    .account-card-body {
+        padding: 8px;
+    }
+}
+
+/* Final hardening: this owner is imported last and must win every legacy rule. */
+.site-header {
+    position: fixed !important;
+    inset: 0 0 auto !important;
+    z-index: 1200 !important;
+}
+.site-frame {
+    padding-top: var(--header-h) !important;
+}
+.desktop-nav > :is(a, button),
+.mobile-menu-links > :is(a, button) {
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-h: 56px;
+    }
+    .site-frame {
+        padding-top: 56px !important;
+    }
+    .mobile-menu-links > :is(a, button) {
+        min-height: 40px !important;
+        display: grid !important;
+        grid-template-columns: 18px minmax(0, 1fr) 10px !important;
+        align-items: center !important;
+        gap: 9px !important;
+        padding: 0 11px !important;
+        border: 1px solid #302a34 !important;
+        border-radius: 7px !important;
+        background: #151517 !important;
+        color: #eee !important;
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        text-align: left !important;
+    }
+    .mobile-menu-links > :is(a, button).active {
+        border-color: #bd00ff !important;
+        background: #25102b !important;
+        box-shadow: inset 2px 0 #d100ff !important;
+    }
+    .gaming-modal__header {
+        position: relative !important;
+        min-height: 50px !important;
+        padding: 0 52px 0 14px !important;
+    }
+    .gaming-modal__close {
+        position: absolute !important;
+        inset: 50% 10px auto auto !important;
+        margin: 0 !important;
+        transform: translateY(-50%) !important;
+        box-sizing: border-box !important;
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        min-height: 34px !important;
+        padding: 0 !important;
+        display: inline-grid !important;
+        place-content: center !important;
+        line-height: 0 !important;
+    }
+    .gaming-modal__close > span,
+    .gaming-modal__close svg {
+        display: block !important;
+        margin: 0 !important;
+    }
+    .mbn-page-header {
+        grid-template-columns: 34px minmax(0, 1fr) 34px !important;
+    }
+    .mbn-page-header__back,
+    .mbn-page-header__tools,
+    .mbn-page-header__tools > .mbn-page-header__icon {
+        align-self: center !important;
+        justify-self: center !important;
+    }
+    .floating-rail {
+        display: grid !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        bottom: calc(var(--mbn-mobile-bottom-nav) + 12px + env(safe-area-inset-bottom)) !important;
+    }
+}

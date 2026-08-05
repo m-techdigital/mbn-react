@@ -13,15 +13,13 @@ const failures = [];
 const consolidatedCss =
     index.includes('@import "./styles/foundation.css";') &&
     index.includes('@import "./styles/app.css";');
-for (const token of [
-    "site-frame--account",
-    "site-frame--public",
-    "isAccountWorkspace",
-])
+for (const token of ["site-frame--workspace", "isAccountWorkspace"])
     if (!app.includes(token)) failures.push(`Thiếu layout contract: ${token}`);
+if (app.includes("site-frame--public") || app.includes("site-frame--account"))
+    failures.push("Không được tách shell sidebar theo route public/account");
 for (const token of [
-    "--mbn-v62-shell:1280px",
-    ".site-frame--account",
+    "--marketplace-shell-width: 1280px",
+    ".site-frame--workspace",
     ".account-grid{grid-template-columns:repeat(3",
     ".detail-card{position:sticky",
 ])
@@ -34,10 +32,10 @@ if (
         !index
             .trim()
             .endsWith(
-                '@import "./styles/interaction-responsive-disclosure.css";',
+                '@import "./styles/interaction-disclosure-owner.css";',
             ))
 )
-    failures.push("ui-system-v62 phải được giữ trước interaction-system-v63");
+    failures.push("semantic UI system phải được giữ trước interaction owner");
 if (failures.length) {
     console.error(failures.join("\n"));
     process.exit(1);

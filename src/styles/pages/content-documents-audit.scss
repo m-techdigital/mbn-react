@@ -201,3 +201,21 @@
     color: var(--text-muted);
     font-size: 12px;
 }
+
+/* Document HTML is untrusted presentation content; normalize it to the dark modal palette. */
+.mbn-document-preview,
+.mbn-document-preview table,
+.mbn-document-preview tbody,
+.mbn-document-preview tr,
+.mbn-document-preview td,
+.mbn-document-preview th {
+    background: #17151a !important;
+    color: #f3edf5 !important;
+}
+.mbn-document-preview td,
+.mbn-document-preview th {
+    border-color: #665b6b !important;
+}
+.mbn-document-preview a {
+    color: #f0a8ff !important;
+}

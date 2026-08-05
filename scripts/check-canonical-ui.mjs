@@ -33,5 +33,5 @@ if (errors.length) {
     process.exit(1);
 }
 console.log(
-    "Canonical UI ownership OK: notification, page header, profile and filter use v44 owners.",
+    "Canonical UI ownership OK: notification, page header, profile and filter use semantic owners.",
 );

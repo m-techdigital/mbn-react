@@ -13,45 +13,39 @@ const endpointSet = (items = []) => new Set(items);
 
 export function inspectContractCompatibility(remote) {
     const issues = [];
+    const warnings = [];
 
     if (!remote || typeof remote !== "object") {
         return {
-            compatible: false,
-            issues: ["Không nhận được hợp đồng tích hợp từ máy chủ."],
+            compatible: true,
+            issues: [],
+            warnings: ["Không nhận được hợp đồng tích hợp từ máy chủ."],
         };
     }
 
+    // Only a major contract mismatch is a user-facing incompatibility.
+    // Endpoint/capability drift is diagnostic because newer backends may add,
+    // alias or phase endpoints without breaking the customer runtime.
     if (major(remote.contract_version) !== major(EXPECTED_CONTRACT_VERSION)) {
         issues.push(
             `Phiên bản chính không tương thích: cần ${EXPECTED_CONTRACT_VERSION}, nhận ${remote.contract_version || "không xác định"}.`,
         );
     }
 
-    for (const [capability, enabled] of Object.entries(
-        snapshot.capabilities || {},
-    )) {
+    for (const [capability, enabled] of Object.entries(snapshot.capabilities || {})) {
         if (enabled === true && remote.capabilities?.[capability] !== true) {
-            issues.push(`Máy chủ thiếu khả năng bắt buộc: ${capability}.`);
+            warnings.push(`Máy chủ chưa công bố khả năng: ${capability}.`);
         }
     }
 
     for (const group of ["public_endpoints", "customer_endpoints"]) {
         const available = endpointSet(remote[group]);
         for (const endpoint of snapshot[group] || []) {
-            if (!available.has(endpoint))
-                issues.push(`Máy chủ thiếu endpoint: ${endpoint}.`);
+            if (!available.has(endpoint)) warnings.push(`Máy chủ chưa công bố endpoint: ${endpoint}.`);
         }
     }
 
-    for (const [group, values] of Object.entries(snapshot.statuses || {})) {
-        const remoteValues = new Set(remote.statuses?.[group] || []);
-        for (const value of values) {
-            if (!remoteValues.has(value))
-                issues.push(`Máy chủ thiếu trạng thái ${group}.${value}.`);
-        }
-    }
-
-    return { compatible: issues.length === 0, issues };
+    return { compatible: issues.length === 0, issues, warnings };
 }
 
 export function isCompatibleContract(remote) {

@@ -11,7 +11,7 @@ export default function GameDetailGallery({
     onSelect,
 }) {
     return (
-        <section className="detail-gallery-slider v6-gallery">
+        <section className="detail-gallery-slider detail-gallery-carousel">
             <div className="detail-slider-stage">
                 <div
                     key={`${activeSlide}-${images[activeSlide]}`}

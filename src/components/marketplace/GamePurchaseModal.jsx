@@ -1,4 +1,3 @@
-import "../../styles/components/common-purchase-modal.scss";
 import { QrcodeOutlined } from "@ant-design/icons";
 import GamingButton from "../base/GamingButton";
 import GamingModal, { ModalFooterNote } from "../base/GamingModal";
@@ -144,7 +143,7 @@ export default function GamePurchaseModal({
                                     <span>{formatMoney(deposit)}</span>
                                 </div>
                                 <div>
-                                    <b>Cần thanh toán khi tạo thuê</b>
+                                    <b>Cần thanh toán khi thuê</b>
                                     <span className="money-highlight">
                                         {formatMoney(amountDueNow)}
                                     </span>

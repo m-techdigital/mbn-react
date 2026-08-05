@@ -100,3 +100,40 @@
     font-size: 11px;
     text-decoration: none;
 }
+
+@media (max-width: 600px) {
+    .notice-safety-modal .gaming-modal__header h2 {
+        font-size: 13px;
+        line-height: 1.25;
+    }
+
+    .notice-safety-modal .gaming-modal__body {
+        font-size: 12px;
+    }
+
+    .notice-safety-modal .notice-safety-hero strong,
+    .notice-safety-modal .notice-safety-list strong {
+        font-size: 12px;
+    }
+
+    .notice-safety-modal .notice-safety-hero p,
+    .notice-safety-modal .notice-safety-list p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .notice-safety-modal .gaming-modal__footer {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .notice-safety-modal .gaming-modal__footer-note {
+        grid-column: 1;
+    }
+
+    .notice-safety-modal .gaming-modal__footer .modal-button {
+        grid-column: 2;
+        width: auto;
+        min-width: 110px;
+        justify-self: end;
+    }
+}

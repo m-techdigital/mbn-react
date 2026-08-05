@@ -329,7 +329,7 @@ b {
     }
 }
 
-/* v19 desktop readability pass */
+/* desktop readability pass */
 @media (min-width: 1024px) {
     html {
         font-size: 15px;
@@ -529,7 +529,7 @@ b {
     }
 }
 
-/* v20 mobile-first readability */
+/* mobile-first readability */
 @media (max-width: 768px) {
     html {
         font-size: 14px;
@@ -592,5 +592,24 @@ b {
     .knowledge-page {
         font-size: 14px;
         line-height: 1.72;
+    }
+}
+
+/* Purchase flows are primary decisions; desktop copy must not be smaller than mobile copy. */
+@media (min-width: 769px) {
+    .purchase-gaming-modal .gaming-modal__header h2 {
+        font-size: 18px;
+    }
+    .purchase-gaming-modal .gaming-modal__body {
+        font-size: 14px;
+    }
+    .purchase-gaming-modal .purchase-info-table b,
+    .purchase-gaming-modal .purchase-info-table span,
+    .purchase-gaming-modal .purchase-payment-methods label,
+    .purchase-gaming-modal .gaming-modal__footer-note {
+        font-size: 13.5px;
+    }
+    .purchase-gaming-modal .purchase-price-row strong {
+        font-size: 17px;
     }
 }

@@ -1,4 +1,4 @@
-/* Canonical owners introduced in v44. These selectors are intentionally new to avoid legacy cascade collisions. */
+/* Canonical owners introduced as semantic. These selectors are intentionally new to avoid legacy cascade collisions. */
 :root {
     --mbn-page-width: 1160px;
     --mbn-reading-width: 1040px;

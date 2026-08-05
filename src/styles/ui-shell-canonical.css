@@ -1,0 +1,670 @@
+/*
+ * Canonical application shell and responsive density owner.
+ * Header, sidebar/drawer, content column, footer and mobile navigation must not
+ * be re-owned by route styles. Imported immediately before form-controls.css.
+ */
+:root {
+    --mbn-shell-max: 1560px;
+    --mbn-header-desktop: 106px;
+    --mbn-header-mobile: 56px;
+    --mbn-sidebar-desktop: 264px;
+    --mbn-sidebar-tablet: 224px;
+    --mbn-bottom-nav: 52px;
+    --header-h: var(--mbn-header-desktop);
+}
+
+html { scroll-padding-top: calc(var(--header-h) + 8px); }
+body { overflow-x: hidden; }
+
+.site-header {
+    position: fixed !important;
+    inset: 0 0 auto 0 !important;
+    z-index: 1200 !important;
+    height: var(--header-h) !important;
+}
+.header-brand-row,
+.desktop-nav {
+    box-sizing: border-box !important;
+    width: min(100%, var(--mbn-shell-max)) !important;
+    max-width: var(--mbn-shell-max) !important;
+    margin-inline: auto !important;
+    padding-inline: 16px !important;
+}
+
+.site-frame.site-frame--workspace {
+    box-sizing: border-box !important;
+    width: min(100%, var(--mbn-shell-max)) !important;
+    max-width: var(--mbn-shell-max) !important;
+    min-height: calc(100dvh - var(--header-h)) !important;
+    margin: var(--header-h) auto 0 !important;
+    padding: 0 !important;
+}
+.site-content-column,
+.site-main { min-width: 0 !important; }
+.site-main > * { scroll-margin-top: calc(var(--header-h) + 8px); }
+
+/* One shared account-navigation markup for fixed sidebar and mobile drawer. */
+.account-navigation-content {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    gap: 12px;
+}
+.account-navigation-profile { display: grid; gap: 12px; }
+.account-navigation-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+.account-navigation-avatar {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid #7b3a88;
+    border-radius: 50%;
+    background: #211725;
+    color: #fff;
+    font-size: 18px;
+}
+.account-navigation-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.account-navigation-copy { min-width: 0; display: grid; gap: 2px; }
+.account-navigation-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-navigation-copy small { color: #aaa2ad; }
+.account-navigation-balance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid #373139;
+    border-radius: 7px;
+    background: #181719;
+    color: #aaa3ad;
+}
+.account-navigation-balance b { color: #20dbc7; font-variant-numeric: tabular-nums; }
+.account-navigation-links { display: grid; gap: 7px; }
+.account-navigation-links > a {
+    box-sizing: border-box;
+    min-height: 42px;
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr) 10px;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border: 1px solid #373139;
+    border-radius: 7px;
+    background: #171619;
+    color: #f1edf2;
+    font-size: 12px;
+    font-weight: 650;
+    text-decoration: none;
+}
+.account-navigation-links > a i { color: #8f8792; font-style: normal; text-align: right; }
+.account-navigation-links > a.active {
+    border-color: #c000eb;
+    background: #351039;
+    box-shadow: inset 2px 0 #d600ff;
+}
+.account-navigation-logout {
+    min-height: 42px;
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #8f2636;
+    border-radius: 7px;
+    background: transparent;
+    color: #ff5c6e;
+    font-weight: 700;
+}
+.account-navigation-auth { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.account-navigation-auth button { min-height: 38px; border-radius: 6px; }
+
+@media (min-width: 769px) {
+    :root { --mbn-sidebar-active: var(--mbn-sidebar-desktop); }
+    .desktop-nav { display: flex !important; }
+    .mobile-menu-button { display: none !important; }
+    .site-frame.site-frame--workspace > .account-sidebar {
+        display: block !important;
+        position: fixed !important;
+        z-index: 90 !important;
+        top: var(--header-h) !important;
+        left: max(0px, calc((100vw - var(--mbn-shell-max)) / 2)) !important;
+        width: var(--mbn-sidebar-active) !important;
+        height: calc(100dvh - var(--header-h)) !important;
+        min-height: 0 !important;
+        max-height: calc(100dvh - var(--header-h)) !important;
+        overflow: hidden !important;
+        padding: 14px !important;
+    }
+    .account-sidebar > .account-navigation-content {
+        height: 100%;
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        padding-right: 3px;
+    }
+    .site-frame.site-frame--workspace > .site-content-column {
+        box-sizing: border-box !important;
+        width: calc(100% - var(--mbn-sidebar-active)) !important;
+        margin-left: var(--mbn-sidebar-active) !important;
+    }
+    .site-main { width: 100% !important; margin: 0 !important; padding: 18px 22px 86px !important; }
+    .site-footer { display: block !important; width: 100% !important; margin: 0 !important; padding: 18px 22px 0 !important; }
+    .site-footer__inner,
+    .site-footer__bottom { width: 100% !important; max-width: none !important; margin-inline: 0 !important; }
+}
+
+@media (min-width: 769px) and (max-width: 1180px) {
+    :root { --mbn-sidebar-active: var(--mbn-sidebar-tablet); }
+    .site-main,
+    .site-footer { padding-inline: 14px !important; }
+    .site-frame.site-frame--workspace > .account-sidebar { padding-inline: 10px !important; }
+    .account-navigation-links > a { min-height: 38px; padding: 7px 8px; font-size: 11px; }
+}
+
+@media (max-width: 768px) {
+    :root { --header-h: var(--mbn-header-mobile); }
+    html { scroll-padding-top: calc(var(--mbn-header-mobile) + 6px); }
+    body { font-size: 12px !important; }
+    .site-header,
+    .header-brand-row { height: var(--mbn-header-mobile) !important; min-height: var(--mbn-header-mobile) !important; max-height: var(--mbn-header-mobile) !important; }
+    .header-brand-row { padding-inline: 8px !important; }
+    .desktop-nav { display: none !important; }
+    .mobile-menu-button { display: grid !important; place-items: center !important; }
+
+    .site-frame.site-frame--workspace {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-height: calc(100dvh - var(--mbn-header-mobile)) !important;
+        margin: var(--mbn-header-mobile) 0 0 !important;
+        padding: 0 !important;
+    }
+    .site-frame.site-frame--workspace > .account-sidebar { display: none !important; }
+    .site-content-column,
+    .site-main { width: 100% !important; margin: 0 !important; padding-top: 0 !important; }
+    .site-main {
+        padding: 6px 7px calc(var(--mbn-bottom-nav) + 12px + env(safe-area-inset-bottom)) !important;
+    }
+    .site-main > :first-child,
+    .site-main > .page-shell,
+    .site-main > .home-page,
+    .page-shell,
+    .page-panel,
+    .page-content,
+    .home-page,
+    .game-detail-page {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Drawer: fixed head + exactly one native scroll viewport. */
+    .mobile-menu-layer { overflow: hidden !important; touch-action: auto !important; }
+    .mobile-menu-panel {
+        display: grid !important;
+        grid-template-rows: 56px minmax(0, 1fr) !important;
+        width: min(336px, 92vw) !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        padding: 0 8px !important;
+        touch-action: auto !important;
+    }
+    .mobile-menu-head { position: relative !important; height: 56px !important; min-height: 56px !important; }
+    .mobile-menu-scroll {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior-y: contain !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        padding: 8px 2px calc(18px + env(safe-area-inset-bottom)) !important;
+    }
+    .mobile-menu-scroll > .account-navigation-content { min-height: max-content; }
+    .account-navigation-content.is-compact { gap: 8px; }
+    .account-navigation-content.is-compact .account-navigation-profile { gap: 7px; }
+    .account-navigation-content.is-compact .account-navigation-identity { padding: 8px 9px; border: 1px solid #4f2856; border-radius: 7px; background: #1c121f; }
+    .account-navigation-content.is-compact .account-navigation-avatar { width: 34px; height: 34px; flex-basis: 34px; font-size: 14px; }
+    .account-navigation-content.is-compact .account-navigation-copy strong { font-size: 11.5px; }
+    .account-navigation-content.is-compact .account-navigation-copy small { font-size: 9.5px; }
+    .account-navigation-content.is-compact .account-navigation-balance { padding: 8px 9px; font-size: 9.75px; }
+    .account-navigation-content.is-compact .account-navigation-balance b { font-size: 10.5px; }
+    .account-navigation-content.is-compact .account-navigation-links { gap: 5px; }
+    .account-navigation-content.is-compact .account-navigation-links > a {
+        min-height: 35px;
+        padding: 6px 8px;
+        font-size: 10.25px;
+        font-weight: 550;
+    }
+    .account-navigation-content.is-compact .account-navigation-logout {
+        min-height: 36px;
+        margin-top: 4px;
+        font-size: 10.5px;
+    }
+
+    /* Compact page chrome and detail controls. */
+    .mbn-page-header { min-height: 34px !important; margin: 0 0 6px !important; padding: 0 !important; grid-template-columns: 30px minmax(0, 1fr) 30px !important; gap: 5px !important; }
+    .mbn-page-header__copy h1 { font-size: 14px !important; line-height: 1.2 !important; }
+    .mbn-page-header__copy p { font-size: 9.5px !important; line-height: 1.35 !important; }
+    .mbn-page-header__icon,
+    .mbn-page-header__tools > .mbn-page-header__icon { width: 30px !important; height: 30px !important; min-width: 30px !important; min-height: 30px !important; padding: 0 !important; }
+
+    .detail-layout { gap: 7px !important; }
+    .detail-card,
+    .detail-gallery,
+    .suggested-panel,
+    .detail-suggestion-panel { margin: 0 !important; border-radius: 7px !important; }
+    .detail-card { padding: 7px !important; }
+    .detail-card h3 { min-height: 34px !important; padding: 7px !important; font-size: 12px !important; }
+    .detail-info-table b,
+    .detail-info-table span { padding: 7px 6px !important; font-size: 10px !important; line-height: 1.35 !important; }
+    .detail-price-row { padding: 7px !important; }
+    .detail-price-row small { font-size: 9px !important; }
+    .detail-price-row strong { font-size: 15px !important; }
+    .detail-action-grid,
+    .contact-buttons { gap: 5px !important; }
+    .detail-action-grid .mbn-button,
+    .contact-buttons .mbn-button { min-height: 34px !important; padding: 6px 8px !important; font-size: 10px !important; }
+    .mobile-purchase-dock { min-height: 52px !important; bottom: var(--mbn-bottom-nav) !important; padding: 6px 7px !important; gap: 5px !important; grid-template-columns: minmax(0, 1fr) 54px 78px !important; }
+    .mobile-purchase-dock small { font-size: 8.5px !important; }
+    .mobile-purchase-dock strong { font-size: 13px !important; }
+    .mobile-purchase-dock .mbn-button { min-height: 32px !important; padding: 5px 6px !important; font-size: 9.5px !important; }
+
+    .bottom-nav { height: var(--mbn-bottom-nav) !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    .bottom-nav > :is(a, button) { min-height: var(--mbn-bottom-nav) !important; padding: 4px 2px !important; gap: 2px !important; font-size: 9px !important; line-height: 1.1 !important; }
+    .bottom-nav > :is(a, button) svg { width: 14px !important; height: 14px !important; font-size: 14px !important; }
+
+    /* Footer remains available on public mobile pages. */
+    .site-footer {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 8px 7px calc(var(--mbn-bottom-nav) + 10px + env(safe-area-inset-bottom)) !important;
+    }
+    .site-footer__inner { padding: 10px !important; border-radius: 8px !important; }
+    .site-footer__brand { grid-template-columns: 1fr !important; gap: 8px !important; }
+    .site-footer__identity img { width: 96px !important; }
+    .site-footer__identity p,
+    .site-footer__assurance span,
+    .site-footer__column a { font-size: 9.5px !important; }
+    .site-footer__links { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+    .site-footer__column h2 { font-size: 10.5px !important; }
+    .site-footer__bottom { padding: 8px 2px !important; gap: 6px !important; font-size: 8.5px !important; }
+}
+
+@media (max-width: 380px) {
+    .site-footer__links { grid-template-columns: 1fr !important; }
+    .mobile-menu-panel { width: min(320px, 94vw) !important; }
+}
+
+/* Final mobile detail geometry: no letterbox gaps or nav-covered actions. */
+@media (max-width: 768px) {
+    .game-detail-page .detail-slider-stage {
+        height: auto !important;
+        min-height: 0 !important;
+        aspect-ratio: auto !important;
+        overflow: hidden !important;
+        background: #080809 !important;
+    }
+
+    .game-detail-page .detail-slide,
+    .game-detail-page .detail-slide .ant-image {
+        display: block !important;
+        width: 100% !important;
+        min-height: 0 !important;
+    }
+
+    .game-detail-page .detail-slide img {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: min(58vh, 320px) !important;
+        aspect-ratio: auto !important;
+        object-fit: contain !important;
+        background: #080809 !important;
+    }
+
+    .game-detail-page {
+        padding-bottom: calc(var(--mbn-bottom-nav, 52px) + 72px + env(safe-area-inset-bottom)) !important;
+    }
+}
+
+/*
+ * Marketplace shell owner: fix the remaining cross-owner collisions observed
+ * on mobile catalog/detail and desktop workspace footer/sidebar.
+ */
+:root {
+    --app-shell-width: 1240px;
+    --app-sidebar-width: 284px;
+    --mbn-shell-max: 1240px;
+    --mbn-header-shell: 1240px;
+    --marketplace-shell-width: var(--app-shell-width);
+    --account-sidebar-width: var(--app-sidebar-width);
+    --mbn-sidebar-desktop: var(--app-sidebar-width);
+}
+
+.account-navigation-profile,
+.account-navigation-links {
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.account-navigation-balance {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.account-navigation-balance b {
+    width: 100% !important;
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+}
+
+.admin-notice-trigger {
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 14px 0 0 auto !important;
+}
+
+.game-list-page .game-intro,
+.page-content > .game-intro {
+    margin-bottom: 14px !important;
+}
+
+.game-list-page .legacy-filter,
+.game-list-page .mbn-filter,
+.page-content > .game-intro + .legacy-filter,
+.page-content > .game-intro + .mbn-filter {
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
+}
+
+.home-page .home-shortcuts {
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.home-page .home-shortcuts > a {
+    border-radius: 8px !important;
+}
+
+.rental-rate-selector {
+    margin-top: 12px !important;
+    margin-inline: 0 !important;
+    padding: 12px !important;
+    border: 1px solid #3d3342 !important;
+    border-radius: 8px !important;
+    background: #141216 !important;
+}
+
+.rental-rate-selector > b {
+    display: block !important;
+    margin-bottom: 8px !important;
+}
+
+.rental-rate-selector > div {
+    gap: 8px !important;
+    padding: 0 !important;
+}
+
+.rental-rate-selector button {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    padding: 10px !important;
+}
+
+@media (min-width: 769px) {
+    .site-frame.site-frame--workspace > .site-content-column {
+        width: calc(100% - var(--mbn-sidebar-active, var(--app-sidebar-width))) !important;
+        margin-left: var(--mbn-sidebar-active, var(--app-sidebar-width)) !important;
+    }
+
+    .site-frame.site-frame--workspace > .account-sidebar {
+        box-sizing: border-box !important;
+        border-right: 1px solid #302735 !important;
+        background: linear-gradient(180deg, #111014, #0b0a0c) !important;
+        box-shadow: none !important;
+        scrollbar-gutter: auto !important;
+    }
+
+    .site-frame.site-frame--workspace
+        > .account-sidebar
+        > .account-navigation-content {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        padding-right: 0 !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        scrollbar-gutter: auto !important;
+    }
+
+    .site-frame.site-frame--workspace .account-navigation-profile,
+    .site-frame.site-frame--workspace .account-navigation-links,
+    .site-frame.site-frame--workspace .account-navigation-links > a {
+        width: 100% !important;
+    }
+
+    .site-frame.site-frame--workspace .site-footer {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 28px 0 0 22px !important;
+    }
+
+    .site-frame.site-frame--workspace .site-footer__inner,
+    .site-frame.site-frame--workspace .site-footer__bottom {
+        width: 100% !important;
+        max-width: none !important;
+        margin-inline: 0 !important;
+    }
+
+    .site-frame.site-frame--workspace .site-footer__inner {
+        display: block !important;
+        padding: 18px !important;
+    }
+
+    .site-frame.site-frame--workspace .site-footer__brand {
+        display: grid !important;
+        grid-template-columns: minmax(280px, 1.05fr) minmax(260px, 1fr) max-content !important;
+        align-items: center !important;
+        gap: 18px !important;
+        padding-bottom: 18px !important;
+    }
+
+    .site-frame.site-frame--workspace .site-footer__support {
+        justify-self: end !important;
+    }
+
+    .site-frame.site-frame--workspace .site-footer__links {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+        padding-top: 16px !important;
+    }
+
+    .site-frame.site-frame--workspace .site-footer__bottom {
+        padding-inline: 14px !important;
+    }
+
+    .game-detail-page .detail-layout,
+    .game-detail-page .suggested-panel {
+        width: 100% !important;
+        margin-inline: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-frame.site-frame--workspace {
+        margin-top: var(--mbn-header-mobile) !important;
+        padding-top: 0 !important;
+    }
+
+    .site-main {
+        padding-top: 8px !important;
+    }
+
+    .mbn-page-header {
+        min-height: 38px !important;
+        grid-template-columns: 34px minmax(0, 1fr) 34px !important;
+        align-items: center !important;
+        gap: 7px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .mbn-page-header__back,
+    .mbn-page-header__tools,
+    .mbn-page-header__tools > .mbn-page-header__icon {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+        align-self: center !important;
+        justify-self: center !important;
+        margin: 0 !important;
+    }
+
+    .mbn-page-header__back {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        justify-self: center !important;
+    }
+
+    .mbn-page-header__copy {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        align-self: center !important;
+    }
+
+    .mbn-page-header__tools {
+        grid-column: 3 !important;
+        grid-row: 1 !important;
+        display: grid !important;
+        place-items: center !important;
+        justify-self: center !important;
+        padding-left: 0 !important;
+    }
+
+    .mbn-page-header__actions {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        width: auto !important;
+        padding-top: 0 !important;
+    }
+
+    .page-content > .game-intro {
+        margin-bottom: 10px !important;
+    }
+
+    .page-content > .game-intro + .legacy-filter {
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .page-content > .game-intro + .mbn-filter {
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .game-detail-page .detail-layout,
+    .game-detail-page .detail-card,
+    .game-detail-page .detail-gallery,
+    .game-detail-page .suggested-panel,
+    .game-detail-page .detail-suggestion-panel {
+        width: 100% !important;
+        margin-inline: 0 !important;
+    }
+
+    .game-detail-page .detail-layout {
+        padding-inline: 0 !important;
+        padding-block: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+    }
+
+    .game-detail-page .detail-card {
+        box-sizing: border-box !important;
+        padding: 6px !important;
+        border-radius: 7px !important;
+    }
+
+    .game-detail-page .detail-info-table,
+    .game-detail-page .detail-price-row,
+    .game-detail-page .transaction-type-selector,
+    .game-detail-page .rental-rate-selector,
+    .game-detail-page .detail-action-grid,
+    .game-detail-page .contact-buttons {
+        margin-inline: 0 !important;
+    }
+
+    .game-detail-page .detail-action-grid,
+    .game-detail-page .contact-buttons {
+        padding-inline: 0 !important;
+    }
+
+    .game-detail-page .suggested-panel,
+    .game-detail-page .detail-suggestion-panel {
+        box-sizing: border-box !important;
+        margin-top: calc(var(--mbn-bottom-nav, 52px) + 10px) !important;
+        padding: 8px !important;
+        overflow: hidden !important;
+    }
+
+    .game-detail-page .suggested-panel .legacy-section-title {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 8px !important;
+        padding: 0 0 7px !important;
+        text-align: center !important;
+    }
+
+    .game-detail-page .detail-suggestion-panel .recommendation-list-grid {
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .game-detail-page .detail-suggestion-panel .account-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .rental-rate-selector {
+        margin-top: 10px !important;
+        padding: 8px !important;
+    }
+
+    .admin-notice-trigger {
+        width: 100% !important;
+        margin: 10px 0 0 !important;
+        justify-content: center !important;
+    }
+
+    .account-navigation-content.is-compact .account-navigation-profile,
+    .account-navigation-content.is-compact .account-navigation-links {
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+    }
+}

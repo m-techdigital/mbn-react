@@ -114,6 +114,10 @@ export function useGamePurchaseFlow({
             const transactionData =
                 transaction?.transaction || transaction?.data || transaction;
             const transactionId = transactionData?.id;
+            if (!transactionId)
+                throw new Error(
+                    "Máy chủ chưa trả về mã giao dịch. Vui lòng tải lại sản phẩm và thử lại.",
+                );
             const payments = transactionData?.payments || [];
             const firstPendingPayment =
                 payments.find((payment) =>

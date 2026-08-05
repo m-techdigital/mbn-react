@@ -37,11 +37,11 @@ if (
         !index
             .trimEnd()
             .endsWith(
-                '@import "./styles/interaction-responsive-disclosure.css";',
+                '@import "./styles/interaction-disclosure-owner.css";',
             ))
 )
     failures.push(
-        "Experience v55, architecture v56 và UI v62 phải được giữ; interaction v63 là owner cuối.",
+        "Experience, architecture và UI semantic owners phải tồn tại; interaction owner là lớp cuối.",
     );
 for (const token of [
     ".mbn-action-group",

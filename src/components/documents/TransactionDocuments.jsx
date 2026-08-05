@@ -200,7 +200,7 @@ export default function TransactionDocuments({
                                 </div>
                                 <ActionGroup
                                     className="transaction-document-card__actions"
-                                    columns="two"
+                                    columns="one"
                                 >
                                     <GamingButton
                                         size="sm"
@@ -213,17 +213,6 @@ export default function TransactionDocuments({
                                         {accepted
                                             ? "Xem tài liệu"
                                             : "Xem và xác nhận"}
-                                    </GamingButton>
-                                    <GamingButton
-                                        size="sm"
-                                        variant="secondary"
-                                        loading={
-                                            working ===
-                                            `download-${document.id}`
-                                        }
-                                        onClick={() => download(document)}
-                                    >
-                                        Tải PDF
                                     </GamingButton>
                                 </ActionGroup>
                             </article>
@@ -239,6 +228,14 @@ export default function TransactionDocuments({
                 footer={
                     preview ? (
                         <>
+                            <GamingButton
+                                className="document-modal-download"
+                                variant="secondary"
+                                loading={working === `download-${preview.id}`}
+                                onClick={() => download(preview)}
+                            >
+                                Tải PDF
+                            </GamingButton>
                             <GamingButton
                                 variant="secondary"
                                 onClick={() => setPreview(null)}

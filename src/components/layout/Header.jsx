@@ -2,10 +2,7 @@ import { CloseOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import {
-    ACCOUNT_NAV_ITEMS,
-    LOGOUT_ICON,
     PRIMARY_NAV_ITEMS,
-    SUPPORT_NAV_ITEMS,
     isPrimaryNavActive,
 } from "../../config/navigation";
 import { useAuth } from "../../context/AuthContext";
@@ -15,46 +12,7 @@ import NotificationTrigger from "./NotificationTrigger";
 import MarketplaceImage from "../base/MarketplaceImage";
 import GameCatalogModal from "./GameCatalogModal";
 import BaseDrawer from "../base/BaseDrawer";
-
-function NavItems({ items, path, onNavigate }) {
-    return items.map((item) => {
-        const Icon = item.icon;
-        const active = item.match ? isPrimaryNavActive(item, path) : undefined;
-        if (item.action === "game-catalog")
-            return (
-                <button
-                    key={item.to}
-                    type="button"
-                    className={active ? "active" : undefined}
-                    onClick={() => {
-                        onNavigate?.();
-                        window.dispatchEvent(
-                            new CustomEvent("mbn:open-game-catalog"),
-                        );
-                    }}
-                >
-                    <Icon />
-                    <span>{item.label}</span>
-                    <i>›</i>
-                </button>
-            );
-        return (
-            <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.to === "/"}
-                className={({ isActive }) =>
-                    active || isActive ? "active" : undefined
-                }
-                onClick={onNavigate}
-            >
-                <Icon />
-                <span>{item.label}</span>
-                <i>›</i>
-            </NavLink>
-        );
-    });
-}
+import AccountNavigationContent from "./AccountNavigationContent";
 
 export default function Header({ onAccount }) {
     const location = useLocation();
@@ -106,7 +64,6 @@ export default function Header({ onAccount }) {
     }, [drawer]);
 
     const closeDrawer = () => setDrawer(false);
-    const LogoutIcon = LOGOUT_ICON;
 
     return (
         <>
@@ -240,73 +197,22 @@ export default function Header({ onAccount }) {
                         <CloseOutlined />
                     </button>
                 </div>
-                <nav className="mobile-menu-links">
-                    <NavItems
-                        items={PRIMARY_NAV_ITEMS}
-                        path={location.pathname}
-                        onNavigate={closeDrawer}
-                    />
-                </nav>
-                {account ? (
-                    <div className="mobile-account-section">
-                        <div className="mobile-account-summary">
-                            <span className="header-account-avatar">
-                                {account?.avatar_url ? (
-                                    <MarketplaceImage
-                                        src={account.avatar_url}
-                                        alt="Ảnh đại diện"
-                                    />
-                                ) : (
-                                    (account?.name || account?.username || "K")
-                                        .charAt(0)
-                                        .toUpperCase()
-                                )}
-                            </span>
-                            <span>
-                                <b>{account?.name || account?.username}</b>
-                                <small>
-                                    {account?.code || "Tài khoản khách hàng"}
-                                </small>
-                            </span>
-                        </div>
-                        <nav
-                            className="mobile-account-links"
-                            aria-label="Chức năng tài khoản"
-                        >
-                            <NavItems
-                                items={[
-                                    ...ACCOUNT_NAV_ITEMS,
-                                    ...SUPPORT_NAV_ITEMS,
-                                ]}
-                                path={location.pathname}
-                                onNavigate={closeDrawer}
-                            />
-                        </nav>
-                        <button
-                            type="button"
-                            className="mobile-menu-logout"
-                            onClick={async () => {
-                                closeDrawer();
-                                await logout();
-                            }}
-                        >
-                            <LogoutIcon />
-                            <span>Đăng xuất</span>
-                        </button>
-                    </div>
-                ) : (
-                    <button
-                        type="button"
-                        className="mobile-menu-account"
-                        onClick={() => {
+                <div className="mobile-menu-scroll">
+                    <AccountNavigationContent
+                        account={account}
+                        onAuth={(mode) => {
                             closeDrawer();
-                            onAccount();
+                            window.dispatchEvent(
+                                new CustomEvent("mbn:open-auth", {
+                                    detail: { mode },
+                                }),
+                            );
                         }}
-                    >
-                        <UserOutlined />
-                        <span>Đăng nhập / Đăng ký</span>
-                    </button>
-                )}
+                        onLogout={logout}
+                        onNavigate={closeDrawer}
+                        compact
+                    />
+                </div>
             </BaseDrawer>
         </>
     );

@@ -1,4 +1,3 @@
-import "../styles/pages/content-route.scss";
 import { useLocation } from "react-router";
 import PageShell from "../components/base/PageShell";
 import InlineNotice from "../components/base/InlineNotice";
