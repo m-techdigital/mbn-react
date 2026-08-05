@@ -5,7 +5,7 @@ import {
     ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { Navigate, useLocation, useNavigate, useParams } from "react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import AccountCard from "../components/account/AccountCard";
 import { games } from "../data/catalog";
 import PageShell from "../components/base/PageShell";
@@ -99,6 +99,8 @@ export default function GameDetailPage() {
     );
     const [activeSlide, setActiveSlide] = useState(0);
     const [slideDirection, setSlideDirection] = useState("next");
+    const [showMobileDock, setShowMobileDock] = useState(true);
+    const suggestionsRef = useRef(null);
     const product = useMemo(() => item ?? {}, [item]);
     const productRecord = item?.product || product;
     const productMetadata = productRecord?.metadata || {};
@@ -325,6 +327,39 @@ export default function GameDetailPage() {
         setActiveSlide(index);
     };
 
+    useEffect(() => {
+        const panel = suggestionsRef.current;
+        if (!panel || typeof window === "undefined") return undefined;
+
+        const mobileQuery = window.matchMedia("(max-width: 768px)");
+        const syncDesktop = () => {
+            if (!mobileQuery.matches) setShowMobileDock(true);
+        };
+        syncDesktop();
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (!mobileQuery.matches) {
+                    setShowMobileDock(true);
+                    return;
+                }
+                setShowMobileDock(!entry.isIntersecting);
+            },
+            {
+                root: null,
+                threshold: 0.02,
+                rootMargin: "0px 0px -96px 0px",
+            },
+        );
+        observer.observe(panel);
+        mobileQuery.addEventListener?.("change", syncDesktop);
+
+        return () => {
+            observer.disconnect();
+            mobileQuery.removeEventListener?.("change", syncDesktop);
+        };
+    }, [suggestions.length, recommendationsLoading, recommendationsError]);
+
     if (item && isUnavailable) {
         return <Navigate to="/not-found" replace />;
     }
@@ -515,7 +550,7 @@ export default function GameDetailPage() {
                         </section>
                     </div>
 
-                    {!isUnavailable && (
+                    {!isUnavailable && showMobileDock && (
                         <div
                             className="mobile-purchase-dock"
                             role="region"
@@ -544,7 +579,10 @@ export default function GameDetailPage() {
                         </div>
                     )}
 
-                    <section className="suggested-panel detail-suggestion-panel">
+                    <section
+                        className="suggested-panel detail-suggestion-panel"
+                        ref={suggestionsRef}
+                    >
                         <div className="legacy-section-title">
                             TÀI KHOẢN GỢI Ý
                         </div>

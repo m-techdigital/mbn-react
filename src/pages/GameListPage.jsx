@@ -112,6 +112,7 @@ export default function GameListPage() {
             error={error}
             onReload={reload}
             width="wide"
+            className="game-list-page"
         >
             <section className="game-intro">
                 <MarketplaceImage src={game?.image} alt={game?.title} />

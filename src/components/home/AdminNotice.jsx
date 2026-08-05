@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import GamingModal, { ModalFooterNote } from "../base/GamingModal";
 
 const SNOOZE_KEY = "mbn_admin_notice_snooze_until";
+export const OPEN_SAFETY_NOTICE_EVENT = "mbn:open-safety-notice";
 
 const notices = [
     {
@@ -27,10 +28,29 @@ const notices = [
     },
 ];
 
-export default function AdminNotice() {
+export const openSafetyNotice = () =>
+    window.dispatchEvent(new CustomEvent(OPEN_SAFETY_NOTICE_EVENT));
+
+export default function AdminNotice({ showTrigger = false }) {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
+        const openFromNavigation = () => setOpen(true);
+        window.addEventListener(OPEN_SAFETY_NOTICE_EVENT, openFromNavigation);
+        return () =>
+            window.removeEventListener(
+                OPEN_SAFETY_NOTICE_EVENT,
+                openFromNavigation,
+            );
+    }, []);
+
+    useEffect(() => {
+        const autoOpen =
+            String(import.meta.env.VITE_AUTO_OPEN_SAFETY_NOTICE ?? "true")
+                .toLowerCase()
+                .trim() === "true";
+        if (!autoOpen) return undefined;
+
         const snoozeUntil = Number(
             window.localStorage.getItem(SNOOZE_KEY) || 0,
         );
@@ -49,15 +69,17 @@ export default function AdminNotice() {
 
     return (
         <>
-            <button
-                type="button"
-                className="admin-notice-trigger"
-                onClick={() => setOpen(true)}
-            >
-                <BellOutlined />
-                <span>Thông báo an toàn giao dịch</span>
-                <b>{notices.length}</b>
-            </button>
+            {showTrigger ? (
+                <button
+                    type="button"
+                    className="admin-notice-trigger"
+                    onClick={() => setOpen(true)}
+                >
+                    <BellOutlined />
+                    <span>Thông báo an toàn giao dịch</span>
+                    <b>{notices.length}</b>
+                </button>
+            ) : null}
             <GamingModal
                 open={open}
                 title="LƯU Ý TRƯỚC KHI GIAO DỊCH"

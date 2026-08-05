@@ -1,18 +1,20 @@
+import { REMOTE_MBN_ASSETS } from "./catalog";
+
 const localImages = {
-    "ninja-1": "/images/mock/accounts/ninja-1.jpg",
-    "ninja-2": "/images/mock/accounts/ninja-2.jpg",
-    "ninja-3": "/images/mock/accounts/ninja-3.jpg",
-    "dragon-1": "/images/mock/accounts/dragon-1.jpg",
-    "dragon-2": "/images/mock/accounts/dragon-2.jpg",
-    "dragon-3": "/images/mock/accounts/dragon-3.jpg",
-    "avatar-1": "/images/mock/accounts/avatar-1.jpg",
-    "avatar-2": "/images/mock/accounts/avatar-2.jpg",
-    "avatar-3": "/images/mock/accounts/avatar-3.jpg",
+    "ninja-1": REMOTE_MBN_ASSETS.ninjaVip,
+    "ninja-2": REMOTE_MBN_ASSETS.ninjaCheap,
+    "ninja-3": REMOTE_MBN_ASSETS.hero,
+    "dragon-1": REMOTE_MBN_ASSETS.dragonBall,
+    "dragon-2": REMOTE_MBN_ASSETS.background,
+    "dragon-3": REMOTE_MBN_ASSETS.box,
+    "avatar-1": REMOTE_MBN_ASSETS.avatar,
+    "avatar-2": REMOTE_MBN_ASSETS.backgroundMobile,
+    "avatar-3": REMOTE_MBN_ASSETS.box,
 };
 const img = (seed) =>
     localImages[String(seed)] ||
     localImages[String(seed).replace(/-2|-3/g, "-1")] ||
-    "/images/banners/banner-purple.png";
+    REMOTE_MBN_ASSETS.fallback;
 
 const owners = [
     { id: 11, code: "CUS-0011", name: "Shop MBN", username: "shopmbn" },

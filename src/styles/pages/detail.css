@@ -426,7 +426,7 @@
     }
 }
 
-/* Detail recommendation owner: use the available content width instead of a centered single-card rail. */
+/* Detail recommendation owner: keep sparse recommendations balanced without stretching cards too wide. */
 .detail-suggestion-panel {
     width: 100%;
     max-width: none;
@@ -434,7 +434,8 @@
 .detail-suggestion-panel .recommendation-list-grid {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
+    justify-content: center;
     gap: 14px;
 }
 .detail-suggestion-panel .account-card {

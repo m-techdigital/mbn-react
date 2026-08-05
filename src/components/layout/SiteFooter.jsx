@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { REMOTE_MBN_ASSETS } from "../../data/catalog";
 import { contentHubGroups } from "../../data/knowledgeMeta";
 import MarketplaceImage from "../base/MarketplaceImage";
 
@@ -11,7 +12,7 @@ export default function SiteFooter() {
                 <section className="site-footer__brand">
                     <div className="site-footer__identity">
                         <MarketplaceImage
-                            src="/images/logo-purple.png"
+                            src={REMOTE_MBN_ASSETS.logo}
                             alt="MuaBanNick.Pro"
                         />
                         <p>

@@ -6,7 +6,7 @@
 }
 .hero-banner img {
     width: 100%;
-    aspect-ratio: 3.72/1;
+    aspect-ratio: 3.25/1;
     display: block;
     object-fit: cover;
 }

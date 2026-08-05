@@ -1,6 +1,7 @@
 import { Image } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import MarketplaceImage from "../base/MarketplaceImage";
+import { fallbackImage } from "../../utils/format";
 
 export default function GameDetailGallery({
     images,
@@ -20,7 +21,7 @@ export default function GameDetailGallery({
                     <Image
                         src={images[activeSlide]}
                         preview={{ mask: "Nhấn để phóng to" }}
-                        fallback="/banner.jpg"
+                        fallback={fallbackImage}
                     />
                 </div>
                 {images.length > 1 && (

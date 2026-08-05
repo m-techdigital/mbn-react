@@ -12,6 +12,7 @@ import { useAuth } from "../../context/AuthContext";
 import ToastCenter from "../base/ToastCenter";
 import RouteMetadata from "../system/RouteMetadata";
 import SiteFooter from "./SiteFooter";
+import AdminNotice from "../home/AdminNotice";
 
 export default function AppLayout() {
     const [authState, setAuthState] = useState({ open: false, mode: "login" });
@@ -36,6 +37,7 @@ export default function AppLayout() {
             </a>
             <RouteMetadata />
             <ToastCenter />
+            <AdminNotice />
             <RouteProgress />
             <FullScreenLoader />
             <ScrollManager />

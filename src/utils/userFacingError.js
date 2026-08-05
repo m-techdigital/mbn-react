@@ -8,6 +8,8 @@ const TECHNICAL_PATTERNS = [
     /failed to fetch/i,
     /timeout of \d+ms exceeded/i,
     /status code \d+/i,
+    /no query results for model/i,
+    /model \[[^\]]+\]/i,
 ];
 
 const FRIENDLY_BY_STATUS = {

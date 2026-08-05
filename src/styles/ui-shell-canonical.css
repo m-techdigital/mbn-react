@@ -87,7 +87,8 @@ body { overflow-x: hidden; }
 }
 .account-navigation-balance b { color: #20dbc7; font-variant-numeric: tabular-nums; }
 .account-navigation-links { display: grid; gap: 7px; }
-.account-navigation-links > a {
+.account-navigation-links > a,
+.account-navigation-action {
     box-sizing: border-box;
     min-height: 42px;
     display: grid;
@@ -102,8 +103,18 @@ body { overflow-x: hidden; }
     font-size: 12px;
     font-weight: 650;
     text-decoration: none;
+    text-align: left;
 }
-.account-navigation-links > a i { color: #8f8792; font-style: normal; text-align: right; }
+.account-navigation-action {
+    width: 100%;
+    cursor: pointer;
+}
+.account-navigation-links > a i,
+.account-navigation-action i { color: #8f8792; font-style: normal; text-align: right; }
+.account-navigation-action:hover {
+    border-color: #73527b;
+    background: #201622;
+}
 .account-navigation-links > a.active {
     border-color: #c000eb;
     background: #351039;
@@ -166,7 +177,8 @@ body { overflow-x: hidden; }
     .site-main,
     .site-footer { padding-inline: 14px !important; }
     .site-frame.site-frame--workspace > .account-sidebar { padding-inline: 10px !important; }
-    .account-navigation-links > a { min-height: 38px; padding: 7px 8px; font-size: 11px; }
+    .account-navigation-links > a,
+    .account-navigation-action { min-height: 38px; padding: 7px 8px; font-size: 11px; }
 }
 
 @media (max-width: 768px) {
@@ -240,7 +252,8 @@ body { overflow-x: hidden; }
     .account-navigation-content.is-compact .account-navigation-balance { padding: 8px 9px; font-size: 9.75px; }
     .account-navigation-content.is-compact .account-navigation-balance b { font-size: 10.5px; }
     .account-navigation-content.is-compact .account-navigation-links { gap: 5px; }
-    .account-navigation-content.is-compact .account-navigation-links > a {
+    .account-navigation-content.is-compact .account-navigation-links > a,
+    .account-navigation-content.is-compact .account-navigation-action {
         min-height: 35px;
         padding: 6px 8px;
         font-size: 10.25px;
@@ -420,15 +433,25 @@ body { overflow-x: hidden; }
     margin-bottom: 8px !important;
 }
 
-.rental-rate-selector > div {
+.game-detail-page .rental-rate-selector > div {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(132px, 168px)) !important;
+    justify-content: center !important;
     gap: 8px !important;
     padding: 0 !important;
 }
 
-.rental-rate-selector button {
+.game-detail-page .rental-rate-selector button {
     box-sizing: border-box !important;
+    width: 100% !important;
     min-width: 0 !important;
     padding: 10px !important;
+}
+
+@media (min-width: 769px) {
+    .game-detail-page .rental-rate-selector {
+        margin-inline: 10px !important;
+    }
 }
 
 @media (min-width: 769px) {
@@ -458,7 +481,8 @@ body { overflow-x: hidden; }
 
     .site-frame.site-frame--workspace .account-navigation-profile,
     .site-frame.site-frame--workspace .account-navigation-links,
-    .site-frame.site-frame--workspace .account-navigation-links > a {
+    .site-frame.site-frame--workspace .account-navigation-links > a,
+    .site-frame.site-frame--workspace .account-navigation-action {
         width: 100% !important;
     }
 

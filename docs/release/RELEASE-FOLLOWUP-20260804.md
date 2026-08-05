@@ -212,3 +212,11 @@ The route/CSS ownership changes in the next source package invalidate the 0040 b
 - Versioned design tokens such as `--mbn-v45-*`, `--mbn-v54-*`, `--mbn-v55-*` and `--mbn-v62-*` were moved to semantic token names in active stylesheet rules.
 - `npm run audit:styles` is now part of `check:ownership` and fails if route/component CSS imports, temporary owner file names or versioned CSS/class tokens return.
 - Current strict audit reports `109` style files, `0` temporary owner files, `0` version-token files and `0` direct CSS imports. Lint, UI shell owners, ownership and production build pass after the cleanup.
+
+## 2026-08-05 MBN live banner and safety notice pass
+
+- MBN now uses the restored `https://www.muabannick.pro/` visual assets as temporary remote banner sources through a single catalog asset manifest. Game/service cards use role-specific images for Ninja School, Ngoc Rong, Avatar, Lien Quan Mobile, intermediary transactions, Ninja coin and Carrot instead of reusing one generic banner.
+- The home banner height was adjusted through the home/page-surface style owners so the live GIF banner has more vertical room without changing the shared shell layout.
+- Product demo images exposed by the API now provide at least three images per fixture product so the MBN detail gallery can demonstrate the slider state.
+- The safety notice is mounted once at app-layout level, auto-opens by default, supports "hide for 2 hours" through local storage and remains manually available from the account/sidebar navigation.
+- Browser checks confirmed the Lien Quan Mobile card is present, the bank top-up card is no longer shown as a game/service card, remote images do not break, detail gallery shows `1/3`, and the safety notice snooze/menu flow works.

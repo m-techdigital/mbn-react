@@ -108,6 +108,10 @@
     border-radius: 10px !important;
     box-shadow: none !important;
 }
+.hero-banner img {
+    min-height: clamp(118px, 30vw, 268px) !important;
+    max-height: 292px !important;
+}
 .home-shortcuts {
     margin-top: 0 !important;
     gap: 10px !important;
@@ -155,4 +159,3 @@
     text-transform: none !important;
     font-size: 11.5px !important;
 }
-

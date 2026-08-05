@@ -1,3 +1,4 @@
+import { SafetyCertificateOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router";
 import {
     ACCOUNT_NAV_ITEMS,
@@ -6,6 +7,7 @@ import {
     SUPPORT_NAV_ITEMS,
 } from "../../config/navigation";
 import { formatMoney } from "../../utils/format";
+import { openSafetyNotice } from "../home/AdminNotice";
 import MarketplaceImage from "../base/MarketplaceImage";
 
 function NavigationLinks({ items, onNavigate }) {
@@ -68,6 +70,18 @@ export default function AccountNavigationContent({
                     items={account ? ACCOUNT_NAV_ITEMS : PUBLIC_SIDEBAR_ITEMS}
                     onNavigate={onNavigate}
                 />
+                <button
+                    type="button"
+                    className="account-navigation-action"
+                    onClick={() => {
+                        onNavigate?.();
+                        openSafetyNotice();
+                    }}
+                >
+                    <SafetyCertificateOutlined />
+                    <span>An toàn giao dịch</span>
+                    <i aria-hidden="true">›</i>
+                </button>
                 <NavigationLinks items={SUPPORT_NAV_ITEMS} onNavigate={onNavigate} />
             </nav>
 

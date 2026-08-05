@@ -7,6 +7,7 @@ import {
 } from "../../config/navigation";
 import { useAuth } from "../../context/AuthContext";
 import { notificationRepository } from "../../services/repositories";
+import { REMOTE_MBN_ASSETS } from "../../data/catalog";
 import { NOTIFICATION_COUNT_CHANGED } from "../../utils/notificationEvents";
 import NotificationTrigger from "./NotificationTrigger";
 import MarketplaceImage from "../base/MarketplaceImage";
@@ -71,8 +72,9 @@ export default function Header({ onAccount }) {
                 <div className="header-brand-row">
                     <Link to="/" className="brand" aria-label="MuaBanNick.Pro">
                         <MarketplaceImage
-                            src="/images/logo-purple.png"
+                            src={REMOTE_MBN_ASSETS.logo}
                             alt="MuaBanNick.Pro"
+                            priority
                         />
                     </Link>
                     <div className="header-actions">
@@ -186,8 +188,9 @@ export default function Header({ onAccount }) {
             >
                 <div className="mobile-menu-head">
                     <MarketplaceImage
-                        src="/images/logo-purple.png"
+                        src={REMOTE_MBN_ASSETS.logo}
                         alt="MuaBanNick.Pro"
+                        priority
                     />
                     <button
                         type="button"

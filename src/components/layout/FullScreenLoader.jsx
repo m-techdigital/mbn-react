@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
+import { REMOTE_MBN_ASSETS } from "../../data/catalog";
 import MarketplaceImage from "../base/MarketplaceImage";
 
 const readNumber = (name, fallback) => {
@@ -173,7 +174,7 @@ export default function FullScreenLoader() {
                 <div className="fullscreen-loader__mark" aria-hidden="true">
                     <span className="fullscreen-loader__orbit orbit-one" />
                     <span className="fullscreen-loader__orbit orbit-two" />
-                    <MarketplaceImage src="/images/logo-purple.png" alt="" />
+                    <MarketplaceImage src={REMOTE_MBN_ASSETS.logo} alt="" />
                 </div>
                 <div className="fullscreen-loader__copy">
                     <strong>MuaBanNick.Pro</strong>

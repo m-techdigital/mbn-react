@@ -6,8 +6,7 @@ import {
     CreditCardOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router";
-import AdminNotice from "../components/home/AdminNotice";
-import { games, services } from "../data/catalog";
+import { REMOTE_MBN_ASSETS, games, services } from "../data/catalog";
 import { useAuth } from "../context/AuthContext";
 import { isMockMode } from "../services/dataMode";
 import HomeLoadingState from "../components/home/HomeLoadingState";
@@ -28,7 +27,7 @@ const shortcuts = [
 
 export default function HomePage() {
     const mockLoadingMs = Number(
-        import.meta.env.VITE_HOME_MOCK_LOADING_MS || 950,
+        import.meta.env.VITE_HOME_MOCK_LOADING_MS || 0,
     );
     const shouldFakeLoad = isMockMode() && mockLoadingMs > 0;
     const [preparing, setPreparing] = useState(shouldFakeLoad);
@@ -49,7 +48,7 @@ export default function HomePage() {
         {
             title: "Hướng dẫn mua nick",
             path: "/guides/huong-dan-mua-nick",
-            image: "/images/banners/history-buy-account-purple.png",
+            image: REMOTE_MBN_ASSETS.fallback,
         },
     ];
 
@@ -63,8 +62,9 @@ export default function HomePage() {
         >
             <section className="hero-banner">
                 <MarketplaceImage
-                    src="/images/banners/banner-purple.png"
+                    src={REMOTE_MBN_ASSETS.hero}
                     alt="MuaBanNick.Pro"
+                    priority
                 />
             </section>
 
@@ -104,8 +104,6 @@ export default function HomePage() {
                     ))}
                 </div>
             </section>
-
-            <AdminNotice />
         </PageShell>
     );
 }

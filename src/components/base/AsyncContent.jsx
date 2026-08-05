@@ -1,5 +1,6 @@
 import InlineNotice from "./InlineNotice";
 import { PageSkeleton } from "./LoadingSkeleton";
+import { getUserFacingError } from "../../utils/userFacingError";
 
 export default function AsyncContent({
     loading = false,
@@ -24,6 +25,11 @@ export default function AsyncContent({
     }
 
     if (error) {
+        const description =
+            typeof error === "string"
+                ? error
+                : getUserFacingError(error, "Không thể tải dữ liệu lúc này.");
+
         return (
             <div
                 className={`mbn-async-content is-error ${className}`.trim()}
@@ -32,7 +38,7 @@ export default function AsyncContent({
                 <InlineNotice
                     type="error"
                     title="Không thể tải dữ liệu"
-                    description={error}
+                    description={description}
                     action={
                         onRetry
                             ? { label: "Thử lại", onClick: onRetry }
