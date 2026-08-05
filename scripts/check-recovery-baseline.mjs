@@ -5,6 +5,10 @@ import { createHash } from 'node:crypto'
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'docs/release/recovery-baseline.json'), 'utf8'))
 const failures = []
+
+if (fs.existsSync(path.join(root, 'artifacts'))) {
+    failures.push('artifacts/: không được giữ browser evidence/runtime artifact trong source package.')
+}
 for (const file of manifest.critical_files) {
   if (!fs.existsSync(path.join(root, file))) failures.push(`Thiếu recovery owner: ${file}`)
 }

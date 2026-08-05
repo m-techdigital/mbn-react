@@ -16,6 +16,10 @@ import MoneyInput from "../components/base/MoneyInput";
 import MultiImageUploadField from "../components/base/MultiImageUploadField";
 import PageShell from "../components/base/PageShell";
 import { useProductForm } from "../hooks/marketplace/useProductForm";
+import {
+    MARKETPLACE_GAME_ACCOUNT_DELIVERY_METHODS,
+    MARKETPLACE_ITEM_DELIVERY_METHODS,
+} from "../generated/marketplaceOptions";
 
 export default function ProductFormPage() {
     const {
@@ -92,6 +96,43 @@ export default function ProductFormPage() {
                                 <option value="service">Dịch vụ</option>
                             </BaseSelect>
                         </FormField>
+                        <FormField label="Phương thức bàn giao" required>
+                            <BaseSelect
+                                value={data.delivery_method}
+                                onChange={(event) =>
+                                    update("delivery_method", event.target.value)
+                                }
+                            >
+                                {(data.product_type === "item"
+                                    ? MARKETPLACE_ITEM_DELIVERY_METHODS
+                                    : MARKETPLACE_GAME_ACCOUNT_DELIVERY_METHODS
+                                ).map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </BaseSelect>
+                        </FormField>
+                        <FormField label="Thời gian kiểm tra (phút)" required>
+                            <BaseInput
+                                type="number"
+                                min="5"
+                                max="1440"
+                                value={data.inspection_period_minutes}
+                                onChange={(event) =>
+                                    update("inspection_period_minutes", event.target.value)
+                                }
+                                required
+                            />
+                        </FormField>
+                        <BaseChoice
+                            checked={data.requires_pre_handover_snapshot}
+                            onChange={(event) =>
+                                update("requires_pre_handover_snapshot", event.target.checked)
+                            }
+                            label="Bắt buộc biên bản trước bàn giao"
+                            description="Khuyến nghị cho giao dịch nick và vật phẩm có giá trị cao."
+                        />
                         <FormField label="Máy chủ">
                             <BaseInput
                                 value={data.server_name}

@@ -17,10 +17,12 @@ export function usePurchaseDetailActions(transaction, reload) {
             await operation();
             showToast("success", "Đã cập nhật giao dịch.");
             await reload();
+            return true;
         } catch (exception) {
             const text = supportMessage(exception, "Không thể thực hiện thao tác.");
             setNotice(text);
             showToast("error", text);
+            return false;
         } finally {
             setActing("");
         }
@@ -51,6 +53,7 @@ export function usePurchaseDetailActions(transaction, reload) {
             showToast("success", "Đã gửi thông tin chuyển khoản để đối soát.");
             closeBankPayment();
             await reload();
+            return true;
         } catch (exception) {
             showToast("error", supportMessage(exception, "Không thể gửi thông tin chuyển khoản."));
         } finally {

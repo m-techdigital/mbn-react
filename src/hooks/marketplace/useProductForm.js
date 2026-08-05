@@ -17,6 +17,9 @@ const initialProductForm = {
     name: "",
     product_type: "game_account",
     game_code: "ninja_school",
+    delivery_method: "account_credentials",
+    inspection_period_minutes: 30,
+    requires_pre_handover_snapshot: true,
     server_name: "",
     level: "",
     description: "",
@@ -44,6 +47,9 @@ const buildProductPayload = (data) => ({
     name: data.name,
     product_type: data.product_type,
     game_code: data.game_code,
+    delivery_method: data.delivery_method,
+    inspection_period_minutes: Number(data.inspection_period_minutes || 30),
+    requires_pre_handover_snapshot: Boolean(data.requires_pre_handover_snapshot),
     server_name: data.server_name || null,
     level: data.level === "" ? null : Number(data.level),
     description: data.description,
@@ -88,7 +94,18 @@ export function useProductForm() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const update = (name, value) => setData((current) => ({ ...current, [name]: value }));
+    const update = (name, value) =>
+        setData((current) => {
+            if (name === "product_type") {
+                return {
+                    ...current,
+                    product_type: value,
+                    delivery_method:
+                        value === "item" ? "in_game_trade" : "account_credentials",
+                };
+            }
+            return { ...current, [name]: value };
+        });
 
     const toggleType = (type) => {
         setData((current) => {

@@ -74,6 +74,85 @@ export const productRepository = {
         ),
 };
 
+export const escrowBoxRepository = {
+    list: (params = {}) => list("/customer/escrow-boxes", params),
+    show: (id) => show("/customer/escrow-boxes", id),
+    create: (payload) =>
+        invalidateAfter(api.post("/customer/escrow-boxes", payload).then(unwrap), [
+            "escrow-boxes",
+        ]),
+    preview: (token) =>
+        api.get(`/customer/escrow-boxes/join/${token}`).then(unwrap),
+    claim: (token) =>
+        invalidateAfter(
+            api.post(`/customer/escrow-boxes/join/${token}/claim`).then(unwrap),
+            ["escrow-boxes"],
+        ),
+    updateTerms: (id, payload) =>
+        invalidateAfter(
+            api.put(`/customer/escrow-boxes/${id}/terms`, payload).then(unwrap),
+            ["escrow-boxes", `escrow-box:${id}`],
+        ),
+    confirm: (id, expectedVersion) =>
+        invalidateAfter(
+            api
+                .post(`/customer/escrow-boxes/${id}/confirm`, {
+                    expected_version: expectedVersion,
+                })
+                .then(unwrap),
+            ["escrow-boxes", `escrow-box:${id}`],
+        ),
+    cancel: (id, expectedVersion) =>
+        invalidateAfter(
+            api
+                .post(`/customer/escrow-boxes/${id}/cancel`, {
+                    expected_version: expectedVersion,
+                })
+                .then(unwrap),
+            ["escrow-boxes", `escrow-box:${id}`],
+        ),
+    uploadMedia: (id, files, handoverStepId, onProgress) => {
+        const form = new FormData();
+        Array.from(files || []).forEach((file) => form.append("images[]", file));
+        if (handoverStepId) form.append("handover_step_id", handoverStepId);
+        return invalidateAfter(
+            api
+                .post(`/customer/escrow-boxes/${id}/media`, form, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                    onUploadProgress: (event) => {
+                        if (event.total && onProgress)
+                            onProgress(Math.round((event.loaded * 100) / event.total));
+                    },
+                })
+                .then(unwrap),
+            [`escrow-box:${id}`],
+        );
+    },
+    submitHandover: (id, side, payload) =>
+        invalidateAfter(
+            api
+                .post(`/customer/escrow-boxes/${id}/handover/${side}`, payload)
+                .then(unwrap),
+            [`escrow-box:${id}`],
+        ),
+    confirmReceipt: (id, expectedVersion) =>
+        invalidateAfter(
+            api
+                .post(`/customer/escrow-boxes/${id}/confirm-receipt`, {
+                    expected_version: expectedVersion,
+                })
+                .then(unwrap),
+            [`escrow-box:${id}`, "wallet-transactions"],
+        ),
+    openDispute: (id, payload) =>
+        invalidateAfter(
+            api
+                .post(`/customer/escrow-boxes/${id}/disputes`, payload)
+                .then(unwrap),
+            [`escrow-box:${id}`, "cases"],
+        ),
+};
+
 export const transactionRepository = {
     list: (params) =>
         readFromConfiguredSource(
@@ -113,10 +192,10 @@ export const transactionRepository = {
             ],
         );
     },
-    action: (id, action) =>
+    action: (id, action, payload = {}) =>
         invalidateAfter(
             api
-                .post(`/customer/transactions/${id}/actions`, { action })
+                .post(`/customer/transactions/${id}/actions`, { action, ...payload })
                 .then(unwrap),
             ["purchases", "purchase-detail", "wallet-transactions"],
         ),

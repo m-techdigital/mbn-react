@@ -13,6 +13,11 @@ const GameDetailPage = lazy(() => import("./pages/GameDetailPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const PurchasesPage = lazy(() => import("./pages/PurchasesPage"));
 const PurchaseDetailPage = lazy(() => import("./pages/PurchaseDetailPage"));
+const EscrowBoxCreatePage = lazy(() => import("./pages/EscrowBoxCreatePage"));
+const EscrowBoxJoinPage = lazy(() => import("./pages/EscrowBoxJoinPage"));
+const EscrowBoxesPage = lazy(() => import("./pages/EscrowBoxesPage"));
+const EscrowBoxDetailPage = lazy(() => import("./pages/EscrowBoxDetailPage"));
+const EscrowBoxTermsPage = lazy(() => import("./pages/EscrowBoxTermsPage"));
 const WalletTransactionsPage = lazy(
     () => import("./pages/WalletTransactionsPage"),
 );
@@ -168,6 +173,26 @@ export default function App() {
                         <Route
                             path="/account/products/new"
                             element={protectedPage(ProductFormPage)}
+                        />
+                        <Route
+                            path="/account/escrow-boxes/new"
+                            element={protectedPage(EscrowBoxCreatePage)}
+                        />
+                        <Route
+                            path="/escrow-box/join/:token"
+                            element={protectedPage(EscrowBoxJoinPage)}
+                        />
+                        <Route
+                            path="/account/escrow-boxes"
+                            element={protectedPage(EscrowBoxesPage)}
+                        />
+                        <Route
+                            path="/account/escrow-boxes/:id"
+                            element={protectedPage(EscrowBoxDetailPage)}
+                        />
+                        <Route
+                            path="/account/escrow-boxes/:id/terms"
+                            element={protectedPage(EscrowBoxTermsPage)}
                         />
                         <Route
                             path="/account/purchases"

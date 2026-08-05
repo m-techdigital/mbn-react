@@ -5,7 +5,7 @@ const customerPassword = process.env.MBN_E2E_PASSWORD || "change-me";
 const adminUsername = process.env.MBN_E2E_ADMIN_LOGIN || "admin";
 const adminPassword = process.env.MBN_E2E_ADMIN_PASSWORD || "change-me";
 const allowMutation = process.env.MBN_E2E_ALLOW_MUTATION === "1";
-const contractVersion = "2026-08-04.1";
+const contractVersion = "2026-08-05.2";
 
 if (!allowMutation) {
     console.error("Transactional E2E sẽ thay đổi dữ liệu. Thiết lập MBN_E2E_ALLOW_MUTATION=1 sau khi chạy migrate:fresh --seed trên DB kiểm thử.");
@@ -97,11 +97,25 @@ async function payAllDueByWallet(token, transaction) {
     return detail;
 }
 
-async function customerAction(token, transactionId, action) {
+async function customerAction(token, transactionId, action, extra = {}) {
     return request(`/customer/transactions/${transactionId}/actions`, {
         method: "POST",
         token,
-        body: { action },
+        body: { action, ...extra },
+    });
+}
+
+async function createHandoverSnapshot(token, transactionId, note) {
+    return request(`/customer/transactions/${transactionId}/asset-snapshots`, {
+        method: "POST",
+        token,
+        expected: [201],
+        body: {
+            stage: "before_handover",
+            images: [`e2e://transaction/${transactionId}/before-handover`],
+            attributes: { source: "transactional-e2e" },
+            note,
+        },
     });
 }
 
@@ -144,8 +158,11 @@ let rental = await createTransaction(renter, "NSO-0201", {
     rental_period_unit: "day",
 });
 rental = await payAllDueByWallet(renter, rental);
-await customerAction(lessor, rental.id, "seller_handover");
-await customerAction(renter, rental.id, "buyer_receive");
+await createHandoverSnapshot(lessor, rental.id, "Biên bản E2E trước bàn giao tài khoản thuê.");
+await customerAction(lessor, rental.id, "seller_handover", { note: "Đã bàn giao theo biên bản E2E; không chứa mật khẩu hoặc OTP." });
+rental = await request(`/customer/transactions/${rental.id}`, { token: renter });
+if (!rental.escrow_handover?.inspection_deadline_at) throw new Error("Rental handover did not start inspection window.");
+await customerAction(renter, rental.id, "buyer_receive", { note: "Đã kiểm tra tài sản thuê đúng mô tả." });
 await customerAction(renter, rental.id, "renter_return");
 await customerAction(lessor, rental.id, "lessor_receive_return");
 const completedRental = await adminAction(admin, rental.id, "complete", {
@@ -153,6 +170,19 @@ const completedRental = await adminAction(admin, rental.id, "complete", {
 });
 if (completedRental.status !== "completed") throw new Error(`Rental status expected completed, got ${completedRental.status}`);
 console.log("PASS rental lifecycle + deposit settlement mutation");
+
+let itemSale = await createTransaction(buyer, "ITEM-0901", {
+    transaction_type: "sale",
+    purchase_mode: "full",
+    payment_method: "wallet",
+});
+itemSale = await payAllDueByWallet(buyer, itemSale);
+await createHandoverSnapshot(seller, itemSale.id, "Biên bản E2E vật phẩm trước giao dịch trong game.");
+await customerAction(seller, itemSale.id, "seller_handover", { note: "Đã mở giao dịch trong game theo đúng máy chủ đã công bố." });
+itemSale = await request(`/customer/transactions/${itemSale.id}`, { token: buyer });
+if (itemSale.escrow_handover?.delivery_method !== "in_game_trade") throw new Error("Item delivery method snapshot mismatch.");
+await customerAction(buyer, itemSale.id, "buyer_receive", { note: "Đã nhận đủ vật phẩm và kiểm tra số lượng." });
+console.log("PASS item escrow snapshot + in-game handover mutation");
 
 let installment = await createTransaction(buyer, "NRO-0301", {
     transaction_type: "sale",

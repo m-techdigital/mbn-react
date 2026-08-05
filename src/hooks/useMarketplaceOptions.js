@@ -26,6 +26,8 @@ export function useMarketplaceOptions() {
             ),
         [state.data],
     );
+    const gameAccountDeliveryMethods = state.data?.game_account_delivery_methods || [];
+    const itemDeliveryMethods = state.data?.item_delivery_methods || [];
     const disputeOutcomeLabels = useMemo(
         () =>
             Object.fromEntries(
@@ -42,5 +44,7 @@ export function useMarketplaceOptions() {
         documentTypeLabels,
         disputeOutcomeLabels,
         transactionStatusLabels,
+        gameAccountDeliveryMethods,
+        itemDeliveryMethods,
     };
 }

@@ -3,7 +3,7 @@
   "audit_window": "from approximately 18:56 local time through the 23:19 baseline",
   "repository": "mbn",
   "result": "no_missing_functional_capabilities_detected",
-  "contract_sha256": "69a52564e59efe3fa259385dabb26015ea25163d8b31a1c1ef8d20727a98401a",
+  "contract_sha256": "746a14c14aabda1e18c5707e4b2fe09fc2e79f26614d1f89f4449eb480d591df",
   "compared_artifacts": [
     "mbn-react-final-canonical-closure-20260804-clean.zip",
     "mbn-react-bundle-security-visual-closure-20260804-clean.zip",
@@ -32,12 +32,28 @@
     "scripts/check-global-style-boundary.mjs",
     "src/styles/app.css",
     "src/components/base/GamingModal.jsx",
-    "src/components/marketplace/GamePurchaseModal.jsx"
+    "src/components/marketplace/GamePurchaseModal.jsx",
+    "src/components/account/TransactionEscrowPanel.jsx",
+    "src/components/account/TransactionEscrowActionModal.jsx",
+    "src/hooks/marketplace/useTransactionEscrowAction.js",
+    "docs/canonical/MARKETPLACE_ESCROW_DIGITAL_ASSET_20260805.md",
+    "scripts/check-digital-asset-escrow.mjs",
+    "scripts/check-release-package.mjs",
+    "src/pages/EscrowBoxCreatePage.jsx",
+    "src/pages/EscrowBoxJoinPage.jsx",
+    "src/pages/EscrowBoxesPage.jsx",
+    "src/pages/EscrowBoxDetailPage.jsx",
+    "src/pages/EscrowBoxTermsPage.jsx",
+    "src/hooks/marketplace/useEscrowBoxForm.js",
+    "src/hooks/marketplace/useEscrowBoxDetail.js",
+    "docs/canonical/ESCROW_BOX_CANONICAL_20260805.md"
   ],
   "recovered_files": [
     ".env.example",
     ".env.production.example"
   ],
-  "cleanup": [],
+  "cleanup": [
+    "forbid_browser_artifacts_and_generated_output_in_mbn_source_package"
+  ],
   "policy": "A newly supplied ZIP is not automatically newer. Compare it with this manifest and the finalized Git hashes before applying changes."
 }

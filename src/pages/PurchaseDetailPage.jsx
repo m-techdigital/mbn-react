@@ -23,6 +23,9 @@ import MarketplaceImage from "../components/base/MarketplaceImage";
 import { BaseInput } from "../components/base/FormControls";
 import { usePurchaseDetailActions } from "../hooks/marketplace/usePurchaseDetailActions";
 import { rentalMoneyBreakdown } from "../utils/rentalMoney";
+import TransactionEscrowPanel from "../components/account/TransactionEscrowPanel";
+import TransactionEscrowActionModal from "../components/account/TransactionEscrowActionModal";
+import { useTransactionEscrowAction } from "../hooks/marketplace/useTransactionEscrowAction";
 import {
     actionablePaymentStatuses,
     buildPurchaseMetrics,
@@ -55,6 +58,12 @@ export default function PurchaseDetailPage() {
         confirmBankPayment,
         closeBankPayment,
     } = usePurchaseDetailActions(transaction, reload);
+    const escrowAction = useTransactionEscrowAction(async (action, note) =>
+        run(
+            () => transactionRepository.action(transaction.id, action, { note }),
+            action,
+        ),
+    );
 
     const actions = transaction?.allowed_actions || [];
     const sortedPayments = useMemo(
@@ -293,6 +302,7 @@ export default function PurchaseDetailPage() {
                                     <DefinitionGrid items={accountDetails} />
                                 </div>
                             </PageSection>
+                            <TransactionEscrowPanel transaction={transaction} />
                             <PageSection title="Thông tin giao dịch">
                                 <DefinitionGrid items={transactionDetails} />
                             </PageSection>
@@ -410,16 +420,13 @@ export default function PurchaseDetailPage() {
                             <TransactionJourney
                                 journey={transaction.journey}
                                 loading={acting}
-                                onAction={(action) =>
+                                onAction={(action) => {
+                                    if (escrowAction.request(action)) return;
                                     run(
-                                        () =>
-                                            transactionRepository.action(
-                                                transaction.id,
-                                                action,
-                                            ),
+                                        () => transactionRepository.action(transaction.id, action),
                                         action,
-                                    )
-                                }
+                                    );
+                                }}
                             />
                             {actions.length ? (
                                 <PageSection
@@ -439,16 +446,13 @@ export default function PurchaseDetailPage() {
                                                     key={action}
                                                     variant="primary"
                                                     loading={acting === action}
-                                                    onClick={() =>
+                                                    onClick={() => {
+                                                        if (escrowAction.request(action)) return;
                                                         run(
-                                                            () =>
-                                                                transactionRepository.action(
-                                                                    transaction.id,
-                                                                    action,
-                                                                ),
+                                                            () => transactionRepository.action(transaction.id, action),
                                                             action,
-                                                        )
-                                                    }
+                                                        );
+                                                    }}
                                                 >
                                                     {actionLabels[action] ||
                                                         valueLabel(action)}
@@ -606,6 +610,15 @@ export default function PurchaseDetailPage() {
                     </div>
                 ) : null}
             </GamingModal>
+            <TransactionEscrowActionModal
+                action={escrowAction.action}
+                note={escrowAction.note}
+                open={escrowAction.open}
+                loading={Boolean(acting)}
+                onChange={escrowAction.setNote}
+                onClose={escrowAction.close}
+                onSubmit={escrowAction.submit}
+            />
         </PageShell>
     );
 }

@@ -45,9 +45,8 @@ export default function TransactionAssetSnapshots({
         }
     }, [transactionId]);
     useEffect(() => {
-        if (transactionId && transactionType === "rental") load();
-    }, [load, transactionId, transactionType]);
-    if (transactionType !== "rental") return null;
+        if (transactionId) load();
+    }, [load, transactionId]);
     const submit = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -104,7 +103,9 @@ export default function TransactionAssetSnapshots({
                             }))
                         }
                     >
-                        {Object.entries(stageLabels).map(([value, label]) => (
+                        {Object.entries(stageLabels)
+                            .filter(([value]) => transactionType === "rental" || !value.includes("return"))
+                            .map(([value, label]) => (
                             <option key={value} value={value}>
                                 {label}
                             </option>

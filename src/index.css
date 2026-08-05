@@ -48,3 +48,6 @@
 
 /* Final canonical form normalization owner. */
 @import "./styles/form-controls.css";
+
+/* Private Escrow Box route owner; deterministic cascade order. */
+@import "./styles/escrow-box.css";

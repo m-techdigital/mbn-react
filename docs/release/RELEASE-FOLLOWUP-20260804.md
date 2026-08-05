@@ -220,3 +220,18 @@ The route/CSS ownership changes in the next source package invalidate the 0040 b
 - Product demo images exposed by the API now provide at least three images per fixture product so the MBN detail gallery can demonstrate the slider state.
 - The safety notice is mounted once at app-layout level, auto-opens by default, supports "hide for 2 hours" through local storage and remains manually available from the account/sidebar navigation.
 - Browser checks confirmed the Lien Quan Mobile card is present, the bank top-up card is no longer shown as a game/service card, remote images do not break, detail gallery shows `1/3`, and the safety notice snooze/menu flow works.
+
+## 2026-08-05 escrow box correction pass
+
+- Escrow Box UI keeps the private alias-only flow and deterministic stylesheet ownership while adding route pages, hooks and repository methods for create, join, terms update, handover, receipt confirmation and dispute opening.
+- `EscrowBoxTermsPage` was expanded from compressed JSX into maintainable BaseForm sections and the parser regression was fixed.
+- MBN lint, production build, release package, recovery baseline, ownership and digital-asset escrow guards pass on the current source.
+- Runtime browser/release evidence remains pending until the next clean pushed release cycle.
+
+## 2026-08-05 184710 style-baseline carry-forward
+
+- The MBN 184710 deterministic stylesheet manifest, desktop/mobile shell owners, and style architecture guards are retained as the active UI baseline.
+- Escrow Box routes, hooks, repositories, privacy contract, and media/handover flows are carried forward onto that baseline.
+- Escrow Box CSS is registered once in `src/index.css`; route components do not side-effect import CSS.
+- API/Admin Escrow Box owners remain `mini_bounded`; no company, RBAC, HR, accounting, report, or project runtime is introduced.
+- Previous build/browser/release evidence is stale after this merge and must be regenerated from clean pushed Git HEADs.

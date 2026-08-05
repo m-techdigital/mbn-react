@@ -2,9 +2,9 @@ import { formatMoney } from "../../utils/format.js";
 
 export const purchaseActionLabels = {
     seller_handover: "Xác nhận đã bàn giao",
-    buyer_receive: "Xác nhận đã nhận tài khoản",
+    buyer_receive: "Xác nhận đã nhận và kiểm tra",
     renter_return: "Gửi yêu cầu hoàn trả",
-    lessor_receive_return: "Xác nhận đã nhận lại tài khoản",
+    lessor_receive_return: "Xác nhận đã nhận lại tài sản",
     complete: "Xác nhận hoàn tất",
 };
 

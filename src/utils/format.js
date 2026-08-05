@@ -5,7 +5,7 @@ export const formatNumber = (value) =>
 export const arrayData = (payload) =>
     payload?.data || payload?.items || (Array.isArray(payload) ? payload : []);
 export const metaData = (payload) => payload?.meta || payload?.pagination || {};
-import { REMOTE_MBN_ASSETS } from "../data/catalog";
+import { REMOTE_MBN_ASSETS } from "../data/catalog.js";
 
 export const fallbackImage = REMOTE_MBN_ASSETS.fallback;
 export const imageOf = (item) =>

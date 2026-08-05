@@ -1,6 +1,7 @@
 // Compatibility barrel. Domain repository owners live under ./repositories/.
 export { authRepository } from "./repositories/auth";
 export {
+    escrowBoxRepository,
     gameRepository,
     mediaRepository,
     productRepository,

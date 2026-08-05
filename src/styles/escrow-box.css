@@ -1,0 +1,31 @@
+.escrow-box-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--mbn-border-color, #e5e7eb);
+}
+
+.escrow-box-card:last-child {
+    border-bottom: 0;
+}
+
+.escrow-box-card p {
+    margin: 0.35rem 0 0;
+    color: var(--mbn-text-muted, #6b7280);
+}
+
+.escrow-box-private-warning {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--mbn-border-color, #e5e7eb);
+    border-radius: 0.75rem;
+    background: var(--mbn-surface-soft, #f8fafc);
+}
+
+@media (max-width: 720px) {
+    .escrow-box-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
