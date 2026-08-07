@@ -27,6 +27,24 @@ const FIELD_LABELS = {
     reason: "Lý do",
     transaction_id: "Giao dịch",
     code: "Mã xác thực",
+    deal_type: "Loại giao dịch",
+    topup_amount: "Số tiền bù",
+    topup_payer_side: "Bên bù tiền",
+    fee_payer_mode: "Bên chịu phí",
+    inspection_period_minutes: "Thời gian kiểm tra",
+    success_conditions: "Điều kiện thành công",
+    cancellation_conditions: "Điều kiện hủy",
+    additional_terms: "Điều khoản bổ sung",
+    "party_a_asset.title": "Tên tài sản Bên A",
+    "party_a_asset.description": "Mô tả tài sản Bên A",
+    "party_a_asset.type": "Loại tài sản Bên A",
+    "party_a_asset.delivery_method": "Phương thức bàn giao Bên A",
+    "party_a_asset.reference_value": "Giá trị tham chiếu Bên A",
+    "party_b_asset.title": "Tên tài sản Bên B",
+    "party_b_asset.description": "Mô tả tài sản Bên B",
+    "party_b_asset.type": "Loại tài sản Bên B",
+    "party_b_asset.delivery_method": "Phương thức bàn giao Bên B",
+    "party_b_asset.reference_value": "Giá trị tham chiếu Bên B",
 };
 
 const RULE_TRANSLATIONS = [
@@ -51,6 +69,14 @@ export const fieldLabel = (key) =>
 
 export function translateValidationMessage(message, key = "") {
     let text = String(message || "").trim();
+    const normalizedKey = cleanKey(key);
+    const minimum = text.match(/must be at least (\d+)/i);
+    if (normalizedKey === "topup_amount" && minimum) {
+        return `Số tiền bù phải tối thiểu ${Number(minimum[1]).toLocaleString("vi-VN")} đ.`;
+    }
+    if (normalizedKey === "inspection_period_minutes" && minimum) {
+        return `Thời gian kiểm tra phải tối thiểu ${Number(minimum[1]).toLocaleString("vi-VN")} phút.`;
+    }
     if (!text) return `Thông tin ${fieldLabel(key)} chưa hợp lệ.`;
     for (const [pattern, replacement] of RULE_TRANSLATIONS) {
         if (pattern.test(text))

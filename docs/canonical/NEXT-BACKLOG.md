@@ -35,3 +35,11 @@
 3. Keep `src/index.css` and `src/styles/app.css` as import-only manifests; do not reintroduce CSS side-effect imports in route or component chunks.
 4. Track `npm run audit:styles` before each package handoff until the style file count and version-token count trend down.
 5. Prioritize MBN CSS payload reduction from the current heavy production CSS output before adding new visual features.
+
+## Escrow Box remaining release evidence
+
+- Run focused and full PHPUnit/Pint for validation, phone invite cancel/replace, privacy, and settlement races.
+- Run Admin/MBN lint and production builds on Node >=22.22.0.
+- Add browser coverage for detail loading, nested field errors, horizontal exchange, cancel/replace invite, and mobile layouts.
+- Run transactional Escrow Box E2E, then `release:all` and hash-finalize evidence from clean pushed HEADs.
+

@@ -1,9 +1,7 @@
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router";
-
-import { showToast } from "../../utils/toast";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import useBaseForm from "../useBaseForm";
+import { showToast } from "../../utils/toast";
 import { escrowBoxRepository } from "../../services/repositories/marketplace";
 import {
     applyValidationError,
@@ -12,15 +10,47 @@ import {
 import {
     buildEscrowBoxPayload,
     createEscrowBoxValues,
+    escrowBoxValuesFromRecord,
     validateEscrowBoxValues,
 } from "./escrowBoxFormModel";
 
-export function useEscrowBoxForm() {
-    const navigate = useNavigate();
-    const initialValues = useMemo(() => createEscrowBoxValues(), []);
+export function useEscrowBoxTermsForm(id) {
+    const initialValues = useMemo(
+        () => ({
+            ...createEscrowBoxValues(),
+            expected_version: null,
+            change_note: "",
+        }),
+        [],
+    );
     const form = useBaseForm(initialValues, validateEscrowBoxValues);
-    const [loading, setLoading] = useState(false);
+    const { reset } = form;
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
+    const [loaded, setLoaded] = useState(false);
+
+    const load = useCallback(async () => {
+        setLoading(true);
+        setError("");
+        try {
+            const box = await escrowBoxRepository.show(id);
+            reset(escrowBoxValuesFromRecord(box));
+            setLoaded(true);
+        } catch (requestError) {
+            setError(
+                requestError?.response?.data?.message ||
+                    requestError.message ||
+                    "Không thể tải điều khoản Box.",
+            );
+        } finally {
+            setLoading(false);
+        }
+    }, [id, reset]);
+
+    useEffect(() => {
+        load();
+    }, [load]);
 
     const update = (name, value) => {
         form.setValue(name, value);
@@ -52,41 +82,42 @@ export function useEscrowBoxForm() {
             return;
         }
 
-        setLoading(true);
+        setSaving(true);
         try {
-            const response = await escrowBoxRepository.create(
-                buildEscrowBoxPayload(form.values, { includeExpiry: true }),
+            const updatedBox = await escrowBoxRepository.updateTerms(
+                id,
+                buildEscrowBoxPayload(form.values),
             );
-            showToast("success", "Đã tạo Box giao dịch trung gian.");
-            navigate(`/account/escrow-boxes/${response.box.id}`, {
-                replace: true,
-                state: { createdInvitePath: response.invite_path || "" },
-            });
+            reset(escrowBoxValuesFromRecord(updatedBox));
+            showToast("success", "Đã cập nhật Box giao dịch trung gian.");
         } catch (requestError) {
             const result = applyValidationError(
                 requestError,
                 form.setErrors,
-                "Không thể tạo Box. Vui lòng kiểm tra các trường được đánh dấu.",
+                "Không thể lưu điều khoản. Vui lòng kiểm tra các trường được đánh dấu.",
             );
             setError(
                 Object.keys(result.errors).length
                     ? result.message
                     : requestError?.response?.data?.message ||
                           requestError.message ||
-                          "Không thể tạo Box.",
+                          "Không thể lưu điều khoản.",
             );
         } finally {
-            setLoading(false);
+            setSaving(false);
         }
     };
 
     return {
         data: form.values,
-        loading,
-        error,
         errors: form.errors,
+        loading,
+        saving,
+        loaded,
+        error,
         update,
         updateAsset,
         submit,
+        retry: load,
     };
 }

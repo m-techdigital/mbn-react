@@ -80,12 +80,6 @@ export const ACCOUNT_NAV_ITEMS = [
         label: "Sản phẩm của tôi",
     },
     {
-        to: "/account/escrow-boxes/new",
-        icon: SafetyCertificateOutlined,
-        label: "Tạo Box trung gian",
-    },
-
-    {
         to: "/account/escrow-boxes",
         icon: SafetyCertificateOutlined,
         label: "Box trung gian của tôi",

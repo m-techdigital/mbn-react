@@ -1,9 +1,9 @@
 {
-  "audit_date": "2026-08-05",
+  "audit_date": "2026-08-06",
   "audit_window": "from approximately 18:56 local time through the 23:19 baseline",
   "repository": "mbn",
   "result": "no_missing_functional_capabilities_detected",
-  "contract_sha256": "746a14c14aabda1e18c5707e4b2fe09fc2e79f26614d1f89f4449eb480d591df",
+  "contract_sha256": "6692ffbd845cc89ebb9939f509ee677d14ec1a5f513275ddf662c2d7852848c7",
   "compared_artifacts": [
     "mbn-react-final-canonical-closure-20260804-clean.zip",
     "mbn-react-bundle-security-visual-closure-20260804-clean.zip",
@@ -46,7 +46,16 @@
     "src/pages/EscrowBoxTermsPage.jsx",
     "src/hooks/marketplace/useEscrowBoxForm.js",
     "src/hooks/marketplace/useEscrowBoxDetail.js",
-    "docs/canonical/ESCROW_BOX_CANONICAL_20260805.md"
+    "docs/canonical/ESCROW_BOX_CANONICAL_20260805.md",
+    "src/pages/EscrowBoxAssignedInvitePage.jsx",
+    "src/hooks/marketplace/escrowBoxFormModel.js",
+    "src/hooks/marketplace/useEscrowBoxTermsForm.js",
+    "src/components/escrow-box/EscrowBoxAssetFields.jsx",
+    "src/components/escrow-box/EscrowBoxCounterpartyInviteSection.jsx",
+    "src/components/base/MoneyInput.jsx",
+    "src/utils/formValidation.js",
+    "scripts/check-parent-activity-timeline.mjs",
+    "scripts/check-dependency-installation.mjs"
   ],
   "recovered_files": [
     ".env.example",

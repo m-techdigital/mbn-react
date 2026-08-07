@@ -15,6 +15,9 @@ const PurchasesPage = lazy(() => import("./pages/PurchasesPage"));
 const PurchaseDetailPage = lazy(() => import("./pages/PurchaseDetailPage"));
 const EscrowBoxCreatePage = lazy(() => import("./pages/EscrowBoxCreatePage"));
 const EscrowBoxJoinPage = lazy(() => import("./pages/EscrowBoxJoinPage"));
+const EscrowBoxAssignedInvitePage = lazy(() =>
+    import("./pages/EscrowBoxAssignedInvitePage"),
+);
 const EscrowBoxesPage = lazy(() => import("./pages/EscrowBoxesPage"));
 const EscrowBoxDetailPage = lazy(() => import("./pages/EscrowBoxDetailPage"));
 const EscrowBoxTermsPage = lazy(() => import("./pages/EscrowBoxTermsPage"));
@@ -179,6 +182,10 @@ export default function App() {
                             element={protectedPage(EscrowBoxCreatePage)}
                         />
                         <Route
+                            path="/escrow-box/accept/:token"
+                            element={protectedPage(EscrowBoxAssignedInvitePage)}
+                        />
+                        <Route
                             path="/escrow-box/join/:token"
                             element={protectedPage(EscrowBoxJoinPage)}
                         />
@@ -192,6 +199,10 @@ export default function App() {
                         />
                         <Route
                             path="/account/escrow-boxes/:id/terms"
+                            element={protectedPage(EscrowBoxTermsPage)}
+                        />
+                        <Route
+                            path="/account/escrow-boxes/:id/edit"
                             element={protectedPage(EscrowBoxTermsPage)}
                         />
                         <Route

@@ -17,6 +17,7 @@ export default function MoneyInput({
     id,
     name,
     required = false,
+    invalid = false,
     "aria-describedby": ariaDescribedBy,
 }) {
     const normalized = useMemo(() => Number(value || 0), [value]);
@@ -44,7 +45,9 @@ export default function MoneyInput({
     };
 
     return (
-        <div className={`money-input ${disabled ? "is-disabled" : ""}`}>
+        <div
+            className={`money-input ${disabled ? "is-disabled" : ""} ${invalid ? "has-error" : ""}`.trim()}
+        >
             <input
                 className="mbn-control mbn-control--money"
                 id={id}
@@ -59,6 +62,7 @@ export default function MoneyInput({
                 disabled={disabled}
                 required={required}
                 aria-describedby={ariaDescribedBy}
+                aria-invalid={invalid || undefined}
             />
             <span aria-hidden="true">{unit}</span>
         </div>

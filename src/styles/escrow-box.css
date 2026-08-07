@@ -29,3 +29,114 @@
         flex-direction: column;
     }
 }
+
+.escrow-box-card__content {
+    min-width: 0;
+}
+
+.escrow-box-card__content small {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--mbn-text-muted, #9ca3af);
+}
+
+.escrow-box-card__actions,
+.escrow-box-footer-actions,
+.escrow-box-invite-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.escrow-box-invite-link code {
+    overflow-wrap: anywhere;
+}
+
+.escrow-box-candidate-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--mbn-border-color, #e5e7eb);
+    border-radius: 0.75rem;
+    background: var(--mbn-surface-soft, #f8fafc);
+}
+
+.escrow-box-candidate-card p {
+    margin: 0.35rem 0 0;
+    color: var(--mbn-text-muted, #6b7280);
+}
+
+.escrow-box-page-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    margin-top: 1rem;
+}
+
+@media (max-width: 480px) {
+    .escrow-box-page-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .escrow-box-page-actions .mbn-button {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 720px) {
+    .escrow-box-candidate-card {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
+
+/* Escrow Box detail sections must never collapse into one continuous card. */
+.escrow-box-detail-stack {
+    display: grid;
+    gap: 1rem;
+}
+
+/* Destructive lifecycle actions are navigation-level actions, never form footer actions. */
+.escrow-box-footer-actions {
+    justify-content: flex-end;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--mbn-border-color, var(--border-soft));
+}
+
+@media (max-width: 720px) {
+    .escrow-box-footer-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .escrow-box-footer-actions .mbn-button {
+        width: 100%;
+    }
+}
+
+.escrow-box-inline-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+    .escrow-box-inline-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .escrow-box-inline-actions .mbn-button {
+        width: 100%;
+    }
+}

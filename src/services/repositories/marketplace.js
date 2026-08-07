@@ -81,6 +81,13 @@ export const escrowBoxRepository = {
         invalidateAfter(api.post("/customer/escrow-boxes", payload).then(unwrap), [
             "escrow-boxes",
         ]),
+    previewAssignedInvite: (token) =>
+        api.get(`/customer/escrow-boxes/assigned-invite/${token}`).then(unwrap),
+    acceptAssignedInvite: (token) =>
+        invalidateAfter(
+            api.post(`/customer/escrow-boxes/assigned-invite/${token}/accept`).then(unwrap),
+            ["escrow-boxes"],
+        ),
     preview: (token) =>
         api.get(`/customer/escrow-boxes/join/${token}`).then(unwrap),
     claim: (token) =>
@@ -109,6 +116,43 @@ export const escrowBoxRepository = {
                     expected_version: expectedVersion,
                 })
                 .then(unwrap),
+            ["escrow-boxes", `escrow-box:${id}`],
+        ),
+    rotateInvite: (id, expectedVersion) =>
+        invalidateAfter(
+            api
+                .post(`/customer/escrow-boxes/${id}/invite/rotate`, {
+                    expected_version: expectedVersion,
+                })
+                .then(unwrap),
+            ["escrow-boxes", `escrow-box:${id}`],
+        ),
+    clone: (id) =>
+        invalidateAfter(
+            api.post(`/customer/escrow-boxes/${id}/clone`).then(unwrap),
+            ["escrow-boxes"],
+        ),
+    resolveCounterparty: (id, payload) =>
+        api
+            .post(`/customer/escrow-boxes/${id}/counterparty-candidates/resolve`, payload)
+            .then(unwrap),
+    inviteCounterparty: (id, payload) =>
+        invalidateAfter(
+            api.post(`/customer/escrow-boxes/${id}/counterparty-invite`, payload).then(unwrap),
+            ["escrow-boxes", `escrow-box:${id}`],
+        ),
+    cancelCounterpartyInvite: (id, expectedVersion) =>
+        invalidateAfter(
+            api.delete(`/customer/escrow-boxes/${id}/counterparty-invite`, {
+                data: { expected_version: expectedVersion },
+            }).then(unwrap),
+            ["escrow-boxes", `escrow-box:${id}`],
+        ),
+    acceptCounterpartyInvite: (id, expectedVersion) =>
+        invalidateAfter(
+            api.post(`/customer/escrow-boxes/${id}/counterparty-invite/accept`, {
+                expected_version: expectedVersion,
+            }).then(unwrap),
             ["escrow-boxes", `escrow-box:${id}`],
         ),
     uploadMedia: (id, files, handoverStepId, onProgress) => {
