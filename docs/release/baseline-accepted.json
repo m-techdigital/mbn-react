@@ -6,7 +6,7 @@
     "mbn": "fa3d37f1"
   },
   "parent_alignment": "mini_bounded",
-  "last_verified_at": "2026-08-06",
+  "last_verified_at": "2026-08-07",
   "verification": {
     "api_full_phpunit": "pending_rerun_after_timeline_query_optimization",
     "api_pint": "pending_rerun_after_timeline_query_optimization",
@@ -332,7 +332,12 @@
     "source_package_bootstrap_cache_closure": "passed_regression_probe",
     "frontend_dependency_install": "blocked_internal_registry_zod_validation_error_4_0_2",
     "frontend_runtime_node": "container_22_16_0_below_react_router_required_22_22_0",
-    "api_runtime_test_environment": "composer_unavailable_in_container"
+    "api_runtime_test_environment": "composer_unavailable_in_container",
+    "admin_parent_layout_table_sync": "source_static_verified_pending_formatter_lint_build_browser",
+    "admin_sidebar_scroll_owner": "source_static_verified",
+    "admin_base_list_adoption": "source_static_verified",
+    "admin_fixed_action_columns": "source_static_verified_parent_mobile_release",
+    "admin_card_spacing_owner": "source_static_verified"
   },
   "browser_smoke_required": true,
   "transactional_e2e_requires_fresh_seed": true,

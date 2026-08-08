@@ -11,6 +11,10 @@ const sidebar = fs.readFileSync(
     "src/components/layout/AccountSidebar.jsx",
     "utf8",
 );
+const accountNavigation = fs.readFileSync(
+    "src/components/layout/AccountNavigationContent.jsx",
+    "utf8",
+);
 const failures = [];
 if (!purchase.includes("Thông tin tài khoản trò chơi"))
     failures.push("Purchase detail must show game account essentials.");
@@ -59,8 +63,8 @@ if (
     !deposit.includes("GamingModal")
 )
     failures.push("Deposit requests must have a table and modal detail.");
-if (!sidebar.includes("sidebar-profile__identity"))
-    failures.push("Sidebar avatar and name must share one identity row.");
+if (!sidebar.includes("AccountNavigationContent") || !accountNavigation.includes("account-navigation-identity"))
+    failures.push("Sidebar avatar and name must share one identity row through AccountNavigationContent.");
 if (failures.length) {
     console.error(failures.join("\n"));
     process.exit(1);

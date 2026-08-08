@@ -338,3 +338,23 @@ The route/CSS ownership changes in the next source package invalidate the 0040 b
 ## 2026-08-06 Parent BaseForm synchronization
 
 Admin BaseForm was synchronized with the reviewed AXIRO parent source. MBN runtime and customer Escrow Box behavior are unchanged in this round; MBN package remains synchronized for three-repository delivery.
+
+### 2026-08-07 — Parent BaseForm consumer/runtime correction
+
+- Sửa toàn bộ `BaseForm.useForm()` thành parent-style `Form.useForm()`; `BaseForm` không có và không được giả lập static `useForm` compatibility API.
+- Loại `initialValues` khỏi mọi `BaseForm` consumer vì parent owner không hỗ trợ prop này; default data dùng `record`/field `defaultValue`.
+- Base ownership guard được cập nhật để phân biệt AntD `Form.useForm()` hợp lệ với raw AntD Form rendering bị cấm trong Mini.
+- Sửa deprecated `Statistic.valueStyle` sang `styles.content`.
+- EscrowBox request validation unit path dùng direct FormRequest construction, không resolve FormRequest từ container trong `Validator::make` test.
+- Static/recovery/package gates được chạy lại; full frontend build/lint và PHPUnit/Pint vẫn phải xác nhận trên working tree có dependencies.
+
+## 2026-08-07 — Parent Admin layout/table/list synchronization
+
+- Admin sidebar now attaches the AXIRO parent `admin-menu` scroll owner directly to AntD Menu so only the menu region scrolls inside the fixed-height sider.
+- `BaseTable` now follows the parent horizontal-overflow contract: AntD Table is the single scroll owner, `scroll.x` defaults to `max-content`, vertical body scrolling is disabled, and the exact parent `columnNormalizer` releases fixed columns on constrained/mobile layouts.
+- Desktop row action columns are explicitly `fixed: right`; the responsive normalizer removes those fixed columns on mobile unless a column opts into `isMobileFixed`.
+- All canonical List pages delegate list shell/card/table ownership to `BaseListView`; shared page roots use `app-section-stack` so Cards/sections do not visually stick together.
+- Dashboard, Action Center, Audit statistics, Operations Control metrics and Wallet summary use `BaseCardStatistics` instead of page-local Card/Statistic grids where the parent base owner already covers the presentation.
+- Product offer tags use stable primitive React keys; `BaseReviewActionModal` keeps its `Form.useForm()` instance connected on every render to close AntD warnings.
+- Parent `responsive.css` and `columnNormalizer.js` are exact-source owners; `BaseTable` remains a bounded adapter only for Mini pagination/empty-state behavior.
+- Static parent/base/layout/package guards pass. Prettier/ESLint/build/browser evidence must be regenerated after installing frontend dependencies.

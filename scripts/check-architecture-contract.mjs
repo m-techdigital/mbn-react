@@ -20,9 +20,11 @@ const routeContracts = [
 for (const [pattern, label] of routeContracts)
     if (!pattern.test(app))
         failures.push(`App thiếu kiến trúc route: ${label}`);
-for (const source of [header, sidebar, bottom])
+for (const source of [header, bottom])
     if (!source.includes("../../config/navigation"))
         failures.push("Navigation chưa dùng owner chung");
+if (!sidebar.includes("AccountNavigationContent"))
+    failures.push("AccountSidebar phải delegate sang AccountNavigationContent thay vì tự sở hữu navigation data");
 if ((header.match(/const navItems/g) || []).length)
     failures.push("Header còn khai báo navItems cục bộ");
 if (

@@ -21,7 +21,7 @@ const requirements = [
     [detail.includes('<Navigate to="/not-found" replace />') && !detail.includes("detail-unavailable-notice") && !detail.includes("Bạn có thể xem thông tin tham khảo"), "unavailable product detail must fail closed without rendering stale product information"],
     [app.includes('path="/not-found"'), "canonical unavailable route must exist"],
     [!header.includes('className="mobile-menu-links"') && header.includes('className="mobile-menu-scroll"'), "mobile drawer must avoid duplicating the four BottomNav destinations"],
-    [indexCss.indexOf('@import "./styles/desktop-visual-shell-owner.css";') < indexCss.indexOf('@import "./styles/form-controls.css";') && indexCss.trim().endsWith('@import "./styles/form-controls.css";'), "desktop shell owner must load immediately before the canonical form owner"],
+    [indexCss.indexOf('@import "./styles/desktop-visual-shell-owner.css";') < indexCss.indexOf('@import "./styles/form-controls.css";') && indexCss.indexOf('@import "./styles/form-controls.css";') < indexCss.indexOf('@import "./styles/escrow-box.css";'), "desktop shell must precede form normalization while the route-scoped escrow owner remains after it to preserve the verified visual cascade"],
     [finalCss.includes("--header-h: 106px") && finalCss.includes("height: 42px !important"), "desktop fixed-header offset must equal the rendered 64px + 42px header"],
     [finalCss.includes(".desktop-nav > :is(a, button)") && finalCss.includes("min-width: 0 !important"), "desktop navigation links and catalog action must share one geometry"],
     [finalCss.includes("overflow: visible !important") && finalCss.includes(".account-sidebar::-webkit-scrollbar"), "account sidebar must not own a nested vertical scrollbar"],

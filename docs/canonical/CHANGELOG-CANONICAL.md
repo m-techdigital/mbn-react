@@ -119,3 +119,23 @@
 - Admin `BaseFormControl` bắt buộc chuyển tiếp `value`, `onChange`, `onBlur`, `id` và accessibility props do Ant Design `Form.Item` inject vào control. Việc bọc control nhưng làm rơi các props này khiến người dùng đã nhập dữ liệu nhưng form vẫn báo `required`.
 - API là PHPUnit thuần; Pest DSL (`it`, `expect`, `describe`) bị cấm và được khóa bởi `check-phpunit-style.php`.
 - MBN có `doctor:dependencies` để phát hiện `node_modules` cài thiếu/hỏng trước khi chạy Vite. Lỗi thiếu `vite/dist/...`, `react-dom/cjs/...` hoặc Ant Design là lỗi dependency installation, không phải route source fallback.
+
+## 2026-08-07 — Parent BaseForm consumer contract correction
+
+- AXIRO Mini không còn gọi `BaseForm.useForm()`: reviewed AXIRO Cha không expose static API này; consumer cần external form instance phải dùng `Form.useForm()` từ Ant Design và vẫn render field qua `BaseForm`.
+- `BaseForm` của AXIRO Cha không có prop `initialValues`; các consumer Mini đã chuyển default create/modal state sang `record` hoặc schema `defaultValue` để không silently bỏ qua giá trị khởi tạo.
+- Admin base-ownership guard cho phép import AntD `Form` chỉ cho `Form.useForm()` theo parent pattern; `<Form>`, `Form.Item`, `Form.List`, `Form.Provider` và `Form.useWatch` vẫn không được render trực tiếp trong module Mini.
+- `BaseReviewActionModal` và toàn bộ consumer external-form đã được cập nhật theo contract trên; lỗi runtime `BaseForm.useForm is not a function` được khóa bởi `check:parent-base-form`.
+- AntD `Statistic.valueStyle` đã được thay bằng `styles.content` để đóng warning deprecated.
+- Escrow request-rule tests khởi tạo `new EscrowBoxCreateRequest` trực tiếp như parent tests, tránh Laravel container auto-resolve `FormRequest` và ném `HttpResponseException` trước khi `Validator::make()` chạy.
+
+## 2026-08-07 — Parent Admin layout/table/list synchronization
+
+- Admin sidebar now attaches the AXIRO parent `admin-menu` scroll owner directly to AntD Menu so only the menu region scrolls inside the fixed-height sider.
+- `BaseTable` now follows the parent horizontal-overflow contract: AntD Table is the single scroll owner, `scroll.x` defaults to `max-content`, vertical body scrolling is disabled, and the exact parent `columnNormalizer` releases fixed columns on constrained/mobile layouts.
+- Desktop row action columns are explicitly `fixed: right`; the responsive normalizer removes those fixed columns on mobile unless a column opts into `isMobileFixed`.
+- All canonical List pages delegate list shell/card/table ownership to `BaseListView`; shared page roots use `app-section-stack` so Cards/sections do not visually stick together.
+- Dashboard, Action Center, Audit statistics, Operations Control metrics and Wallet summary use `BaseCardStatistics` instead of page-local Card/Statistic grids where the parent base owner already covers the presentation.
+- Product offer tags use stable primitive React keys; `BaseReviewActionModal` keeps its `Form.useForm()` instance connected on every render to close AntD warnings.
+- Parent `responsive.css` and `columnNormalizer.js` are exact-source owners; `BaseTable` remains a bounded adapter only for Mini pagination/empty-state behavior.
+- Static parent/base/layout/package guards pass. Prettier/ESLint/build/browser evidence must be regenerated after installing frontend dependencies.

@@ -92,7 +92,8 @@
     "audit:styles": "node scripts/audit-style-architecture.mjs",
     "check:digital-asset-escrow": "node scripts/check-digital-asset-escrow.mjs",
     "check:parent-activity-timeline": "node scripts/check-parent-activity-timeline.mjs",
-    "doctor:dependencies": "node scripts/check-dependency-installation.mjs"
+    "doctor:dependencies": "node scripts/check-dependency-installation.mjs",
+    "check:visual-baseline-integrity": "node scripts/check-visual-baseline-integrity.mjs"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",
